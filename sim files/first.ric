@@ -1,0 +1,95 @@
+data:
+  config:
+    ambPressure: 101324.99674500001
+    burnoutThrustThres: 0.1
+    burnoutWebThres: 2.5400050800101604e-05
+    mapDim: 750
+    maxMassFlux: 1406.4697609001405
+    maxPressure: 10342500.000000002
+    minPortThroat: 2.0
+    timestep: 0.03
+  grains:
+  - properties:
+      coreDiameter: 0.01
+      diameter: 0.02
+      inhibitedEnds: Neither
+      length: 0.02
+    type: BATES
+  - properties:
+      coreDiameter: 0.01
+      diameter: 0.02
+      inhibitedEnds: Neither
+      length: 0.02
+    type: BATES
+  - properties:
+      coreDiameter: 0.01
+      diameter: 0.02
+      inhibitedEnds: Neither
+      length: 0.02
+    type: BATES
+  - properties:
+      coreDiameter: 0.01
+      diameter: 0.02
+      inhibitedEnds: Neither
+      length: 0.02
+    type: BATES
+  - properties:
+      coreDiameter: 0.01
+      diameter: 0.02
+      inhibitedEnds: Neither
+      length: 0.02
+    type: BATES
+  nozzle:
+    convAngle: 20.0
+    divAngle: 50.0
+    efficiency: 0.9
+    erosionCoeff: 0.0
+    exit: 0.02
+    slagCoeff: 0.0
+    throat: 0.005
+    throatLength: 0.002
+  propellant:
+    density: 1750.0062279771805
+    name: Nakka - KNSB
+    tabs:
+    - a: 1.9253259619746373e-06
+      k: 1.1361
+      m: 39.9
+      maxPressure: 806715.0000000001
+      minPressure: 103425.00000000001
+      n: 0.625
+      t: 1520.0
+    - a: 0.6656608561590805
+      k: 1.1361
+      m: 39.9
+      maxPressure: 1503110.0000000002
+      minPressure: 806715.0000000001
+      n: -0.313
+      t: 1520.0
+    - a: 0.009528121181782798
+      k: 1.1361
+      m: 39.9
+      maxPressure: 3792250.0000000005
+      minPressure: 1503110.0000000002
+      n: -0.0145
+      t: 1520.0
+    - a: 2.7096677688353613e-06
+      k: 1.1361
+      m: 39.9
+      maxPressure: 7032900.000000001
+      minPressure: 3792250.0000000005
+      n: 0.5245
+      t: 1520.0
+    - a: 0.004176772610699035
+      k: 1.1361
+      m: 39.9
+      maxPressure: 10673460.000000002
+      minPressure: 7032900.000000001
+      n: 0.059
+      t: 1520.0
+type: !!python/object/apply:uilib.fileIO.fileTypes
+- 3
+version: !!python/tuple
+- 0
+- 5
+- 0
