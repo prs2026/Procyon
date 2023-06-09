@@ -1592,6 +1592,7 @@
   (segment (start 59.69 27.94) (end 59.9225 27.94) (width 1) (layer "B.Cu") (net 5) (tstamp cecd1f40-ea48-4602-bd42-74c77137e212))
   (segment (start 59.9225 27.94) (end 62.4625 30.48) (width 1) (layer "B.Cu") (net 5) (tstamp dcbfe188-eb7e-42f5-9705-e18040e3c8c1))
   (segment (start 65.04 50.8) (end 62.87 50.8) (width 1) (layer "B.Cu") (net 9) (tstamp e022c0a3-abef-4442-b57d-a27f26719cfa))
+  (segment (start 59.69 63.5) (end 64.77 63.5) (width 0.25) (layer "B.Cu") (net 31) (tstamp b6833a03-c663-48e3-87d6-84ace610d633))
   (segment (start 32.81 73.66) (end 32.72 73.75) (width 0.25) (layer "B.Cu") (net 42) (tstamp 9556acf2-f5a4-43c9-8a90-918427a89e7e))
 
   (zone (net 4) (net_name "+5V") (layer "In1.Cu") (tstamp 36588b89-4304-42e6-9daf-d018618be1f0) (hatch edge 0.5)
