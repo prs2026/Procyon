@@ -510,6 +510,10 @@
       {
         "netclass": "Signal",
         "pattern": "SCK"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "pyro"
       }
     ]
   },
