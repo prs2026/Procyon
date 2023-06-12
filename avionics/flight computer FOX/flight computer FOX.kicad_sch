@@ -2612,6 +2612,31 @@
     )
   )
 
+  (symbol (lib_id "power:+3V3") (at 54.61 116.84 90) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (uuid 99601f8b-fed8-4eda-ab45-f873e9e4750e)
+    (property "Reference" "#PWR036" (at 58.42 116.84 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "+3V3" (at 50.8 117.475 90)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "" (at 54.61 116.84 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "" (at 54.61 116.84 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid b3b3e66e-533a-4f27-8576-3af90b671151))
+    (instances
+      (project "flight computer FOX"
+        (path "/05785e23-8de8-49cd-8fd9-ec33b4a12221"
+          (reference "#PWR036") (unit 1)
+        )
+      )
+    )
+  )
+
   (symbol (lib_id "power:GND") (at 74.93 41.91 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid a8e9bdd1-64c3-494e-91da-6db600890b01)
@@ -2967,6 +2992,31 @@
       (project "flight computer FOX"
         (path "/05785e23-8de8-49cd-8fd9-ec33b4a12221"
           (reference "Q1") (unit 1)
+        )
+      )
+    )
+  )
+
+  (symbol (lib_id "power:GND") (at 54.61 119.38 270) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (uuid d8eb5f8f-29c0-4e3d-b013-9b42e0d5449c)
+    (property "Reference" "#PWR035" (at 48.26 119.38 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "GND" (at 50.8 120.015 90)
+      (effects (font (size 1.27 1.27)) (justify right))
+    )
+    (property "Footprint" "" (at 54.61 119.38 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "" (at 54.61 119.38 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid a24bff86-f67d-48eb-aeaf-e9648a2eaff4))
+    (instances
+      (project "flight computer FOX"
+        (path "/05785e23-8de8-49cd-8fd9-ec33b4a12221"
+          (reference "#PWR035") (unit 1)
         )
       )
     )
