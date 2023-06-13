@@ -30,6 +30,7 @@ float mpucalibratedaccell[3];
 struct datatolog
 {
   int state;
+  unsigned long uptimemillis;
 
   float roll;
   float pitch;
