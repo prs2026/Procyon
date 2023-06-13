@@ -3,15 +3,29 @@
 #include <Adafruit_Sensor.h>
 #include <Adafruit_MPU6050.h>
 #include <Adafruit_BMP280.h>
+#include <ESP32Servo.h>
+
 
 Adafruit_MPU6050 imu;
 Adafruit_BMP280 bmp;
+Servo canards[4];
 
 float kp = 0.2;
 float ki = 0.01;
 float kd = 0.1;
 
-double uptime;
+float preverror = 0.1;
+float accumulatederror = 0.1;
+unsigned long prevmillis;
+
+unsigned long uptimemillis;
+// x+ x- y+ y-
+int canardpos[4];
+int canardpins[4] = {25, 26, 14, 13};
+int canardsdefualtpos[4] = {104, 43, 67, 67};
+
+float mpucalibratedgyros[3];
+float mpucalibratedaccell[3];
 
 struct datatolog
 {
@@ -137,15 +151,101 @@ void initbaro() {
 }
 }
 
-int PID(float setpoint, float input, float kp, float ki, float kd) {
+float PID(float setpoint, float input, float kp, float ki, float kd) {
+  
+  float deltatime = (millis() - prevmillis) / 1000;
   float error = setpoint - input;
-  float p = kp * error;
+  float deltaerror = error - preverror;
+  accumulatederror += error * deltatime;
+  float p = kp * accumulatederror;
   float i = ki * error;
-  float d = kd * error;
+  float d = kd * deltaerror;
+  preverror = error;
+  prevmillis = uptimemillis;
   return p + i + d;
+  
+}
+
+void calibratempu() {
+
+  unsigned long prevtime = millis();
+  float valuesgyro[3] = {1,1,1};
+  float valuesaccel[3] = {1,1,1};
+  int iterations = 0;
+  while (iterations <= 20)
+  {
+    if (millis()-prevtime > 1000)
+    {
+      sensors_event_t a, g, temp;
+      imu.getEvent(&a, &g, &temp);
+      valuesgyro[0] += g.gyro.x;
+      valuesgyro[1] += g.gyro.y;
+      valuesgyro[2] += g.gyro.z;
+      valuesaccel[0] += a.acceleration.x-9.81;
+      valuesaccel[1] += a.acceleration.y;
+      valuesaccel[2] += a.acceleration.z;
+      iterations++;
+      Serial.print("X: ");
+      Serial.print(a.acceleration.x);
+      Serial.print(", Y: ");
+      Serial.print(a.acceleration.y);
+      Serial.print(", Z: ");
+      Serial.print(a.acceleration.z);
+      Serial.print("X: ");
+      Serial.print(valuesaccel[0]);
+      Serial.print(", Y: ");
+      Serial.print(valuesaccel[1]);
+      Serial.print(", Z: ");
+      Serial.print(valuesaccel[2]);
+      Serial.print(", iterations: ");
+      Serial.println(iterations);
+      
+    }
+    
+    if (iterations >= 20)
+    {
+      break;
+    }
+    
+  }
+  Serial.print(" X: ");
+  Serial.print(valuesgyro[0]);
+  Serial.print(", Y: ");
+  Serial.print(valuesgyro[1]);
+  Serial.print(", Z: ");
+  Serial.print(valuesgyro[2]);
+  Serial.print(" accel X: ");
+  Serial.print(valuesaccel[0]);
+  Serial.print(", Y: ");
+  Serial.print(valuesaccel[1]);
+  Serial.print(", Z: ");
+  Serial.print(valuesaccel[2]);
+  Serial.println("\t");
+  for (int i = 0; i < 2; i++)
+  {
+    if (valuesgyro[i] <= 1.01 && valuesgyro[i] >= 0.99)
+    {
+      mpucalibratedgyros[i] = 0;
+    }
+    else{
+      mpucalibratedgyros[i] = (valuesgyro[i]-1)/20;
+      Serial.print(valuesgyro[i]-1);
+      Serial.print(" ");
+    }
+    Serial.println(" accels: ");
+    if (valuesaccel[i] <= 1.01 && valuesaccel[i] >= 0.99)
+    {
+      mpucalibratedaccell[i] = 0;
+    }
+    else{
+      mpucalibratedaccell[i] = (valuesaccel[i]-1)/20;
+      Serial.println(valuesaccel[i]-1);
+    }
+  }
+
 }
 void setup() {
-  uptime = millis();
+  uptimemillis = millis();
   Serial.begin(115200);
   while (!Serial)
     delay(10);
@@ -153,12 +253,24 @@ void setup() {
 
   initImu();
   initbaro();
-  
-  
+
+  ESP32PWM::allocateTimer(0);
+	ESP32PWM::allocateTimer(1);
+	ESP32PWM::allocateTimer(2);
+	ESP32PWM::allocateTimer(3);
+  for (int i = 0; i < 3; i++)
+  {
+    canards[i].setPeriodHertz(50);
+    canards[i].attach(canardpins[i], 500, 2400);
+    canards[i].write(canardsdefualtpos[i]);
+  }
+   
+  calibratempu();
   // put your setup code here, to run once:
 }
 
 void loop() {
+  uptimemillis = millis();
   // put your main code here, to run repeatedly:
 
   sensors_event_t a, g, temp;
@@ -166,19 +278,19 @@ void loop() {
 
   /* Print out the values */
   Serial.print("X: ");
-  Serial.print(a.acceleration.x);
+  Serial.print(a.acceleration.x-mpucalibratedaccell[0]);
   Serial.print(", Y: ");
-  Serial.print(a.acceleration.y);
+  Serial.print(a.acceleration.y-mpucalibratedaccell[1]);
   Serial.print(", Z: ");
-  Serial.print(a.acceleration.z);
+  Serial.print(a.acceleration.z-mpucalibratedaccell[2]);
   Serial.print("\t");
 
   Serial.print("X: ");
-  Serial.print(g.gyro.x);
+  Serial.print(g.gyro.x-mpucalibratedgyros[0]);
   Serial.print(", Y: ");
-  Serial.print(g.gyro.y);
+  Serial.print(g.gyro.y-mpucalibratedgyros[1]);
   Serial.print(", Z: ");
-  Serial.print(g.gyro.z);
+  Serial.print(g.gyro.z-mpucalibratedgyros[2]);
   Serial.print("\t");
 
   Serial.print("temp: ");
