@@ -31,6 +31,7 @@ struct datatolog
 {
   int state;
   unsigned long uptimemillis;
+  unsigned long missiontimemillis;
 
   float roll;
   float pitch;
@@ -55,7 +56,47 @@ struct datatolog
   float baro_alt;
   float baro_pressure;
 
+  int pyrostatus1;
+  int pyrostatus2;
+
+  int canardstatusx1;
+  int canardstatusx2;
+
+  int canardstatusy1;
+  int canardstatusy2;
+
+
+
+};
+
+struct datatotransmit
+{
+  int state;
+  unsigned long uptimemillis;
+  unsigned long missiontimemillis;
+
+  float roll;
+  float pitch;
+  float yaw;
+
+  float roll_rate;
+  float pitch_rate;
+  float yaw_rate;
+
+  float x_accel;
+  float y_accel;
+  float z_accel;
+
+  float imu_alt;
+  float imu_velocity;
+
+  float vertical_velocity;
+
+  float baro_alt;
   
+  int pyrostatus1;
+  int pyrostatus2;
+
 };
 
 
