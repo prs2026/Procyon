@@ -32,6 +32,12 @@ struct datatotransmit
 
 };
 
+
+struct datanew
+{
+  int command;
+};
+
 struct prevmillis{
   unsigned long uptimemillis;
   unsigned long bluetoothprevmillis;
@@ -41,6 +47,7 @@ struct prevmillis{
 
 prevmillis prevmilliss;
 datatotransmit telemetry;
+datanew grounddata;
  
 void OnDataRecv(const uint8_t * mac, const uint8_t *data, int len) {
    
@@ -49,6 +56,22 @@ void OnDataRecv(const uint8_t * mac, const uint8_t *data, int len) {
   telemetry = *telemetrytemp;
 }
  
+void broadcast(const datanew &message)
+// Emulates a broadcast
+{
+  // Broadcast a message to every device in range
+  uint8_t broadcastAddress[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+  esp_now_peer_info_t peerInfo = {};
+  memcpy(&peerInfo.peer_addr, broadcastAddress, 6);
+  if (!esp_now_is_peer_exist(broadcastAddress))
+  {
+    esp_now_add_peer(&peerInfo);
+  }
+  // Send message
+  esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *) &message, sizeof(message));
+  // Print results to serial monitor
+}
+
 void setup() {
   Serial.begin(115200);
   Serial.println("ESP32 init");
@@ -73,9 +96,11 @@ void setup() {
   esp_now_register_recv_cb(OnDataRecv);
   WiFi.disconnect();
 }
+
+
  
 void loop() {
-  int incomingbyte;
+  byte incomingbyte;
   prevmilliss.uptimemillis = millis();
   /*
   if (prevmilliss.uptimemillis - prevmilliss.bluetoothprevmillis > 200)
@@ -89,6 +114,16 @@ void loop() {
     incomingbyte = Serial.read();
     Serial.print(" Echo: ");
     Serial.println(incomingbyte);
+    switch (incomingbyte)
+    {
+    case 109:
+      grounddata.command = 107;
+      broadcast(grounddata);
+      break;
+    
+    default:
+      break;
+    }
   }
 
   if (prevmilliss.uptimemillis - prevmilliss.serialprevmillis > 100)

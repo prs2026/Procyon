@@ -111,12 +111,10 @@ struct datatotransmit
   float baro_alt;
 };
 
-struct grounddata
+struct datanew
 {
   int command;
-  
 };
-
 
 struct sensordata
 {
@@ -154,9 +152,11 @@ struct prevmillllis
   unsigned long telemtransmit;
 };
 
+
 prevmillllis prevmilliss;
 sensordata currentdata;
 orientation currentorientation;
+datanew grounddata;
 
 datatotransmit transmitdata;
 
@@ -328,7 +328,7 @@ void calibratempu() {
   Serial.print(", Z: ");
   Serial.print(valuesaccel[2]);
   Serial.println("\t");
-  for (int i = 0; i < 2; i++)
+  for (int i = 0; i < 3; i++)
   {
     if (valuesgyro[i] <= 1.01 && valuesgyro[i] >= 0.99)
     {
@@ -416,7 +416,12 @@ void onsendtelem(const uint8_t *mac_addr, esp_now_send_status_t status){
 }
 
 void onrecivetelem(const uint8_t *macAddr, const uint8_t *data, int dataLen){
+  datanew* telemetrytemp = (datanew*) data;
+  grounddata = *telemetrytemp;
 
+  if (grounddata.command == 107){
+
+  }
 }
 
 
@@ -523,17 +528,6 @@ void setup() {
 
   }
 
-  esp_now_peer_info_t peerInfo;
-    
-  memcpy(peerInfo.peer_addr, broadcastAddress, 6);
-  peerInfo.channel = 0;  
-  peerInfo.encrypt = false;
-          
-  if (esp_now_add_peer(&peerInfo) != ESP_OK){
-    Serial.println("Failed to add peer");
-    return;
-  }
-
   ESP32PWM::allocateTimer(0);
 	ESP32PWM::allocateTimer(1);
 	ESP32PWM::allocateTimer(2);
@@ -596,6 +590,7 @@ void loop() {
     prevmilliss.telemtransmit = uptimemillis;
   }
   
+
     
 
   prevmilliss.cycle = uptimemillis;
