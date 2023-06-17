@@ -4,6 +4,9 @@
 #include <Adafruit_MPU6050.h>
 #include <Adafruit_BMP280.h>
 #include <ESP32Servo.h>
+#include <Wifi.h>
+#include <esp_now.h>
+
 
 
 Adafruit_MPU6050 imu;
@@ -35,6 +38,10 @@ float drift[3] = {0.55,0.52,0.62};
 
 float mpucalibratedgyros[3];
 float mpucalibratedaccell[3];
+
+uint8_t broadcastAddress[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+
+int state = 0;
 
 struct datatolog
 {
@@ -82,7 +89,7 @@ struct datatotransmit
 {
   int state;
   unsigned long uptimemillis;
-  unsigned long missiontimemillis;
+  //unsigned long missiontimemillis;
 
   float roll;
   float pitch;
@@ -92,21 +99,24 @@ struct datatotransmit
   float pitch_rate;
   float yaw_rate;
 
-  float x_accel;
-  float y_accel;
-  float z_accel;
+  float accel_x;
+  float accel_y;
+  float accel_z;
 
-  float imu_alt;
+  //float imu_alt;
   float imu_velocity;
 
-  float vertical_velocity;
+  //float vertical_velocity;
 
   float baro_alt;
-  
-  int pyrostatus1;
-  int pyrostatus2;
-
 };
+
+struct grounddata
+{
+  int command;
+  
+};
+
 
 struct sensordata
 {
@@ -141,11 +151,32 @@ struct prevmillllis
   unsigned long serial;
   unsigned long pid;
   unsigned long controlcycle;
+  unsigned long telemtransmit;
 };
 
 prevmillllis prevmilliss;
 sensordata currentdata;
 orientation currentorientation;
+
+datatotransmit transmitdata;
+
+esp_now_peer_info_t peerInfo;
+
+float PID(float setpoint, float input, float kp, float ki, float kd) {
+  
+  float deltatime = (millis() - prevmilliss.pid) / 1000;
+  float error = setpoint - input;
+  float deltaerror = error - preverror;
+  accumulatederror += error * deltatime;
+  float p = kp * error;
+  float i = ki * accumulatederror;
+  float d = kd * deltaerror;
+  preverror = error;
+  prevmilliss.pid = uptimemillis;
+  return p;
+  
+}
+
 
 void initImu() {
   Serial.println("Initializing IMU...");
@@ -240,20 +271,6 @@ void initbaro() {
 }
 }
 
-float PID(float setpoint, float input, float kp, float ki, float kd) {
-  
-  float deltatime = (millis() - prevmilliss.pid) / 1000;
-  float error = setpoint - input;
-  float deltaerror = error - preverror;
-  accumulatederror += error * deltatime;
-  float p = kp * error;
-  float i = ki * accumulatederror;
-  float d = kd * deltaerror;
-  preverror = error;
-  prevmilliss.pid = uptimemillis;
-  return p;
-  
-}
 
 void calibratempu() {
 
@@ -335,6 +352,7 @@ void calibratempu() {
 
 }
 
+
 sensordata getsensordata(){
   sensors_event_t a, g, temp;
   imu.getEvent(&a, &g, &temp);
@@ -361,6 +379,91 @@ sensordata getsensordata(){
   data.baro_pressure = bmp.readPressure();
   
   return data;
+}
+
+orientation computeorientation(sensordata data, orientation orient){
+  float timestep = (uptimemillis-prevmilliss.getdata)*0.1;
+  orient.angle_x = orient.angle_x + (data.gyro_x*drift[0]) * timestep;
+  orient.angle_y = orient.angle_y + (data.gyro_y*drift[1]) * timestep;
+  orient.angle_z = orient.angle_z + (data.gyro_z*drift[2]) * timestep;
+  return orient;
+}
+
+datatotransmit preptelemetry(sensordata data, orientation orient){
+  datatotransmit message;
+  message.state = state;
+  message.accel_x = data.accel_x;
+  message.accel_y = data.accel_y;
+  message.accel_z = data.accel_z;
+
+  message.pitch_rate = data.gyro_x;
+  message.yaw_rate = data.gyro_y;
+  message.roll_rate= data.gyro_z;
+
+  message.pitch = orient.angle_x;
+  message.yaw = orient.angle_y;
+  message.roll = orient.angle_z;
+
+  message.baro_alt = data.baro_alt;
+
+  message.uptimemillis = uptimemillis;
+  return message;
+}
+
+
+void onsendtelem(const uint8_t *mac_addr, esp_now_send_status_t status){
+  
+}
+
+void onrecivetelem(const uint8_t *macAddr, const uint8_t *data, int dataLen){
+
+}
+
+
+void broadcast(const datatotransmit &message)
+// Emulates a broadcast
+{
+  // Broadcast a message to every device in range
+  uint8_t broadcastAddress[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+  esp_now_peer_info_t peerInfo = {};
+  memcpy(&peerInfo.peer_addr, broadcastAddress, 6);
+  if (!esp_now_is_peer_exist(broadcastAddress))
+  {
+    esp_now_add_peer(&peerInfo);
+  }
+  // Send message
+  esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *) &message, sizeof(message));
+  // Print results to serial monitor
+  /*
+  if (result == ESP_OK)
+  {
+    Serial.print("Broadcast message success ");
+  }
+  else if (result == ESP_ERR_ESPNOW_NOT_INIT)
+  {
+    Serial.println("ESP-NOW not Init.");
+  }
+  else if (result == ESP_ERR_ESPNOW_ARG)
+  {
+    Serial.println("Invalid Argument");
+  }
+  else if (result == ESP_ERR_ESPNOW_INTERNAL)
+  {
+    Serial.println("Internal Error");
+  }
+  else if (result == ESP_ERR_ESPNOW_NO_MEM)
+  {
+    Serial.println("ESP_ERR_ESPNOW_NO_MEM");
+  }
+  else if (result == ESP_ERR_ESPNOW_NOT_FOUND)
+  {
+    Serial.println("Peer not found.");
+  }
+  else
+  {
+    Serial.println("Unknown error");
+  }
+  */
 }
 
 void sendserialdata(sensordata data,orientation orient){
@@ -392,14 +495,6 @@ void sendserialdata(sensordata data,orientation orient){
   Serial.println(",");
 }
 
-orientation computeorientation(sensordata data, orientation orient){
-  float timestep = (uptimemillis-prevmilliss.getdata)*0.1;
-  orient.angle_x = orient.angle_x + (data.gyro_x*drift[0]) * timestep;
-  orient.angle_y = orient.angle_y + (data.gyro_y*drift[1]) * timestep;
-  orient.angle_z = orient.angle_z + (data.gyro_z*drift[2]) * timestep;
-  return orient;
-}
-
 
 void setup() {
   uptimemillis = millis();
@@ -407,14 +502,43 @@ void setup() {
   while (!Serial)
     delay(10);
   Serial.println("MPU init");
-
   initImu();
   initbaro();
+  
+  WiFi.mode(WIFI_MODE_STA);
+  Serial.println("WiFi init ");
+  Serial.print("Mac Address: ");
+  Serial.println(WiFi.macAddress());
+  WiFi.disconnect();
+
+  if (esp_now_init() == ESP_OK)
+  {
+    Serial.println("ESP-NOW Init Success");
+    esp_now_register_recv_cb(onrecivetelem);
+    esp_now_register_send_cb(onsendtelem);
+  }
+  else
+  {
+    Serial.println("ESP-NOW Init Failed");
+
+  }
+
+  esp_now_peer_info_t peerInfo;
+    
+  memcpy(peerInfo.peer_addr, broadcastAddress, 6);
+  peerInfo.channel = 0;  
+  peerInfo.encrypt = false;
+          
+  if (esp_now_add_peer(&peerInfo) != ESP_OK){
+    Serial.println("Failed to add peer");
+    return;
+  }
 
   ESP32PWM::allocateTimer(0);
 	ESP32PWM::allocateTimer(1);
 	ESP32PWM::allocateTimer(2);
 	ESP32PWM::allocateTimer(3);
+
   for (int i = 0; i < 3; i++)
   {
     canards[i].setPeriodHertz(50);
@@ -463,6 +587,13 @@ void loop() {
     canards[2].write(canardpos[2]);
     canards[3].write(canardpos[3]);
     prevmilliss.controlcycle = uptimemillis;
+  }
+  
+  if (uptimemillis - prevmilliss.telemtransmit > 100)
+  {
+    datatotransmit telemetry = preptelemetry(currentdata,currentorientation);
+    broadcast(telemetry);
+    prevmilliss.telemtransmit = uptimemillis;
   }
   
     
