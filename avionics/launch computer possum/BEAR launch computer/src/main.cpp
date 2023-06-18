@@ -9,7 +9,7 @@ struct datatotransmit
 {
   int state;
   unsigned long uptimemillis;
-  //unsigned long missiontimemillis;
+  unsigned long missiontimemillis;
 
   float roll;
   float pitch;
@@ -23,13 +23,17 @@ struct datatotransmit
   float accel_y;
   float accel_z;
 
-  //float imu_alt;
-  float imu_velocity;
+  float vel_x;
+  float vel_y;
+  float vel_z;
 
-  //float vertical_velocity;
+  float absaccel;
+  float absvel;
 
+  float vertical_vel;
   float baro_alt;
 
+  float batteryvolt;
 };
 
 
@@ -43,12 +47,17 @@ struct prevmillis{
   unsigned long bluetoothprevmillis;
   unsigned long serialprevmillis;
   unsigned long telemetryprevmillis;
+  unsigned long launchprevmillis;
 };
 
 prevmillis prevmilliss;
 datatotransmit telemetry;
 datanew grounddata;
  
+int pyropin1 = 25;
+int pyropin2 = 26;
+
+
 void OnDataRecv(const uint8_t * mac, const uint8_t *data, int len) {
    
   datatotransmit* telemetrytemp =(datatotransmit*) data;
@@ -72,20 +81,24 @@ void broadcast(const datanew &message)
   // Print results to serial monitor
 }
 
+void launch(){
+  grounddata.command = 108;
+  broadcast(grounddata);
+  Serial.print("launching");
+  prevmilliss.launchprevmillis = prevmilliss.uptimemillis;
+  digitalWrite(pyropin1, HIGH);
+  digitalWrite(pyropin2, HIGH);
+}
+
 void setup() {
   Serial.begin(115200);
   Serial.println("ESP32 init");
-  /*
-  SerialBT.begin("ESP32");
 
-  Serial.println("Bluetooth init");
-  while (!SerialBT.available()) {
-  
-    Serial.println("Bluetooth not ready");
-    delay(500);
-  }
-  */
+  pinMode(pyropin1, OUTPUT);
+  pinMode(pyropin2, OUTPUT);
 
+  digitalWrite(pyropin1, LOW);
+  digitalWrite(pyropin2, LOW);
   WiFi.mode(WIFI_STA);
   
   if (esp_now_init() != ESP_OK) {
@@ -102,13 +115,6 @@ void setup() {
 void loop() {
   byte incomingbyte;
   prevmilliss.uptimemillis = millis();
-  /*
-  if (prevmilliss.uptimemillis - prevmilliss.bluetoothprevmillis > 200)
-  {
-    Serial.println("bluetooth ");
-    prevmilliss.bluetoothprevmillis = prevmilliss.uptimemillis;
-  }
-  */
   if (Serial.available() > 0)
   {
     incomingbyte = Serial.read();
@@ -117,50 +123,79 @@ void loop() {
     switch (incomingbyte)
     {
     case 109:
-      grounddata.command = 107;
+      grounddata.command = 109;
       broadcast(grounddata);
+      Serial.print("calibrating");
       break;
     
+    case 108:
+      launch();
+
+      break;
     default:
       break;
     }
   }
 
-  if (prevmilliss.uptimemillis - prevmilliss.serialprevmillis > 100)
+  if (prevmilliss.uptimemillis - prevmilliss.serialprevmillis > 50)
   {
-    Serial.print("101,");
-    Serial.print(prevmilliss.uptimemillis);
+    int dataage = prevmilliss.uptimemillis-prevmilliss.telemetryprevmillis;
+    if (dataage > 7000)
+    {
+      telemetry.state = -1;
+    }
+    
+    Serial.print("101,");//0
+    Serial.print(prevmilliss.uptimemillis);//1
     Serial.print(",");
-    Serial.print(telemetry.uptimemillis);
+    Serial.print(telemetry.uptimemillis);//2
     Serial.print(",");
-    Serial.print(prevmilliss.uptimemillis-prevmilliss.telemetryprevmillis);
+    Serial.print(dataage);//3
     Serial.print(",");
-    Serial.print(telemetry.state);
+    Serial.print(telemetry.state);//4
     Serial.print(",");
-    Serial.print(telemetry.accel_x);
+    Serial.print(telemetry.accel_x);//5
     Serial.print(",");
-    Serial.print(telemetry.accel_y);
+    Serial.print(telemetry.accel_y);//6
     Serial.print(",");
-    Serial.print(telemetry.accel_z);
+    Serial.print(telemetry.accel_z);//7
     Serial.print(",");
-    Serial.print(telemetry.roll_rate);
+    Serial.print(telemetry.roll_rate);//8
     Serial.print(",");
-    Serial.print(telemetry.pitch_rate);
+    Serial.print(telemetry.pitch_rate);//9
     Serial.print(",");
-    Serial.print(telemetry.yaw_rate);
+    Serial.print(telemetry.yaw_rate);//10
     Serial.print(",");
-    Serial.print(telemetry.pitch);
+    Serial.print(telemetry.pitch);//11
     Serial.print(",");
-    Serial.print(telemetry.roll);
+    Serial.print(telemetry.roll);//12
     Serial.print(",");
-    Serial.print(telemetry.yaw);
+    Serial.print(telemetry.yaw);//13
     Serial.print(",");
-    Serial.print(telemetry.baro_alt);
+    Serial.print(telemetry.baro_alt);//14
     Serial.print(",");
-    Serial.print(telemetry.imu_velocity);
+    Serial.print(telemetry.absvel);//15
+    Serial.print(",");
+    Serial.print(telemetry.vel_x);//16
+    Serial.print(",");
+    Serial.print(telemetry.vel_y);//17
+    Serial.print(",");
+    Serial.print(telemetry.vel_z);//18
+    Serial.print(",");
+    Serial.print(telemetry.vertical_vel);//19
+    Serial.print(",");
+    Serial.print(telemetry.absaccel);//20
+    Serial.print(",");
+    Serial.print(telemetry.batteryvolt);//21
     Serial.println("");
     prevmilliss.serialprevmillis = prevmilliss.uptimemillis;
   }
+  if (prevmilliss.uptimemillis - prevmilliss.launchprevmillis > 200)
+  {
+    digitalWrite(pyropin1, LOW);
+    digitalWrite(pyropin2, LOW);
+  }
+  
   
   
 }

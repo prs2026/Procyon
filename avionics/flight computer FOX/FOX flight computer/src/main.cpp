@@ -6,13 +6,13 @@
 #include <ESP32Servo.h>
 #include <Wifi.h>
 #include <esp_now.h>
-
+#include <Preferences.h>
 
 
 Adafruit_MPU6050 imu;
 Adafruit_BMP280 bmp;
 Servo canards[4];
-
+Preferences flash;
 
 
 float localpressure = 1013.25;
@@ -28,13 +28,24 @@ float kdroll = 0.1;
 float preverror = 0.1;
 float accumulatederror = 0.1;
 unsigned long uptimemillis;
+unsigned long missiontimemillis;
 int rolloffset = 0;
 // x+ x- y+ y-
 int canardpos[4];
 int canardpins[4] = {25, 26, 14, 13};
 int canardsdefualtpos[4] = {90,  90, 90, 90};
 
+int detectiontries = 1;
+
+
+float prevbaroalt;
+
 float drift[3] = {0.55,0.52,0.62};
+
+int buzzerpin = 16;
+int battpin = 32;
+
+float battvoltage;
 
 float mpucalibratedgyros[3];
 float mpucalibratedaccell[3];
@@ -42,6 +53,15 @@ float mpucalibratedaccell[3];
 uint8_t broadcastAddress[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 
 int state = 0;
+
+struct intervals
+{
+  int datalogging;
+  int sendtelem;
+  int getdata;
+  int sendserial;
+};
+
 
 struct datatolog
 {
@@ -57,13 +77,12 @@ struct datatolog
   float pitch_rate;
   float yaw_rate;
 
-  float x_accel;
-  float y_accel;
-  float z_accel;
+  float accel_x;
+  float accel_y;
+  float accel_z;
+  float absaccel;
 
-  float imu_alt;
-  float imu_velocity;
-
+  float velocity;
   float vertical_velocity;
 
   float imu_temp;
@@ -72,16 +91,13 @@ struct datatolog
   float baro_alt;
   float baro_pressure;
 
-  int pyrostatus1;
-  int pyrostatus2;
-
   int canardstatusx1;
   int canardstatusx2;
 
   int canardstatusy1;
   int canardstatusy2;
 
-
+  int command;
 
 };
 
@@ -89,7 +105,7 @@ struct datatotransmit
 {
   int state;
   unsigned long uptimemillis;
-  //unsigned long missiontimemillis;
+  unsigned long missiontimemillis;
 
   float roll;
   float pitch;
@@ -103,12 +119,17 @@ struct datatotransmit
   float accel_y;
   float accel_z;
 
-  //float imu_alt;
-  float imu_velocity;
+  float vel_x;
+  float vel_y;
+  float vel_z;
 
-  //float vertical_velocity;
+  float absaccel;
+  float absvel;
 
+  float vertical_vel;
   float baro_alt;
+
+  float batteryvolt;
 };
 
 struct datanew
@@ -132,6 +153,7 @@ struct sensordata
   float baro_alt;
   float baro_pressure;
 
+  float absaccel;
 };
 
 struct orientation
@@ -139,6 +161,11 @@ struct orientation
   float angle_x;
   float angle_y;
   float angle_z;
+  float vel_x;
+  float vel_y;
+  float vel_z;
+  float absvel;
+  float verticalvel;
 };
 
 
@@ -150,6 +177,7 @@ struct prevmillllis
   unsigned long pid;
   unsigned long controlcycle;
   unsigned long telemtransmit;
+  unsigned long detectionprevmillis;
 };
 
 
@@ -157,6 +185,17 @@ prevmillllis prevmilliss;
 sensordata currentdata;
 orientation currentorientation;
 datanew grounddata;
+
+intervals stateintervals[7] = {
+  {2000,1000,100,200}, //ground idle
+  {50,50,20,100}, // ready to launch
+  {50,20,20,100}, // powered ascent
+  {50,20,20,100}, // unpowered ascent
+  {50,20,20,100}, // ballistic decsent
+  {50,20,20,100}, // retarded descent
+  {1000,100,100,200} // landed
+};
+
 
 datatotransmit transmitdata;
 
@@ -177,6 +216,9 @@ float PID(float setpoint, float input, float kp, float ki, float kd) {
   
 }
 
+void beep(int freq, int dur){
+  tone(buzzerpin, freq, dur);
+}
 
 void initImu() {
   Serial.println("Initializing IMU...");
@@ -273,7 +315,13 @@ void initbaro() {
 
 
 void calibratempu() {
-
+  currentorientation.angle_x = 0;
+  currentorientation.angle_y = 0;
+  currentorientation.angle_z = 0;
+  currentorientation.absvel = 0;
+  currentorientation.vel_x = 0;
+  currentorientation.vel_y = 0;
+  currentorientation.vel_z = 0;
   unsigned long prevtime = millis();
   float valuesgyro[3] = {1,1,1};
   float valuesaccel[3] = {1,1,1};
@@ -288,7 +336,7 @@ void calibratempu() {
       valuesgyro[0] += g.gyro.x;
       valuesgyro[1] += g.gyro.y;
       valuesgyro[2] += g.gyro.z;
-      valuesaccel[0] += a.acceleration.x-9.81;
+      valuesaccel[0] += a.acceleration.x;
       valuesaccel[1] += a.acceleration.y;
       valuesaccel[2] += a.acceleration.z;
       iterations++;
@@ -340,7 +388,7 @@ void calibratempu() {
       Serial.print(" ");
     }
     Serial.println(" accels: ");
-    if (valuesaccel[i] <= 1.01 && valuesaccel[i] >= 0.99)
+    if (valuesaccel[i] <= 1.001 && valuesaccel[i] >= 0.999)
     {
       mpucalibratedaccell[i] = 0;
     }
@@ -349,7 +397,9 @@ void calibratempu() {
       Serial.println(valuesaccel[i]-1);
     }
   }
+  prevmilliss.getdata = uptimemillis;
 
+  mpucalibratedaccell[1] += 9.81;
 }
 
 
@@ -377,6 +427,8 @@ sensordata getsensordata(){
 
   data.baro_alt = bmp.readAltitude(localpressure);
   data.baro_pressure = bmp.readPressure();
+
+  data.absaccel = sqrt(pow(data.accel_x,2)+pow(data.accel_y,2)+pow(data.accel_y,2));
   
   return data;
 }
@@ -386,11 +438,56 @@ orientation computeorientation(sensordata data, orientation orient){
   orient.angle_x = orient.angle_x + (data.gyro_x*drift[0]) * timestep;
   orient.angle_y = orient.angle_y + (data.gyro_y*drift[1]) * timestep;
   orient.angle_z = orient.angle_z + (data.gyro_z*drift[2]) * timestep;
+
+  orient.vel_x = orient.vel_x + (data.accel_x*timestep);
+  orient.vel_y = orient.vel_y + ((data.accel_y+9.81)*timestep);
+  orient.vel_z = orient.vel_z + (data.accel_z*timestep);
+  orient.absvel = sqrt(pow(orient.vel_x,2)+pow(orient.vel_y,2)+pow(orient.vel_z,2));
+
+  orient.verticalvel = (data.baro_alt-prevbaroalt)*timestep;
+  prevbaroalt = data.baro_alt;
+
   return orient;
 }
 
 datatotransmit preptelemetry(sensordata data, orientation orient){
   datatotransmit message;
+  message.state = state;
+  message.accel_x = data.accel_x;
+  message.accel_y = data.accel_y;
+  message.accel_z = data.accel_z;
+
+  message.vel_x = orient.vel_x;
+  message.vel_y = orient.vel_y;
+  message.vel_z = orient.vel_z;
+
+  message.absvel = orient.absvel;
+
+  message.pitch_rate = data.gyro_x;
+  message.yaw_rate = data.gyro_y;
+  message.roll_rate= data.gyro_z;
+
+  message.pitch = orient.angle_x;
+  message.yaw = orient.angle_y;
+  message.roll = orient.angle_z;
+
+  message.baro_alt = data.baro_alt;
+  message.vertical_vel = orient.verticalvel;
+
+  message.uptimemillis = uptimemillis;
+
+  message.absaccel = data.absaccel;
+
+  message.missiontimemillis = missiontimemillis;
+
+  message.batteryvolt = battvoltage;
+  return message;
+}
+
+datatolog prepdatalog(sensordata data, orientation orient){
+  datatolog message;
+  message.uptimemillis = uptimemillis;
+  message.missiontimemillis = missiontimemillis;
   message.state = state;
   message.accel_x = data.accel_x;
   message.accel_y = data.accel_y;
@@ -405,11 +502,21 @@ datatotransmit preptelemetry(sensordata data, orientation orient){
   message.roll = orient.angle_z;
 
   message.baro_alt = data.baro_alt;
+  message.baro_pressure = data.baro_pressure;
 
-  message.uptimemillis = uptimemillis;
+  message.imu_temp = data.imu_temp;
+  message.baro_temp = data.baro_temp;
+
+  message.canardstatusx1 = canardpos[0];
+  message.canardstatusx2 = canardpos[1];
+
+  message.canardstatusy1 = canardpos[2];
+  message.canardstatusy2 = canardpos[3];
+
+  message.command = grounddata.command;
+
   return message;
 }
-
 
 void onsendtelem(const uint8_t *mac_addr, esp_now_send_status_t status){
   
@@ -418,10 +525,9 @@ void onsendtelem(const uint8_t *mac_addr, esp_now_send_status_t status){
 void onrecivetelem(const uint8_t *macAddr, const uint8_t *data, int dataLen){
   datanew* telemetrytemp = (datanew*) data;
   grounddata = *telemetrytemp;
-
-  if (grounddata.command == 107){
-
-  }
+  Serial.print("Received");
+  beep(10000,50);
+  
 }
 
 
@@ -497,24 +603,30 @@ void sendserialdata(sensordata data,orientation orient){
   Serial.print(data.imu_temp);
   Serial.print(", ");
   Serial.print(data.baro_alt);
+  Serial.print(", ");
+  Serial.print(battvoltage);
   Serial.println(",");
+}
+
+void logdata(datatolog data){
+
 }
 
 
 void setup() {
+  beep(2000, 100);
   uptimemillis = millis();
   Serial.begin(115200);
-  while (!Serial)
-    delay(10);
   Serial.println("MPU init");
   initImu();
   initbaro();
-  
+  beep(3000, 100);
   WiFi.mode(WIFI_MODE_STA);
   Serial.println("WiFi init ");
   Serial.print("Mac Address: ");
   Serial.println(WiFi.macAddress());
   WiFi.disconnect();
+  beep(4000, 100);
 
   if (esp_now_init() == ESP_OK)
   {
@@ -527,7 +639,7 @@ void setup() {
     Serial.println("ESP-NOW Init Failed");
 
   }
-
+  beep(3000, 100);
   ESP32PWM::allocateTimer(0);
 	ESP32PWM::allocateTimer(1);
 	ESP32PWM::allocateTimer(2);
@@ -542,27 +654,30 @@ void setup() {
    
   calibratempu();
   currentdata = getsensordata();
+  flash.begin("data",false);
+  beep(5000, 100);
+  delay(100);
+  beep(5000, 100);
   // put your setup code here, to run once:
 }
 
 void loop() {
   uptimemillis = millis();
-  if (uptimemillis - prevmilliss.getdata > 10)
+  if (uptimemillis - prevmilliss.getdata > stateintervals[state].getdata)
     {
       currentdata = getsensordata();
       currentorientation = computeorientation(currentdata,currentorientation);
+      battvoltage = (float(analogRead(battpin))-780)/180;
       prevmilliss.getdata = uptimemillis;
     }
   // put your main code here, to run repeatedly:
   
-  /* Print out the values */
-  if (uptimemillis - prevmilliss.serial > 100)
+  if (uptimemillis - prevmilliss.serial > stateintervals[state].sendserial)
   {
     sendserialdata(currentdata,currentorientation);
     prevmilliss.serial = uptimemillis;
   }
-
-  if (uptimemillis - prevmilliss.controlcycle > 20)
+  if (uptimemillis - prevmilliss.controlcycle > 20 && state == 2)
   {
     rolloffset = PID(0, currentorientation.angle_z, kp, ki, kd);
     canardpos[0] = (canardsdefualtpos[0] + PID(0, currentorientation.angle_x, kp, ki, kd));
@@ -583,15 +698,107 @@ void loop() {
     prevmilliss.controlcycle = uptimemillis;
   }
   
-  if (uptimemillis - prevmilliss.telemtransmit > 100)
+  if (uptimemillis - prevmilliss.telemtransmit > stateintervals[state].sendtelem)
   {
     datatotransmit telemetry = preptelemetry(currentdata,currentorientation);
     broadcast(telemetry);
     prevmilliss.telemtransmit = uptimemillis;
   }
-  
 
+  if (grounddata.command != 0)
+  {
+    switch (grounddata.command)
+    {
+    case 109:
+      calibratempu();
+      grounddata.command = 0;
+      break;
     
+    case 108:
+      state = 1;
+      grounddata.command = 0;
+      break;
+    
+    default:
+      break;
+    }
+  }
+  
+  if (uptimemillis - prevmilliss.detectionprevmillis < 100)
+  {
+    switch (state)
+    {
+    case 1:
+      // detecting liftoff
+      if (currentdata.absaccel > 15 && detectiontries <= 4)
+      {
+        detectiontries++;
+      }
+      else if (detectiontries >= 4){
+        state = 2;
+        detectiontries = 0;
+      }
+      else{detectiontries = 0;}
+      break;
+    case 2:
+      // detecting burnout
+      if (currentdata.absaccel < 2 && detectiontries <= 4)
+      {
+        detectiontries++;
+      }
+      else if (detectiontries >= 4){
+        state = 3;
+        detectiontries = 0;
+      }
+      else{detectiontries = 0;}
+      break;
+    
+    case 3:
+      // detecting apoogee
+      if (currentorientation.verticalvel < 5 && detectiontries <= 4)
+      {
+        detectiontries++;
+      }
+      else if (detectiontries >= 4){
+        state = 4;
+        detectiontries = 0;
+      }
+      else{detectiontries = 0;}
+      break;
 
+    case 4:
+      // detecting  parachute openeing
+      if (currentdata.absaccel > 6 && detectiontries <= 4)
+      {
+        detectiontries++;
+      }
+      else if (detectiontries >= 4){
+        state = 5;
+        detectiontries = 0;
+      }
+      else{detectiontries = 0;}
+      break;
+
+    case 5:
+      // detecting landing
+      if (currentorientation.verticalvel > 3 && detectiontries <= 4)
+      {
+        detectiontries++;
+      }
+      else if (detectiontries >= 4){
+        state = 6;
+        detectiontries = 0;
+      }
+      else{detectiontries = 0;}
+      break;
+    
+    default:
+      break;
+    }
+  }
+  
+  
+    
+  prevmilliss.detectionprevmillis = uptimemillis;
   prevmilliss.cycle = uptimemillis;
 }
