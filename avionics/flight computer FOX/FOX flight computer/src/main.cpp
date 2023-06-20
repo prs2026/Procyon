@@ -1,22 +1,43 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
-#include <Adafruit_MPU6050.h>
 #include <Adafruit_BMP280.h>
 #include <ESP32Servo.h>
 #include <Wifi.h>
 #include <esp_now.h>
 #include <Preferences.h>
+#include <I2Cdev.h>
+#include <MPU6050_6Axis_MotionApps20.h>
 
 
-Adafruit_MPU6050 imu;
+MPU6050 imu;
+
 Adafruit_BMP280 bmp;
 Servo canards[4];
 Preferences flash;
 
+#define OUTPUT_READABLE_YAWPITCHROLL
+#define INTERRUPT_PIN 34
+// MPU control/status vars
+bool dmpReady = false;  // set true if DMP init was successful
+uint8_t mpuIntStatus;   // holds actual interrupt status byte from MPU
+uint8_t devStatus;      // return status after each device operation (0 = success, !0 = error)
+uint16_t packetSize;    // expected DMP packet size (default is 42 bytes)
+uint16_t fifoCount;     // count of all bytes currently in FIFO
+uint8_t fifoBuffer[64]; // FIFO storage buffer
 
-float localpressure = 1013.25;
+// orientation/motion vars
+Quaternion q;           // [w, x, y, z]         quaternion container
+VectorInt16 aa;         // [x, y, z]            accel sensor measurements
+VectorInt16 aaReal;     // [x, y, z]            gravity-free accel sensor measurements
+VectorInt16 aaWorld;    // [x, y, z]            world-frame accel sensor measurements
+VectorFloat gravity;    // [x, y, z]            gravity vector
+float euler[3];         // [psi, theta, phi]    Euler angle container
+float ypr[3];           // [yaw, pitch, roll]   yaw/pitch/roll container and gravity vecto
 
+
+
+/*
 float kp = 0.5;
 float ki = 0.1;
 float kd = 0.1;
@@ -27,15 +48,19 @@ float kdroll = 0.1;
 
 float preverror = 0.1;
 float accumulatederror = 0.1;
-unsigned long uptimemillis;
-unsigned long missiontimemillis;
+
+
+
 int rolloffset = 0;
 // x+ x- y+ y-
 int canardpos[4];
 int canardpins[4] = {25, 26, 14, 13};
 int canardsdefualtpos[4] = {90,  90, 90, 90};
-
+*/
 int detectiontries = 1;
+
+unsigned long uptimemillis;
+unsigned long missiontimemillis;
 
 
 float prevbaroalt;
@@ -49,6 +74,12 @@ float battvoltage;
 
 float mpucalibratedgyros[3];
 float mpucalibratedaccell[3];
+float bmpcalibratedaltidue;
+
+float accelbias[3] = {0.6378775,0.0223087,-1.2146027};
+float gyrobias[3] = {-0.0389415,0.0166735,0.0245533};
+
+bool sendserial = false;
 
 uint8_t broadcastAddress[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 
@@ -153,19 +184,19 @@ struct sensordata
   float baro_alt;
   float baro_pressure;
 
-  float absaccel;
-};
+  float vertical_vel;
 
-struct orientation
-{
-  float angle_x;
-  float angle_y;
-  float angle_z;
+  float absaccel;
+
+  float pitch;
+  float yaw;
+  float roll;
+  
   float vel_x;
   float vel_y;
   float vel_z;
+
   float absvel;
-  float verticalvel;
 };
 
 
@@ -183,7 +214,6 @@ struct prevmillllis
 
 prevmillllis prevmilliss;
 sensordata currentdata;
-orientation currentorientation;
 datanew grounddata;
 
 intervals stateintervals[7] = {
@@ -193,14 +223,14 @@ intervals stateintervals[7] = {
   {50,20,20,100}, // unpowered ascent
   {50,20,20,100}, // ballistic decsent
   {50,20,20,100}, // retarded descent
-  {1000,100,100,200} // landed
+  {1000,20,100,200} // landed
 };
 
 
 datatotransmit transmitdata;
 
 esp_now_peer_info_t peerInfo;
-
+/*
 float PID(float setpoint, float input, float kp, float ki, float kd) {
   
   float deltatime = (millis() - prevmilliss.pid) / 1000;
@@ -215,87 +245,16 @@ float PID(float setpoint, float input, float kp, float ki, float kd) {
   return p;
   
 }
+*/
 
-void beep(int freq, int dur){
-  tone(buzzerpin, freq, dur);
+//mpu interrupt deteteciton routine
+
+volatile bool mpuInterrupt = false;     // indicates whether MPU interrupt pin has gone high
+void dmpDataReady() {
+    mpuInterrupt = true;
 }
 
-void initImu() {
-  Serial.println("Initializing IMU...");
-
-  if (!imu.begin())
-  {
-    Serial.println("IMU initialization failed");
-    while (1){
-      delay(10);
-    }
-  }
-  Serial.println("IMU initialization succeeded");
-
-  imu.setAccelerometerRange(MPU6050_RANGE_8_G);
-  Serial.print("Accelerometer range set to: ");
-  switch (imu.getAccelerometerRange()) {
-  case MPU6050_RANGE_2_G:
-    Serial.println("+-2G");
-    break;
-  case MPU6050_RANGE_4_G:
-    Serial.println("+-4G");
-    break;
-  case MPU6050_RANGE_8_G:
-    Serial.println("+-8G");
-    break;
-  case MPU6050_RANGE_16_G:
-    Serial.println("+-16G");
-    break;
-  }
-
-  imu.setGyroRange(MPU6050_RANGE_500_DEG);
-  Serial.print("Gyro range set to: ");
-  switch (imu.getGyroRange()) {
-  case MPU6050_RANGE_250_DEG:
-    Serial.println("+- 250 deg/s");
-    break;
-  case MPU6050_RANGE_500_DEG:
-    Serial.println("+- 500 deg/s");
-    break;
-  case MPU6050_RANGE_1000_DEG:
-    Serial.println("+- 1000 deg/s");
-    break;
-  case MPU6050_RANGE_2000_DEG:
-    Serial.println("+- 2000 deg/s");
-    break;
-  }
-
-  imu.setFilterBandwidth(MPU6050_BAND_44_HZ);
-  Serial.print("Filter bandwidth set to: ");
-  switch (imu.getFilterBandwidth()) {
-  case MPU6050_BAND_260_HZ:
-    Serial.println("260 Hz");
-    break;
-  case MPU6050_BAND_184_HZ:
-    Serial.println("184 Hz");
-    break;
-  case MPU6050_BAND_94_HZ:
-    Serial.println("94 Hz");
-    break;
-  case MPU6050_BAND_44_HZ:
-    Serial.println("44 Hz");
-    break;
-  case MPU6050_BAND_21_HZ:
-    Serial.println("21 Hz");
-    break;
-  case MPU6050_BAND_10_HZ:
-    Serial.println("10 Hz");
-    break;
-  case MPU6050_BAND_5_HZ:
-    Serial.println("5 Hz");
-    break;
-  }
-
-  Serial.println("good imu init");
-  delay(10);
-}
-
+// function definintions
 void initbaro() {
  Serial.println(F("BMP280 test"));
   unsigned status;
@@ -313,166 +272,116 @@ void initbaro() {
 }
 }
 
+void initimu(){
+  // initlizing and testing the imu
+  Serial.println("IMU init");
+  imu.initialize();
+  pinMode(INTERRUPT_PIN,INPUT);
 
-void calibratempu() {
-  currentorientation.angle_x = 0;
-  currentorientation.angle_y = 0;
-  currentorientation.angle_z = 0;
-  currentorientation.absvel = 0;
-  currentorientation.vel_x = 0;
-  currentorientation.vel_y = 0;
-  currentorientation.vel_z = 0;
-  unsigned long prevtime = millis();
-  float valuesgyro[3] = {1,1,1};
-  float valuesaccel[3] = {1,1,1};
-  int iterations = 0;
-  int targetiterations = 200;
-  while (iterations <= targetiterations)
-  {
-    if (millis()-prevtime > 1000)
-    {
-      sensors_event_t a, g, temp;
-      imu.getEvent(&a, &g, &temp);
-      valuesgyro[0] += g.gyro.x;
-      valuesgyro[1] += g.gyro.y;
-      valuesgyro[2] += g.gyro.z;
-      valuesaccel[0] += a.acceleration.x;
-      valuesaccel[1] += a.acceleration.y;
-      valuesaccel[2] += a.acceleration.z;
-      iterations++;
-      Serial.print("X: ");
-      Serial.print(a.acceleration.x);
-      Serial.print(", Y: ");
-      Serial.print(a.acceleration.y);
-      Serial.print(", Z: ");
-      Serial.print(a.acceleration.z);
-      Serial.print("X: ");
-      Serial.print(valuesaccel[0]);
-      Serial.print(", Y: ");
-      Serial.print(valuesaccel[1]);
-      Serial.print(", Z: ");
-      Serial.print(valuesaccel[2]);
-      Serial.print(", iterations: ");
-      Serial.println(iterations);
-      
-    }
-    
-    if (iterations >= targetiterations)
-    {
-      break;
-    }
-    
-  }
-  Serial.print(" X: ");
-  Serial.print(valuesgyro[0]);
-  Serial.print(", Y: ");
-  Serial.print(valuesgyro[1]);
-  Serial.print(", Z: ");
-  Serial.print(valuesgyro[2]);
-  Serial.print(" accel X: ");
-  Serial.print(valuesaccel[0]);
-  Serial.print(", Y: ");
-  Serial.print(valuesaccel[1]);
-  Serial.print(", Z: ");
-  Serial.print(valuesaccel[2]);
-  Serial.println("\t");
-  for (int i = 0; i < 3; i++)
-  {
-    if (valuesgyro[i] <= 1.01 && valuesgyro[i] >= 0.99)
-    {
-      mpucalibratedgyros[i] = 0;
-    }
-    else{
-      mpucalibratedgyros[i] = (valuesgyro[i]-1)/targetiterations;
-      Serial.print(valuesgyro[i]-1);
-      Serial.print(" ");
-    }
-    Serial.println(" accels: ");
-    if (valuesaccel[i] <= 1.001 && valuesaccel[i] >= 0.999)
-    {
-      mpucalibratedaccell[i] = 0;
-    }
-    else{
-      mpucalibratedaccell[i] = (valuesaccel[i]-1)/targetiterations;
-      Serial.println(valuesaccel[i]-1);
-    }
-  }
-  prevmilliss.getdata = uptimemillis;
+  Serial.println(F("Testing device connections..."));
+  Serial.println(imu.testConnection() ? F("MPU6050 connection successful") : F("MPU6050 connection failed"));
 
-  mpucalibratedaccell[1] += 9.81;
+  devStatus = imu.dmpInitialize();
+
+  // gyro offsets
+  imu.setXGyroOffset(220);
+  imu.setYGyroOffset(76);
+  imu.setZGyroOffset(-85);
+  imu.setZAccelOffset(1788); // 1688 factory default for my test chip
+
+  if (devStatus == 0)
+  { 
+    // calibrate accels and gyros
+    imu.CalibrateAccel(6);
+    imu.CalibrateGyro(6);
+    imu.PrintActiveOffsets();
+
+    //enable dmp
+    imu.setDMPEnabled(true);
+
+    // enable inturrupts
+    Serial.print(F("Enabling interrupt detection (Arduino external interrupt "));
+    Serial.print(digitalPinToInterrupt(INTERRUPT_PIN));
+    Serial.println(F(")..."));
+    attachInterrupt(digitalPinToInterrupt(INTERRUPT_PIN), dmpDataReady, RISING);
+    mpuIntStatus = imu.getIntStatus();
+
+    // set our DMP Ready flag so the main loop() function knows it's okay to use it
+    Serial.println(F("DMP ready! Waiting for first interrupt..."));
+    dmpReady = true;
+
+    // get expected DMP packet size for later comparison
+    packetSize = imu.dmpGetFIFOPacketSize();
+  }
+  
 }
 
+void calibratebaro(){
+  int targetiterations = 50;
+  float alt;
+  for (int i = 0; i < targetiterations; i++)
+  {
+    alt += bmp.readAltitude(1013.25);
+    Serial.print(alt);
+    Serial.print(" iter ");
+    Serial.println(i);
+    delay(50);
+  }
+  alt = alt/targetiterations;
+  bmpcalibratedaltidue = alt;
+}
 
 sensordata getsensordata(){
-  sensors_event_t a, g, temp;
-  imu.getEvent(&a, &g, &temp);
-
   sensordata data;
-  data.accel_x = a.acceleration.x-mpucalibratedaccell[0];
-  data.accel_y = a.acceleration.y-mpucalibratedaccell[1];
-  data.accel_z = a.acceleration.z-mpucalibratedaccell[2];
-
-  data.gyro_x = g.gyro.x-mpucalibratedgyros[0];
-  data.gyro_y = g.gyro.y-mpucalibratedgyros[1];
-  if (g.gyro.z-mpucalibratedaccell[2]<0.01 && g.gyro.z-mpucalibratedgyros[2]>-0.01)
+  if (imu.dmpGetCurrentFIFOPacket(fifoBuffer))
   {
-    data.gyro_z = 0;
-  }
-  else{
-    data.gyro_z = g.gyro.z-mpucalibratedgyros[2];
+    imu.dmpGetQuaternion(&q, fifoBuffer);
+    imu.dmpGetGravity(&gravity, &q);
+    imu.dmpGetYawPitchRoll(ypr, &q, &gravity);
+    imu.dmpGetLinearAccel(&aaReal, &aa, &gravity);
+    data.pitch = ypr[1];
+    data.yaw = ypr[0];
+    data.roll = ypr[2];
+
+    data.accel_x - aaReal.x;
+    data.accel_y - aaReal.y;
+    data.accel_z - aaReal.z;
+
+    data.absaccel = aaReal.getMagnitude();
+
+    
   }
 
-  data.imu_temp = temp.temperature;
-  data.baro_temp = bmp.readTemperature();
-
-  data.baro_alt = bmp.readAltitude(localpressure);
+  data.baro_alt = bmp.readAltitude() - bmpcalibratedaltidue;
   data.baro_pressure = bmp.readPressure();
-
-  data.absaccel = sqrt(pow(data.accel_x,2)+pow(data.accel_y,2)+pow(data.accel_y,2));
+  data.baro_temp =  bmp.readTemperature();
   
   return data;
 }
 
-orientation computeorientation(sensordata data, orientation orient){
-  float timestep = (uptimemillis-prevmilliss.getdata)*0.1;
-  orient.angle_x = orient.angle_x + (data.gyro_x*drift[0]) * timestep;
-  orient.angle_y = orient.angle_y + (data.gyro_y*drift[1]) * timestep;
-  orient.angle_z = orient.angle_z + (data.gyro_z*drift[2]) * timestep;
-
-  orient.vel_x = orient.vel_x + (data.accel_x*timestep);
-  orient.vel_y = orient.vel_y + ((data.accel_y+9.81)*timestep);
-  orient.vel_z = orient.vel_z + (data.accel_z*timestep);
-  orient.absvel = sqrt(pow(orient.vel_x,2)+pow(orient.vel_y,2)+pow(orient.vel_z,2));
-
-  orient.verticalvel = (data.baro_alt-prevbaroalt)*timestep;
-  prevbaroalt = data.baro_alt;
-
-  return orient;
-}
-
-datatotransmit preptelemetry(sensordata data, orientation orient){
+datatotransmit preptelemetry(sensordata data){
   datatotransmit message;
   message.state = state;
   message.accel_x = data.accel_x;
   message.accel_y = data.accel_y;
   message.accel_z = data.accel_z;
 
-  message.vel_x = orient.vel_x;
-  message.vel_y = orient.vel_y;
-  message.vel_z = orient.vel_z;
+  message.vel_x = data.vel_x;
+  message.vel_y = data.vel_y;
+  message.vel_z = data.vel_z;
 
-  message.absvel = orient.absvel;
+  message.absvel = data.absvel;
 
   message.pitch_rate = data.gyro_x;
   message.yaw_rate = data.gyro_y;
   message.roll_rate= data.gyro_z;
 
-  message.pitch = orient.angle_x;
-  message.yaw = orient.angle_y;
-  message.roll = orient.angle_z;
+  message.pitch = data.pitch;
+  message.yaw = data.yaw;
+  message.roll = data.roll;
 
   message.baro_alt = data.baro_alt;
-  message.vertical_vel = orient.verticalvel;
+  message.vertical_vel = data.vertical_vel;
 
   message.uptimemillis = uptimemillis;
 
@@ -484,7 +393,7 @@ datatotransmit preptelemetry(sensordata data, orientation orient){
   return message;
 }
 
-datatolog prepdatalog(sensordata data, orientation orient){
+datatolog prepdatalog(sensordata data){
   datatolog message;
   message.uptimemillis = uptimemillis;
   message.missiontimemillis = missiontimemillis;
@@ -497,22 +406,22 @@ datatolog prepdatalog(sensordata data, orientation orient){
   message.yaw_rate = data.gyro_y;
   message.roll_rate= data.gyro_z;
 
-  message.pitch = orient.angle_x;
-  message.yaw = orient.angle_y;
-  message.roll = orient.angle_z;
+  message.pitch = data.pitch;
+  message.yaw = data.yaw;
+  message.roll = data.roll;
 
   message.baro_alt = data.baro_alt;
   message.baro_pressure = data.baro_pressure;
 
   message.imu_temp = data.imu_temp;
   message.baro_temp = data.baro_temp;
-
+  /*
   message.canardstatusx1 = canardpos[0];
   message.canardstatusx2 = canardpos[1];
 
   message.canardstatusy1 = canardpos[2];
   message.canardstatusy2 = canardpos[3];
-
+  */
   message.command = grounddata.command;
 
   return message;
@@ -526,7 +435,7 @@ void onrecivetelem(const uint8_t *macAddr, const uint8_t *data, int dataLen){
   datanew* telemetrytemp = (datanew*) data;
   grounddata = *telemetrytemp;
   Serial.print("Received");
-  beep(10000,50);
+  tone(10000,50);
   
 }
 
@@ -577,27 +486,30 @@ void broadcast(const datatotransmit &message)
   */
 }
 
-void sendserialdata(sensordata data,orientation orient){
-  Serial.print("");
-  Serial.print(data.accel_x);
+void sendserialdata(sensordata data){
+  int decimals = 4;
+  Serial.print(uptimemillis);
+  Serial.print(",\t");
+
+  Serial.print(data.accel_x,decimals);
   Serial.print(", ");
-  Serial.print(data.accel_y);
+  Serial.print(data.accel_y,decimals);
   Serial.print(", ");
-  Serial.print(data.accel_z);
+  Serial.print(data.accel_z,decimals);
 
   Serial.print(",\t");
-  Serial.print(data.gyro_x);
+  Serial.print(data.gyro_x,decimals);
   Serial.print(", ");
-  Serial.print(data.gyro_y);
+  Serial.print(data.gyro_y,decimals);
   Serial.print(", ");
-  Serial.print(data.gyro_z);
+  Serial.print(data.gyro_z,decimals);
 
   Serial.print(",\t");
-  Serial.print(orient.angle_x);
+  Serial.print(data.pitch,decimals);
   Serial.print(", ");
-  Serial.print(orient.angle_y);
+  Serial.print(data.yaw,decimals);
   Serial.print(", ");
-  Serial.print(orient.angle_z);
+  Serial.print(data.roll,decimals);
 
   Serial.print(",\t");
   Serial.print(data.imu_temp);
@@ -614,19 +526,28 @@ void logdata(datatolog data){
 
 
 void setup() {
-  beep(2000, 100);
+  tone(2000, 100);
   uptimemillis = millis();
   Serial.begin(115200);
-  Serial.println("MPU init");
-  initImu();
+  Wire.begin();
+  Wire.setClock(400000);
+  initimu();
+  
+
+
+
+
   initbaro();
-  beep(3000, 100);
+  tone(3000, 100);
+
+
   WiFi.mode(WIFI_MODE_STA);
   Serial.println("WiFi init ");
   Serial.print("Mac Address: ");
   Serial.println(WiFi.macAddress());
   WiFi.disconnect();
-  beep(4000, 100);
+
+  tone(4000, 100);
 
   if (esp_now_init() == ESP_OK)
   {
@@ -637,27 +558,21 @@ void setup() {
   else
   {
     Serial.println("ESP-NOW Init Failed");
-
   }
-  beep(3000, 100);
+  
+  tone(3000, 100);
   ESP32PWM::allocateTimer(0);
 	ESP32PWM::allocateTimer(1);
 	ESP32PWM::allocateTimer(2);
 	ESP32PWM::allocateTimer(3);
-
-  for (int i = 0; i < 3; i++)
-  {
-    canards[i].setPeriodHertz(50);
-    canards[i].attach(canardpins[i], 500, 2400);
-    canards[i].write(canardsdefualtpos[i]);
-  }
-   
-  calibratempu();
+  
+  //calibratempu();
+  calibratebaro();
   currentdata = getsensordata();
   flash.begin("data",false);
-  beep(5000, 100);
+  tone(5000, 100);
   delay(100);
-  beep(5000, 100);
+  tone(5000, 100);
   // put your setup code here, to run once:
 }
 
@@ -666,41 +581,28 @@ void loop() {
   if (uptimemillis - prevmilliss.getdata > stateintervals[state].getdata)
     {
       currentdata = getsensordata();
-      currentorientation = computeorientation(currentdata,currentorientation);
       battvoltage = (float(analogRead(battpin))-780)/180;
       prevmilliss.getdata = uptimemillis;
     }
   // put your main code here, to run repeatedly:
   
-  if (uptimemillis - prevmilliss.serial > stateintervals[state].sendserial)
+  if (uptimemillis - prevmilliss.serial > stateintervals[state].sendserial && sendserial == true)
   {
-    sendserialdata(currentdata,currentorientation);
+
+    sendserialdata(currentdata);
     prevmilliss.serial = uptimemillis;
   }
-  if (uptimemillis - prevmilliss.controlcycle > 20 && state == 2)
+  if (Serial.available() > 0)
   {
-    rolloffset = PID(0, currentorientation.angle_z, kp, ki, kd);
-    canardpos[0] = (canardsdefualtpos[0] + PID(0, currentorientation.angle_x, kp, ki, kd));
-    canardpos[1] = (canardsdefualtpos[1] + (PID(0, currentorientation.angle_x, kp, ki, kd))*-1);
-    canardpos[2] = (canardsdefualtpos[2] + PID(0, currentorientation.angle_y, kp, ki, kd));
-    canardpos[3] = (canardsdefualtpos[3] + (PID(0, currentorientation.angle_y, kp, ki, kd))*-1);
-    
-    canardpos[0] += rolloffset;
-    canardpos[1] += rolloffset;
-    canardpos[2] += rolloffset;
-    canardpos[3] += rolloffset;
-
-
-    canards[0].write(canardpos[0]);
-    canards[1].write(canardpos[1]);
-    canards[2].write(canardpos[2]);
-    canards[3].write(canardpos[3]);
-    prevmilliss.controlcycle = uptimemillis;
-  }
+      int incomingbyte = Serial.read();
+      Serial.print("echo: ");
+      Serial.println(incomingbyte);
+      grounddata.command = incomingbyte;
+    }
   
   if (uptimemillis - prevmilliss.telemtransmit > stateintervals[state].sendtelem)
   {
-    datatotransmit telemetry = preptelemetry(currentdata,currentorientation);
+    datatotransmit telemetry = preptelemetry(currentdata);
     broadcast(telemetry);
     prevmilliss.telemtransmit = uptimemillis;
   }
@@ -710,7 +612,20 @@ void loop() {
     switch (grounddata.command)
     {
     case 109:
-      calibratempu();
+      currentdata.pitch = 0;
+      currentdata.yaw = 0;
+      currentdata.roll = 0;
+      currentdata.absvel = 0;
+      currentdata.vel_x = 0;
+      currentdata.vel_y = 0;
+      currentdata.vel_z = 0;
+      
+      grounddata.command = 0;
+      break;
+
+    case 112:
+      //calibratempunew();
+      
       grounddata.command = 0;
       break;
     
@@ -719,6 +634,29 @@ void loop() {
       grounddata.command = 0;
       break;
     
+    case 98:
+      calibratebaro();
+      grounddata.command = 0;
+      break;
+    
+    case 116:
+      ESP.restart();
+      grounddata.command = 0;
+      break;
+    
+    case 119:
+      tone(5000,200);
+      delay(500);
+      tone(5000,200);
+      grounddata.command = 0;
+      break;
+
+    case 115:
+      sendserial = !sendserial;
+      Serial.write("toggleserial");
+      grounddata.command = 0;
+      break;
+
     default:
       break;
     }
@@ -730,7 +668,7 @@ void loop() {
     {
     case 1:
       // detecting liftoff
-      if (currentdata.absaccel > 15 && detectiontries <= 4)
+      if (currentdata.absaccel > 20 && detectiontries <= 4)
       {
         detectiontries++;
       }
@@ -755,7 +693,7 @@ void loop() {
     
     case 3:
       // detecting apoogee
-      if (currentorientation.verticalvel < 5 && detectiontries <= 4)
+      if (currentdata.vertical_vel < 5 && detectiontries <= 4)
       {
         detectiontries++;
       }
@@ -781,7 +719,7 @@ void loop() {
 
     case 5:
       // detecting landing
-      if (currentorientation.verticalvel > 3 && detectiontries <= 4)
+      if (currentdata.vertical_vel > 3 && detectiontries <= 4)
       {
         detectiontries++;
       }
@@ -801,4 +739,92 @@ void loop() {
     
   prevmilliss.detectionprevmillis = uptimemillis;
   prevmilliss.cycle = uptimemillis;
+
+
+  /*
+  if (uptimemillis - prevmilliss.controlcycle > 20 && state == 2)
+  {
+    rolloffset = PID(0, currentorientation.angle_z, kp, ki, kd);
+    canardpos[0] = (canardsdefualtpos[0] + PID(0, currentorientation.angle_x, kp, ki, kd));
+    canardpos[1] = (canardsdefualtpos[1] + (PID(0, currentorientation.angle_x, kp, ki, kd))*-1);
+    canardpos[2] = (canardsdefualtpos[2] + PID(0, currentorientation.angle_y, kp, ki, kd));
+    canardpos[3] = (canardsdefualtpos[3] + (PID(0, currentorientation.angle_y, kp, ki, kd))*-1);
+    
+    canardpos[0] += rolloffset;
+    canardpos[1] += rolloffset;
+    canardpos[2] += rolloffset;
+    canardpos[3] += rolloffset;
+
+
+    canards[0].write(canardpos[0]);
+    canards[1].write(canardpos[1]);
+    canards[2].write(canardpos[2]);
+    canards[3].write(canardpos[3]);
+    prevmilliss.controlcycle = uptimemillis;
+  }
+  */
+
+ /*
+void calibratempu() {
+  currentdata.pitch = 0;
+  currentdata.yaw = 0;
+  currentdata.roll = 0;
+  currentdata.absvel = 0;
+  currentdata.vel_x = 0;
+  currentdata.vel_y = 0;
+  currentdata.vel_z = 0;
+
+  int targetiteratinos = 400;
+  float accelvalues[3];
+  float gyrovalues[3];
+
+  for (int i = 0; i < targetiteratinos; i++)
+  {
+    sensors_event_t a, g, temp;
+    imu.getEvent(&a, &g, &temp);
+
+    accelvalues[0] += a.acceleration.x;
+    accelvalues[1] += a.acceleration.y;
+    accelvalues[2] += a.acceleration.z;
+
+    gyrovalues[0] += g.gyro.x;
+    gyrovalues[1] += g.gyro.y;
+    gyrovalues[2] += g.gyro.z;
+
+    delay(25);
+
+  }
+  accelvalues[0] = accelvalues[0]/targetiteratinos;
+  accelvalues[1] = accelvalues[1]/targetiteratinos;
+  accelvalues[2] = accelvalues[2]/targetiteratinos;
+
+  Serial.print(accelvalues[0],7);
+  Serial.print(",");
+  Serial.print(accelvalues[1],7);
+  Serial.print(",");
+  Serial.print(accelvalues[2],7);
+  Serial.println("\t");
+
+  gyrovalues[0] = gyrovalues[0]/targetiteratinos;
+  gyrovalues[1] = gyrovalues[1]/targetiteratinos;
+  gyrovalues[2] = gyrovalues[2]/targetiteratinos;
+
+  Serial.print(gyrovalues[0],7);
+  Serial.print(",");
+  Serial.print(gyrovalues[1],7);
+  Serial.print(",");
+  Serial.print(gyrovalues[2],7);
+  Serial.println("\t");
+
+}
+*/
+
+/*
+  for (int i = 0; i < 3; i++)
+  {
+    canards[i].setPeriodHertz(50);
+    canards[i].attach(canardpins[i], 500, 2400);
+    canards[i].write(canardsdefualtpos[i]);
+  }
+  */
 }

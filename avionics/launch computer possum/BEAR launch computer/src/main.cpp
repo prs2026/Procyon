@@ -34,6 +34,8 @@ struct datatotransmit
   float baro_alt;
 
   float batteryvolt;
+
+  float imutemp;
 };
 
 
@@ -57,6 +59,10 @@ datanew grounddata;
 int pyropin1 = 25;
 int pyropin2 = 26;
 
+int decimals = 7;
+
+bool missionstart = false;
+bool trylaunch = false;
 
 void OnDataRecv(const uint8_t * mac, const uint8_t *data, int len) {
    
@@ -85,9 +91,7 @@ void launch(){
   grounddata.command = 108;
   broadcast(grounddata);
   Serial.print("launching");
-  prevmilliss.launchprevmillis = prevmilliss.uptimemillis;
-  digitalWrite(pyropin1, HIGH);
-  digitalWrite(pyropin2, HIGH);
+  trylaunch = true;
 }
 
 void setup() {
@@ -132,6 +136,24 @@ void loop() {
       launch();
 
       break;
+    case 98:
+      grounddata.command = 98;
+      broadcast(grounddata);
+      Serial.print("calibrating bmp");
+
+      break;
+    case 116 :
+      grounddata.command = 116;
+      broadcast(grounddata);
+      Serial.print("restarting fox");
+
+      break;
+    case 119 :
+      grounddata.command = 119;
+      broadcast(grounddata);
+      Serial.print("beeeeeping");
+
+      break;
     default:
       break;
     }
@@ -140,10 +162,22 @@ void loop() {
   if (prevmilliss.uptimemillis - prevmilliss.serialprevmillis > 50)
   {
     int dataage = prevmilliss.uptimemillis-prevmilliss.telemetryprevmillis;
-    if (dataage > 7000)
+    if (dataage > 4000)
     {
       telemetry.state = -1;
     }
+    if (telemetry.state <= 1)
+    {
+      prevmilliss.launchprevmillis = prevmilliss.uptimemillis;
+    }
+    if (telemetry.state >= 1 && trylaunch == true)
+    {
+      digitalWrite(pyropin1,HIGH);
+      digitalWrite(pyropin2,HIGH);
+    }
+    
+    
+  
     
     Serial.print("101,");//0
     Serial.print(prevmilliss.uptimemillis);//1
@@ -187,6 +221,10 @@ void loop() {
     Serial.print(telemetry.absaccel);//20
     Serial.print(",");
     Serial.print(telemetry.batteryvolt);//21
+    Serial.print(",");
+    Serial.print("101");//22 checksum
+    Serial.print(",");
+    Serial.print(prevmilliss.uptimemillis-prevmilliss.launchprevmillis);//23
     Serial.println("");
     prevmilliss.serialprevmillis = prevmilliss.uptimemillis;
   }
