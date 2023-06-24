@@ -1,48 +1,12 @@
 #include <Arduino.h>
 #include <esp_now.h>
 #include <WiFi.h>
+#include <procyonlib.h>
 //#include <BluetoothSerial.h>
 
 //BluetoothSerial SerialBT;
 
-struct datatotransmit
-{
-  int state;
-  unsigned long uptimemillis;
-  unsigned long missiontimemillis;
 
-  float roll;
-  float pitch;
-  float yaw;
-
-  float roll_rate;
-  float pitch_rate;
-  float yaw_rate;
-
-  float accel_x;
-  float accel_y;
-  float accel_z;
-
-  float vel_x;
-  float vel_y;
-  float vel_z;
-
-  float absaccel;
-  float absvel;
-
-  float vertical_vel;
-  float baro_alt;
-
-  float batteryvolt;
-
-  float imutemp;
-};
-
-
-struct datanew
-{
-  int command;
-};
 
 struct prevmillis{
   unsigned long uptimemillis;
@@ -152,6 +116,20 @@ void loop() {
       grounddata.command = 119;
       broadcast(grounddata);
       Serial.print("beeeeeping");
+    
+    case 100:
+      grounddata.command = 100;
+      broadcast(grounddata);
+      
+      grounddata.command = 0;
+      break;
+    
+    case 99:
+      grounddata.command = 99;
+      broadcast(grounddata);
+      
+      grounddata.command = 0;
+      break;
 
       break;
     default:
@@ -210,11 +188,11 @@ void loop() {
     Serial.print(",");
     Serial.print(telemetry.absvel);//15
     Serial.print(",");
-    Serial.print(telemetry.vel_x);//16
+    Serial.print("0");//16
     Serial.print(",");
-    Serial.print(telemetry.vel_y);//17
+    Serial.print("0");//17
     Serial.print(",");
-    Serial.print(telemetry.vel_z);//18
+    Serial.print("0");//18
     Serial.print(",");
     Serial.print(telemetry.vertical_vel);//19
     Serial.print(",");
@@ -234,6 +212,6 @@ void loop() {
     digitalWrite(pyropin2, LOW);
   }
   
-  
+  grounddata.command = 0;
   
 }
