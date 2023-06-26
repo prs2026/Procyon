@@ -92,6 +92,12 @@ int state = 0;
 int dataaddress;
 
 int commandbuf;
+const int aveamount = 5;
+float rawabsaccelreadings[aveamount];
+float verticalvelreadings[aveamount];
+int indicies = 0;
+
+float averagerawabsaccel,averageverticalver;
 
 struct intervals
 {
@@ -100,46 +106,6 @@ struct intervals
   int getdata;
   int sendserial;
 };
-
-
-struct datatolog
-{
-  int state;
-  unsigned long uptimemillis;
-  unsigned long missiontimemillis;
-
-  float roll;
-  float pitch;
-  float yaw;
-
-  float roll_rate;
-  float pitch_rate;
-  float yaw_rate;
-
-  float accel_x;
-  float accel_y;
-  float accel_z;
-  float absaccel;
-
-  float velocity;
-  float vertical_velocity;
-
-  float imu_temp;
-  float baro_temp;
-
-  float baro_alt;
-  float baro_pressure;
-
-  int canardstatusx1;
-  int canardstatusx2;
-
-  int canardstatusy1;
-  int canardstatusy2;
-
-  int command;
-
-};
-
 
 
 struct sensordata
@@ -199,20 +165,18 @@ sensordata currentdata;
 datanew grounddata;
 
 intervals stateintervals[7] = {
-  {2000,1000,100,80}, //ground idle
-  {50,50,20,100}, // ready to launch
-  {50,20,20,100}, // powered ascent
-  {50,20,20,100}, // unpowered ascent
-  {50,20,20,100}, // ballistic decsent
-  {50,20,20,100}, // retarded descent
+  {5000,1000,100,80}, //ground idle
+  {100,50,25,100}, // ready to launch
+  {50,20,25,100}, // powered ascent
+  {50,20,25,100}, // unpowered ascent
+  {50,20,25,100}, // ballistic decsent
+  {50,20,25,100}, // retarded descent
   {1000,20,100,200} // landed
 };
 
 
 
 datatotransmit transmitdata;
-
-datatolog retriveddata;
 
 esp_now_peer_info_t peerInfo;
 /*
@@ -268,11 +232,15 @@ void initimu(){
 
   devStatus = imu.dmpInitialize();
   // gyro offsets
-  imu.setXGyroOffset(220);
-  imu.setYGyroOffset(76);
-  imu.setZGyroOffset(-85);
-  imu.setZAccelOffset(1788); // 1688 factory default for my test chip
+  imu.setXGyroOffset(88);
+  imu.setYGyroOffset(17);
+  imu.setZGyroOffset(-34);
+  imu.setXAccelOffset(-1610);
+  imu.setYAccelOffset(-4511);
+  imu.setZAccelOffset(3418); // 1688 factory default for my test chip
 
+  //-1610,   -4511,    3418,      88,     -17,     -34
+  // accel then gyro
   if (devStatus == 0)
   { 
     // calibrate accels and gyros
@@ -302,6 +270,13 @@ void initimu(){
   
 }
 
+
+void calibrateimu(){
+  imu.CalibrateAccel(12);
+  imu.CalibrateGyro(12);
+  imu.PrintActiveOffsets();
+}
+
 void calibratebaro(){
   int targetiterations = 50;
   float alt;
@@ -319,7 +294,7 @@ void calibratebaro(){
 
 sensordata getsensordata(){
   sensordata data;
-  float timestep = (uptimemillis - prevmilliss.getdata)/1000;
+  float timestep = (uptimemillis - prevmilliss.getdata);
   int scalefactor = 16384;
   if (imu.dmpGetCurrentFIFOPacket(fifoBuffer))
   {
@@ -359,20 +334,83 @@ sensordata getsensordata(){
   data.baro_pressure = bmp.readPressure();
   data.baro_temp =  bmp.readTemperature();
 
-  data.vertical_vel = data.baro_alt - prevbaroalt;
+  data.vertical_vel = (data.baro_alt - prevbaroalt) *timestep;
   prevbaroalt = data.baro_alt;
 
   battvoltage = analogRead(battpin)-780;
 
+  rawabsaccelreadings[indicies] = data.rawabsaccel;
+  verticalvelreadings[indicies] = data.vertical_vel;
+  indicies ++;
+  if (indicies >= aveamount-1)
+  {
+    indicies = 0;
+  }
+  
+  for (int i = 0; i < aveamount; i++)
+  {
+    averagerawabsaccel += rawabsaccelreadings[i];
+    averageverticalver += rawabsaccelreadings[i];
+
+  }
+  averagerawabsaccel = averagerawabsaccel/aveamount;
+  averageverticalver = averageverticalver/aveamount;
+  
+  switch (state)
+    {
+    case 1:
+      // detecting liftoff
+      
+      if (averagerawabsaccel >= 23)
+      {
+        state = 2;
+      }
+
+      break;
+    case 2:
+      // detecting burnout
+      if (averagerawabsaccel <= 13)
+      {
+        state = 3;
+      }
+      break;
+    
+    case 3:
+      // detecting apoogee
+      if (averageverticalver <= 12)
+      {
+        state = 4;
+      }
+      break;
+
+    case 4:
+      // detecting  parachute openeing
+      if (averagerawabsaccel >= 7)
+      {
+        state = 5;
+      }
+      break;
+
+    case 5:
+      // detecting landing
+      if (averageverticalver <= 20 && uptimemillis - missiontimemillis > 10000)
+      {
+        state = 6;
+      }
+      break;
+    
+    default:
+      break;
+    }
   return data;
 }
 
 datatotransmit preptelemetry(sensordata data){
   datatotransmit message;
   message.state = state;
-  message.accel_x = data.adjaccel_x;
-  message.accel_y = data.adjaccel_y;
-  message.accel_z = data.adjaccel_z;
+  message.accel_x = data.rawaccel_x;
+  message.accel_y = data.rawaccel_y;
+  message.accel_z = data.rawaccel_z;
 
   message.absvel = data.absvel;
 
@@ -380,9 +418,9 @@ datatotransmit preptelemetry(sensordata data){
   message.yaw_rate = data.gyro_y;
   message.roll_rate= data.gyro_z;
 
-  message.pitch = data.pitch;
-  message.yaw = data.yaw;
-  message.roll = data.roll;
+  message.pitch = data.rawpitch;
+  message.yaw = data.rawyaw;
+  message.roll = data.rawroll;
 
   message.baro_alt = data.baro_alt;
   message.vertical_vel = data.vertical_vel;
@@ -510,50 +548,86 @@ void sendserialdata(sensordata data){
   Serial.print(data.baro_alt);
   Serial.print(", ");
   Serial.print(battvoltage);
+  Serial.print(", ");
+  Serial.print(averagerawabsaccel);
   Serial.println(",");
 }
 
 void logdata(sensordata data){
-
-  int decimals = 5;
+  int datapoints = 30;
+  //long datatobelogged[datapoints];
+  int decimals = 2;
   decimals = pow(10,decimals);
-  String datatobelogged = "101," + String(uptimemillis) + "," + String(missiontimemillis) + "," + String(state) + "," + 
-  String(data.adjaccel_x*decimals) + "," + String(data.adjaccel_y*decimals) + "," + String(data.adjaccel_z*decimals) + "," + 
-  String(data.gyro_x*decimals) + "," + String(data.gyro_y*decimals) + "," + String(data.gyro_z*decimals) + "," + 
-  String(data.pitch*decimals) + "," + String(data.yaw*decimals) + "," + String(data.roll*decimals) + "," + 
-  String(data.baro_alt*decimals) + "," + String(data.baro_pressure*decimals) + "," + String(data.baro_temp*decimals) + "," + 
-  String(data.imu_temp*decimals) + "," + String(commandbuf*decimals) + "," + 
-  String(data.rawaccel_x*decimals) + "," + String(data.rawaccel_y*decimals) + "," + String(data.rawaccel_z*decimals) + "," +
-  String(data.rawpitch*decimals) + "," + String(data.rawyaw*decimals) + "," + String(data.rawroll*decimals) + "," + 
-  String(battvoltage*decimals)+ "," + 
-  String(data.adjabsaccel*decimals) + "," + String(data.rawabsaccel*decimals) + "," + String(data.vertical_vel*decimals)
-  ;
+  /*
+  file.write(10101);
+  file.write(uptimemillis);
+  file.write(missiontimemillis);
+  file.write(state);
+  file.write(data.adjaccel_x*decimals);
+  file.write(data.adjaccel_y*decimals);
+  file.write(data.adjaccel_z*decimals);
+  file.write(data.gyro_x*decimals);
+  file.write(data.gyro_y*decimals);
+  file.write(data.gyro_z*decimals);
+  file.write(data.pitch*decimals);
+  file.write(data.yaw*decimals);
+  file.write(data.roll*decimals);
+  file.write(data.baro_alt*decimals);
+  file.write(data.baro_pressure*decimals);
+  file.write(data.baro_temp*decimals);
+  file.write(data.imu_temp*decimals);
+  file.write(commandbuf*decimals);
+  file.write(data.rawaccel_x*decimals);
+  file.write(data.rawaccel_y*decimals);
+  file.write(data.rawaccel_z*decimals);
+  file.write(data.rawpitch*decimals);
+  file.write(data.rawyaw*decimals);
+  file.write(data.rawroll*decimals);
+  file.write(battvoltage*decimals);
+  file.write(data.adjabsaccel*decimals);
+  file.write(data.rawabsaccel*decimals);
+  file.write(data.vertical_vel*decimals);
+  file.write(20202);
+  */
+    String datatobelogged = "10101," + String(uptimemillis) + "," + String(missiontimemillis) + "," + String(state) + "," + 
+    String(data.adjaccel_x*decimals) + "," + String(data.adjaccel_y*decimals) + "," + String(data.adjaccel_z*decimals) + "," + 
+    String(data.gyro_x*decimals) + "," + String(data.gyro_y*decimals) + "," + String(data.gyro_z*decimals) + "," + 
+    String(data.pitch*decimals) + "," + String(data.yaw*decimals) + "," + String(data.roll*decimals) + "," + 
+    String(data.baro_alt*decimals) + "," + String(data.baro_pressure*decimals) + "," + String(data.baro_temp*decimals) + "," + 
+    String(data.imu_temp*decimals) + "," + String(commandbuf*decimals) + "," + 
+    String(data.rawaccel_x*decimals) + "," + String(data.rawaccel_y*decimals) + "," + String(data.rawaccel_z*decimals) + "," +
+    String(data.rawpitch*decimals) + "," + String(data.rawyaw*decimals) + "," + String(data.rawroll*decimals) + "," + 
+    String(battvoltage*decimals)+ "," + 
+    String(data.adjabsaccel*decimals) + "," + String(data.rawabsaccel*decimals) + "," + String(data.vertical_vel*decimals) + 
+    "," + String(averagerawabsaccel*decimals) + "," + String(averageverticalver*decimals) +  ","+"20202"
+    ;
   
-  file.println(datatobelogged);
+  
+  
+  
   commandbuf = 0;
+  file.println(datatobelogged);
 }
 
 void dumpdatatoserial(){
   file.close();
-  Serial.println("checksum,foxuptime,missiontime,state,x_accel,y accel, z accel,gyro x, gyro y, gyro z, pitch, yaw ,roll, barometeric alt, baro pressure,baro temp, imu temp, command, raw x accel, raw y accel, raw z accel, raw pitch, raw yaw, raw roll,battery voltage,adjabsaccel,rawabsaccel,vertical velocity");
-  file = SPIFFS.open("/data.csv", "r");
+  Serial.println("checksum,foxuptime,missiontime,state,x_accel,y accel, z accel,gyro x, gyro y, gyro z, pitch, yaw ,roll, barometeric alt, baro pressure,baro temp, imu temp, command, raw x accel, raw y accel, raw z accel, raw pitch, raw yaw, raw roll,battery voltage,adjabsaccel,rawabsaccel,vertical velocity, rawabsvel average,ertical velocity average, terminalchecksum");
+  char filename[] = "/data.csv";
+  file = SPIFFS.open(filename, "r");
   while (file.available())
   {
-    Serial.println(file.readStringUntil('\n'));
+    Serial.print(file.readString());
   }
-  
-  
-
   
   sendserial = false;
   file.close();
+  file = SPIFFS.open(filename, "a");
 }
 
 void clearloggeddata(){
   dumpdatatoserial();
   file.close();
-  SPIFFS.remove("/data.txt");
-  file = SPIFFS.open("/data.txt","a");
+  file = SPIFFS.open("/data.csv","w");
   Serial.print("Cleared flash, current address: ");
   
 }
@@ -672,6 +746,8 @@ void loop() {
       currentdata.rawroll = currentdata.roll;
       currentdata.absvel = 0;
       
+      calibrateimu();
+
       grounddata.command = 0;
       break;
 
@@ -731,80 +807,57 @@ void loop() {
       break;
     }
   }
-  
-  if (uptimemillis - prevmilliss.detectionprevmillis < 100)
+  /*
+  if (uptimemillis - prevmilliss.detectionprevmillis > 25)
   {
     switch (state)
     {
     case 1:
       // detecting liftoff
-      if (currentdata.rawabsaccel > 20 && detectiontries <= 5)
+      
+      if (averagerawabsaccel >= 15)
       {
-        detectiontries++;
-      }
-      else if (detectiontries >= 4){
         state = 2;
-        detectiontries = 0;
       }
-      else{detectiontries = 0;}
+
       break;
     case 2:
       // detecting burnout
-      if (currentdata.rawabsaccel < 5 && detectiontries <= 4)
+      if (averagerawabsaccel <= 5)
       {
-        detectiontries++;
-      }
-      else if (detectiontries >= 4){
         state = 3;
-        detectiontries = 0;
       }
-      else{detectiontries = 0;}
       break;
     
     case 3:
       // detecting apoogee
-      if (currentdata.vertical_vel < 5 && detectiontries <= 3)
+      if (averageverticalver <= 5)
       {
-        detectiontries++;
-      }
-      else if (detectiontries >= 4){
         state = 4;
-        detectiontries = 0;
       }
-      else{detectiontries = 0;}
       break;
 
     case 4:
       // detecting  parachute openeing
-      if (currentdata.rawabsaccel > 6 && detectiontries <= 4)
+      if (averagerawabsaccel >= 7)
       {
-        detectiontries++;
-      }
-      else if (detectiontries >= 4){
         state = 5;
-        detectiontries = 0;
       }
-      else{detectiontries = 0;}
       break;
 
     case 5:
       // detecting landing
-      if (currentdata.vertical_vel < 5 && detectiontries <= 40)
+      if (averageverticalver <= 5 && uptimemillis - missiontimemillis > 10000)
       {
-        detectiontries++;
-      }
-      else if (detectiontries >= 4){
         state = 6;
-        detectiontries = 0;
       }
-      else{detectiontries = 0;}
       break;
     
     default:
       break;
     }
   }
-  
+  */
   
     
   prevmilliss.detectionprevmillis = uptimemillis;
@@ -930,4 +983,69 @@ void calibratempu() {
   
   message.command = grounddata.command;
   */
+  /*
+    String datatobelogged = "101," + String(uptimemillis) + "," + String(missiontimemillis) + "," + String(state) + "," + 
+    String(data.adjaccel_x*decimals) + "," + String(data.adjaccel_y*decimals) + "," + String(data.adjaccel_z*decimals) + "," + 
+    String(data.gyro_x*decimals) + "," + String(data.gyro_y*decimals) + "," + String(data.gyro_z*decimals) + "," + 
+    String(data.pitch*decimals) + "," + String(data.yaw*decimals) + "," + String(data.roll*decimals) + "," + 
+    String(data.baro_alt*decimals) + "," + String(data.baro_pressure*decimals) + "," + String(data.baro_temp*decimals) + "," + 
+    String(data.imu_temp*decimals) + "," + String(commandbuf*decimals) + "," + 
+    String(data.rawaccel_x*decimals) + "," + String(data.rawaccel_y*decimals) + "," + String(data.rawaccel_z*decimals) + "," +
+    String(data.rawpitch*decimals) + "," + String(data.rawyaw*decimals) + "," + String(data.rawroll*decimals) + "," + 
+    String(battvoltage*decimals)+ "," + 
+    String(data.adjabsaccel*decimals) + "," + String(data.rawabsaccel*decimals) + "," + String(data.vertical_vel*decimals)
+    ;
+    */
+   /*
+  decimals = pow(10,decimals);
+  datatobelogged[0] = 10101;
+  datatobelogged[1] = uptimemillis;
+  datatobelogged[2] = missiontimemillis;
+  datatobelogged[3] = state;
+  datatobelogged[4] = data.adjaccel_x*decimals;
+  datatobelogged[5] = data.adjaccel_y*decimals;
+  datatobelogged[6] = data.adjaccel_z*decimals;
+  datatobelogged[7] = data.gyro_x*decimals;
+  datatobelogged[8] = data.gyro_y*decimals;
+  datatobelogged[9] = data.gyro_z*decimals;
+  datatobelogged[10] = data.pitch*decimals;
+  datatobelogged[11] = data.yaw*decimals;
+  datatobelogged[12] = data.roll*decimals;
+  datatobelogged[13] = data.baro_alt*decimals;
+  datatobelogged[14] = data.baro_pressure*decimals;
+  datatobelogged[15] = data.baro_temp*decimals;
+  datatobelogged[16] = data.imu_temp*decimals;
+  datatobelogged[17] = commandbuf*decimals;
+  datatobelogged[18] = data.rawaccel_x*decimals;
+  datatobelogged[19] = data.rawaccel_y*decimals;
+  datatobelogged[20] = data.rawaccel_z*decimals;
+  datatobelogged[21] = data.rawpitch*decimals;
+  datatobelogged[22] = data.rawyaw*decimals;
+  datatobelogged[23] = data.rawroll*decimals;
+  datatobelogged[24] = battvoltage*decimals;
+  datatobelogged[25] = data.adjabsaccel*decimals;
+  datatobelogged[26] = data.rawabsaccel*decimals;
+  datatobelogged[27] = data.vertical_vel*decimals;
+  datatobelogged[28] = 20202;
+  
+
+
+  for (int i = 0; i < datapoints; i++)
+  {
+    file.print(char(datatobelogged[i]));
+  }
+  */
+
+ /*
+      if (detectiontries >= 4){
+        state = 3;
+        detectiontries = 0;
+      }
+      else if (currentdata.rawabsaccel > 15)
+      {
+        detectiontries++;
+      }
+      
+      else{detectiontries = 0;}
+      */
 }
