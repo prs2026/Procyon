@@ -605,6 +605,7 @@ void logdata(sensordata data){
   
   
   
+  
   commandbuf = 0;
   file.println(datatobelogged);
 }
