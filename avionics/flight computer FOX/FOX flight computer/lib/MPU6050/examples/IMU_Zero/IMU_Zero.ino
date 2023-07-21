@@ -241,8 +241,8 @@ void ShowProgress()
   } // ShowProgress
 
 void PullBracketsIn()
-  { boolean AllBracketsNarrow;
-    boolean StillWorking;
+  { bool AllBracketsNarrow;
+    bool StillWorking;
     int NewOffset[6];
   
     Serial.println("\nclosing in:");
@@ -287,7 +287,7 @@ void PullBracketsIn()
   } // PullBracketsIn
 
 void PullBracketsOut()
-  { boolean Done = false;
+  { bool Done = false;
     int NextLowOffset[6];
     int NextHighOffset[6];
 
