@@ -548,7 +548,7 @@
       "idf": "",
       "netlist": "",
       "specctra_dsn": "",
-      "step": "",
+      "step": "wolf flight comp.step",
       "vrml": ""
     },
     "page_layout_descr_file": ""
