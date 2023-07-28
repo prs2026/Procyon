@@ -1,0 +1,463 @@
+#:set textcolor (0,0,0,1)
+#:set bordercolor (0.1,0.1,0.2,0.7)
+#:set backgroundcolor (0.8, 0.85, 0.85, 1)
+
+MainWidget:
+
+<MainWidget>:
+    statecolor: 0.4,0.8,0.9,1
+    canvas.before:
+        Color:
+            rgba: bordercolor
+        Line:
+            width: 2
+            rectangle: self.x, self.y, self.width, self.height
+    canvas.before:
+        Color:
+            rgba: backgroundcolor
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    orientation: "vertical"
+    padding: 10
+    Label:
+        canvas.before:
+            Color:
+                rgba: bordercolor
+            Line:
+                width: 1.5
+                rectangle: self.x, self.y, self.width, self.height
+
+        canvas.before:
+            Color:
+                rgba: root.statecolor
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        id: state_label
+        text: "Ground Idle"
+        font_size: self.y/9
+
+        color: textcolor
+        text_size: self.size
+        halign: 'center'
+        valign: 'middle'
+        size: self.texture_size
+        size_hint: 1,0.2
+    GridLayout:
+        canvas.before:
+            Color:
+                rgba: bordercolor
+            Line:
+                width: 1.5
+                rectangle: self.x, self.y, self.width, self.height
+        padding: 10
+        cols: 3
+        Label:
+            canvas.before:
+                Color:
+                    rgba: bordercolor
+                Line:
+                    width: 1.5
+                    rectangle: self.x, self.y, self.width, self.height
+            id: alt_label
+            text: "Altitude: \t 0m"
+            font_size: self.y/5
+            background_color: backgroundcolor
+            color: textcolor
+            text_size: self.size
+            halign: 'center'
+            valign: 'middle'
+            size: self.texture_size
+        Label:
+            canvas.before:
+                Color:
+                    rgba: bordercolor
+                Line:
+                    width: 1.5
+                    rectangle: self.x, self.y, self.width, self.height
+            id: vel_label
+            text: "Velocity: 0m/s"
+            font_size: self.y/5
+            background_color: backgroundcolor
+            color: textcolor
+            text_size: self.size
+            halign: 'center'
+            valign: 'middle'
+            size: self.texture_size
+        GridLayout:
+            cols:3
+            BoxLayout:
+                orientation: "vertical"
+                Label:
+                    padding:10
+                    canvas.before:
+                        Color:
+                            rgba: bordercolor
+                        Line:
+                            width: 1.5
+                            rectangle: self.x, self.y, self.width, self.height
+                    id: pitch_label
+                    text: "Pitch: 0 degrees"
+                    color: textcolor
+                Label:
+                    padding:10
+                    canvas.before:
+                        Color:
+                            rgba: bordercolor
+                        Line:
+                            width: 1.5
+                            rectangle: self.x, self.y, self.width, self.height
+                    id: roll_label
+                    text: "Roll: 0 degrees"
+                    color: textcolor
+                Label:
+                    padding:10
+                    canvas.before:
+                        Color:
+                            rgba: bordercolor
+                        Line:
+                            width: 1.5
+                            rectangle: self.x, self.y, self.width, self.height
+                    id: yaw_label
+                    text: "Yaw: 0 degrees"
+                    color: textcolor
+                Label:
+                    padding:10
+                    canvas.before:
+                        Color:
+                            rgba: bordercolor
+                        Line:
+                            width: 1.5
+                            rectangle: self.x, self.y, self.width, self.height
+                    id: pitchrate_label
+                    text: "Pitch Rate: 0 deg/s"
+                    color: textcolor
+                Label:
+                    canvas.before:
+                        Color:
+                            rgba: bordercolor
+                        Line:
+                            width: 1.5
+                            rectangle: self.x, self.y, self.width, self.height
+                    id: rollrate_label
+                    text: "Roll Rate: 0 deg/s"
+                    color: textcolor
+                Label:
+                    canvas.before:
+                        Color:
+                            rgba: bordercolor
+                        Line:
+                            width: 1.5
+                            rectangle: self.x, self.y, self.width, self.height
+                    id: yawrate_label
+                    text: "Yaw Rate: 0 deg/s"
+                    color: textcolor
+            BoxLayout:
+                orientation: "vertical"
+                Label:
+                    padding:10
+                    canvas.before:
+                        Color:
+                            rgba: bordercolor
+                        Line:
+                            width: 1.5
+                            rectangle: self.x, self.y, self.width, self.height
+                    id: x_accel_label
+                    text: "X Acceleration: 0 m/s^2"
+                    color: textcolor
+                    text_size: self.size
+                    halign: 'center'
+                    valign: 'middle'
+                    size: self.texture_size
+                Label:
+                    padding:10
+                    canvas.before:
+                        Color:
+                            rgba: bordercolor
+                        Line:
+                            width: 1.5
+                            rectangle: self.x, self.y, self.width, self.height
+                    id: y_accel_label
+                    text: "Y Acceleration: 0 m/s^2"
+                    color: textcolor
+                    text_size: self.size
+                    halign: 'center'
+                    valign: 'middle'
+                    size: self.texture_size
+                Label:
+                    padding:10
+                    canvas.before:
+                        Color:
+                            rgba: bordercolor
+                        Line:
+                            width: 1.5
+                            rectangle: self.x, self.y, self.width, self.height
+                    id: z_accel_label
+                    text: "Z Acceleration: 0 m/s^2"
+                    color: textcolor
+                    text_size: self.size
+                    halign: 'center'
+                    valign: 'middle'
+                    size: self.texture_size
+
+
+    GridLayout:
+        cols: 2
+        padding:5
+        GridLayout:
+            cols: 2
+            GridLayout:
+
+                rows:2
+
+                canvas.before:
+                    Color:
+                        rgba: bordercolor
+                    Line:
+                        width: 1.5
+                        rectangle: self.x, self.y, self.width, self.height
+                Button:
+                    id: launchbutton
+                    canvas.before:
+                        Color:
+                            rgba: bordercolor
+                        Line:
+                            width: 1.5
+                            rectangle: self.x, self.y, self.width, self.height
+                    text: "Launch"
+                    on_press: root.launch()
+                    on_release: root.abort()
+                    size_hint: 0.8,1
+                    color: textcolor
+                    background_normal: ""
+                TextInput:
+                    id: arm_text
+                    multiline: False
+                    size_hint: 1,0.6
+                    background_color: 0.1,0.3,0.9,1
+                    background_normal: ""
+                    canvas.before:
+                        Color:
+                            rgba: bordercolor
+                        Line:
+                            width: 1.5
+                            rectangle: self.x, self.y, self.width, self.height
+                    color: textcolor
+
+            GridLayout:
+
+                cols: 3
+
+                GridLayout:
+                    rows: 2
+                    canvas.before:
+                        Color:
+                            rgba: bordercolor
+                        Line:
+                            width: 1.5
+                            rectangle: self.x, self.y, self.width, self.height
+
+                    Button:
+                        id: connect_button
+                        padding: 10
+                        canvas.before:
+                            Color:
+                                rgba: 0.5,0.5,0.5,1
+                            Line:
+                                width: 1.5
+                                rectangle: self.x, self.y, self.width, self.height
+                        text: "Connect to launch computer"
+                        on_press: root.connecttoserial()
+                        size_hint: 1,1
+                        color: textcolor
+                        background_color: 0.5,0.5,0.5,1
+                        background_normal: ""
+                        text_size: self.size
+                        halign: 'center'
+                        valign: 'middle'
+                        size: self.texture_size
+                    TextInput:
+                        id: comport_textinput
+                        multiline: False
+                        size_hint: 1,0.6
+                        background_color: 0.1,0.3,0.9,1
+                        background_normal: ""
+                        canvas.before:
+                            Color:
+                                rgba: bordercolor
+                            Line:
+                                width: 1.5
+                                rectangle: self.x, self.y, self.width, self.height
+                        color: textcolor
+                        text: "COM12"
+            Button:
+                id: zeroimu_button
+                padding: 10
+                canvas.before:
+                    Color:
+                        rgba: 0.5,0.5,0.5,1
+                    Line:
+                        width: 1.5
+                        rectangle: self.x, self.y, self.width, self.height
+                text: "zero imu"
+                on_press: root.zeroimu()
+                size_hint: 0.8,1
+                color: textcolor
+                background_color: 0.8,0.6,0.5,1
+                background_normal: ""
+                text_size: self.size
+                halign: 'center'
+                valign: 'middle'
+                size: self.texture_size
+            Button:
+                id: calibrate_baro_button
+                padding: 10
+                canvas.before:
+                    Color:
+                        rgba: 0.5,0.5,0.5,1
+                    Line:
+                        width: 1.5
+                        rectangle: self.x, self.y, self.width, self.height
+                text: "Calibrate Barometer"
+                on_press: root.calibratebarometer()
+                size_hint: 0.8,1
+                color: textcolor
+                background_color: 0.5,0.7,0.5,1
+                background_normal: ""
+                text_size: self.size
+                halign: 'center'
+                valign: 'middle'
+                size: self.texture_size
+            Button:
+                id: restart_button
+                padding: 10
+                canvas.before:
+                    Color:
+                        rgba: 0.5,0.5,0.5,1
+                    Line:
+                        width: 1.5
+                        rectangle: self.x, self.y, self.width, self.height
+                text: "Reboot FOX"
+                on_press: root.restartfox()
+                size_hint: 0.8,1
+                color: textcolor
+                background_color: 0.7,0.7,0.5,1
+                background_normal: ""
+                text_size: self.size
+                halign: 'center'
+                valign: 'middle'
+                size: self.texture_size
+            Button:
+                id: beep_button
+                padding: 10
+                canvas.before:
+                    Color:
+                        rgba: 0.5,0.5,0.5,1
+                    Line:
+                        width: 1.5
+                        rectangle: self.x, self.y, self.width, self.height
+                text: "Beep"
+                on_press: root.beep()
+                size_hint: 0.8,1
+                color: textcolor
+                background_color: 0.5,0.5,0.7,1
+                background_normal: ""
+                text_size: self.size
+                halign: 'center'
+                valign: 'middle'
+                size: self.texture_size
+
+        GridLayout:
+            cols: 3
+            Label:
+                padding: 10
+                canvas.before:
+                    Color:
+                        rgba: bordercolor
+                    Line:
+                        width: 1.5
+                        rectangle: self.x, self.y, self.width, self.height
+                id: data_age_label
+                text: "Data Age: 0s "
+                color: textcolor
+                text_size: self.size
+                halign: 'center'
+                valign: 'middle'
+                size: self.texture_size
+            Label:
+                padding: 10
+                canvas.before:
+                    Color:
+                        rgba: bordercolor
+                    Line:
+                        width: 1.5
+                        rectangle: self.x, self.y, self.width, self.height
+                id: flightcomp_battery_label
+                text: "FOX battery state: 7.4v"
+                color: textcolor
+                text_size: self.size
+                halign: 'center'
+                valign: 'middle'
+                size: self.texture_size
+            Label:
+                padding: 10
+                canvas.before:
+                    Color:
+                        rgba: bordercolor
+                    Line:
+                        width: 1.5
+                        rectangle: self.x, self.y, self.width, self.height
+                id: launchcomp_battery_label
+                text: "BEAR battery state: 7.4v"
+                color: textcolor
+                text_size: self.size
+                halign: 'center'
+                valign: 'middle'
+                size: self.texture_size
+            Label:
+                padding: 10
+                canvas.before:
+                    Color:
+                        rgba: bordercolor
+                    Line:
+                        width: 1.5
+                        rectangle: self.x, self.y, self.width, self.height
+                id: missiontime_label
+                text: "Mission Time: 0:00s"
+                color: textcolor
+                text_size: self.size
+                halign: 'center'
+                valign: 'middle'
+                size: self.texture_size
+            Label:
+                padding: 10
+                canvas.before:
+                    Color:
+                        rgba: bordercolor
+                    Line:
+                        width: 1.5
+                        rectangle: self.x, self.y, self.width, self.height
+                id: compuptime_label
+                text: "FOX Uptime: 0:00s"
+                color: textcolor
+                text_size: self.size
+                halign: 'center'
+                valign: 'middle'
+                size: self.texture_size
+            Label:
+                padding: 10
+                canvas.before:
+                    Color:
+                        rgba: bordercolor
+                    Line:
+                        width: 1.5
+                        rectangle: self.x, self.y, self.width, self.height
+                id: bearuptime_label
+                text: "BEAR Uptime: 0:00s"
+                color: textcolor
+                text_size: self.size
+                halign: 'center'
+                valign: 'middle'
+                size: self.texture_size

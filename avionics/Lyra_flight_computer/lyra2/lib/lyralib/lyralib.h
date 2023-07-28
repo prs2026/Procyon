@@ -15,30 +15,33 @@ struct intervals
   unsigned long fetchdata;
   unsigned long telemetry;
   unsigned long logdata;
+  unsigned long beep;
 };
 
 union accelgyrobmp
 {
   struct {
-  int32_t accel_x;
-  int32_t accel_y;
-  int32_t accel_z;
-  int32_t gyro_x;
-  int32_t gyro_y;
-  int32_t gyro_z;
-  int32_t yaw;
-  int32_t pitch;
-  int32_t roll;
-  int32_t imutemp;
-  int32_t pressure;
-  int32_t altitude;
-  int32_t bmptemp;
+  int32_t accel_x; //0
+  int32_t accel_y; //1
+  int32_t accel_z; //2
+  int32_t gyro_x; //3
+  int32_t gyro_y; //4
+  int32_t gyro_z; //5
+  int32_t yaw; //6
+  int32_t pitch; //7
+  int32_t roll; //8
+  int32_t imutemp; // 9
+  int32_t pressure; // 10
+  int32_t altitude; //11
+  int32_t bmptemp; // 12
+  int32_t verticalvel; //13
+  int32_t appogee; //14
   } readable;
-  int32_t data[13];
+  int32_t data[15];
 };
 
 
-void inttobytearray(int32_t value,uint8_t *buf){
+void int32tobytearray(int32_t value,uint8_t *buf){
   uint32_t adjvalue = value + 2147483647;
   buf[3] = adjvalue;
   buf[2] = adjvalue >> 8;
@@ -46,11 +49,24 @@ void inttobytearray(int32_t value,uint8_t *buf){
   buf[0] = adjvalue >> 24;
 }
 
-int32_t bytearraytoint(uint8_t *array){
+int32_t bytearraytoint32(uint8_t *array){
   int32_t value;
   value = ((int32_t)array[0] << 24) | ((int32_t)array[1] << 16) | ((int32_t)array[2] << 8) | (int32_t)array[3];
   value = value - 2147483647;
   
+  return value;
+}
+
+void int16tobytearray(int16_t value,uint8_t *buf){
+  uint16_t adjvalue = value + 32767;
+  buf[1] = adjvalue;
+  buf[0] = adjvalue >> 8;
+}
+
+int16_t bytearraytoint16(uint8_t *array){
+  int16_t value;
+  value = ((int16_t)array[0] << 8) | (int16_t)array[1];
+  value = value - 32767;
   return value;
 }
 
