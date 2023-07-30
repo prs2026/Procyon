@@ -39,6 +39,9 @@ Adafruit_BMP3XX bmp;
 #define SDCS PA0
 #define RADIO_CE PC15
 
+#define PYRO1 PB11
+#define PYRO2 PB10
+
 // definge colors to numbers for ease of use
 #define RED 0
 #define GREEN 1
@@ -58,7 +61,7 @@ accelgyrobmp currentsensordata;
 int32_t currentabsaccel;
 
 accelgyrobmp offsets = {
-  -621,	11,	793,	-57,	20,	-18
+  -5141,	1662,	793,	-57,	-3319,	-18
 };
 intervals statedelays[7] = {
   {300,50,1000,5000,10000}, // pad idle
@@ -89,7 +92,7 @@ uint32_t state = 0;
 
 int8_t filenum = 0;
 
-u_int64_t serialmillis,fetchdatamillis,telemetrymillis,computeyprmicros,computevvelmicros,logdatamillis,beeeeepmillis,statechangemillis;
+u_int64_t serialmillis,fetchdatamillis,telemetrymillis,computeyprmicros,computevvelmicros,logdatamillis,beeeeepmillis,statechangemillis,pyro1firemillis;
 
 int32_t prevbaroalt;
 
@@ -100,7 +103,7 @@ bool sendserial = false;
 
 u_int32_t globaladdress;
 
-const float localpressure = 1011.51;
+const float localpressure = 1015.92;
 
 const uint8_t startingchecksum1 = 0xAB;
 const uint8_t startingchecksum2 = 0xCD;
@@ -110,6 +113,8 @@ const uint8_t endingchecksum2 = 0x34;
 bool readableserial = true;
 
 uint8_t statechangetryies;
+
+uint8_t pyro1fire;
 
 byte radioaddress[][7] = {"flight","ground"};
 
@@ -121,6 +126,7 @@ void configpins(){
   pinMode(FLASHCS,OUTPUT);
   pinMode(SDCS,OUTPUT);
   pinMode(PB2,OUTPUT);
+  pinMode(PYRO1,OUTPUT);
   digitalWrite(FLASHCS,HIGH);
   digitalWrite(SDCS,HIGH);
 }
@@ -556,7 +562,7 @@ void logdata(accelgyrobmp datatolog, uint8_t statetolog, uint32_t errorflagtolog
     localaddress++;
     globaladdress = localaddress;
 }
-
+/*
 void dumpdatatoserial(bool raw){
   int32_t dumpaddress = FLASHSTARTADDRESS;
   while (dumpaddress < globaladdress)
@@ -590,7 +596,7 @@ void dumpdatatoserial(bool raw){
   
   
 }
-
+*/
 void clearflash(){
   flash.chipErase();
   while (flash.busy())
@@ -909,7 +915,7 @@ void parsecommand(uint8_t command){
   //break;
 
   case 100:
-    dumpdatatoserial(true);
+    //dumpdatatoserial(true);
   break;
 
   case 97:
@@ -923,6 +929,16 @@ void parsecommand(uint8_t command){
   break;
 
   case 79:
+  break;
+
+  case 112:
+  if (Seria.read() == 49)
+  {
+    Seria.print("firepyro1");
+    digitalWrite(PYRO1,HIGH);
+    pyro1fire = 1;
+    pyro1firemillis = millis();
+  }
   break;
 
 
@@ -947,6 +963,9 @@ void detectstatechange(int8_t currentstate){
   case 3: // detect appogee
     currentsensordata.readable.altitude < currentsensordata.readable.appogee - currentsensordata.readable.appogee * 0.1 ? statechangetryies++ : statechangetryies = 0;
     statechangetryies > 5 ? state = 4,statechangetryies = 0 : state;
+    pyro1fire = 1;
+    pyro1firemillis = millis();
+    digitalWrite(PYRO1,HIGH);
   break;
 
   case 4: // detect parachute deploy
@@ -1061,8 +1080,6 @@ void loop() {
     currentsensordata = fetchdata(currentsensordata);
   }
 
-  
-
   if (millis() - serialmillis > statedelays[state].serial && sendserial == true)
   {
     sendtoserialdata(currentsensordata,readableserial);
@@ -1117,6 +1134,13 @@ void loop() {
   else{
     setled(RED);
   }
+
+  if (millis() - pyro1firemillis > 4000 && pyro1fire == 1)
+  {
+    pyro1fire = 0;
+    digitalWrite(PYRO1,LOW);
+  }
+  
   
   
 }

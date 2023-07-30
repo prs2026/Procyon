@@ -31,7 +31,7 @@ uint32_t prevcommcheckmillis;
 
 accelgyrobmp recenttelemetry;
 int16_t lyrastate,foxerrorflag,foxuptime;
-uint32_t prevtelemetrymillis,prevserialmillis,launchattempmillis;
+uint32_t prevtelemetrymillis,prevserialmillis,launchattempmillis,missiontime;
 
 void initradio() {
   if (radio.begin())
@@ -198,7 +198,7 @@ void senddatatoground(){
     Serial.print(",");
     Serial.print("101");//22 checksum
     Serial.print(",");
-    Serial.print("0");//23 add mission elapsed time calculation
+    Serial.print(missiontime);//23 add mission elapsed time calculation
     Serial.println("");
     prevserialmillis = millis();
 }
@@ -286,12 +286,14 @@ void loop() {
     digitalWrite(pyro1, LOW);
     Serial.println("pyro1 fire");
     trylaunch = false;
+    missiontime = millis();
   }
 
   if (trylaunch == true && millis() - launchattempmillis > 5000)
   {
     Serial.println("launch attemp failed");
     trylaunch = false;
+    missiontime = 0;
   }
   
   

@@ -266,12 +266,12 @@ with open(filename,"w") as logfile:
 
             currenttime = time.time()
             global trylaunch
-            if  currenttime-launchstarttime > 10 and trylaunch == True and self.launcharmed == True:
+            if  currenttime-launchstarttime > 5 and trylaunch == True and self.launcharmed == True:
                 serialport.write(b"l")
                 print("launching")
                 trylaunch = False
             if trylaunch == True and self.launcharmed == True:
-                self.ids.launchbutton.text = "Luanch\n" + str(round(10-(currenttime-launchstarttime),2))
+                self.ids.launchbutton.text = "Luanch\n" + str(round(5-(currenttime-launchstarttime),2))
 
 
 
