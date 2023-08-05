@@ -1,0 +1,226 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#SamacSys ECAD Model NE555DR
+#/6648/2/2.37/8/4/Integrated Circuit
+DEF NE555DR IC 0 30 Y Y 1 F N
+F0 "IC" 1050 600 50 H V L CNN
+F1 "NE555DR" 1050 500 50 H V L CNN
+F2 "SOIC127P600X175-8N" 1050 400 50 H I L CNN
+F3 "http://www.ti.com/lit/ds/symlink/ne555.pdf" 1050 300 50 H I L CNN
+F4 "Single Precision Timer" 1050 200 50 H I L CNN "Description"
+F5 "1.75" 1050 100 50 H I L CNN "Height"
+F6 "Texas Instruments" 1050 0 50 H I L CNN "Manufacturer_Name"
+F7 "NE555DR" 1050 -100 50 H I L CNN "Manufacturer_Part_Number"
+F8 "595-NE555DR" 1050 -200 50 H I L CNN "Mouser Part Number"
+F9 "https://www.mouser.com/Search/Refine.aspx?Keyword=595-NE555DR" 1050 -300 50 H I L CNN "Mouser Price/Stock"
+F10 "1218414" 1050 -400 50 H I L CNN "RS Part Number"
+F11 "http//uk.rs-online.com/web/p/products/1218414" 1050 -500 50 H I L CNN "RS Price/Stock"
+DRAW
+X GND 1 600 -1000 200 U 50 50 0 0 B
+X TRIG 2 0 -400 200 R 50 50 0 0 B
+X OUT 3 1200 -200 200 L 50 50 0 0 B
+X ~RESET 4 0 0 200 R 50 50 0 0 B
+X CONT 5 500 600 200 D 50 50 0 0 B
+X THRES 6 0 -300 200 R 50 50 0 0 B
+X DISCH 7 0 -100 200 R 50 50 0 0 B
+X VCC 8 700 600 200 D 50 50 0 0 B
+P 5 0 1 6 200 400 1000 400 1000 -800 200 -800 200 400 N
+ENDDRAW
+ENDDEF
+#
+#SamacSys ECAD Model 2894
+#/1840530/541099/2.50/3/4/Hardware
+DEF 2894 H 0 30 Y Y 1 F N
+F0 "H" 750 300 50 H V L CNN
+F1 "2894" 750 200 50 H V L CNN
+F2 "2894" 750 100 50 H I L CNN
+F3 "https://www.keyelco.com/product-pdf.cfm?p=14467" 750 0 50 H I L CNN
+F4 "Coin Cell Battery Holders CR1220 COIN CELL SMT RETAINER" 750 -100 50 H I L CNN "Description"
+F5 "2.42" 750 -200 50 H I L CNN "Height"
+F6 "534-2894" 750 -300 50 H I L CNN "Mouser Part Number"
+F7 "https://www.mouser.co.uk/ProductDetail/Keystone-Electronics/2894?qs=u16ybLDytRb94n%2F3dXyVLQ%3D%3D" 750 -400 50 H I L CNN "Mouser Price/Stock"
+F8 "Keystone Electronics" 750 -500 50 H I L CNN "Manufacturer_Name"
+F9 "2894" 750 -600 50 H I L CNN "Manufacturer_Part_Number"
+DRAW
+X + 1 0 0 200 R 50 50 0 0 P
+X - 2 0 -200 200 R 50 50 0 0 P
+X MP1 MP1 0 -100 200 R 50 50 0 0 P
+P 5 0 1 6 200 100 700 100 700 -300 200 -300 200 100 N
+ENDDRAW
+ENDDEF
+#
+#SamacSys ECAD Model UJ2-MIBH-G-SMT-TR
+#/13650127/541099/2.50/9/4/Connector
+DEF UJ2-MIBH-G-SMT-TR J 0 30 Y Y 1 F N
+F0 "J" 750 300 50 H V L CNN
+F1 "UJ2-MIBH-G-SMT-TR" 750 200 50 H V L CNN
+F2 "UJ2MIBHGSMTTR" 750 100 50 H I L CNN
+F3 "" 750 0 50 H I L CNN
+F4 "USB Connectors" 750 -100 50 H I L CNN "Description"
+F5 "3.15" 750 -200 50 H I L CNN "Height"
+F6 "490-UJ2-MIBH-G-SMTTR" 750 -300 50 H I L CNN "Mouser Part Number"
+F7 "https://www.mouser.co.uk/ProductDetail/CUI-Devices/UJ2-MIBH-G-SMT-TR?qs=IS%252B4QmGtzzpvS1XQusp0iA%3D%3D" 750 -400 50 H I L CNN "Mouser Price/Stock"
+F8 "CUI Devices" 750 -500 50 H I L CNN "Manufacturer_Name"
+F9 "UJ2-MIBH-G-SMT-TR" 750 -600 50 H I L CNN "Manufacturer_Part_Number"
+DRAW
+X 1 1 900 0 200 L 50 50 0 0 P
+X 2 2 900 -400 200 L 50 50 0 0 P
+X 3 3 900 -100 200 L 50 50 0 0 P
+X 4 4 900 -200 200 L 50 50 0 0 P
+X 5 5 900 -300 200 L 50 50 0 0 P
+X MP1 MP1 0 0 200 R 50 50 0 0 P
+X MP2 MP2 0 -100 200 R 50 50 0 0 P
+X MP3 MP3 0 -200 200 R 50 50 0 0 P
+X MP4 MP4 0 -300 200 R 50 50 0 0 P
+P 5 0 1 6 200 100 700 100 700 -500 200 -500 200 100 N
+ENDDRAW
+ENDDEF
+#
+#SamacSys ECAD Model MEM2067-02-180-00-A
+#/1868532/541099/2.50/12/4/Connector
+DEF MEM2067-02-180-00-A J 0 30 Y Y 1 F N
+F0 "J" 1150 300 50 H V L CNN
+F1 "MEM2067-02-180-00-A" 1150 200 50 H V L CNN
+F2 "MEM20670218000A" 1150 100 50 H I L CNN
+F3 "https://gct.co/files/drawings/mem2067.pdf" 1150 0 50 H I L CNN
+F4 "GCT (GLOBAL CONNECTOR TECHNOLOGY) - MEM2067-02-180-00-A - Memory Socket, MEM2067 Series, Memory Card, 8 Contacts, Copper Alloy, Gold Plated Contacts" 1150 -100 50 H I L CNN "Description"
+F5 "1.95" 1150 -200 50 H I L CNN "Height"
+F6 "640-MEM20670218000A" 1150 -300 50 H I L CNN "Mouser Part Number"
+F7 "https://www.mouser.co.uk/ProductDetail/GCT/MEM2067-02-180-00-A?qs=KUoIvG%2F9IlYTw%2Fcc1GlNJA%3D%3D" 1150 -400 50 H I L CNN "Mouser Price/Stock"
+F8 "GCT (GLOBAL CONNECTOR TECHNOLOGY)" 1150 -500 50 H I L CNN "Manufacturer_Name"
+F9 "MEM2067-02-180-00-A" 1150 -600 50 H I L CNN "Manufacturer_Part_Number"
+DRAW
+X DAT2 P1 0 0 200 R 50 50 0 0 P
+X CD/DAT3 P2 0 -100 200 R 50 50 0 0 P
+X CMD P3 0 -200 200 R 50 50 0 0 P
+X VDD P4 0 -300 200 R 50 50 0 0 P
+X CLK P5 0 -400 200 R 50 50 0 0 P
+X VSS P6 0 -500 200 R 50 50 0 0 P
+X DAT0 P7 1300 0 200 L 50 50 0 0 P
+X DAT1 P8 1300 -100 200 L 50 50 0 0 P
+X MP1 MP1 1300 -200 200 L 50 50 0 0 P
+X MP2 MP2 1300 -300 200 L 50 50 0 0 P
+X MP3 MP3 1300 -400 200 L 50 50 0 0 P
+X MP4 MP4 1300 -500 200 L 50 50 0 0 P
+P 5 0 1 6 200 100 1100 100 1100 -600 200 -600 200 100 N
+ENDDRAW
+ENDDEF
+#
+#SamacSys ECAD Model SC32S-7PF20PPM
+#/11999804/541099/2.50/2/3/Crystal or Oscillator
+DEF SC32S-7PF20PPM Y 0 30 Y Y 1 F N
+F0 "Y" 350 250 50 H V L CNN
+F1 "SC32S-7PF20PPM" 350 150 50 H V L CNN
+F2 "SC32S7PF20PPM" 350 50 50 H I L CNN
+F3 "" 350 -50 50 H I L CNN
+F4 "32.768 kHz +/-20ppm Crystal 7pF 70 kOhms 2-SMD, No Lead" 350 -150 50 H I L CNN "Description"
+F5 "0.85" 350 -250 50 H I L CNN "Height"
+F6 "628-SC32S-7PF20PPM" 350 -350 50 H I L CNN "Mouser Part Number"
+F7 "https://www.mouser.co.uk/ProductDetail/Seiko-Semiconductors/SC32S-7PF20PPM?qs=3CPZD7qAgigZSR1ASVAS6w%3D%3D" 350 -450 50 H I L CNN "Mouser Price/Stock"
+F8 "Seiko Semiconductors" 350 -550 50 H I L CNN "Manufacturer_Name"
+F9 "SC32S-7PF20PPM" 350 -650 50 H I L CNN "Manufacturer_Part_Number"
+DRAW
+X ~ 2 0 0 100 R 50 50 0 0 P
+X ~  400 0 100 L 50 50 0 0 P
+P 2 0 1 6 120 100 120 -100 N
+P 2 0 1 6 280 100 280 -100 N
+P 5 0 1 6 160 140 160 -140 240 -140 240 140 160 140 N
+P 2 0 1 6 280 0 300 0 N
+P 2 0 1 6 120 0 100 0 N
+ENDDRAW
+ENDDEF
+#
+#SamacSys ECAD Model ABLS-8.000MHZ-20-B-3-H-T
+#/2377832/541099/2.50/2/2/Crystal or Oscillator
+DEF ABLS-8.000MHZ-20-B-3-H-T Y 0 30 Y Y 1 F N
+F0 "Y" 350 250 50 H V L CNN
+F1 "ABLS-8.000MHZ-20-B-3-H-T" 350 150 50 H V L CNN
+F2 "ABLS8000MHz20B3HT" 350 50 50 H I L CNN
+F3 "https://abracon.com/Resonators/abls.pdf" 350 -50 50 H I L CNN
+F4 "HC/49US (AT49) SMD LOW PROFILE CRYSTAL" 350 -150 50 H I L CNN "Description"
+F5 "4.2" 350 -250 50 H I L CNN "Height"
+F6 "815-LS8000MHZ20B3HT" 350 -350 50 H I L CNN "Mouser Part Number"
+F7 "https://www.mouser.co.uk/ProductDetail/ABRACON/ABLS-8.000MHZ-20-B-3-H-T?qs=vLWxofP3U2w2LK%252Bt982rbw%3D%3D" 350 -450 50 H I L CNN "Mouser Price/Stock"
+F8 "ABRACON" 350 -550 50 H I L CNN "Manufacturer_Name"
+F9 "ABLS-8.000MHZ-20-B-3-H-T" 350 -650 50 H I L CNN "Manufacturer_Part_Number"
+DRAW
+X ~ 1 0 0 100 R 50 50 0 0 P
+X ~ 2 400 0 100 L 50 50 0 0 P
+P 2 0 1 6 120 100 120 -100 N
+P 2 0 1 6 280 100 280 -100 N
+P 5 0 1 6 160 140 160 -140 240 -140 240 140 160 140 N
+P 2 0 1 6 280 0 300 0 N
+P 2 0 1 6 120 0 100 0 N
+ENDDRAW
+ENDDEF
+#
+#SamacSys ECAD Model PKMCS0909E4000-R1
+#/237375/541099/2.50/2/3/Loudspeaker or Buzzer
+DEF PKMCS0909E4000-R1 LS 0 30 Y Y 1 F N
+F0 "LS" 450 0 50 H V L CNN
+F1 "PKMCS0909E4000-R1" 450 -100 50 H V L CNN
+F2 "PKMCS0909E4000R1" 450 -200 50 H I L CNN
+F3 "http://www.murata.com/~/media/webrenewal/products/sound/sounder/vppt-buzj083-d.ashx" 450 -300 50 H I L CNN
+F4 "Piezo Buzzer 9x9mm 4kHz 1.9mm Murata Maximum of +/-12.5 V 65dB SMD Sounder External Piezo Buzzer, Maximum of 4 kHz" 450 -400 50 H I L CNN "Description"
+F5 "1.9" 450 -500 50 H I L CNN "Height"
+F6 "81-PKMCS0909E4000-R1" 450 -600 50 H I L CNN "Mouser Part Number"
+F7 "https://www.mouser.co.uk/ProductDetail/Murata-Electronics/PKMCS0909E4000-R1?qs=YqJ97pz8ambMt2Tf4F1Kig%3D%3D" 450 -700 50 H I L CNN "Mouser Price/Stock"
+F8 "Murata Electronics" 450 -800 50 H I L CNN "Manufacturer_Name"
+F9 "PKMCS0909E4000-R1" 450 -900 50 H I L CNN "Manufacturer_Part_Number"
+DRAW
+X + 1 0 0 200 R 50 50 0 0 P
+X - 2 0 -100 200 R 50 50 0 0 P
+P 6 0 1 6 200 50 280 50 380 150 380 -250 280 -150 200 -150 N
+P 2 0 1 6 200 50 200 -150 N
+ENDDRAW
+ENDDEF
+#
+#SamacSys ECAD Model AXK5S30347YG
+#/2101915/541099/2.50/30/4/Connector
+DEF AXK5S30347YG J 0 30 Y Y 1 F N
+F0 "J" 750 300 50 H V L CNN
+F1 "AXK5S30347YG" 750 200 50 H V L CNN
+F2 "AXK5S30347YG" 750 100 50 H I L CNN
+F3 "https://datasheet.datasheetarchive.com/originals/distributors/Datasheets-DGA17/1059933.pdf" 750 0 50 H I L CNN
+F4 "Panasonic P5KS Series 0.5mm Pitch 30 Way 2 Row PCB Socket, Surface Mount, Solder Termination" 750 -100 50 H I L CNN "Description"
+F5 "6.25" 750 -200 50 H I L CNN "Height"
+F6 "769-AXK5S30347YG" 750 -300 50 H I L CNN "Mouser Part Number"
+F7 "https://www.mouser.co.uk/ProductDetail/Panasonic-Industrial-Devices/AXK5S30347YG?qs=2rFUEsTwVNx9riydWPFSpQ%3D%3D" 750 -400 50 H I L CNN "Mouser Price/Stock"
+F8 "Panasonic" 750 -500 50 H I L CNN "Manufacturer_Name"
+F9 "AXK5S30347YG" 750 -600 50 H I L CNN "Manufacturer_Part_Number"
+DRAW
+X 1 1 0 0 200 R 50 50 0 0 P
+X 2 2 900 0 200 L 50 50 0 0 P
+X 3 3 0 -100 200 R 50 50 0 0 P
+X 4 4 900 -100 200 L 50 50 0 0 P
+X 5 5 0 -200 200 R 50 50 0 0 P
+X 6 6 900 -200 200 L 50 50 0 0 P
+X 7 7 0 -300 200 R 50 50 0 0 P
+X 8 8 900 -300 200 L 50 50 0 0 P
+X 9 9 0 -400 200 R 50 50 0 0 P
+X 10 10 900 -400 200 L 50 50 0 0 P
+X 11 11 0 -500 200 R 50 50 0 0 P
+X 12 12 900 -500 200 L 50 50 0 0 P
+X 13 13 0 -600 200 R 50 50 0 0 P
+X 14 14 900 -600 200 L 50 50 0 0 P
+X 15 15 0 -700 200 R 50 50 0 0 P
+X 16 16 900 -700 200 L 50 50 0 0 P
+X 17 17 0 -800 200 R 50 50 0 0 P
+X 18 18 900 -800 200 L 50 50 0 0 P
+X 19 19 0 -900 200 R 50 50 0 0 P
+X 20 20 900 -900 200 L 50 50 0 0 P
+X 21 21 0 -1000 200 R 50 50 0 0 P
+X 22 22 900 -1000 200 L 50 50 0 0 P
+X 23 23 0 -1100 200 R 50 50 0 0 P
+X 24 24 900 -1100 200 L 50 50 0 0 P
+X 25 25 0 -1200 200 R 50 50 0 0 P
+X 26 26 900 -1200 200 L 50 50 0 0 P
+X 27 27 0 -1300 200 R 50 50 0 0 P
+X 28 28 900 -1300 200 L 50 50 0 0 P
+X 29 29 0 -1400 200 R 50 50 0 0 P
+X 30 30 900 -1400 200 L 50 50 0 0 P
+P 5 0 1 6 200 100 700 100 700 -1500 200 -1500 200 100 N
+ENDDRAW
+ENDDEF
+#
+#End Library
