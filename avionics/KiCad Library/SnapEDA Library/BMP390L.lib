@@ -1,0 +1,33 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#(c) SnapEDA 2016 (snapeda.com)
+#This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA) with Design Exception 1.0
+#
+# BMP390L
+#
+DEF BMP390L U 0 40 Y Y 1 L N
+F0 "U" -600 600 50 H V L BNN
+F1 "BMP390L" -600 -800 50 H V L BNN
+F2 "SnapEDA Library:XDCR_BMP390L" 0 0 50 H I L BNN
+F3 "" 0 0 50 H I L BNN
+F4 "1.7" 0 0 50 H I L BNN "PARTREV"
+F5 "BMP390L" 0 0 50 H I L BNN "SNAPEDA_PN"
+F6 "Manufacturer Recommendation" 0 0 50 H I L BNN "STANDARD"
+F7 "0.8 mm" 0 0 50 H I L BNN "MAXIMUM_PACKAGE_HEIGHT"
+F8 "BOSCH" 0 0 50 H I L BNN "MANUFACTURER"
+DRAW
+S -600 -600 600 500 0 0 10 f
+X VDD 10 800 400 200 L 40 40 0 0 W 
+X VDDIO 1 800 300 200 L 40 40 0 0 W 
+X ~CS 6 -800 200 200 R 40 40 0 0 I 
+X SCK/SCL 2 -800 0 200 R 40 40 0 0 I C
+X SDI/SDO/SDA 4 -800 -100 200 R 40 40 0 0 B 
+X SDO/DNC/SA0 5 -800 -200 200 R 40 40 0 0 B 
+X INT/DNC 7 800 0 200 L 40 40 0 0 O 
+X VSS/GND 3 800 -300 200 L 40 40 0 0 W 
+X VSS/GND__1 8 800 -400 200 L 40 40 0 0 W 
+X VSS/GND__2 9 800 -500 200 L 40 40 0 0 W 
+ENDDRAW
+ENDDEF
+#
+# End Library
