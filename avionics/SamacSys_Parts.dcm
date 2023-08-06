@@ -48,4 +48,10 @@ K
 F https://datasheet.datasheetarchive.com/originals/distributors/Datasheets-DGA17/1059933.pdf
 $ENDCMP
 #
+$CMP JS202011SCQN
+D Sub miniature slide switches
+K
+F https://www.ckswitches.com/media/1422/js.pdf
+$ENDCMP
+#
 #End Doc Library
