@@ -1,0 +1,166 @@
+#:set textcolor (0.896, 0.91, 0.98,1)
+#:set bordercolor (0.961, 0.933, 0.933,0.7)
+#:set backgroundcolor (0.035, 0.075, 0.188,1)
+
+MainWidget:
+
+<MainWidget>:
+    statecolor: 0.188, 0.133, 0.133,1
+    canvas.before:
+        Color:
+            rgba: bordercolor
+        Line:
+            width: 2
+            rectangle: self.x, self.y, self.width, self.height
+    canvas.before:
+        Color:
+            rgba: backgroundcolor
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    orientation: "vertical"
+    padding: 10
+    GridLayout:
+        cols:1
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: 1,0.15
+            padding: 5
+            canvas.before:
+                Color:
+                    rgba: bordercolor
+                Line:
+                    width: 1.5
+                    rounded_rectangle: (self.x, self.y, self.width, self.height, 20, 20, 10, 10)
+            Label:
+                id: localtime_label
+                text: "Local Time: "
+                font_size: self.y/30
+                color: textcolor
+                text_size: self.size
+                halign: 'center'
+                valign: 'middle'
+                size: self.texture_size
+            Label:
+                id: met_label
+                text: "Mission Elapsed Time: "
+                font_size: self.y/30
+                color: textcolor
+                text_size: self.size
+                halign: 'center'
+                valign: 'middle'
+                size: self.texture_size
+            
+        GridLayout:
+            cols: 1
+            canvas.before:
+                Color:
+                    rgba: bordercolor
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+            canvas:
+                Color:
+                    rgba: root.statecolor
+                RoundedRectangle:
+                    pos: self.x +2, self.y+2
+                    size: self.width-4,self.height-4
+            
+
+            padding: 10
+            
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: 10
+                canvas.before:
+                    Color:
+                        rgba: bordercolor
+                    Line:
+                        width: 1.5
+                        rounded_rectangle: (self.x, self.y, self.width, self.height, 20, 20, 10, 10)
+                Label:
+                    id: state_label
+                    text: "No connection to vehicle"
+                    font_size: self.y/9
+                    color: textcolor
+                    text_size: self.size
+                    halign: 'center'
+                    valign: 'middle'
+                    size: self.texture_size
+                    size_hint: 1,0.5
+                Label:
+                    id: alt_label
+                    text: "Altitude: "
+                    font_size: self.y/9
+                    color: textcolor
+                    text_size: self.size
+                    halign: 'center'
+                    valign: 'middle'
+                    size: self.texture_size
+                    size_hint: 1,0.25
+                Label:
+                    id: vvel_label
+                    text: "Vertical Velocity: "
+                    font_size: self.y/9
+                    color: textcolor
+                    text_size: self.size
+                    halign: 'center'
+                    valign: 'middle'
+                    size: self.texture_size
+                    size_hint: 1,0.25
+            BoxLayout:
+                orientation: "horizontal"
+                padding: 5
+                canvas.before:
+                    Color:
+                        rgba: bordercolor
+                    Line:
+                        width: 1.5
+                        rounded_rectangle: (self.x, self.y, self.width, self.height, 20, 20, 10, 10)
+                BoxLayout:
+                    orientation: "vertical"
+                    Label:
+                        id: batt_label
+                        text: "Battery state: "
+                        font_size: self.y/9
+                        color: textcolor
+                        text_size: self.size
+                        halign: 'center'
+                        valign: 'middle'
+                        size: self.texture_size
+                    Label:
+                        id: pryo_label
+                        text: "Pyro state: "
+                        font_size: self.y/6
+                        color: textcolor
+                        text_size: self.size
+                        halign: 'center'
+                        valign: 'middle'
+                        size: self.texture_size
+                    Label:
+                        id: uptime_label
+                        text: "Uptime: "
+                        font_size: self.y
+                        color: textcolor
+                        text_size: self.size
+                        halign: 'center'
+                        valign: 'middle'
+                        size: self.texture_size
+                BoxLayout:
+                    orientation: "vertical"
+                    Button:
+                        id: setlaunchaware_button
+                        text: "Go For Launch"
+                        background_color: 0.922, 0.243, 0.243,0.25
+                    Button:
+                        id: zeroimu_button
+                        text: "Zero IMU"
+                        background_color: 0.251, 0.282, 0.31,0.24
+                    Button:
+                        id: zeroimu_button
+                        text: "Zero Barometer"
+                        background_color: 0.251, 0.282, 0.31,0.24
+                    
+                    
+            

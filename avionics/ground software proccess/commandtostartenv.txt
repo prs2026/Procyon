@@ -1,0 +1,1 @@
+c:/Users/E/Documents/GitHub/roleration/avionics/ground software proccess/venv/Scripts/Activate.ps1
