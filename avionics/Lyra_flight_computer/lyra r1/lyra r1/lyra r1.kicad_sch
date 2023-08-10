@@ -7869,6 +7869,31 @@
     )
   )
 
+  (symbol (lib_id "power:+12P") (at 243.84 270.51 90) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (uuid 785ef92a-bdf0-4021-868b-bb6eb2bca891)
+    (property "Reference" "#PWR044" (at 247.65 270.51 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "+12P" (at 240.03 270.51 90)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "" (at 243.84 270.51 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "" (at 243.84 270.51 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid 219e3f84-c83d-4620-8b3c-510cf232fdbb))
+    (instances
+      (project "lyra r1"
+        (path "/0420b479-31be-4cce-8403-e78e0e884a5a"
+          (reference "#PWR044") (unit 1)
+        )
+      )
+    )
+  )
+
   (symbol (lib_id "Connector:USB_B_Micro") (at 29.845 175.26 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 7a27705c-b40e-48c1-aa3f-507c03be9165)
@@ -9977,36 +10002,6 @@
       (project "wolf flight comp"
         (path "/9d66d0de-4b18-4272-a275-a6876d38a7f9"
           (reference "R7") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "power:+BATT") (at 243.84 270.51 90) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
-    (uuid efb8f91e-57ab-41bc-8654-e3614bb6f97a)
-    (property "Reference" "#PWR044" (at 247.65 270.51 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Value" "+BATT" (at 240.665 270.51 90)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Footprint" "" (at 243.84 270.51 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "" (at 243.84 270.51 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 2380d523-4c2e-49c4-b427-4520212ab64b))
-    (instances
-      (project "lyra r1"
-        (path "/0420b479-31be-4cce-8403-e78e0e884a5a"
-          (reference "#PWR044") (unit 1)
-        )
-      )
-      (project "wolf flight comp"
-        (path "/9d66d0de-4b18-4272-a275-a6876d38a7f9"
-          (reference "#PWR040") (unit 1)
         )
       )
     )
