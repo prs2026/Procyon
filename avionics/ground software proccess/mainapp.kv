@@ -123,16 +123,14 @@ MainWidget:
                     Label:
                         id: batt_label
                         text: "Battery state: "
-                        font_size: self.y/9
                         color: textcolor
                         text_size: self.size
                         halign: 'center'
                         valign: 'middle'
                         size: self.texture_size
                     Label:
-                        id: pryo_label
+                        id: pyro_label
                         text: "Pyro state: "
-                        font_size: self.y/6
                         color: textcolor
                         text_size: self.size
                         halign: 'center'
@@ -140,19 +138,33 @@ MainWidget:
                         size: self.texture_size
                     Label:
                         id: uptime_label
-                        text: "Uptime: "
-                        font_size: self.y
+                        text: "Uptimes \n LERO: \n LYRA:"
                         color: textcolor
                         text_size: self.size
                         halign: 'center'
                         valign: 'middle'
                         size: self.texture_size
-                BoxLayout:
-                    orientation: "vertical"
-                    Button:
-                        id: setlaunchaware_button
-                        text: "Go For Launch"
-                        background_color: 0.922, 0.243, 0.243,0.25
+                    Label:
+                        id: dataage_label
+                        text: "Data Age: "
+                        color: textcolor
+                        text_size: self.size
+                        halign: 'center'
+                        valign: 'middle'
+                        size: self.texture_size
+                GridLayout:
+                    cols: 2
+                    BoxLayout:
+                        orientation: "vertical"
+                        Button:
+                            id: setlaunchaware_button
+                            text: "Go For Launch"
+                            background_color: 0.922, 0.243, 0.243,0.25
+                        TextInput:
+                            id: setlaunchaware_input
+                            background_color: 0.922, 0.243, 0.243,0.25
+                            size_hint: 1,0.5
+                    
                     Button:
                         id: zeroimu_button
                         text: "Zero IMU"
@@ -161,6 +173,25 @@ MainWidget:
                         id: zeroimu_button
                         text: "Zero Barometer"
                         background_color: 0.251, 0.282, 0.31,0.24
-                    
-                    
-            
+                    BoxLayout:
+                        orientation: "vertical"
+                        Button:
+                            id: serialbutton
+                            background_color: 0.322, 0.322, 0.322,0.24
+                            on_press: root.startserial()
+                            text: "Connect to Serial"
+                            font_size: self.y/9
+
+                        TextInput:
+                            id: serialinput
+                            text: "COM15"
+                            font_size: self.y/9
+                            size_hint: 1,0.5
+                    Button:
+                        id: firep1
+                        text: "Fire P1"
+                        background_color: 0.251, 0.282, 0.31,0.24
+                    Button:
+                        id: firep2
+                        text: "Fire P2"
+                        background_color: 0.251, 0.282, 0.31,0.24

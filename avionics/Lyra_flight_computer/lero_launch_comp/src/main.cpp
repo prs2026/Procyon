@@ -153,53 +153,17 @@ void broadcast(int data) {
 }
 
 void senddatatoground(){
-    Serial.print("101,");//0
-    Serial.print(millis());//1
-    Serial.print(",");
-    Serial.print(foxuptime);//2
-    Serial.print(",");
-    Serial.print(millis()-prevtelemetrymillis);//3
-    Serial.print(",");
-    Serial.print(lyrastate);//4
-    Serial.print(",");
-    Serial.print(float(recenttelemetry.readable.accel_x)/10);//5
-    Serial.print(",");
-    Serial.print(float(recenttelemetry.readable.accel_y)/10);//6
-    Serial.print(",");
-    Serial.print(float(recenttelemetry.readable.accel_z)/10);//7
-    Serial.print(",");
-    Serial.print(float(recenttelemetry.readable.gyro_x)/10);//8
-    Serial.print(",");
-    Serial.print(float(recenttelemetry.readable.gyro_y)/10);//9
-    Serial.print(",");
-    Serial.print(float(recenttelemetry.readable.gyro_z)/10);//10
-    Serial.print(",");
-    Serial.print(float(recenttelemetry.readable.pitch)/10);//11
-    Serial.print(",");
-    Serial.print(float(recenttelemetry.readable.roll)/10);//12
-    Serial.print(",");
-    Serial.print(float(recenttelemetry.readable.yaw)/10);//13
-    Serial.print(",");
-    Serial.print(float(recenttelemetry.readable.altitude)/10);//14
-    Serial.print(",");
-    Serial.print("0");//15
-    Serial.print(",");
-    Serial.print("0");//16
-    Serial.print(",");
-    Serial.print("0");//17
-    Serial.print(",");
-    Serial.print("0");//18
-    Serial.print(",");
-    Serial.print(float(recenttelemetry.readable.verticalvel)/10);//19
-    Serial.print(",");
-    Serial.print("0");//20
-    Serial.print(",");
-    Serial.print("0");//21
-    Serial.print(",");
-    Serial.print("101");//22 checksum
-    Serial.print(",");
-    Serial.print(missiontime);//23 add mission elapsed time calculation
-    Serial.println("");
+    Serial.print(0xCD);
+    Serial.print(millis());
+    Serial.print(foxuptime);
+    Serial.print(missiontime);
+    Serial.print(float(recenttelemetry.readable.altitude)/10);
+    Serial.print(float(recenttelemetry.readable.verticalvel)/10);
+    Serial.print(""); // find way to add batt state to telemety
+    Serial.print(""); // same thing, just with pyro state
+    Serial.print(lyrastate);
+    Serial.print(millis() - prevtelemetrymillis);
+    Serial.println(0xAB);
     prevserialmillis = millis();
 }
 
