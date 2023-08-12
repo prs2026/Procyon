@@ -153,17 +153,22 @@ void broadcast(int data) {
 }
 
 void senddatatoground(){
-    Serial.print(0xCD);
-    Serial.print(millis());
-    Serial.print(foxuptime);
-    Serial.print(missiontime);
-    Serial.print(float(recenttelemetry.readable.altitude)/10);
-    Serial.print(float(recenttelemetry.readable.verticalvel)/10);
-    Serial.print(""); // find way to add batt state to telemety
-    Serial.print(""); // same thing, just with pyro state
-    Serial.print(lyrastate);
-    Serial.print(millis() - prevtelemetrymillis);
-    Serial.println(0xAB);
+   if (millis() - prevtelemetrymillis > 5000)
+   {
+    lyrastate = 7;
+   }
+   
+    Serial.print(0xCD,HEX); Serial.print(",");
+    Serial.print(millis()); Serial.print(",");
+    Serial.print(foxuptime); Serial.print(",");
+    Serial.print(missiontime); Serial.print(",");
+    Serial.print(float(recenttelemetry.readable.altitude)/10); Serial.print(",");
+    Serial.print(float(recenttelemetry.readable.verticalvel)/10); Serial.print(",");
+    Serial.print(0); Serial.print(",");// find way to add batt state to telemety
+    Serial.print(0); Serial.print(",");// same thing, just with pyro state
+    Serial.print(lyrastate); Serial.print(",");
+    Serial.print(millis() - prevtelemetrymillis); Serial.print(",");
+    Serial.println(0xAB,HEX);
     prevserialmillis = millis();
 }
 

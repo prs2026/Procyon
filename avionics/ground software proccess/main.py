@@ -27,20 +27,21 @@ databuf = {
     "verticalvelocity" : 0,
     "flightcompbatt" : 0,
     "flightcompyrostate:" : 0,
-    "state" : 7,
+    "state" : 8,
     "dataage" : 0,
     "endingchecksum" : 0xAB
 }
 
 statecolors = [
-     [0.165, 0.392, 0.4,1],  # 0
+     [0.255, 0.376, 0.459,1],  # 0
      [0.118, 0.369, 0.157,1], #1
      [0.643, 0.671, 0.122,1], #2
      [0.129, 0.2, 0.549,1], #3
      [ 0.216, 0.235, 0.341,1], #4
      [0.157, 0.388, 0.18,1], #5
      [0.29, 0.224, 0.09,1], #6
-     [0.188, 0.133, 0.133,1] #7
+     [0.188, 0.133, 0.133,1], #7
+     [0.137, 0.145, 0.149,1] #8
 ]
 
 statetext = [
@@ -51,7 +52,8 @@ statetext = [
      "Ballistic Descent", #4
      "Under Canopy", #5
      "Landed", #6
-     "No Connection to LYRA" # 7
+     "No Connection to LYRA", # 7
+     "Disconnected" # 8
 ]
 
 serialport = serial.Serial()
@@ -65,12 +67,27 @@ def getserialdata():
     while not quit:
         if serialport.isOpen():
              while serialport.inWaiting() > 0:
-                  reciveddata = serialport.readline()
-                  print(reciveddata)
-                  reciveddata = reciveddata.split(",")
-                  for i in range(0,len(reciveddata)):
-                       databuf[list(databuf)[i]] = int(reciveddata[i])
-
+                reciveddata = str(serialport.readline())
+                #print(reciveddata)
+                reciveddata = reciveddata.replace("b'","")
+                reciveddata = reciveddata.replace("'\\r\\n","")
+                #print(reciveddata)
+                reciveddata = reciveddata.split(",")
+                reciveddata[len(reciveddata)-1] = reciveddata[len(reciveddata)-1].replace("\\r\\n'","")
+                #print(reciveddata)
+                if reciveddata[0] != "CD" or reciveddata[len(reciveddata)-1] != "AB":
+                    print("badpacket")
+                    break
+                #print(reciveddata)
+                for i in range(1,len(reciveddata)-1):
+                    if databuf[list(databuf)[i]] != '':
+                        try:
+                            databuf[list(databuf)[i]] = float(reciveddata[i])
+                        except:
+                            print("bad num at index: " + str(i))
+                databuf["state"] = int(databuf["state"])
+        else:
+            databuf["state"] = 8
         time.sleep(0.001)
     
 
@@ -116,7 +133,7 @@ class MainWidget(BoxLayout):
     def startserial(self):
         port = self.ids.serialinput.text
         serialport.port = port
-        print("\t\t\t, trying to open serial")
+        print("\t\t\t trying to open serial")
         try:
             serialport.open()
             self.ids.serialbutton.text = "Connect to Serial \nOpened Port\n" + port
