@@ -42,7 +42,7 @@ Adafruit_BMP3XX bmp;
 #define PYRO1 PB11
 #define PYRO2 PB10
 
-// definge colors to numbers for ease of use
+// define colors to numbers for ease of use
 #define RED 0
 #define GREEN 1
 #define BLUE 2
