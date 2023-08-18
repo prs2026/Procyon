@@ -5,9 +5,9 @@
 
 #include <Wire.h>
 
-#define REDLED PB9
-#define GREENLED PB8
-#define BLUELED PB7
+#define REDLED PB8
+#define GREENLED PB7
+#define BLUELED PB9
 
 #define BUZZERPIN PA0
 
@@ -119,44 +119,6 @@ int16_t bytearraytoint16(uint8_t *array){
   return value;
 }
 
-void scani2c(TwoWire Wire,HardwareSerial Seria){
-    byte error, address;
-    int nDevices;
- 
-    Seria.println("Scanning...");
- 
-  nDevices = 0;
-  for(address = 1; address < 127; address++ )
-  {
-    // The i2c_scanner uses the return value of
-    // the Write.endTransmisstion to see if
-    // a device did acknowledge to the address.
-    Wire.beginTransmission(address);
-    error = Wire.endTransmission();
- 
-    if (error == 0)
-    {
-      Seria.print("I2C device found at address 0x");
-      if (address<16)
-        Seria.print("0");
-      Seria.print(address,HEX);
-      Seria.println("  !");
- 
-      nDevices++;
-    }
-    else if (error==4)
-    {
-      Seria.print("Unknown error at address 0x");
-      if (address<16)
-        Seria.print("0");
-      Seria.println(address,HEX);
-    }    
-  }
-  if (nDevices == 0)
-    Seria.println("No I2C devices found\n");
-  else
-    Seria.println("done\n");
-}
 
 
 void setled(int color){
@@ -170,26 +132,26 @@ void setled(int color){
   
   case 1:
     digitalWrite(REDLED,LOW);
-    digitalWrite(GREENLED,HIGH);
+    digitalWrite(GREENLED,LOW);
     digitalWrite(BLUELED,LOW);
     break;
   
   case 2:
-    digitalWrite(REDLED,LOW);
-    digitalWrite(GREENLED,LOW);
-    digitalWrite(BLUELED,HIGH);
+    digitalWrite(REDLED,HIGH );
+    digitalWrite(GREENLED,HIGH );
+    digitalWrite(BLUELED,LOW);
     break;
   
   case 3:
     digitalWrite(REDLED,HIGH);
-    digitalWrite(GREENLED,HIGH);
-    digitalWrite(BLUELED,LOW);
+    digitalWrite(GREENLED,LOW);
+    digitalWrite(BLUELED,HIGH );
     break;
   
   case 4:
-    digitalWrite(REDLED,HIGH);
-    digitalWrite(GREENLED,LOW);
-    digitalWrite(BLUELED,HIGH);
+    digitalWrite(REDLED,LOW);
+    digitalWrite(GREENLED,HIGH );
+    digitalWrite(BLUELED,LOW);
     break;
   
   default:
