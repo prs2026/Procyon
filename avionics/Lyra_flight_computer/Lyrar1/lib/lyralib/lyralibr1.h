@@ -53,6 +53,11 @@
 
 #define FLASHSTARTADDRESS 0x10FFF
 
+#define STARTINGCHECKSUM1 0xAB
+#define STARTINGCHECKSUM2 0xCD
+
+#define ENDINGCHECKSUM1 0x12
+#define ENDINGCHECKSUM2 0x34
 
 struct intervals
 {
@@ -63,31 +68,15 @@ struct intervals
   unsigned long beep;
 };
 
-union accelgyrobmp
-{
-  struct {
-  int32_t accel_x; //0
-  int32_t accel_y; //1
-  int32_t accel_z; //2
-  int32_t gyro_x; //3
-  int32_t gyro_y; //4
-  int32_t gyro_z; //5
-  int32_t yaw; //6
-  int32_t pitch; //7
-  int32_t roll; //8
-  int32_t pressure; // 9
-  int32_t altitude; //10
-  int32_t verticalvel; //11
-  int32_t appogee; //12
-  uint64_t uptime; //13
-  uint32_t errorflag; //14
-  uint16_t bmptemp; // 15
-  uint16_t imutemp; // 16
-  uint8_t state; // 17
+union Vector3{
+  struct{
+    int32_t x;
+    int32_t y;
+    int32_t z;
   } readable;
-  uint8_t data[sizeof(readable)]; // = 13 *4  + 3*2 + 1 *1 = 59
-                                 //    int32   int16  int8
+  int32_t data[sizeof(readable)];
 };
+
 
 
 void int32tobytearray(int32_t value,uint8_t *buf){

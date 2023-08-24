@@ -26,6 +26,12 @@ SPIFlash flash(FLASHCS,0xEF16);
 
 RF24 radio(CSBRKOUT,PC14);
 
+Vector3 acceldata,gyrodata,orientationeuler;
+
+uint8_t state;
+
+uint16_t errorflag;
+
 void configpins(){
   pinMode(BUZZERPIN,OUTPUT);
   pinMode(REDLED,OUTPUT);
@@ -79,6 +85,38 @@ void scani2c(){
     Seria.println("done\n");
 }
 
+int initflash(){
+  Seria.println("initing flash");
+  digitalWrite(FLASHCS,LOW);
+  Seria.println(SPI.transfer(0x9F),HEX);
+  Seria.println(SPI.transfer(0x00),HEX);
+  Seria.println(SPI.transfer(0x00),HEX);
+  digitalWrite(FLASHCS,HIGH);
+}
+
+int logdata(){
+  uint8_t datasize = sizeof(millis()) + (sizeof(Vector3)*3) + sizeof(errorflag) + sizeof(state);
+                  //       uptime         accel,gyro,euler           errorflag,         state
+  uint8_t datatolog[datasize];
+  uint16_t index = 2;
+  datatolog[index] = STARTINGCHECKSUM1;
+  datatolog[index] = STARTINGCHECKSUM2;
+  uint8_t databuf[4];
+  int32tobytearray(millis(),databuf);
+  datatolog[index] = databuf[0];
+  datatolog[index+1] = databuf[1];
+  datatolog[index+2] = databuf[2];
+  datatolog[index+3] = databuf[3];
+  index += 4;
+  
+
+
+  for (int i = 0; i < datasize; i++)
+  {
+    Seria.println(datatolog[i]);
+  }
+  
+}
 
 void setup() {
   // put your setup code here, to run once:
@@ -87,6 +125,13 @@ void setup() {
   Wire.setSCL(PB10);
   Wire.setSDA(PB11);
   Wire.setClock(100000);
+
+  SPI.setMISO(MISO);
+  SPI.setMOSI(MOSI);
+  SPI.setSCLK(SCK);
+  SPI.begin();
+
+  initflash();
 
   Wire.begin();
   Seria.println("scanning i2c");
