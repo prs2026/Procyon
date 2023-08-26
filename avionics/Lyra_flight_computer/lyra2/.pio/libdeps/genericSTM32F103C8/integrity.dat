@@ -1,0 +1,7 @@
+bolderflight/Bolder Flight Systems BMI088@^1.0.1
+lowpowerlab/SPIFlash@^101.1.3
+Wire @ ^1.0.0
+SPI @ ^1.0.0
+SD @ ^1.0.0
+adafruit/Adafruit BMP3XX Library@^2.1.2
+nrf24/RF24@^1.4.7
