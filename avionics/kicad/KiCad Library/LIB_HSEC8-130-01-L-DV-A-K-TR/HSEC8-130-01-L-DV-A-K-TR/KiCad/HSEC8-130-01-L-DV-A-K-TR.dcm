@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP HSEC8-130-01-L-DV-A-K-TR
+D 60 Position, 0.80 mm High-Speed Edge Card Connector, Vertical
+K
+F http://suddendocs.samtec.com/prints/hsec8-1xxx-xx-xx-dv-x-xx-mkt.pdf
+$ENDCMP
+#
+#End Doc Library

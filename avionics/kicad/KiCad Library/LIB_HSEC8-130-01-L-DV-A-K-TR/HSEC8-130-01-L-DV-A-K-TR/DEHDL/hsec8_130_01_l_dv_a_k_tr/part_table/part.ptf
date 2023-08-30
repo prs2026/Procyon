@@ -1,0 +1,11 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'HSEC8_130_01_L_DV_A_K_TR'
+CLASS = IO
+{========================================================================================}
+:"MANUFACTURER_NAME", "MANUFACTURER_PART_NUMBER"= "PART_NUMBER", "JEDEC_TYPE", "PACK_TYPE", "MOUSER_PART_NUMBER", "MOUSER_PRICE/STOCK", "ARROW_PART_NUMBER", "ARROW_PRICE/STOCK", "DESCRIPTION", "DATASHEET";
+{========================================================================================}
+ "SAMTEC", "HSEC8-130-01-L-DV-A-K-TR" (!) = "", "HSEC8-130-01-XX-DV-A-K-TR", "Other", "200-HSEC813001LDVAKT", "https://www.mouser.co.uk/ProductDetail/Samtec/HSEC8-130-01-L-DV-A-K-TR?qs=PB6%2FjmICvI3yluBv%252Bp5RQQ%3D%3D", "HSEC8-130-01-L-DV-A-K-TR", "https://www.arrow.com/en/products/hsec8-130-01-l-dv-a-k-tr/samtec?region=europe", "60 Position, 0.80 mm High-Speed Edge Card Connector, Vertical", "http://suddendocs.samtec.com/prints/hsec8-1xxx-xx-xx-dv-x-xx-mkt.pdf"
+END_PART
+
+END.

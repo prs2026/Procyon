@@ -1,0 +1,406 @@
+PCBNEW-LibModule-V1  2023-08-28 00:04:44
+# encoding utf-8
+Units mm
+$INDEX
+HSEC8-130-01-XX-DV-A-K-TR
+$EndINDEX
+$MODULE HSEC8-130-01-XX-DV-A-K-TR
+Po 0 0 0 15 64ebd68c 00000000 ~~
+Li HSEC8-130-01-XX-DV-A-K-TR
+Cd HSEC8-130-01-XX-DV-A-K-TR
+Kw Connector
+Sc 0
+At STD
+AR 
+Op 0 0 0
+T0 0 0 1.27 1.27 0 0.254 N V 21 N "J**"
+T1 0 0 1.27 1.27 0 0.254 N I 21 N "HSEC8-130-01-XX-DV-A-K-TR"
+DS -14.3 -3.5 14.3 -3.5 0.2 24
+DS 14.3 -3.5 14.3 3.5 0.2 24
+DS 14.3 3.5 -14.3 3.5 0.2 24
+DS -14.3 3.5 -14.3 -3.5 0.2 24
+DS -14.3 -3.5 14.3 -3.5 0.1 21
+DS 14.3 -3.5 14.3 3.5 0.1 21
+DS 14.3 3.5 -14.3 3.5 0.1 21
+DS -14.3 3.5 -14.3 -3.5 0.1 21
+DS -15.5 -4.7 15.5 -4.7 0.05 24
+DS 15.5 -4.7 15.5 5 0.05 24
+DS 15.5 5 -15.5 5 0.05 24
+DS -15.5 5 -15.5 -4.7 0.05 24
+DC -11.6 3.9 -11.65 3.9 0.254 21
+$PAD
+Po -11.6 1.7
+Sh "1" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po -11.6 -1.7
+Sh "2" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po -10.8 1.7
+Sh "3" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po -10.8 -1.7
+Sh "4" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po -10 1.7
+Sh "5" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po -10 -1.7
+Sh "6" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po -9.2 1.7
+Sh "7" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po -9.2 -1.7
+Sh "8" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po -8.4 1.7
+Sh "9" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po -8.4 -1.7
+Sh "10" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po -7.6 1.7
+Sh "11" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po -7.6 -1.7
+Sh "12" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po -6.8 1.7
+Sh "13" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po -6.8 -1.7
+Sh "14" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po -6 1.7
+Sh "15" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po -6 -1.7
+Sh "16" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po -5.2 1.7
+Sh "17" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po -5.2 -1.7
+Sh "18" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po -4.4 1.7
+Sh "19" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po -4.4 -1.7
+Sh "20" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po -3.6 1.7
+Sh "21" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po -3.6 -1.7
+Sh "22" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po -2.8 1.7
+Sh "23" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po -2.8 -1.7
+Sh "24" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po -2 1.7
+Sh "25" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po -2 -1.7
+Sh "26" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po -1.2 1.7
+Sh "27" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po -1.2 -1.7
+Sh "28" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po -0.4 1.7
+Sh "29" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po -0.4 -1.7
+Sh "30" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po 0.4 1.7
+Sh "31" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po 0.4 -1.7
+Sh "32" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po 1.2 1.7
+Sh "33" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po 1.2 -1.7
+Sh "34" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po 2 1.7
+Sh "35" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po 2 -1.7
+Sh "36" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po 2.8 1.7
+Sh "37" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po 2.8 -1.7
+Sh "38" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po 3.6 1.7
+Sh "39" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po 3.6 -1.7
+Sh "40" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po 4.4 1.7
+Sh "41" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po 4.4 -1.7
+Sh "42" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po 5.2 1.7
+Sh "43" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po 5.2 -1.7
+Sh "44" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po 6 1.7
+Sh "45" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po 6 -1.7
+Sh "46" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po 6.8 1.7
+Sh "47" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po 6.8 -1.7
+Sh "48" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po 7.6 1.7
+Sh "49" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po 7.6 -1.7
+Sh "50" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po 8.4 1.7
+Sh "51" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po 8.4 -1.7
+Sh "52" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po 9.2 1.7
+Sh "53" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po 9.2 -1.7
+Sh "54" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po 10 1.7
+Sh "55" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po 10 -1.7
+Sh "56" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po 10.8 1.7
+Sh "57" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po 10.8 -1.7
+Sh "58" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po 11.6 1.7
+Sh "59" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po 11.6 -1.7
+Sh "60" R 0.5 1.2 0 0 0
+At SMD N 00888000
+Ne 0 ""
+$EndPAD
+$PAD
+Po -13.1 1.5
+Sh "61" C 0.675 0.675 0 0 900
+Dr 1.35 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+$EndPAD
+$PAD
+Po 13.1 0
+Sh "62" C 0.675 0.675 0 0 900
+Dr 1.35 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+$EndPAD
+$EndMODULE HSEC8-130-01-XX-DV-A-K-TR
+$EndLIBRARY

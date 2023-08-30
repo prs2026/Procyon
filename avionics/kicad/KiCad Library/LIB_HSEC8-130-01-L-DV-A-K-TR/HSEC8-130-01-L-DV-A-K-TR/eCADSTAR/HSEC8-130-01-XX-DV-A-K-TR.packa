@@ -1,0 +1,13 @@
+(unit MM)
+
+(package "HSEC8-130-01-L-DV-A-K-TR"
+    (type UNDEF)
+    (uver 2)
+    (cuser "SamacSys")
+    (uuser "SamacSys")
+    (utime 2020-06-27-10:03:28)
+    (mountForm default
+        (footprintRef "HSEC8-130-01-XX-DV-A-K-TR")
+        (spec "System")
+    )
+)

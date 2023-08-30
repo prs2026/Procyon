@@ -1,0 +1,11 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART '10018784_10200TLF'
+CLASS = IO
+{========================================================================================}
+:"MANUFACTURER_NAME", "MANUFACTURER_PART_NUMBER"= "PART_NUMBER", "JEDEC_TYPE", "PACK_TYPE", "MOUSER_PART_NUMBER", "MOUSER_PRICE/STOCK", "DESCRIPTION", "DATASHEET", "HEIGHT";
+{========================================================================================}
+ "Amphenol", "10018784-10200TLF" (!) = "", "1001878410200TLF", "Other", "649-1001878410200TLF", "https://www.mouser.co.uk/ProductDetail/Amphenol-FCI/10018784-10200TLF?qs=V%252BXmToedwohpuEZkyOHzaQ%3D%3D", "PCI Express / PCI Connectors 36P CARD EDGE ASSM VERTICAL", "https://www.mouser.in/datasheet/2/18/10018784-1228695.pdf", "11.25 mm"
+END_PART
+
+END.

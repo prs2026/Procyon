@@ -1,0 +1,10 @@
+(unit MM)
+
+(package "HSEC8-130-01-XX-DV-A-K-TR"
+    (type UNDEF)
+    (uver 2)
+    (mountForm default
+        (footprintRef "HSEC8-130-01-XX-DV-A-K-TR")
+        (spec "default")
+    )
+)
