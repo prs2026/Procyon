@@ -1,10 +1,10 @@
 #include <Arduino.h>
 #include <quats.h>
 #include "generallib.h"
+#include <Wire.h>
+#include <Lyrav2sensors.h>
 
-
-
-
+TwoWire i2c(I2C1_SDA,I2C1_SCL);
 
 Quaternion base(1,0,0,0);
 Quaternion base2(0,1,0,0);
@@ -45,21 +45,9 @@ void setup() {
   digitalWrite(LEDBLUE, HIGH);
   Serial.begin(115200);
   Serial.println("\n\nrestart");
-  /*
-  basetonorm.normalize();
-  
-  Quaternion addedquat = base+base2;
-  Quaternion multedquat = base*basetonorm;
-  Quaternion scalarmult = base*4;
-  Quaternion rotatedquat = rotate(base,base2,45);
-  */
-  //printquat(base2);
-  //printquat(basetonorm);
-  //printquat(addedquat);
-  //printquat(multedquat);
-  //printquat(scalarmult);
-  //printquat(rotatedquat);
-  
+
+  scani2c(i2c);
+
 }
 
 void loop() {

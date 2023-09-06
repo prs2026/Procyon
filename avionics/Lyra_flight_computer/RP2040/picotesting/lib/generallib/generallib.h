@@ -9,6 +9,7 @@
 
 #define BUZZERPIN 5
 
-
+#define I2C1_SDA 22
+#define I2C1_SCL 23
 
 #endif // GENERALLIB
