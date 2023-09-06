@@ -23,53 +23,80 @@ class Quaternion // class containing the quaternion values as well as various fu
 {
     public:
 
-        int32_t w,x,y,z; 
-        Quaternion(float ww, float xx, float yy, float zz){
-            w = ww*10000;
-            x = xx*10000;
-            y = yy*10000;
-            z = zz*10000;
+        float w,x,y,z; 
+        Quaternion(float _w, float _x, float _y, float _z){
+            w = _w;
+            x = _x;
+            y = _y;
+            z = _z;
         }
 
         Quaternion(){
 
         }
 
+        float magnitude(){
+            float d = (sqrt(pow(w,2)+pow(x,2)+pow(y,2)+pow(z,2)));
+            return d;
+        }
+
         void normalize(){
-            float d = (sqrt(pow(w,2)+pow(x,2)+pow(y,2)+pow(z,2)))/10000;
+            float d = (sqrt(pow(w,2)+pow(x,2)+pow(y,2)+pow(z,2)));
             w /= d;
             x /= d;
             y /= d;
             z /= d;
         }
 
-        void setquat(int aa,int ii,int jj,int kk){
-            w = aa;
-            x = ii;
-            y = jj;
-            z = kk;
+        void setquat(int _a,int _i,int _j,int _k){
+            w = _a;
+            x = _i;
+            y = _j;
+            z = _k;
         }
-
 
         
 
+        Quaternion operator+(const Quaternion& q2){
+            Quaternion result;
+            result.w = w + q2.w;
+            result.x = x + q2.x;
+            result.y = y + q2.y;
+            result.z = z + q2.z;
+            return result;
+        }
 
+        Quaternion operator*(const Quaternion& q2){
+            Quaternion result;
+            result.w = (-x * q2.x - y * q2.y - z * q2.z + w * q2.w);
+            result.x = ( x * q2.w + y * q2.z - z * q2.y + w * q2.x);
+            result.y = (-x * q2.z + y * q2.w + z * q2.x + w * q2.y);
+            result.z = ( x * q2.y - y * q2.x + z * q2.w + w * q2.z);
+            return result;
+        }
+
+        Quaternion operator*(const float s){
+            Quaternion result;
+            result.w = (w*s);
+            result.x = (x*s);
+            result.y = (y*s);
+            result.z = (z*s);
+            return result;
+        }
+
+        Quaternion conjugate(){
+            Quaternion result;
+            result.x = -x;
+            result.y = -y;
+            result.z = -z;
+            return result;
+        }
+
+        
 };
 
 
-Quaternion addquat(Quaternion q1, Quaternion q2){
-    Quaternion result;
-    result.w = q1.w + q2.w;
-    result.x = q1.x + q2.x;
-    result.y = q1.y + q2.y;
-    result.z = q1.z + q2.z;
-    return result;
-}
 
-Quaternion multquat(Quaternion q1, Quaternion q2){
-    Quaternion result;
-    return result;
-}
 
 
 #endif // quats
