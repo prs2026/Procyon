@@ -1,11 +1,10 @@
 #include <Arduino.h>
 #include <quats.h>
+#include "generallib.h"
 
 
 
-#define LEDRED 9
-#define LEDGREEN 10
-#define LEDBLUE 11
+
 
 Quaternion base(1,0,0,0);
 Quaternion base2(0,1,0,0);
@@ -14,7 +13,7 @@ Quaternion basetonorm(0,1,1,0);
 void printquat(Quaternion q1){
     char result[65];
     sprintf(result,"w = %d.%d,x = %d.%di, y = %d.%dj, z = %d.%dk",int(q1.w*1000)/1000,int(q1.w*1000)%1000,int(q1.x*1000)/1000,int(q1.x*1000)%1000,int(q1.y*1000)/1000,int(q1.y*1000)%1000,int(q1.z*1000)/1000,int(q1.z*1000)%1000);
-    Serial1.println(result);
+    Serial.println(result);
 }
 
 Quaternion rotate(Quaternion torotate, Quaternion axis,float theta){ // rotate torotate quaterion around quaterion axis by theta
@@ -27,7 +26,7 @@ Quaternion rotate(Quaternion torotate, Quaternion axis,float theta){ // rotate t
     q.y = axis.y*sin(theta);
     q.z = axis.z*sin(theta);
 
-    Serial1.println("quaternion to rotate by");
+    Serial.println("quaternion to rotate by");
     printquat(q);
     // rotate the original quaternion by the rotatino quaternion
     Quaternion _q = q.conjugate();
@@ -40,13 +39,15 @@ void setup() {
   pinMode(LEDRED,OUTPUT);
   pinMode(LEDGREEN,OUTPUT);
   pinMode(LEDBLUE,OUTPUT);
+
   digitalWrite(LEDRED, LOW);
   digitalWrite(LEDGREEN, HIGH);
   digitalWrite(LEDBLUE, HIGH);
-  Serial1.begin(115200);
-  Serial1.println("\n\nrestart");
-  basetonorm.normalize();
+  Serial.begin(115200);
+  Serial.println("\n\nrestart");
   /*
+  basetonorm.normalize();
+  
   Quaternion addedquat = base+base2;
   Quaternion multedquat = base*basetonorm;
   Quaternion scalarmult = base*4;
@@ -62,12 +63,13 @@ void setup() {
 }
 
 void loop() {
+  
   digitalWrite(LEDRED,LOW);
   delay(1000);
   digitalWrite(LEDRED,HIGH);
   delay(1000);
-  Serial1.println("loop");
-
+  Serial.println("loop");
+  
   
   // put your main code here, to run repeatedly:
 }
