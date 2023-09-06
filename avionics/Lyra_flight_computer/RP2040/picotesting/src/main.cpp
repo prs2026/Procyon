@@ -4,11 +4,15 @@
 #include <Wire.h>
 #include <Lyrav2sensors.h>
 
-TwoWire i2c(I2C1_SDA,I2C1_SCL);
-
 Quaternion base(1,0,0,0);
 Quaternion base2(0,1,0,0);
 Quaternion basetonorm(0,1,1,0);
+
+
+#define PICO_DEFAULT_I2C_SCL_PIN I2C1_SCL
+#define PICO_DEFAULT_I2C_SDA_PIN I2C1_SCL
+
+
 
 void printquat(Quaternion q1){
     char result[65];
@@ -39,11 +43,18 @@ void setup() {
   pinMode(LEDRED,OUTPUT);
   pinMode(LEDGREEN,OUTPUT);
   pinMode(LEDBLUE,OUTPUT);
-
+  
   digitalWrite(LEDRED, LOW);
   digitalWrite(LEDGREEN, HIGH);
   digitalWrite(LEDBLUE, HIGH);
   Serial.begin(115200);
+  while (!Serial)
+  {
+    delay(100);
+  }
+
+  Wire1.begin();
+  
   Serial.println("\n\nrestart");
 
   scani2c(i2c);
