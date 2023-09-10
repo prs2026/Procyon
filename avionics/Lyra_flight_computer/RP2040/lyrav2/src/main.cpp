@@ -15,6 +15,8 @@ void setup() { // main core setup
 
     MP.handshake();
 
+    MP.initsd();
+
     MP.setled(GREEN);
 
 
@@ -24,6 +26,7 @@ void setup() { // main core setup
 void setup1() { // nav core setup
     NAV.handshake();
     NAV.initi2c();
+    NAV.sensorinit();
 }
 
 void loop() { // main core loop

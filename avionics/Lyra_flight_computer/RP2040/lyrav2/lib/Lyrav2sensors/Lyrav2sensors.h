@@ -2,6 +2,68 @@
 #define Lyrav2sensors
 #include <Arduino.h>
 #include <Wire.h>
+#include <BMI088.h>
+#include <Adafruit_Sensor.h>
+#include <Adafruit_BMP3XX.h>
+#include <Adafruit_LIS3MDL.h>
+
+
+/* accel object */
+Bmi088Accel accel(Wire1,0x18);
+/* gyro object */
+Bmi088Gyro gyro(Wire1,0x68);
+
+Adafruit_BMP3XX bmp;
+Adafruit_LIS3MDL mdl;
+
+int IMUinit(){
+    int status;
+    status = accel.begin();
+
+    if (status < 0 )
+    {
+        Serial.print("accel init failure, error code: ");
+        Serial.println(status);
+        return 1;
+    }
+
+    accel.setRange(accel.RANGE_24G);
+    
+
+    status = gyro.begin();
+    if (status < 0 )
+    {
+        Serial.print("gyro init failure, error code: ");
+        Serial.println(status);
+        return 2;
+    }
+    Serial.println("IMU init success");
+    return 0;
+}
+
+int baroinit(){
+    if (!bmp.begin_I2C(0x76,&Wire1))
+    {
+        Serial.println("BMP init failure");
+        return 1;
+    }
+    Serial.println("BMP init success");
+    return 0;
+}
+
+int maginit(){
+    if (!mdl.begin_I2C(0x1C,&Wire1))
+    {
+        Serial.println("MAG init fail");
+        return 1;
+    }
+
+
+
+    Serial.println("MAG init success");
+    return 0;
+}
+
 
 
 uint8_t scani2c(){
