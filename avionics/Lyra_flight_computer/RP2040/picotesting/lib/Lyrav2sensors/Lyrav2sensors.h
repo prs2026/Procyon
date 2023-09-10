@@ -36,6 +36,7 @@ uint8_t scani2c(TwoWire i2ctoscan){
             Serial.print("0");
         Serial.println(address,HEX);
         }    
+        Serial.print("loop");
     }
     if (nDevices == 0)
         Serial.println("No I2C devices found\n");
