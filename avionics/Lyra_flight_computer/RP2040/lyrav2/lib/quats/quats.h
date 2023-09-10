@@ -106,7 +106,7 @@ Quaternion rotate(Quaternion torotate, Quaternion axis,float theta){ // rotate t
     q.z = axis.z*sin(theta);
 
     //Serial.println("quaternion to rotate by");
-    printquat(q);
+    //printquat(q);
     // rotate the original quaternion by the rotatino quaternion
     Quaternion _q = q.conjugate();
     result = (q*torotate)*_q;

@@ -6,6 +6,11 @@
 
 TwoWire i2c(I2C1_SDA,I2C1_SCL);
 
+MPCORE MP;
+
+NAVCORE NAV;
+
+
 Quaternion base(1,0,0,0);
 Quaternion base2(0,1,0,0);
 Quaternion basetonorm(0,1,1,0);
@@ -16,37 +21,22 @@ void printquat(Quaternion q1){
     Serial.println(result);
 }
 
-Quaternion rotate(Quaternion torotate, Quaternion axis,float theta){ // rotate torotate quaterion around quaterion axis by theta
-    theta = radians(theta)/2;
-    // construct the rotation quaternion from the input axis and theta values
-    Quaternion result;
-    Quaternion q(1,0,0,0);
-    q.w = cos(theta);
-    q.x = axis.x*sin(theta);
-    q.y = axis.y*sin(theta);
-    q.z = axis.z*sin(theta);
 
-    Serial.println("quaternion to rotate by");
-    printquat(q);
-    // rotate the original quaternion by the rotatino quaternion
-    Quaternion _q = q.conjugate();
-    result = (q*torotate)*_q;
-    return result;
-}
 
 void setup() {
+  MP.setuppins();
+  MP.beep();
   // put your setup code here, to run once:
-  pinMode(LEDRED,OUTPUT);
-  pinMode(LEDGREEN,OUTPUT);
-  pinMode(LEDBLUE,OUTPUT);
+  
 
-  digitalWrite(LEDRED, LOW);
-  digitalWrite(LEDGREEN, HIGH);
-  digitalWrite(LEDBLUE, HIGH);
-  Serial.begin(115200);
-  Serial.println("\n\nrestart");
+  i2c.begin();
+  
 
   scani2c(i2c);
+
+}
+
+void setup1(){
 
 }
 
@@ -60,4 +50,10 @@ void loop() {
   
   
   // put your main code here, to run repeatedly:
+}
+
+
+
+void loop1(){
+
 }
