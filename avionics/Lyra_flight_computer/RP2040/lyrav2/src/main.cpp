@@ -23,7 +23,7 @@ void setup() { // main core setup
 
 void setup1() { // nav core setup
     NAV.handshake();
-    scani2c();
+    NAV.initi2c();
 }
 
 void loop() { // main core loop

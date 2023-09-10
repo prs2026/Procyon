@@ -227,8 +227,6 @@ class MPCORE{
 };
 
 
-MPCORE m;
-
 class NAVCORE{
     
     
@@ -270,10 +268,11 @@ class NAVCORE{
         int initi2c(){
             Wire1.setSCL(SCL);
             Wire1.setSDA(SDA);
+            Wire1.setClock(10000);
             Wire1.begin();
             scani2c();
             return 0;
         }
-}
+};
 
 #endif // GENERALLIB
