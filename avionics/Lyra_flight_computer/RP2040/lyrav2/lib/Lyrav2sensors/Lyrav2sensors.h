@@ -8,11 +8,6 @@ uint8_t scani2c(){
     byte error, address;
     int nDevices;
     Serial.print("Scanning..");
-    Serial.println("..");
-    Wire1.setSCL(I2C1_SCL);
-    Wire1.setSDA(I2C1_SDA);
-    Wire1.begin();
-    Serial.println("I2C init");
     
     nDevices = 0;
     for(address = 1; address < 127; address++ )

@@ -1,11 +1,9 @@
 #include <Arduino.h>
 #include <quats.h>
-#include <generallib.h>
-#include <Lyrav2sensors.h>
+#include "generallib.h"
 
 MPCORE MP;
 NAVCORE NAV;
-
 
 
 

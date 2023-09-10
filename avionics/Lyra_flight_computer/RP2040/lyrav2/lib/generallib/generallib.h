@@ -3,6 +3,7 @@
 #include <Arduino.h>
 #include "pico/stdlib.h"
 #include "pico/multicore.h"
+#include "Lyrav2sensors.h"
 
 #define LEDRED 11
 #define LEDGREEN 10
@@ -24,8 +25,8 @@
 #define BATT_SENSE 29
 
 
-#define I2C1_SDA 22
-#define I2C1_SCL 23
+#define SDA 22
+#define SCL 23
 
 #define MAG_DRDY 8
 #define MAG_INT 24
@@ -225,6 +226,9 @@ class MPCORE{
 
 };
 
+
+MPCORE m;
+
 class NAVCORE{
     
     
@@ -263,10 +267,13 @@ class NAVCORE{
             return 0;
         }
 
-        
-
-
-
-};
+        int initi2c(){
+            Wire1.setSCL(SCL);
+            Wire1.setSDA(SDA);
+            Wire1.begin();
+            scani2c();
+            return 0;
+        }
+}
 
 #endif // GENERALLIB
