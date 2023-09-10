@@ -19,11 +19,13 @@ void setup() { // main core setup
 
     MP.setled(GREEN);
 
+
     MP.beep();
 }
 
 void setup1() { // nav core setup
     NAV.handshake();
+    scani2c();
 }
 
 void loop() { // main core loop

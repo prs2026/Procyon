@@ -132,7 +132,7 @@ class MPCORE{
             navpacket recivedpacket;
             if (rp2040.fifo.available() <= 0)
             {
-                return;
+                return recivedpacket;
             }
             for (int i = 0; i < sizeof(recivedpacket.data)/sizeof(recivedpacket.data[0]); i++)
             {
@@ -144,30 +144,41 @@ class MPCORE{
 
         int handshake(){
             uint32_t data;
-            if (waitfornextfifo(1000) == 1)
+            int connectiontries = 0;
+            while (connectiontries <= 3)
             {
-                return 1;
-                Serial.println("NAV core timeout");
-            }
+            
+                if (waitfornextfifo(1000) == 1)
+                {
+                    Serial.println("NAV core timeout");
+                    rp2040.restartCore1();
+                    connectiontries++;
+                    break;
+                }
 
-            rp2040.fifo.pop_nb(&data);
-            if (!rp2040.fifo.push_nb(0xAB))
-            {
-                Serial.println("unable to push to fifo");
-                return 2;
+                rp2040.fifo.pop_nb(&data);
+                if (!rp2040.fifo.push_nb(0xAB))
+                {
+                    Serial.println("unable to push to fifo");
+                    break;
+                }
+                
+                waitfornextfifo(500);
+                rp2040.fifo.pop_nb(&data);
+                if(data != 0xCD)
+                {
+                    Serial.print("NAV Handshake Failed: expected 0xCD, got 0x");
+                    Serial.println(data,HEX);
+                    rp2040.restartCore1();
+                    connectiontries++;
+                    break;
+                }
+                rp2040.fifo.push_nb(0xEF);
+                Serial.println("NAV Handshake complete");
+                return 0;
             }
-            
-            
-            waitfornextfifo(500);
-            rp2040.fifo.pop_nb(&data);
-            if(data != 0xCD)
-            {
-                Serial.print("NAV Handshake Failed: expected 0xCD, got 0x");
-                Serial.println(data,HEX);
-                return 3;
-            }
-            Serial.print("NAV Handshake complete");
-            return 0;
+            Serial.println("NAV Handshake failed");
+            return 1;
         }
 
         void serialinit(){
@@ -225,6 +236,11 @@ class NAVCORE{
             for (int i = 0; i < sizeof(datatosend.data)/sizeof(datatosend.data[0]); i++)
             {
                 bool error = rp2040.fifo.push_nb(datatosend.data[i]);
+                if (error == true)
+                {
+                    return 1;
+                }
+                
             }
             
             return 0;
@@ -240,6 +256,7 @@ class NAVCORE{
                 return 1;
             }
             rp2040.fifo.push_nb(0xCD);
+            rp2040.fifo.pop();
             navpacket handshakepacket;
             handshakepacket.r.errorflag = 1;
 

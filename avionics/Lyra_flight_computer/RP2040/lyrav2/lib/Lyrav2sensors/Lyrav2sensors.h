@@ -4,11 +4,15 @@
 #include <Wire.h>
 
 
-uint8_t scani2c(TwoWire i2ctoscan){
+uint8_t scani2c(){
     byte error, address;
     int nDevices;
-    
-    Serial.println("Scanning...");
+    Serial.print("Scanning..");
+    Serial.println("..");
+    Wire1.setSCL(I2C1_SCL);
+    Wire1.setSDA(I2C1_SDA);
+    Wire1.begin();
+    Serial.println("I2C init");
     
     nDevices = 0;
     for(address = 1; address < 127; address++ )
@@ -16,9 +20,8 @@ uint8_t scani2c(TwoWire i2ctoscan){
         // The i2c_scanner uses the return value of
         // the Write.endTransmisstion to see if
         // a device did acknowledge to the address.
-        i2ctoscan.beginTransmission(address);
-        error = i2ctoscan.endTransmission();
-    
+        Wire1.beginTransmission(address);
+        error = Wire1.endTransmission();
         if (error == 0)
         {
         Serial.print("I2C device found at address 0x");
