@@ -8,7 +8,6 @@
 #include "SPI.h"
 #include "SD.h"
 
-Sd2Card card;
 File logfile;
 
 union navpacket
