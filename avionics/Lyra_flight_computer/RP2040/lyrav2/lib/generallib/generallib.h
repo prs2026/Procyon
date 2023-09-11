@@ -10,6 +10,10 @@
 
 File logfile;
 
+IMU imu;
+BARO baro;
+MAG mag;
+
 union navpacket
 {
     struct
@@ -24,9 +28,9 @@ union navpacket
 
 int waitfornextfifo(int timeoutmillis){
     uint32_t pushmillis = millis();
-    int currentavalible = rp2040.fifo.available();
-    while ((millis() - pushmillis) < timeoutmillis && rp2040.fifo.available() <= rp2040.fifo.available());
-    if (rp2040.fifo.available() >= currentavalible)
+    //int currentavalible = rp2040.fifo.available();
+    while ((millis() - pushmillis) < 1 && rp2040.fifo.available() <= rp2040.fifo.available());
+    if (rp2040.fifo.available() >= 1)
     {
         return 0;
     }
@@ -34,8 +38,7 @@ int waitfornextfifo(int timeoutmillis){
 }
 
 int waitfornextfifo(){
-    int currentavalible = rp2040.fifo.available();
-    while (rp2040.fifo.available() <= rp2040.fifo.available());
+    while (rp2040.fifo.available() < 1);
     return 0;
 }
 
@@ -53,6 +56,19 @@ class MPCORE{
 
     public:
         MPCORE(){};
+        uint32_t errorflag = 1;
+        /*
+            1 = no error
+            3 = handshake fail
+            5 = serial init failure
+            7 = sd init fail
+            11 = flash init fail
+            13 = no packet recived
+            17 = bad telemetry packet
+            19 = telemetry send fail
+            23 = bad telemetry packet
+        */
+
 
         void setuppins(){
             pinMode(LEDRED,OUTPUT);
@@ -132,6 +148,7 @@ class MPCORE{
                 return 0;
             }
             Serial.println("NAV Handshake failed");
+            errorflag*= 3;
             return 1;
         }
 
@@ -153,6 +170,7 @@ class MPCORE{
             if (!SD.begin(CS_SD))
             {
                 Serial.println("SD init failure, card not present or not working");
+                errorflag*=7;
                 return 1;
             }
             Serial.println("SD card init succeess");
@@ -164,6 +182,12 @@ class MPCORE{
         void setled(int color){
             switch (color)
             {
+            case OFF:
+                digitalWrite(LEDRED, HIGH);
+                digitalWrite(LEDGREEN, HIGH);
+                digitalWrite(LEDBLUE, HIGH);
+                break;
+
             case RED:
                 digitalWrite(LEDRED, LOW);
                 digitalWrite(LEDGREEN, HIGH);
@@ -196,6 +220,17 @@ class NAVCORE{
 
     public:
         NAVCORE(){};
+        uint32_t errorflag = 1; 
+        /*
+        1 = no errors
+        3 = failed handshake
+        5 = i2c devices fail
+        7 = accel init fail
+        11 = gyro init fail
+        13 = baro init fail
+        17 = mag init fail
+        19 = packet send fail
+        */
 
         int sendpacket(navpacket datatosend){
             for (int i = 0; i < sizeof(datatosend.data)/sizeof(datatosend.data[0]); i++)
@@ -218,6 +253,7 @@ class NAVCORE{
             if (data != 0xAB)
             {
                 rp2040.fifo.push_nb(data);
+                errorflag*3;
                 return 1;
             }
             rp2040.fifo.push_nb(0xCD);
@@ -233,15 +269,17 @@ class NAVCORE{
             Wire1.setSDA(SDA);
             Wire1.setClock(10000);
             Wire1.begin();
-            scani2c();
+            scani2c() ? errorflag*= 5 : errorflag *= 1;
             return 0;
         }
 
         uint32_t sensorinit(){
-            uint32_t errorflag;
-            IMUinit();
-            baroinit();
-            maginit();
+            int imustatus;
+            imustatus = imu.init();
+            imustatus == 1 ? errorflag *= 7 : errorflag *= 1;
+            imustatus == 2 ? errorflag *= 11 : errorflag *= 1;
+            baro.init() ? errorflag *= 13 : errorflag *= 1;
+            mag.init() ? errorflag *= 17 : errorflag *= 1;
             return 0;
         }
 };

@@ -47,12 +47,23 @@
 #define UART0_TX 16
 #define UART0_RX 17
 
-
+#define OFF 0
 #define RED 1
 #define GREEN 2
 #define BLUE 3
 
 
 #define HANDSHAKETIMEOUT 500;
+
+struct Vector3int32
+{
+    int32_t x;
+    int32_t y;
+    int32_t z;
+};
+
+
+
+
 
 #endif // MACROS
