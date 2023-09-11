@@ -65,14 +65,10 @@ uint8_t scani2c(){
 }
 
 class IMU{
-    
-
 
 public:
     IMU(){};
-    Vector3int32 accel;
-    Vector3int32 gyro;
-    int32_t temp;
+    IMUdata data;
 
     int init(){
         int status;
@@ -98,6 +94,39 @@ public:
             return 0;
         }
 
+    void readIMU(int oversampling = 10){
+        IMUdata _data;
+
+        for (int i = 0; i < oversampling; i++)
+        {
+            accelunit.readSensor();
+            gyrounit.readSensor();
+            _data.accel.x += (int32_t(accelunit.getAccelX_mss()*10000));
+            _data.accel.y += (int32_t(accelunit.getAccelY_mss()*10000));
+            _data.accel.z += (int32_t(accelunit.getAccelZ_mss()*10000));
+
+            _data.gyro.z += int32_t(gyrounit.getGyroX_rads()*10000);
+            _data.gyro.y += int32_t(gyrounit.getGyroY_rads()*10000);
+            _data.gyro.z += int32_t(gyrounit.getGyroZ_rads()*10000);
+            
+            delayMicroseconds(200);
+        }
+        _data.accel.x /= oversampling;
+        _data.accel.y /= oversampling;
+        _data.accel.z /= oversampling;
+
+        _data.gyro.z /= oversampling;
+        _data.gyro.y /= oversampling;
+        _data.gyro.z /= oversampling;
+
+        _data.temp = accelunit.getTemperature_C();
+
+        data = _data;
+
+        return;
+        
+    }
+
 };
 
 
@@ -106,6 +135,7 @@ class BARO
 
 public:
     BARO(){};
+    BAROdata data;
 
     int init(){
         if (!bmp.begin_I2C(0x76,&Wire1))
@@ -122,7 +152,7 @@ class MAG{
 
 public:
     MAG(){};
-
+    MAGdata data;
     int init(){
         if (!mdl.begin_I2C(0x1C,&Wire1))
         {

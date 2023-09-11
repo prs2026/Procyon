@@ -62,7 +62,22 @@ struct Vector3int32
     int32_t z;
 };
 
+struct IMUdata{
+    Vector3int32 accel;
+    Vector3int32 gyro;
+    int32_t temp;
+};
 
+struct BAROdata{
+    uint32_t pressure;
+    uint32_t altitude;
+    int32_t temp;
+};
+
+struct MAGdata{
+    Vector3int32 gauss;
+    Vector3int32 utesla;
+};
 
 
 

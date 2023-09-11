@@ -19,6 +19,15 @@ union navpacket
     struct
     {
         uint32_t errorflag;
+        uint32_t uptime;
+        uint32_t state;
+        IMUdata imudata;
+        BAROdata barodata;
+        MAGdata magdata;
+        Vector3int32 pos;
+        Vector3int32 orientation;
+        Vector3int32 vel;
+        Vector3int32 acceleration;
     } r;
     uint32_t data [sizeof(r)];
 };
@@ -231,7 +240,7 @@ class NAVCORE{
         17 = mag init fail
         19 = packet send fail
         */
-
+        
         int sendpacket(navpacket datatosend){
             for (int i = 0; i < sizeof(datatosend.data)/sizeof(datatosend.data[0]); i++)
             {
@@ -282,6 +291,8 @@ class NAVCORE{
             mag.init() ? errorflag *= 17 : errorflag *= 1;
             return 0;
         }
+
+
 };
 
 #endif // GENERALLIB
