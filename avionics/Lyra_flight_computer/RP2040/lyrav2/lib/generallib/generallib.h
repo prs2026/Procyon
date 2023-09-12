@@ -230,6 +230,7 @@ class NAVCORE{
     public:
         NAVCORE(){};
         uint32_t errorflag = 1; 
+        navpacket _sysstate;
         /*
         1 = no errors
         3 = failed handshake
@@ -240,7 +241,7 @@ class NAVCORE{
         17 = mag init fail
         19 = packet send fail
         */
-        
+
         int sendpacket(navpacket datatosend){
             for (int i = 0; i < sizeof(datatosend.data)/sizeof(datatosend.data[0]); i++)
             {
@@ -290,6 +291,14 @@ class NAVCORE{
             baro.init() ? errorflag *= 13 : errorflag *= 1;
             mag.init() ? errorflag *= 17 : errorflag *= 1;
             return 0;
+        }
+
+        void getsensordata(){
+            imu.readIMU();
+            baro.readsensor();
+
+            _sysstate.r.imudata = imu.data;
+            _sysstate.r.barodata = baro.data;
         }
 
 

@@ -20,7 +20,7 @@ Bmi088Gyro gyrounit(Wire1,0x68);
 Adafruit_BMP3XX bmp;
 Adafruit_LIS3MDL mdl;
 
-
+const float SEALEVELPRESSURE = 1015.4;
 
 
 uint8_t scani2c(){
@@ -105,9 +105,9 @@ public:
             _data.accel.y += (int32_t(accelunit.getAccelY_mss()*10000));
             _data.accel.z += (int32_t(accelunit.getAccelZ_mss()*10000));
 
-            _data.gyro.z += int32_t(gyrounit.getGyroX_rads()*10000);
-            _data.gyro.y += int32_t(gyrounit.getGyroY_rads()*10000);
-            _data.gyro.z += int32_t(gyrounit.getGyroZ_rads()*10000);
+            _data.gyro.z += int32_t((gyrounit.getGyroX_rads()/(180/PI))*10000);
+            _data.gyro.y += int32_t((gyrounit.getGyroY_rads()/(180/PI))*10000);
+            _data.gyro.z += int32_t((gyrounit.getGyroZ_rads()/(180/PI))*10000);
             
             delayMicroseconds(200);
         }
@@ -143,9 +143,17 @@ public:
             Serial.println("BMP init failure");
             return 1;
         }
+        bmp.setPressureOversampling(BMP3_OVERSAMPLING_8X);
         Serial.println("BMP init success");
     return 0;
-}
+    }
+    void readsensor(){
+        
+        data.altitude = bmp.readAltitude(SEALEVELPRESSURE)*10000;
+
+        
+    }
+
 };
 
 class MAG{
