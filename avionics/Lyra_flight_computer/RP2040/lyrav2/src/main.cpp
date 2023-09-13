@@ -28,7 +28,7 @@ void setup() { // main core setup
     Serial.print("NAV boot complete, error code :");
     Serial.println(MP._sysstate.r.navsysstate.r.errorflag);
 
-    MP.beep();
+    //MP.beep();
 }
 
 void setup1() { // nav core setup
@@ -43,12 +43,14 @@ void setup1() { // nav core setup
 
 void loop() { // main core loop
 
-    if (!MP.fetchnavdata())
+    if (rp2040.fifo.available())
     {
-        //Serial.print("recived packet at timestamp :");
-        //Serial.println(millis());
+        int _avalible = rp2040.fifo.available();
+        int _error = MP.fetchnavdata();
+        //Serial.printf("recived packet at timestamp : %d with error %d and %d bytes in the fifo",MP._sysstate.r.uptime,_error,_avalible);
     }
-    
+
+
     if (millis()- MP.prevtime.led >= MP.intervals[MP._sysstate.r.state].led)
     {
         MP.ledstate ? MP.setled(GREEN) : MP.setled(OFF);
@@ -59,12 +61,11 @@ void loop() { // main core loop
     
     if (Serial.available())
     {
-        char buf[10]; 
+        char buf = Serial.read(); 
         int i;
-        Serial.readBytes(buf,10);
-        Serial.print("echo: ");
-        Serial.println(buf);
+        Serial.printf("echo: %c dec: %d \n",buf,buf);
         MP.parsecommand(buf);
+
     }
 
     if (MP.sendserialon & millis() - MP.prevtime.serial >= MP.intervals[MP._sysstate.r.state].serial)
@@ -81,11 +82,12 @@ void loop1() { // nav core loop
     NAV.getsensordata();
     if ((millis() - NAV.prevtime.sendpacket) >= NAV.intervals[NAV._sysstate.r.state].sendpacket)
     {
+        int inbuf = rp2040.fifo.available();
         int error = NAV.sendpacket(NAV._sysstate);
         if (error > 0)
         {
-            //Serial.print("packet failed on iteration ");
-            //Serial.print(error);
+            //Serial.printf("packet send failure at iteration %d and timestamp %d with %d bytes already in fifo \n"
+            //,error,NAV._sysstate.r.uptime,inbuf);
         }
         else
         {
@@ -94,8 +96,7 @@ void loop1() { // nav core loop
         }
         
         NAV.prevtime.sendpacket = millis();
-        //Serial.print(" at timestamp: ");
-        //Serial.println(millis());
+        
     }
     
     NAV._sysstate.r.uptime = millis();

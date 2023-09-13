@@ -183,12 +183,25 @@ class MPCORE{
             {
                 return 1;
             }
+            if (rp2040.fifo.pop() != 0xAB)
+            {
+                return 1;
+            }
+            
             for (int i = 0; i < sizeof(recivedpacket.data)/sizeof(recivedpacket.data[0]); i++)
             {
-                recivedpacket.data[i] = fifopop();
+                recivedpacket.data[i] = rp2040.fifo.pop();
             }
+            
 
             _sysstate.r.navsysstate = recivedpacket;
+
+            while (rp2040.fifo.available() > 0)
+            {
+                uint32_t buf;
+                rp2040.fifo.pop_nb(&buf);
+            }
+            
             
             return 0;
         }
@@ -259,23 +272,36 @@ class MPCORE{
         }
 
         int senddatatoserial(){
-            Serial.print(">MP uptime");
-            Serial.println(_sysstate.r.uptime);
+            Serial.printf(">MP uptime %d \n",_sysstate.r.uptime);
+            Serial.printf(">NAV uptime %d \n",_sysstate.r.navsysstate.r.uptime);
 
-            Serial.print(">NAV uptime");
-            Serial.println(_sysstate.r.navsysstate.r.uptime);
+            Serial.printf(">MP errorflag %d \n", _sysstate.r.errorflag);
+            Serial.printf(">NAV errorflag %d \n", _sysstate.r.navsysstate.r.errorflag);
 
-            Serial.print(">MP state");
-            Serial.println(_sysstate.r.state);
+            Serial.printf(">accel x: %f \n", float(_sysstate.r.navsysstate.r.imudata.accel.x)/10000);
+            Serial.printf(">accel y: %f \n", float(_sysstate.r.navsysstate.r.imudata.accel.y)/10000);
+            Serial.printf(">accel z: %f \n", float(_sysstate.r.navsysstate.r.imudata.accel.z)/10000);
 
-            Serial.print(">NAV state");
-            Serial.println(_sysstate.r.navsysstate.r.state);
+            Serial.printf(">gyro x: %f \n", float(_sysstate.r.navsysstate.r.imudata.gyro.x)/10000);
+            Serial.printf(">gyro y: %f \n", float(_sysstate.r.navsysstate.r.imudata.gyro.y)/10000);
+            Serial.printf(">gyro z: %f \n", float(_sysstate.r.navsysstate.r.imudata.gyro.z)/10000);
+
+            Serial.printf(">altitude: %f \n", float(_sysstate.r.navsysstate.r.barodata.altitude)/10000);
+
+            Serial.printf(">mag x: %f \n",float(_sysstate.r.navsysstate.r.magdata.utesla.x)/10000);
+            Serial.printf(">mag y: %f \n",float(_sysstate.r.navsysstate.r.magdata.utesla.y)/10000);
+            Serial.printf(">mag z: %f \n",float(_sysstate.r.navsysstate.r.magdata.utesla.z)/10000);
+
+            Serial.printf(">magraw x: %f \n",float(_sysstate.r.navsysstate.r.magdata.gauss.x)/10000);
+            Serial.printf(">magraw y: %f \n",float(_sysstate.r.navsysstate.r.magdata.gauss.y)/10000);
+            Serial.printf(">magraw z: %f \n",float(_sysstate.r.navsysstate.r.magdata.gauss.z)/10000);
+
             return 0;
         }
 
-        int parsecommand(char *input){
+        int parsecommand(char input){
             Serial.println(input);
-            if (!strcmp(input,"senserial"))
+            if (int(input) == 115)
             {
                 Serial.println("printing data to teleplot");
                 sendserialon = !sendserialon;
@@ -326,30 +352,34 @@ class NAVCORE{
         timings prevtime;
 
         int sendpacket(navpacket datatosend){
-            for (int i = 0; i < sizeof(datatosend.data)/sizeof(datatosend.data[0]); i++)
+            if (rp2040.fifo.available() > 250)
             {
-                bool error = rp2040.fifo.push_nb(datatosend.data[i]);
-                if (error == true)
-                {
-                    return i+1;
-                }
-                
+                return 1;
             }
             
+            rp2040.fifo.push(0xAB);
+            for (int i = 0; i < sizeof(datatosend.data)/sizeof(datatosend.data[0]); i++)
+            {
+                bool error = 1;
+                int j = 0;
+                rp2040.fifo.push(datatosend.data[i]);
+                
+            }
+            rp2040.fifo.push(0xCD);
             return 0;
         }
 
         int handshake(){
             uint32_t data;
-            rp2040.fifo.push_nb(0xAA);
+            rp2040.fifo.push(0xAA);
             data = rp2040.fifo.pop();
             if (data != 0xAB)
             {
-                rp2040.fifo.push_nb(data);
+                rp2040.fifo.push(data);
                 errorflag*3;
                 return 1;
             }
-            rp2040.fifo.push_nb(0xCD);
+            rp2040.fifo.push(0xCD);
             rp2040.fifo.pop();
             navpacket handshakepacket;
             handshakepacket.r.errorflag = 1;
@@ -379,7 +409,10 @@ class NAVCORE{
         void getsensordata(){
             imu.readIMU();
             baro.readsensor();
+            mag.read();
 
+
+            _sysstate.r.magdata = mag.data;
             _sysstate.r.imudata = imu.data;
             _sysstate.r.barodata = baro.data;
         }

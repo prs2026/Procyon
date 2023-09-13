@@ -81,6 +81,7 @@ public:
             return 1;
         }
 
+
         accelunit.setRange(accelunit.RANGE_24G);
         
         status = gyrounit.begin();
@@ -105,7 +106,7 @@ public:
             _data.accel.y += (int32_t(accelunit.getAccelY_mss()*10000));
             _data.accel.z += (int32_t(accelunit.getAccelZ_mss()*10000));
 
-            _data.gyro.z += int32_t((gyrounit.getGyroX_rads()/(180/PI))*10000);
+            _data.gyro.x += int32_t((gyrounit.getGyroX_rads()/(180/PI))*10000);
             _data.gyro.y += int32_t((gyrounit.getGyroY_rads()/(180/PI))*10000);
             _data.gyro.z += int32_t((gyrounit.getGyroZ_rads()/(180/PI))*10000);
             
@@ -115,7 +116,7 @@ public:
         _data.accel.y /= oversampling;
         _data.accel.z /= oversampling;
 
-        _data.gyro.z /= oversampling;
+        _data.gyro.x /= oversampling;
         _data.gyro.y /= oversampling;
         _data.gyro.z /= oversampling;
 
@@ -170,8 +171,24 @@ public:
 
         Serial.println("MAG init success");
     return 0;
-}
+    }
 
+    int read(){
+        mdl.read();
+
+        data.gauss.x = mdl.x*10000;
+        data.gauss.y = mdl.y*10000;
+        data.gauss.z = mdl.z*10000;
+
+        sensors_event_t event;
+        
+        mdl.getEvent(&event);
+
+        data.utesla.x = event.magnetic.x*10000;
+        data.utesla.y = event.magnetic.y*10000;
+        data.utesla.z = event.magnetic.z*10000;
+        return 0;
+    } 
 
 
 };
