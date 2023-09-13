@@ -32,6 +32,17 @@ union navpacket
     uint32_t data [sizeof(r)];
 };
 
+union mpstate{
+    struct{
+        uint32_t errorflag;
+        uint32_t uptime;
+        uint32_t state;
+        navpacket navsysstate;
+
+    } r;
+    uint32_t data[sizeof(r)];
+};
+
 
 
 
@@ -65,6 +76,9 @@ class MPCORE{
 
     public:
         MPCORE(){};
+
+        mpstate _sysstate;
+
         uint32_t errorflag = 1;
         /*
             1 = no error
@@ -77,6 +91,23 @@ class MPCORE{
             19 = telemetry send fail
             23 = bad telemetry packet
         */
+
+        struct timings{
+            uint32_t logdata;
+            uint32_t led;
+        };
+        timings intervals[7] = {
+            {2000,1000}, // ground idle
+            {100,200}, // launch detect
+            {50,500}, // powered ascent
+            {50,500}, // unpowered ascent
+            {50,500}, // ballistic descent
+            {50,800}, //ready to land
+            {1000,1500} // landed
+        };
+        timings prevtime;
+        bool ledstate = false;
+
 
 
         void setuppins(){
@@ -107,18 +138,55 @@ class MPCORE{
         return;
         }
 
-        navpacket fetchnavdata(){
+
+        void setled(int color){
+            switch (color)
+            {
+            case OFF:
+                digitalWrite(LEDRED, HIGH);
+                digitalWrite(LEDGREEN, HIGH);
+                digitalWrite(LEDBLUE, HIGH);
+                break;
+
+            case RED:
+                digitalWrite(LEDRED, LOW);
+                digitalWrite(LEDGREEN, HIGH);
+                digitalWrite(LEDBLUE, HIGH);
+                break;
+            
+            case GREEN:
+                digitalWrite(LEDRED, HIGH);
+                digitalWrite(LEDGREEN, LOW);
+                digitalWrite(LEDBLUE, HIGH);
+                break;
+
+            case BLUE:
+                digitalWrite(LEDRED, HIGH);
+                digitalWrite(LEDGREEN, HIGH);
+                digitalWrite(LEDBLUE, LOW);
+                break;
+            
+            default:
+                break;
+            }
+        }
+
+
+
+        int fetchnavdata(){
             navpacket recivedpacket;
             if (rp2040.fifo.available() <= 0)
             {
-                return recivedpacket;
+                return 1;
             }
             for (int i = 0; i < sizeof(recivedpacket.data)/sizeof(recivedpacket.data[0]); i++)
             {
                 recivedpacket.data[i] = fifopop();
             }
+
+            _sysstate.r.navsysstate = recivedpacket;
             
-            return recivedpacket;
+            return 0;
         }
 
         int handshake(){
@@ -186,40 +254,11 @@ class MPCORE{
             return 0;
         }
 
+
+
         
 
-        void setled(int color){
-            switch (color)
-            {
-            case OFF:
-                digitalWrite(LEDRED, HIGH);
-                digitalWrite(LEDGREEN, HIGH);
-                digitalWrite(LEDBLUE, HIGH);
-                break;
-
-            case RED:
-                digitalWrite(LEDRED, LOW);
-                digitalWrite(LEDGREEN, HIGH);
-                digitalWrite(LEDBLUE, HIGH);
-                break;
-            
-            case GREEN:
-                digitalWrite(LEDRED, HIGH);
-                digitalWrite(LEDGREEN, LOW);
-                digitalWrite(LEDBLUE, HIGH);
-                break;
-
-            case BLUE:
-                digitalWrite(LEDRED, HIGH);
-                digitalWrite(LEDGREEN, HIGH);
-                digitalWrite(LEDBLUE, LOW);
-                break;
-            
-            default:
-                break;
-            }
-        }
-
+        
 };
 
 
@@ -241,6 +280,19 @@ class NAVCORE{
         17 = mag init fail
         19 = packet send fail
         */
+        struct timings{
+            uint32_t sendpacket;
+        };
+        timings intervals[7] = {
+            {20}, // ground idle
+            {20}, // launch detect
+            {20}, // powered ascent
+            {20}, // unpowered ascent
+            {20}, // ballistic descent
+            {20}, //ready to land
+            {20} // landed
+        }; 
+        timings prevtime;
 
         int sendpacket(navpacket datatosend){
             for (int i = 0; i < sizeof(datatosend.data)/sizeof(datatosend.data[0]); i++)
@@ -299,6 +351,10 @@ class NAVCORE{
 
             _sysstate.r.imudata = imu.data;
             _sysstate.r.barodata = baro.data;
+        }
+
+        void computeorientation(){
+            
         }
 
 
