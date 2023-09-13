@@ -7,6 +7,7 @@
 #include "macros.h"
 #include "SPI.h"
 #include "SD.h"
+#include <string.h>
 
 File logfile;
 
@@ -91,19 +92,22 @@ class MPCORE{
             19 = telemetry send fail
             23 = bad telemetry packet
         */
+        bool sendserialon = false;
+
 
         struct timings{
             uint32_t logdata;
             uint32_t led;
+            uint32_t serial;
         };
         timings intervals[7] = {
-            {2000,1000}, // ground idle
-            {100,200}, // launch detect
-            {50,500}, // powered ascent
-            {50,500}, // unpowered ascent
-            {50,500}, // ballistic descent
-            {50,800}, //ready to land
-            {1000,1500} // landed
+            {2000,1000,100}, // ground idle
+            {100,200,100}, // launch detect
+            {50,500,100}, // powered ascent
+            {50,500,100}, // unpowered ascent
+            {50,500,100}, // ballistic descent
+            {50,800,100}, //ready to land
+            {1000,1500,100} // landed
         };
         timings prevtime;
         bool ledstate = false;
@@ -254,12 +258,39 @@ class MPCORE{
             return 0;
         }
 
+        int senddatatoserial(){
+            Serial.print(">MP uptime");
+            Serial.println(_sysstate.r.uptime);
 
+            Serial.print(">NAV uptime");
+            Serial.println(_sysstate.r.navsysstate.r.uptime);
 
-        
+            Serial.print(">MP state");
+            Serial.println(_sysstate.r.state);
+
+            Serial.print(">NAV state");
+            Serial.println(_sysstate.r.navsysstate.r.state);
+            return 0;
+        }
+
+        int parsecommand(char *input){
+            Serial.println(input);
+            if (!strcmp(input,"senserial"))
+            {
+                Serial.println("printing data to teleplot");
+                sendserialon = !sendserialon;
+            }
+            return 0;
+        }
 
         
 };
+
+
+//**************************************************************************************\\
+
+
+
 
 
 class NAVCORE{
@@ -284,13 +315,13 @@ class NAVCORE{
             uint32_t sendpacket;
         };
         timings intervals[7] = {
-            {20}, // ground idle
-            {20}, // launch detect
-            {20}, // powered ascent
-            {20}, // unpowered ascent
-            {20}, // ballistic descent
-            {20}, //ready to land
-            {20} // landed
+            {50}, // ground idle
+            {50}, // launch detect
+            {50}, // powered ascent
+            {50}, // unpowered ascent
+            {50}, // ballistic descent
+            {50}, //ready to land
+            {50} // landed
         }; 
         timings prevtime;
 
@@ -300,7 +331,7 @@ class NAVCORE{
                 bool error = rp2040.fifo.push_nb(datatosend.data[i]);
                 if (error == true)
                 {
-                    return 1;
+                    return i+1;
                 }
                 
             }
