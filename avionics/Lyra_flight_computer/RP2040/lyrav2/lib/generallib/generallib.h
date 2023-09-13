@@ -119,7 +119,9 @@ class MPCORE{
             pinMode(LEDGREEN,OUTPUT);
             pinMode(LEDBLUE,OUTPUT);
             pinMode(BUZZERPIN,OUTPUT);
+            pinMode(CS_SD,OUTPUT);
 
+            digitalWrite(CS_SD,HIGH);
             digitalWrite(LEDRED, LOW);
             digitalWrite(LEDGREEN, HIGH);
             digitalWrite(LEDBLUE, HIGH);
@@ -261,7 +263,21 @@ class MPCORE{
         }
 
         int initsd(){
-            if (!SD.begin(CS_SD))
+            SPI.setRX(SPI0_MISO);
+            SPI.setTX(SPI0_MOSI);
+            SPI.setSCK(SPI0_SCLK);
+            SPI.begin();
+            
+            int loopbackbyte = SPI.transfer(0xEF);
+            if (loopbackbyte != 0xEF)
+            {
+                Serial.printf("\nSPI bus jammed, expected 239 got: %d \n",loopbackbyte);
+                return 1;
+            }
+            Serial.printf("SPI working, expected 239 got %d \n",loopbackbyte);
+            
+
+            if (!SD.begin(CS_SD,SPI))
             {
                 Serial.println("SD init failure, card not present or not working");
                 errorflag*=7;
