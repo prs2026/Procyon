@@ -15,6 +15,8 @@ IMU imu;
 BARO baro;
 MAG mag;
 
+Sd2Card card;
+
 union navpacket
 {
     struct
@@ -93,6 +95,7 @@ class MPCORE{
             23 = bad telemetry packet
         */
         bool sendserialon = false;
+        bool sendtoteleplot = true;
 
 
         struct timings{
@@ -272,45 +275,75 @@ class MPCORE{
             if (loopbackbyte != 0xEF)
             {
                 Serial.printf("\nSPI bus jammed, expected 239 got: %d \n",loopbackbyte);
-                return 1;
             }
             Serial.printf("SPI working, expected 239 got %d \n",loopbackbyte);
             
+            SPI.end();
 
-            if (!SD.begin(CS_SD,SPI))
+
+
+
+            if (!card.init(SPI_HALF_SPEED,CS_SD))
+            {
+                Serial.printf("SD card not present or not working, code: %d \n",card.errorCode());
+            }
+
+            if (!SD.begin(CS_SD))
             {
                 Serial.println("SD init failure, card not present or not working");
                 errorflag*=7;
                 return 1;
             }
+
+            logfile = SD.open("test.txt",FILE_WRITE);
+
+            if (!logfile)
+            {
+                Serial.println("SD init fail, cant open file to log to");
+                return 1;
+            }
+            logfile.println("lyrav2 be workin");
+            logfile.close();
+            
+
             Serial.println("SD card init succeess");
             return 0;
         }
 
         int senddatatoserial(){
-            Serial.printf(">MP uptime %d \n",_sysstate.r.uptime);
-            Serial.printf(">NAV uptime %d \n",_sysstate.r.navsysstate.r.uptime);
+            if (sendtoteleplot)
+            {
+                Serial.printf(">MP uptime %d \n",_sysstate.r.uptime);
+                Serial.printf(">NAV uptime %d \n",_sysstate.r.navsysstate.r.uptime);
 
-            Serial.printf(">MP errorflag %d \n", _sysstate.r.errorflag);
-            Serial.printf(">NAV errorflag %d \n", _sysstate.r.navsysstate.r.errorflag);
+                Serial.printf(">MP errorflag %d \n", _sysstate.r.errorflag);
+                Serial.printf(">NAV errorflag %d \n", _sysstate.r.navsysstate.r.errorflag);
 
-            Serial.printf(">accel x: %f \n", float(_sysstate.r.navsysstate.r.imudata.accel.x)/10000);
-            Serial.printf(">accel y: %f \n", float(_sysstate.r.navsysstate.r.imudata.accel.y)/10000);
-            Serial.printf(">accel z: %f \n", float(_sysstate.r.navsysstate.r.imudata.accel.z)/10000);
+                Serial.printf(">accel x: %f \n", float(_sysstate.r.navsysstate.r.imudata.accel.x)/10000);
+                Serial.printf(">accel y: %f \n", float(_sysstate.r.navsysstate.r.imudata.accel.y)/10000);
+                Serial.printf(">accel z: %f \n", float(_sysstate.r.navsysstate.r.imudata.accel.z)/10000);
 
-            Serial.printf(">gyro x: %f \n", float(_sysstate.r.navsysstate.r.imudata.gyro.x)/10000);
-            Serial.printf(">gyro y: %f \n", float(_sysstate.r.navsysstate.r.imudata.gyro.y)/10000);
-            Serial.printf(">gyro z: %f \n", float(_sysstate.r.navsysstate.r.imudata.gyro.z)/10000);
+                Serial.printf(">gyro x: %f \n", float(_sysstate.r.navsysstate.r.imudata.gyro.x)/10000);
+                Serial.printf(">gyro y: %f \n", float(_sysstate.r.navsysstate.r.imudata.gyro.y)/10000);
+                Serial.printf(">gyro z: %f \n", float(_sysstate.r.navsysstate.r.imudata.gyro.z)/10000);
 
-            Serial.printf(">altitude: %f \n", float(_sysstate.r.navsysstate.r.barodata.altitude)/10000);
+                Serial.printf(">altitude: %f \n", float(_sysstate.r.navsysstate.r.barodata.altitude)/10000);
 
-            Serial.printf(">mag x: %f \n",float(_sysstate.r.navsysstate.r.magdata.utesla.x)/10000);
-            Serial.printf(">mag y: %f \n",float(_sysstate.r.navsysstate.r.magdata.utesla.y)/10000);
-            Serial.printf(">mag z: %f \n",float(_sysstate.r.navsysstate.r.magdata.utesla.z)/10000);
+                Serial.printf(">mag x: %f \n",float(_sysstate.r.navsysstate.r.magdata.utesla.x)/10000);
+                Serial.printf(">mag y: %f \n",float(_sysstate.r.navsysstate.r.magdata.utesla.y)/10000);
+                Serial.printf(">mag z: %f \n",float(_sysstate.r.navsysstate.r.magdata.utesla.z)/10000);
 
-            Serial.printf(">magraw x: %f \n",float(_sysstate.r.navsysstate.r.magdata.gauss.x)/10000);
-            Serial.printf(">magraw y: %f \n",float(_sysstate.r.navsysstate.r.magdata.gauss.y)/10000);
-            Serial.printf(">magraw z: %f \n",float(_sysstate.r.navsysstate.r.magdata.gauss.z)/10000);
+                Serial.printf(">magraw x: %f \n",float(_sysstate.r.navsysstate.r.magdata.gauss.x)/10000);
+                Serial.printf(">magraw y: %f \n",float(_sysstate.r.navsysstate.r.magdata.gauss.y)/10000);
+                Serial.printf(">magraw z: %f \n",float(_sysstate.r.navsysstate.r.magdata.gauss.z)/10000);
+                return 0;
+            }
+            else
+            {
+                Serial.printf("%f,%f,%f \n",(float(_sysstate.r.navsysstate.r.imudata.accel.x)/10000),(float(_sysstate.r.navsysstate.r.imudata.accel.y)/10000),(float(_sysstate.r.navsysstate.r.imudata.accel.z)/10000));
+            }
+            
+            
 
             return 0;
         }
@@ -321,7 +354,16 @@ class MPCORE{
             {
                 Serial.println("printing data to teleplot");
                 sendserialon = !sendserialon;
+                sendtoteleplot = true;
             }
+            else if (int(input) == 113)
+            {
+                Serial.println("sending accel data to magneto");
+                sendserialon = !sendserialon;
+                sendtoteleplot = false;
+
+            }
+            
             return 0;
         }
 
@@ -423,7 +465,7 @@ class NAVCORE{
         }
 
         void getsensordata(){
-            imu.readIMU();
+            imu.read();
             baro.readsensor();
             mag.read();
 

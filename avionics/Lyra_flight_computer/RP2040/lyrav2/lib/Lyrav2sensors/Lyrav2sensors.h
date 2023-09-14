@@ -11,7 +11,6 @@
 #include <Adafruit_BMP3XX.h>
 #include <Adafruit_LIS3MDL.h>
 
-
 /* accelunit object */
 Bmi088Accel accelunit(Wire1,0x18);
 /* gyrounit object */
@@ -66,9 +65,18 @@ uint8_t scani2c(){
 
 class IMU{
 
+float bcali[3] = {-2.514055,-0.287330,-3.524436};
+
+float acali[3][3] = {
+    {0.793141,0.174055,-0.128628},
+    {0.174055,1.770292,0.103605},
+    {-0.128628,0.103605,1.927914}
+};
+
 public:
     IMU(){};
     IMUdata data;
+    
 
     int init(){
         int status;
@@ -95,31 +103,34 @@ public:
             return 0;
         }
 
-    void readIMU(int oversampling = 10){
+    void read(int oversampling = 1){
         IMUdata _data;
 
-        for (int i = 0; i < oversampling; i++)
-        {
-            accelunit.readSensor();
-            gyrounit.readSensor();
-            _data.accel.x += (int32_t(accelunit.getAccelX_mss()*10000));
-            _data.accel.y += (int32_t(accelunit.getAccelY_mss()*10000));
-            _data.accel.z += (int32_t(accelunit.getAccelZ_mss()*10000));
+        accelunit.readSensor();
+        gyrounit.readSensor();
+        _data.accel.x = ((int32_t(accelunit.getAccelZ_mss()*10000)));
+        _data.accel.y = ((int32_t(accelunit.getAccelY_mss()*10000)));
+        _data.accel.z = ((int32_t(accelunit.getAccelX_mss()*10000)));
 
-            _data.gyro.x += int32_t((gyrounit.getGyroX_rads()/(180/PI))*10000);
-            _data.gyro.y += int32_t((gyrounit.getGyroY_rads()/(180/PI))*10000);
-            _data.gyro.z += int32_t((gyrounit.getGyroZ_rads()/(180/PI))*10000);
-            
-            delayMicroseconds(200);
-        }
+        _data.gyro.x = (int32_t((gyrounit.getGyroX_rads()*(180/PI))*10000));
+        _data.gyro.y = (int32_t((gyrounit.getGyroY_rads()*(180/PI))*10000));
+        _data.gyro.z = (int32_t((gyrounit.getGyroZ_rads()*(180/PI))*10000));
+        
+        float currmeas[3] = {(float(_data.accel.x)/10000)-bcali[0],(float(_data.accel.y)/10000)-bcali[1],(float(_data.accel.z)/10000)-bcali[2]};
+        //Serial.printf("%f, %f, %f gainadj: %f, %f, %f ",float(_data.accel.x)/10000,float(_data.accel.y)/10000,float(_data.accel.z)/10000,currmeas[0],currmeas[1],currmeas[2]);
+        //_data.accel.x = acali[0][0]*currmeas[0]+acali[1][0]*currmeas[1]+acali[2][0]*currmeas[2];
+        //_data.accel.y = acali[0][1]*currmeas[0]+acali[1][1]*currmeas[1]+acali[2][1]*currmeas[2];
+        //_data.accel.z = acali[0][2]*currmeas[0]+acali[1][2]*currmeas[1]+acali[2][2]*currmeas[2];
+        //Serial.printf("multiplied: %f, %f, %f \n",float(_data.accel.x)/10000,float(_data.accel.y)/10000,float(_data.accel.z));
+        /*
         _data.accel.x /= oversampling;
         _data.accel.y /= oversampling;
         _data.accel.z /= oversampling;
-
+        
         _data.gyro.x /= oversampling;
         _data.gyro.y /= oversampling;
         _data.gyro.z /= oversampling;
-
+        */
         _data.temp = accelunit.getTemperature_C();
 
         data = _data;
