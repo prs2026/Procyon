@@ -77,6 +77,8 @@ struct BAROdata{
 struct MAGdata{
     Vector3int32 gauss;
     Vector3int32 utesla;
+    int32_t heading;
+    int32_t tilt;
 };
 
 
