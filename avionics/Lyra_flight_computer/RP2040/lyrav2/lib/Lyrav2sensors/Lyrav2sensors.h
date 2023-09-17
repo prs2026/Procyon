@@ -103,34 +103,43 @@ public:
             return 0;
         }
 
-    void read(int oversampling = 1){
+    void read(int oversampling = 20){
         IMUdata _data;
 
-        accelunit.readSensor();
-        gyrounit.readSensor();
-        _data.accel.x = ((int32_t(accelunit.getAccelZ_mss()*10000)));
-        _data.accel.y = ((int32_t(accelunit.getAccelY_mss()*10000)));
-        _data.accel.z = ((int32_t(accelunit.getAccelX_mss()*10000)));
-
-        _data.gyro.x = (int32_t((gyrounit.getGyroX_rads()*(180/PI))*10000));
-        _data.gyro.y = (int32_t((gyrounit.getGyroY_rads()*(180/PI))*10000));
-        _data.gyro.z = (int32_t((gyrounit.getGyroZ_rads()*(180/PI))*10000));
         
-        float currmeas[3] = {(float(_data.accel.x)/10000)-bcali[0],(float(_data.accel.y)/10000)-bcali[1],(float(_data.accel.z)/10000)-bcali[2]};
-        //Serial.printf("%f, %f, %f gainadj: %f, %f, %f ",float(_data.accel.x)/10000,float(_data.accel.y)/10000,float(_data.accel.z)/10000,currmeas[0],currmeas[1],currmeas[2]);
-        //_data.accel.x = acali[0][0]*currmeas[0]+acali[1][0]*currmeas[1]+acali[2][0]*currmeas[2];
-        //_data.accel.y = acali[0][1]*currmeas[0]+acali[1][1]*currmeas[1]+acali[2][1]*currmeas[2];
-        //_data.accel.z = acali[0][2]*currmeas[0]+acali[1][2]*currmeas[1]+acali[2][2]*currmeas[2];
-        //Serial.printf("multiplied: %f, %f, %f \n",float(_data.accel.x)/10000,float(_data.accel.y)/10000,float(_data.accel.z));
-        /*
+        for (int i = 0; i < oversampling; i++)
+        {
+            accelunit.readSensor();
+            gyrounit.readSensor();
+
+            _data.accel.x += accelunit.getAccelZ_mss();
+            _data.accel.y += accelunit.getAccelY_mss();
+            _data.accel.z += accelunit.getAccelX_mss();
+
+            _data.gyro.x += gyrounit.getGyroZ_rads()*(180/PI);
+            _data.gyro.y += gyrounit.getGyroY_rads()*(180/PI);
+            _data.gyro.z += gyrounit.getGyroX_rads()*(180/PI);
+
+            delayMicroseconds(500);
+        }
+        
         _data.accel.x /= oversampling;
         _data.accel.y /= oversampling;
         _data.accel.z /= oversampling;
         
         _data.gyro.x /= oversampling;
         _data.gyro.y /= oversampling;
-        _data.gyro.z /= oversampling;
+        //_data.gyro.z /= oversampling;
+        /*
+        float currmeas[3] = {_data.accel.x-bcali[0],_data.accel.y-bcali[1],_data.accel.z-bcali[2]};
+        Serial.printf("%f, %f, %f gainadj: %f, %f, %f ",_data.accel.x,_data.accel.y,_data.accel.z,currmeas[0],currmeas[1],currmeas[2]);
+        _data.accel.x = acali[0][0]*currmeas[0]+acali[1][0]*currmeas[1]+acali[2][0]*currmeas[2];
+        _data.accel.y = acali[0][1]*currmeas[0]+acali[1][1]*currmeas[1]+acali[2][1]*currmeas[2];
+        _data.accel.z = acali[0][2]*currmeas[0]+acali[1][2]*currmeas[1]+acali[2][2]*currmeas[2];
+        Serial.printf("multiplied: %f, %f, %f \n",float(_data.accel.x)/10000,float(_data.accel.y)/10000,float(_data.accel.z));
         */
+       
+        
         _data.temp = accelunit.getTemperature_C();
 
         data = _data;
@@ -161,7 +170,7 @@ public:
     }
     void readsensor(){
         
-        data.altitude = bmp.readAltitude(SEALEVELPRESSURE)*10000;
+        data.altitude = bmp.readAltitude(SEALEVELPRESSURE);
 
         
     }
@@ -187,17 +196,17 @@ public:
     int read(){
         mdl.read();
 
-        data.gauss.x = mdl.x*10000;
-        data.gauss.y = mdl.y*10000;
-        data.gauss.z = mdl.z*10000;
+        data.gauss.x = mdl.x;
+        data.gauss.y = mdl.y;
+        data.gauss.z = mdl.z;
 
         sensors_event_t event;
         
         mdl.getEvent(&event);
 
-        data.utesla.x = event.magnetic.x*10000;
-        data.utesla.y = event.magnetic.y*10000;
-        data.utesla.z = event.magnetic.z*10000;
+        data.utesla.x = event.magnetic.x;
+        data.utesla.y = event.magnetic.y;
+        data.utesla.z = event.magnetic.z;
         return 0;
     } 
 

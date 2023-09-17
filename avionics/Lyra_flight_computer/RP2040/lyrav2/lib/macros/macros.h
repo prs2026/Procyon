@@ -55,28 +55,28 @@
 
 #define HANDSHAKETIMEOUT 500;
 
-struct Vector3int32
+struct Vector3float
 {
-    int32_t x;
-    int32_t y;
-    int32_t z;
+    float x;
+    float y;
+    float z;
 };
 
 struct IMUdata{
-    Vector3int32 accel;
-    Vector3int32 gyro;
+    Vector3float accel;
+    Vector3float gyro;
     int32_t temp;
 };
 
 struct BAROdata{
-    uint32_t pressure;
-    uint32_t altitude;
-    int32_t temp;
+    float pressure;
+    float altitude;
+    float temp;
 };
 
 struct MAGdata{
-    Vector3int32 gauss;
-    Vector3int32 utesla;
+    Vector3float gauss;
+    Vector3float utesla;
 };
 
 
