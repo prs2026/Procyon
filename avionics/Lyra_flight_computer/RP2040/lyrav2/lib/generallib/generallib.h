@@ -27,10 +27,10 @@ union navpacket
         IMUdata imudata;
         BAROdata barodata;
         MAGdata magdata;
-        Vector3int32 pos;
-        Vector3int32 orientation;
-        Vector3int32 vel;
-        Vector3int32 acceleration;
+        Vector3float pos;
+        Vector3float orientation;
+        Vector3float vel;
+        Vector3float acceleration;
     } r;
     uint32_t data [sizeof(r)];
 };
@@ -313,34 +313,37 @@ class MPCORE{
         int senddatatoserial(){
             if (sendtoteleplot)
             {
-                Serial.printf(">MP uptime %d \n",_sysstate.r.uptime);
-                Serial.printf(">NAV uptime %d \n",_sysstate.r.navsysstate.r.uptime);
+                Serial.printf(">MP uptime: %d \n",_sysstate.r.uptime);
+                Serial.printf(">NAV uptime: %d \n",_sysstate.r.navsysstate.r.uptime);
 
                 Serial.printf(">MP errorflag %d \n", _sysstate.r.errorflag);
                 Serial.printf(">NAV errorflag %d \n", _sysstate.r.navsysstate.r.errorflag);
 
-                Serial.printf(">accel x: %f \n", float(_sysstate.r.navsysstate.r.imudata.accel.x)/10000);
-                Serial.printf(">accel y: %f \n", float(_sysstate.r.navsysstate.r.imudata.accel.y)/10000);
-                Serial.printf(">accel z: %f \n", float(_sysstate.r.navsysstate.r.imudata.accel.z)/10000);
+                Serial.printf(">accel x: %f \n",_sysstate.r.navsysstate.r.imudata.accel.x);
+                Serial.printf(">accel y: %f \n",_sysstate.r.navsysstate.r.imudata.accel.y);
+                Serial.printf(">accel z: %f \n",_sysstate.r.navsysstate.r.imudata.accel.z);
 
-                Serial.printf(">gyro x: %f \n", float(_sysstate.r.navsysstate.r.imudata.gyro.x)/10000);
-                Serial.printf(">gyro y: %f \n", float(_sysstate.r.navsysstate.r.imudata.gyro.y)/10000);
-                Serial.printf(">gyro z: %f \n", float(_sysstate.r.navsysstate.r.imudata.gyro.z)/10000);
+                Serial.printf(">gyro x: %f \n",_sysstate.r.navsysstate.r.imudata.gyro.x);
+                Serial.printf(">gyro y: %f \n",_sysstate.r.navsysstate.r.imudata.gyro.y);
+                Serial.printf(">gyro z: %f \n",_sysstate.r.navsysstate.r.imudata.gyro.z);
 
-                Serial.printf(">altitude: %f \n", float(_sysstate.r.navsysstate.r.barodata.altitude)/10000);
+                Serial.printf(">altitude: %f \n", _sysstate.r.navsysstate.r.barodata.altitude);
+                Serial.printf(">verticalvel: %f \n", _sysstate.r.navsysstate.r.barodata.verticalvel);
 
-                Serial.printf(">mag x: %f \n",float(_sysstate.r.navsysstate.r.magdata.utesla.x)/10000);
-                Serial.printf(">mag y: %f \n",float(_sysstate.r.navsysstate.r.magdata.utesla.y)/10000);
-                Serial.printf(">mag z: %f \n",float(_sysstate.r.navsysstate.r.magdata.utesla.z)/10000);
+                Serial.printf(">mag x: %f \n",_sysstate.r.navsysstate.r.magdata.utesla.x);
+                Serial.printf(">mag y: %f \n",_sysstate.r.navsysstate.r.magdata.utesla.y);
+                Serial.printf(">mag z: %f \n",_sysstate.r.navsysstate.r.magdata.utesla.z);
 
-                Serial.printf(">magraw x: %f \n",float(_sysstate.r.navsysstate.r.magdata.gauss.x)/10000);
-                Serial.printf(">magraw y: %f \n",float(_sysstate.r.navsysstate.r.magdata.gauss.y)/10000);
-                Serial.printf(">magraw z: %f \n",float(_sysstate.r.navsysstate.r.magdata.gauss.z)/10000);
+                Serial.printf(">magraw x: %f \n",_sysstate.r.navsysstate.r.magdata.gauss.x);
+                Serial.printf(">magraw y: %f \n",_sysstate.r.navsysstate.r.magdata.gauss.y);
+                Serial.printf(">magraw z: %f \n",_sysstate.r.navsysstate.r.magdata.gauss.z);
+
+                Serial.printf(">heading: %f \n ",_sysstate.r.navsysstate.r.magdata.headingdeg);
                 return 0;
             }
             else
             {
-                Serial.printf("%f,%f,%f \n",(float(_sysstate.r.navsysstate.r.imudata.accel.x)/10000),(float(_sysstate.r.navsysstate.r.imudata.accel.y)/10000),(float(_sysstate.r.navsysstate.r.imudata.accel.z)/10000));
+                Serial.printf("%f,%f,%f \n",_sysstate.r.navsysstate.r.imudata.accel.x,_sysstate.r.navsysstate.r.imudata.accel.y,_sysstate.r.navsysstate.r.imudata.accel.z);
             }
             
             
