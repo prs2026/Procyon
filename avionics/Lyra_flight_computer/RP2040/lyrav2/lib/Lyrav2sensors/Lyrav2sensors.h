@@ -65,19 +65,15 @@ uint8_t scani2c(){
 
 class IMU{
 
-IMUdata biases;
+float bcali[3] = {0.069310357,-0.01385,-0.01385};
+
+float acali[3][3] = {
+    {1.003997834,0,0},
+    {0,1.004078865,0},
+    {0,0,1.004078865}};
 
 public:
-    IMU(){
-        biases.accel.x = -155;
-        biases.accel.y = -156;
-        biases.accel.z = 533;
-
-        biases.gyro.x = 4273;
-        biases.gyro.y = 1555;
-        biases.gyro.z = -811;
-
-    };
+    IMU(){};
     IMUdata data;
 
     
@@ -107,7 +103,7 @@ public:
             return 0;
         }
 
-    void read(int oversampling = 20){
+    void read(int oversampling = 50){
         IMUdata _data;
 
         
@@ -122,7 +118,7 @@ public:
 
             _data.gyro.x += gyrounit.getGyroZ_rads()*(180/PI);
             _data.gyro.y += gyrounit.getGyroY_rads()*(180/PI);
-            _data.gyro.z += gyrounit.getGyroX_rads()*(180/PI);
+            _data.gyro.z += gyrounit.getGyroX_rads()*(57.29577941458908); // when the radians to degrees calculation of 180/PI is done at runtime, it breaks but this works so 
 
             delayMicroseconds(500);
         }
@@ -133,15 +129,15 @@ public:
         
         _data.gyro.x /= oversampling;
         _data.gyro.y /= oversampling;
-        //_data.gyro.z /= oversampling;
-        /*
+        _data.gyro.z /= oversampling;
+        
         float currmeas[3] = {_data.accel.x-bcali[0],_data.accel.y-bcali[1],_data.accel.z-bcali[2]};
-        Serial.printf("%f, %f, %f gainadj: %f, %f, %f ",_data.accel.x,_data.accel.y,_data.accel.z,currmeas[0],currmeas[1],currmeas[2]);
+        //Serial.printf("%f, %f, %f gainadj: %f, %f, %f ",_data.accel.x,_data.accel.y,_data.accel.z,currmeas[0],currmeas[1],currmeas[2]);
         _data.accel.x = acali[0][0]*currmeas[0]+acali[1][0]*currmeas[1]+acali[2][0]*currmeas[2];
         _data.accel.y = acali[0][1]*currmeas[0]+acali[1][1]*currmeas[1]+acali[2][1]*currmeas[2];
         _data.accel.z = acali[0][2]*currmeas[0]+acali[1][2]*currmeas[1]+acali[2][2]*currmeas[2];
-        Serial.printf("multiplied: %f, %f, %f \n",float(_data.accel.x)/10000,float(_data.accel.y)/10000,float(_data.accel.z));
-        */
+        //Serial.printf("multiplied: %f, %f, %f \n",_data.accel.x,_data.accel.y,_data.accel.z);
+        
        
         
         _data.temp = accelunit.getTemperature_C();
@@ -157,6 +153,10 @@ public:
 
 class BARO
 {
+float prevalt;
+float prevverticalvel[5];
+int address = 0;
+uint64_t prevtime;
 
 public:
     BARO(){};
@@ -173,10 +173,26 @@ public:
     return 0;
     }
     void readsensor(){
-        
-        data.altitude = bmp.readAltitude(SEALEVELPRESSURE);
 
+        data.altitude = bmp.readAltitude(SEALEVELPRESSURE);
+        data.pressure = bmp.readPressure();
+        data.temp = bmp.readTemperature();
+
+        float timestep = (micros() - prevtime)/1e6;
+        prevverticalvel[address] = ((data.altitude -prevalt)*timestep);
+
+
+        for (int i = 0; i < 5; i++)
+        {
+            data.verticalvel += prevverticalvel[i-1];
+        }
+        data.verticalvel /= 5;
         
+
+        address >= 4 ? address = 0 : address = address;
+
+        prevalt = data.altitude;
+        prevtime = micros();
     }
 
 };
@@ -211,6 +227,8 @@ public:
         data.utesla.x = event.magnetic.x;
         data.utesla.y = event.magnetic.y;
         data.utesla.z = event.magnetic.z;
+
+        //data.headingdeg = atan2(data.utesla.x,data.utesla.y)*(180/PI);
         return 0;
     } 
 

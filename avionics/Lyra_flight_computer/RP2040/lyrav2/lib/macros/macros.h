@@ -72,11 +72,13 @@ struct BAROdata{
     float pressure;
     float altitude;
     float temp;
+    float verticalvel;
 };
 
 struct MAGdata{
     Vector3float gauss;
     Vector3float utesla;
+    float headingdeg;
 };
 
 

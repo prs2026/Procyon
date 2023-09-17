@@ -313,8 +313,8 @@ class MPCORE{
         int senddatatoserial(){
             if (sendtoteleplot)
             {
-                Serial.printf(">MP uptime %d \n",_sysstate.r.uptime);
-                Serial.printf(">NAV uptime %d \n",_sysstate.r.navsysstate.r.uptime);
+                Serial.printf(">MP uptime: %d \n",_sysstate.r.uptime);
+                Serial.printf(">NAV uptime: %d \n",_sysstate.r.navsysstate.r.uptime);
 
                 Serial.printf(">MP errorflag %d \n", _sysstate.r.errorflag);
                 Serial.printf(">NAV errorflag %d \n", _sysstate.r.navsysstate.r.errorflag);
@@ -328,6 +328,7 @@ class MPCORE{
                 Serial.printf(">gyro z: %f \n",_sysstate.r.navsysstate.r.imudata.gyro.z);
 
                 Serial.printf(">altitude: %f \n", _sysstate.r.navsysstate.r.barodata.altitude);
+                Serial.printf(">verticalvel: %f \n", _sysstate.r.navsysstate.r.barodata.verticalvel);
 
                 Serial.printf(">mag x: %f \n",_sysstate.r.navsysstate.r.magdata.utesla.x);
                 Serial.printf(">mag y: %f \n",_sysstate.r.navsysstate.r.magdata.utesla.y);
@@ -336,6 +337,8 @@ class MPCORE{
                 Serial.printf(">magraw x: %f \n",_sysstate.r.navsysstate.r.magdata.gauss.x);
                 Serial.printf(">magraw y: %f \n",_sysstate.r.navsysstate.r.magdata.gauss.y);
                 Serial.printf(">magraw z: %f \n",_sysstate.r.navsysstate.r.magdata.gauss.z);
+
+                Serial.printf(">heading: %f \n ",_sysstate.r.navsysstate.r.magdata.headingdeg);
                 return 0;
             }
             else
