@@ -65,17 +65,21 @@ uint8_t scani2c(){
 
 class IMU{
 
-float bcali[3] = {-2.514055,-0.287330,-3.524436};
-
-float acali[3][3] = {
-    {0.793141,0.174055,-0.128628},
-    {0.174055,1.770292,0.103605},
-    {-0.128628,0.103605,1.927914}
-};
+IMUdata biases;
 
 public:
-    IMU(){};
+    IMU(){
+        biases.accel.x = -155;
+        biases.accel.y = -156;
+        biases.accel.z = 533;
+
+        biases.gyro.x = 4273;
+        biases.gyro.y = 1555;
+        biases.gyro.z = -811;
+
+    };
     IMUdata data;
+
     
 
     int init(){
