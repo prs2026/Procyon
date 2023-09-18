@@ -65,12 +65,12 @@ uint8_t scani2c(){
 
 class IMU{
 
-float bcali[3] = {0.069310357,-0.01385,-0.01385};
+float bcali[3] = {0.0302,-0.01205,0.00485};
 
 float acali[3][3] = {
-    {1.003997834,0,0},
-    {0,1.004078865,0},
-    {0,0,1.004078865}};
+    {1.004114555,0,0},
+    {0,1.004017682,0},
+    {0,0,1.007097225}};
 
 public:
     IMU(){};
@@ -179,17 +179,20 @@ public:
         data.temp = bmp.readTemperature();
 
         float timestep = (micros() - prevtime)/1e6;
-        prevverticalvel[address] = ((data.altitude -prevalt)*timestep);
+        //Serial.printf(">timestep: %f \n",timestep);
+        //prevverticalvel[address] = ((data.altitude - prevalt)/timestep);
 
-
+        data.verticalvel = ((data.altitude - prevalt)/timestep);//prevverticalvel[address];
+        /*
         for (int i = 0; i < 5; i++)
         {
             data.verticalvel += prevverticalvel[i-1];
         }
-        data.verticalvel /= 5;
-        
+        data.verticalvel /= 6;
+        */
 
-        address >= 4 ? address = 0 : address = address;
+
+        address >= 4 ? address = 0 : address++;
 
         prevalt = data.altitude;
         prevtime = micros();
@@ -198,6 +201,15 @@ public:
 };
 
 class MAG{
+
+float bcali[3] = {-11.1517,-51.38845,0};
+
+float acali[3][3] = {
+    {0.4181084228,0,0},
+    {0,0.3914369911,0},
+    {0,0,1}};
+
+
 
 public:
     MAG(){};
@@ -228,7 +240,13 @@ public:
         data.utesla.y = event.magnetic.y;
         data.utesla.z = event.magnetic.z;
 
-        //data.headingdeg = atan2(data.utesla.x,data.utesla.y)*(180/PI);
+        float currmeas[3] = {data.utesla.x-bcali[0],data.utesla.y-bcali[1],data.utesla.z-bcali[2]};
+        //Serial.printf("%f, %f, %f gainadj: %f, %f, %f ",_data.accel.x,_data.accel.y,_data.accel.z,currmeas[0],currmeas[1],currmeas[2]);
+        data.utesla.x = acali[0][0]*currmeas[0]+acali[1][0]*currmeas[1]+acali[2][0]*currmeas[2];
+        data.utesla.y = acali[0][1]*currmeas[0]+acali[1][1]*currmeas[1]+acali[2][1]*currmeas[2];
+        data.utesla.z = acali[0][2]*currmeas[0]+acali[1][2]*currmeas[1]+acali[2][2]*currmeas[2];
+
+        data.headingdeg = atan2(data.utesla.y,data.utesla.x)*(180/PI);
         return 0;
     } 
 
