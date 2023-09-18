@@ -170,7 +170,7 @@ public:
         }
         bmp.setPressureOversampling(BMP3_OVERSAMPLING_8X);
         Serial.println("BMP init success");
-    return 0;
+        return 0;
     }
     void readsensor(){
 
@@ -178,18 +178,18 @@ public:
         data.pressure = bmp.readPressure();
         data.temp = bmp.readTemperature();
 
-        float timestep = (micros() - prevtime)/1e6;
+        float timestep = (micros() - prevtime);
         //Serial.printf(">timestep: %f \n",timestep);
         //prevverticalvel[address] = ((data.altitude - prevalt)/timestep);
 
-        data.verticalvel = ((data.altitude - prevalt)/timestep);//prevverticalvel[address];
-        /*
-        for (int i = 0; i < 5; i++)
-        {
-            data.verticalvel += prevverticalvel[i-1];
-        }
-        data.verticalvel /= 6;
-        */
+        data.verticalvel = ((data.altitude - prevalt));//prevverticalvel[address];
+        
+        //for (int i = 0; i < 5; i++)
+        //{
+        //    data.verticalvel += prevverticalvel[i-1];
+        //}
+        //data.verticalvel /= 6;
+        
 
 
         address >= 4 ? address = 0 : address++;
