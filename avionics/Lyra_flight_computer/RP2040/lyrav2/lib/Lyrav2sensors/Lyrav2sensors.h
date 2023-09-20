@@ -65,12 +65,12 @@ uint8_t scani2c(){
 
 class IMU{
 
-float bcali[3] = {0.0302,-0.01205,0.00485};
+float bcali[3] = {-0.007,0.0022,-0.0353};
 
 float acali[3][3] = {
-    {1.004114555,0,0},
-    {0,1.004017682,0},
-    {0,0,1.007097225}};
+    {1.007907899,0,0},
+    {0,1.007805928,0},
+    {0,0,1.011191385}};
 
 public:
     IMU(){};
@@ -121,6 +121,7 @@ public:
             _data.gyro.z += gyrounit.getGyroX_rads()*(57.29577941458908); // when the radians to degrees calculation of 180/PI is done at runtime, it breaks but this works so 
 
             delayMicroseconds(500);
+
         }
         
         _data.accel.x /= oversampling;
