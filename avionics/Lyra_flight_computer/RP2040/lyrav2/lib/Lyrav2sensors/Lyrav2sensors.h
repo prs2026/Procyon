@@ -121,7 +121,18 @@ public:
             _data.gyro.z += gyrounit.getGyroX_rads()*(57.29577941458908); // when the radians to degrees calculation of 180/PI is done at runtime, it breaks but this works so 
 
             delayMicroseconds(500);
+<<<<<<< Updated upstream
 
+=======
+            _data.gyro.x < -737869746455707 || _data.gyro.x > 737869746455707 ? _data.gyro.x = data.gyro.x : _data.gyro.x = _data.gyro.x;
+            _data.gyro.y < -737869746455707 || _data.gyro.y > 737869746455707 ? _data.gyro.y = data.gyro.y : _data.gyro.y = _data.gyro.y;
+            _data.gyro.z < -737869746455707 || _data.gyro.z > 737869746455707 ? _data.gyro.z = data.gyro.z : _data.gyro.z = _data.gyro.z;
+
+            _data.accel.x < -737869746455707 || _data.accel.x > 737869746455707 ? _data.accel.x = data.accel.x : _data.accel.x = _data.accel.x;
+            _data.accel.y < -737869746455707 || _data.accel.y > 737869746455707 ? _data.accel.y = data.accel.y : _data.accel.y = _data.accel.y;
+            _data.accel.z < -737869746455707 || _data.accel.z > 737869746455707 ? _data.accel.z = data.accel.z : _data.accel.z = _data.accel.z;
+            
+>>>>>>> Stashed changes
         }
         
         _data.accel.x /= oversampling;
@@ -169,20 +180,33 @@ public:
             Serial.println("BMP init failure");
             return 1;
         }
-        bmp.setPressureOversampling(BMP3_OVERSAMPLING_8X);
+        bmp.setPressureOversampling(BMP3_OVERSAMPLING_32X);
         Serial.println("BMP init success");
         return 0;
     }
     void readsensor(){
+        BAROdata _data;
 
-        data.altitude = bmp.readAltitude(SEALEVELPRESSURE);
-        data.pressure = bmp.readPressure();
-        data.temp = bmp.readTemperature();
+        _data.altitude = bmp.readAltitude(SEALEVELPRESSURE);
+        _data.pressure = bmp.readPressure();
+        _data.temp = bmp.readTemperature();
 
+<<<<<<< Updated upstream
         float timestep = (micros() - prevtime);
         //Serial.printf(">timestep: %f \n",timestep);
+=======
+        float timestep = (micros() - prevtime)/1e6;
+        
+>>>>>>> Stashed changes
         //prevverticalvel[address] = ((data.altitude - prevalt)/timestep);
+        float deltaaltitude = _data.altitude - prevalt;
+        //Serial.printf(">dalt: %f \n",deltaaltitude);
 
+        prevverticalvel[address] = ((deltaaltitude)/timestep);//prevverticalvel[address];
+
+        int j = 0;
+
+<<<<<<< Updated upstream
         data.verticalvel = ((data.altitude - prevalt));//prevverticalvel[address];
         
         //for (int i = 0; i < 5; i++)
@@ -191,12 +215,21 @@ public:
         //}
         //data.verticalvel /= 6;
         
+=======
+        for (int i = 0; i < 5; i++)
+        {
+            _data.verticalvel += prevverticalvel[j];
+            j++;
+        }
+        
+        _data.verticalvel /= 5;
+>>>>>>> Stashed changes
 
+        address < 4 ? address++ : address = 0;
 
-        address >= 4 ? address = 0 : address++;
-
-        prevalt = data.altitude;
+        prevalt = _data.altitude;
         prevtime = micros();
+        data = _data;
     }
 
 };
