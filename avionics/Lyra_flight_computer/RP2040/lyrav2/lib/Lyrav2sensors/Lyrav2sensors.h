@@ -65,12 +65,12 @@ uint8_t scani2c(){
 
 class IMU{
 
-float bcali[3] = {-0.007,0.0022,-0.0353};
+float bcali[3] = {0.02305,0.0063,0.003,};
 
 float acali[3][3] = {
-    {1.007907899,0,0},
-    {0,1.007805928,0},
-    {0,0,1.011191385}};
+    {1.004078865,0,0},
+    {0,1.003614894,0},
+    {0,0,1.007061535}};
 
 public:
     IMU(){};
@@ -121,9 +121,6 @@ public:
             _data.gyro.z += gyrounit.getGyroX_rads()*(57.29577941458908); // when the radians to degrees calculation of 180/PI is done at runtime, it breaks but this works so 
 
             delayMicroseconds(500);
-<<<<<<< Updated upstream
-
-=======
             _data.gyro.x < -737869746455707 || _data.gyro.x > 737869746455707 ? _data.gyro.x = data.gyro.x : _data.gyro.x = _data.gyro.x;
             _data.gyro.y < -737869746455707 || _data.gyro.y > 737869746455707 ? _data.gyro.y = data.gyro.y : _data.gyro.y = _data.gyro.y;
             _data.gyro.z < -737869746455707 || _data.gyro.z > 737869746455707 ? _data.gyro.z = data.gyro.z : _data.gyro.z = _data.gyro.z;
@@ -132,7 +129,6 @@ public:
             _data.accel.y < -737869746455707 || _data.accel.y > 737869746455707 ? _data.accel.y = data.accel.y : _data.accel.y = _data.accel.y;
             _data.accel.z < -737869746455707 || _data.accel.z > 737869746455707 ? _data.accel.z = data.accel.z : _data.accel.z = _data.accel.z;
             
->>>>>>> Stashed changes
         }
         
         _data.accel.x /= oversampling;
@@ -143,11 +139,11 @@ public:
         _data.gyro.y /= oversampling;
         _data.gyro.z /= oversampling;
         
-        float currmeas[3] = {_data.accel.x-bcali[0],_data.accel.y-bcali[1],_data.accel.z-bcali[2]};
+        //float currmeas[3] = {_data.accel.x-bcali[0],_data.accel.y-bcali[1],_data.accel.z-bcali[2]};
         //Serial.printf("%f, %f, %f gainadj: %f, %f, %f ",_data.accel.x,_data.accel.y,_data.accel.z,currmeas[0],currmeas[1],currmeas[2]);
-        _data.accel.x = acali[0][0]*currmeas[0]+acali[1][0]*currmeas[1]+acali[2][0]*currmeas[2];
-        _data.accel.y = acali[0][1]*currmeas[0]+acali[1][1]*currmeas[1]+acali[2][1]*currmeas[2];
-        _data.accel.z = acali[0][2]*currmeas[0]+acali[1][2]*currmeas[1]+acali[2][2]*currmeas[2];
+        //_data.accel.x = acali[0][0]*currmeas[0]+acali[1][0]*currmeas[1]+acali[2][0]*currmeas[2];
+        //_data.accel.y = acali[0][1]*currmeas[0]+acali[1][1]*currmeas[1]+acali[2][1]*currmeas[2];
+        //_data.accel.z = acali[0][2]*currmeas[0]+acali[1][2]*currmeas[1]+acali[2][2]*currmeas[2];
         //Serial.printf("multiplied: %f, %f, %f \n",_data.accel.x,_data.accel.y,_data.accel.z);
         
        
@@ -191,13 +187,8 @@ public:
         _data.pressure = bmp.readPressure();
         _data.temp = bmp.readTemperature();
 
-<<<<<<< Updated upstream
-        float timestep = (micros() - prevtime);
-        //Serial.printf(">timestep: %f \n",timestep);
-=======
         float timestep = (micros() - prevtime)/1e6;
-        
->>>>>>> Stashed changes
+        //Serial.printf(">timestep: %f \n",timestep);
         //prevverticalvel[address] = ((data.altitude - prevalt)/timestep);
         float deltaaltitude = _data.altitude - prevalt;
         //Serial.printf(">dalt: %f \n",deltaaltitude);
@@ -206,16 +197,6 @@ public:
 
         int j = 0;
 
-<<<<<<< Updated upstream
-        data.verticalvel = ((data.altitude - prevalt));//prevverticalvel[address];
-        
-        //for (int i = 0; i < 5; i++)
-        //{
-        //    data.verticalvel += prevverticalvel[i-1];
-        //}
-        //data.verticalvel /= 6;
-        
-=======
         for (int i = 0; i < 5; i++)
         {
             _data.verticalvel += prevverticalvel[j];
@@ -223,7 +204,6 @@ public:
         }
         
         _data.verticalvel /= 5;
->>>>>>> Stashed changes
 
         address < 4 ? address++ : address = 0;
 

@@ -8,8 +8,11 @@
 #include "SPI.h"
 #include "SD.h"
 #include <string.h>
+#include "LittleFS.h"
 
-File logfile;
+//SDfat::File logfile;
+
+fs::File logtofile;
 
 IMU imu;
 BARO baro;
@@ -46,7 +49,7 @@ union mpstate{
     uint32_t data[sizeof(r)];
 };
 
-
+const uint8_t *flash_target_contents = (const uint8_t *) (XIP_BASE + FLASH_TARGET_OFFSET);
 
 
 int waitfornextfifo(int timeoutmillis){
@@ -294,7 +297,7 @@ class MPCORE{
                 errorflag*=7;
                 return 1;
             }
-
+            /*
             logfile = SD.open("test.txt",FILE_WRITE);
 
             if (!logfile)
@@ -305,40 +308,125 @@ class MPCORE{
             logfile.println("lyrav2 be workin");
             logfile.close();
             
-
+            */
             Serial.println("SD card init succeess");
             return 0;
+        }
+
+        int flashinit(){
+                Serial.println("flash init start");
+
+                rp2040.fifo.idleOtherCore();
+                delay(200);
+
+                int error = LittleFS.begin();
+
+                if (error != 0)
+                {
+                    Serial.printf("filesystem mount fail %d\n",error);
+                    errorflag *= 11;
+                    rp2040.resumeOtherCore();
+                    return 1;
+                }
+
+                error = LittleFS.format();
+
+                if (error != 0)
+                {
+                    Serial.printf("filesystem format fail %d\n", error);
+                    errorflag *= 11;
+                    rp2040.resumeOtherCore();
+                    return 1;
+                }
+
+                fs::File testfile = LittleFS.open("/init.txt","w+");
+
+                if (!testfile)
+                {
+                    Serial.println("file open failed");
+                    errorflag *= 11;
+                    rp2040.resumeOtherCore();
+                    return 2;
+                }
+                char teststr[] = "test";
+
+                testfile.print(teststr);
+
+                char readstr[6];
+
+                testfile.readBytes(readstr,sizeof(teststr));
+
+                if (!strcmp(teststr,readstr))
+                {
+                    Serial.print("r/w mismatch, expected:");
+                    Serial.print(teststr);
+                    Serial.print(" got :");
+                    Serial.println(readstr);
+                }
+                
+                Serial.print("r/w complete, expected:");
+                Serial.print(teststr);
+                Serial.print(" got :");
+                Serial.println(readstr);
+
+                
+                testfile.close();
+                Serial.println("flash init complete");
+                rp2040.resumeOtherCore();
+                return 0;
         }
 
         int senddatatoserial(){
             if (sendtoteleplot)
             {
-                Serial.printf(">MP uptime: %d \n",_sysstate.r.uptime);
-                Serial.printf(">NAV uptime: %d \n",_sysstate.r.navsysstate.r.uptime);
+                Serial.printf(
+                ">MP uptime: %d \n" 
+                ">NAV uptime: %d \n" 
+                ">MP errorflag %d \n" 
+                ">NAV errorflag %d \n" 
+                ">accel x: %f \n" 
+                ">accel y: %f \n"
+                ">accel z: %f \n"  
+                ">gyro x: %f \n" 
+                ">gyro y: %f \n"
+                ">gyro z: %f \n"
+                ">altitude: %f \n" 
+                ">verticalvel: %f \n"
+                ">mag x: %f \n" 
+                ">mag y: %f \n" 
+                ">mag z: %f \n"
+                ">magraw x: %f \n"
+                ">magraw y: %f \n"
+                ">magraw z: %f \n"
+                ">heading: %f \n ",
+                _sysstate.r.uptime
+                ,_sysstate.r.navsysstate.r.uptime
 
-                Serial.printf(">MP errorflag %d \n", _sysstate.r.errorflag);
-                Serial.printf(">NAV errorflag %d \n", _sysstate.r.navsysstate.r.errorflag);
+                , _sysstate.r.errorflag
+                , _sysstate.r.navsysstate.r.errorflag
 
-                Serial.printf(">accel x: %f \n",_sysstate.r.navsysstate.r.imudata.accel.x);
-                Serial.printf(">accel y: %f \n",_sysstate.r.navsysstate.r.imudata.accel.y);
-                Serial.printf(">accel z: %f \n",_sysstate.r.navsysstate.r.imudata.accel.z);
+                ,_sysstate.r.navsysstate.r.imudata.accel.x
+                ,_sysstate.r.navsysstate.r.imudata.accel.y
+                ,_sysstate.r.navsysstate.r.imudata.accel.z
 
-                Serial.printf(">gyro x: %f \n",_sysstate.r.navsysstate.r.imudata.gyro.x);
-                Serial.printf(">gyro y: %f \n",_sysstate.r.navsysstate.r.imudata.gyro.y);
-                Serial.printf(">gyro z: %f \n",_sysstate.r.navsysstate.r.imudata.gyro.z);
+                ,_sysstate.r.navsysstate.r.imudata.gyro.x
+                ,_sysstate.r.navsysstate.r.imudata.gyro.y
+                ,_sysstate.r.navsysstate.r.imudata.gyro.z
 
-                Serial.printf(">altitude: %f \n", _sysstate.r.navsysstate.r.barodata.altitude);
-                Serial.printf(">verticalvel: %f \n", _sysstate.r.navsysstate.r.barodata.verticalvel);
+                , _sysstate.r.navsysstate.r.barodata.altitude
+                , _sysstate.r.navsysstate.r.barodata.verticalvel
 
-                Serial.printf(">mag x: %f \n",_sysstate.r.navsysstate.r.magdata.utesla.x);
-                Serial.printf(">mag y: %f \n",_sysstate.r.navsysstate.r.magdata.utesla.y);
-                Serial.printf(">mag z: %f \n",_sysstate.r.navsysstate.r.magdata.utesla.z);
+                ,_sysstate.r.navsysstate.r.magdata.utesla.x
+                ,_sysstate.r.navsysstate.r.magdata.utesla.y
+                ,_sysstate.r.navsysstate.r.magdata.utesla.z
 
-                Serial.printf(">magraw x: %f \n",_sysstate.r.navsysstate.r.magdata.gauss.x);
-                Serial.printf(">magraw y: %f \n",_sysstate.r.navsysstate.r.magdata.gauss.y);
-                Serial.printf(">magraw z: %f \n",_sysstate.r.navsysstate.r.magdata.gauss.z);
+                ,_sysstate.r.navsysstate.r.magdata.gauss.x
+                ,_sysstate.r.navsysstate.r.magdata.gauss.y
+                ,_sysstate.r.navsysstate.r.magdata.gauss.z
 
-                Serial.printf(">heading: %f \n ",_sysstate.r.navsysstate.r.magdata.headingdeg);
+                ,_sysstate.r.navsysstate.r.magdata.headingdeg
+                 );
+                 // this is ugly, but better than a million seperate prints
                 return 0;
             }
             else

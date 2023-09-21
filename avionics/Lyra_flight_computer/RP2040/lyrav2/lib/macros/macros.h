@@ -52,6 +52,8 @@
 #define GREEN 2
 #define BLUE 3
 
+#define FLASH_TARGET_OFFSET (256*1024)
+
 
 #define HANDSHAKETIMEOUT 500;
 

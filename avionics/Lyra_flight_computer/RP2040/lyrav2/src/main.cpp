@@ -16,6 +16,7 @@ void setup() { // main core setup
 
     MP.handshake();
 
+    MP.flashinit();
     MP.initsd();
 
     MP.errorflag == 1 ? MP.setled(GREEN) : MP.setled(BLUE);
@@ -33,6 +34,7 @@ void setup() { // main core setup
 
 void setup1() { // nav core setup
     NAV.handshake();
+    delay(200);
     NAV.initi2c();
     NAV.sensorinit();
     navpacket initpacket;
