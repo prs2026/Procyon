@@ -274,9 +274,9 @@ class MPCORE{
             int loopbackbyte = SPI.transfer(0xEF);
             if (loopbackbyte != 0xEF)
             {
-                Serial.printf("\nSPI bus jammed, expected 239 got: %d \n",loopbackbyte);
+                Serial.printf("\nloopback failed, expected 239 got: %d \n",loopbackbyte);
             }
-            Serial.printf("SPI working, expected 239 got %d \n",loopbackbyte);
+            Serial.printf("loopback sucessed, expected 239 got %d \n",loopbackbyte);
             
             SPI.end();
 
