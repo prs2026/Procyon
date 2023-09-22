@@ -1,7 +1,7 @@
 #if !defined(quats)
 #define quats
 
-#include <Arduino.h>
+//#include <Arduino.h>
 #include <cmath>
 /*
 The multiplication with 1 of the basis elements i, j, and k is defined by the fact that 1 is a multiplicative identity, that is,
@@ -55,7 +55,25 @@ class Quaternion // class containing the quaternion values as well as various fu
             z = _k;
         }
 
+        Quaternion conjugate(){
+            Quaternion result;
+            result.w = w;
+            result.x = -x;
+            result.y = -y;
+            result.z = -z;
+            return result;
+        }
         
+
+
+        Quaternion div(float scalar){
+            Quaternion result;
+            result.w = w/scalar;
+            result.x = x/scalar;
+            result.y = y/scalar;
+            result.z = z/scalar;
+            return result;
+        }
 
         Quaternion operator+(const Quaternion& q2){
             Quaternion result;
@@ -65,6 +83,8 @@ class Quaternion // class containing the quaternion values as well as various fu
             result.z = z + q2.z;
             return result;
         }
+
+        
 
         Quaternion operator*(const Quaternion& q2){
             Quaternion result;
@@ -84,21 +104,25 @@ class Quaternion // class containing the quaternion values as well as various fu
             return result;
         }
 
-        Quaternion conjugate(){
-            Quaternion result;
-            result.x = -x;
-            result.y = -y;
-            result.z = -z;
-            return result;
-        }
+
+
+
 
         
 };
 
-Quaternion rotate(Quaternion torotate, Quaternion axis,float theta){ // rotate torotate quaterion around quaterion axis by theta
-    theta = radians(theta)/2;
+Quaternion inv(Quaternion q){
+    Quaternion result;
+    result = q.conjugate().div(pow(q.magnitude(),2));
+    return result;
+}
+
+
+Quaternion rotate(Quaternion torotate, Quaternion axis,float _theta){ // rotate torotate quaterion around quaterion axis by theta
+    float theta = _theta * (3.14159/180);
     // construct the rotation quaternion from the input axis and theta values
     Quaternion result;
+    axis.normalize();
     Quaternion q(1,0,0,0);
     q.w = cos(theta);
     q.x = axis.x*sin(theta);
@@ -108,7 +132,7 @@ Quaternion rotate(Quaternion torotate, Quaternion axis,float theta){ // rotate t
     //Serial.println("quaternion to rotate by");
     //printquat(q);
     // rotate the original quaternion by the rotatino quaternion
-    Quaternion _q = q.conjugate();
+    Quaternion _q = inv(q);
     result = (q*torotate)*_q;
     return result;
 }
