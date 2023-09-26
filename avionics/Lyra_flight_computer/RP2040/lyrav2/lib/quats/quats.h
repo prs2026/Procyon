@@ -149,15 +149,17 @@ Quaternion rotate(Quaternion torotate, Quaternion axis,float _theta){ // rotate 
     return result;
 }
 
-Quaternion intergrategyos(Vector3float gyromes,float deltatime){
+Quaternion intergrategyros(Quaternion prevstate,Vector3float gyromes,float deltatime){
     Quaternion qdelta(1,0,0,0);
     Quaternion gyromesquat;
     gyromesquat.x = gyromes.x;
     gyromesquat.y = gyromes.y;
     gyromesquat.z = gyromes.z;
-    gyromesquat.normalize();
-    qdelta.w = deltatime * gyromesquat.magnitude();
-
+    float gyromag = gyromesquat.magnitude();
+    qdelta = gyromesquat.div(gyromag);
+    qdelta.w = deltatime*gyromag;
+    prevstate = prevstate*qdelta;
+    return prevstate;
 }
 
 

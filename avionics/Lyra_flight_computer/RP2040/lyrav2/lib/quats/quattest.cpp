@@ -15,6 +15,8 @@ Quaternion qcon = q.conjugate();
 
 Quaternion q1rot = rotate(q1,rotatezaxis,45);
 
+Vector3float gyromes = {10,0,0};
+
 void printquat(Quaternion qtoprint){
     printf("%f,%fi,%fj,%fk\n",qtoprint.w,qtoprint.x,qtoprint.y,qtoprint.z);
 }
