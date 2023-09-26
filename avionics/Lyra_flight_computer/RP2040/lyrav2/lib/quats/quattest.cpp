@@ -5,18 +5,26 @@
 
 Quaternion q(1,1,1,1);
 
-Quaternion q1(0,1,0,0);
+Quaternion q1(0.707,0,0,0.707)  ;
 
-Quaternion rotateq(0,0,1,0);
+Quaternion rotatezaxis(0,0,0,1);
+Quaternion rotatexaxis(0,1,0,0);
 
 Quaternion qinv = inv(q);
 Quaternion qcon = q.conjugate();
 
-Quaternion q1rot = rotate(q1,rotateq,90);
+Quaternion q1rot = rotate(q1,rotatezaxis,45);
+
+void printquat(Quaternion qtoprint){
+    printf("%f,%fi,%fj,%fk\n",qtoprint.w,qtoprint.x,qtoprint.y,qtoprint.z);
+}
+
 
 int main(){
-    printf("w%f,i%f,j%f,k%f\n",qcon.w,qcon.x,qcon.y,qcon.z);
-    printf("w%f,i%f,j%f,k%f\n",qinv.w,qinv.x,qinv.y,qinv.z);
-    printf("w%f,i%f,j%f,k%f\n",q1rot.w,q1rot.x,q1rot.y,q1rot.z);
-
+    printquat(axisangletoquat(45,q1));
+    printquat(qcon);
+    printquat(qinv);
+    printquat(q1rot);
+    q1rot = rotate(q1rot,rotatexaxis,45);
+    printquat(q1rot);
 }

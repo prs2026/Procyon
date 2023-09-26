@@ -17,6 +17,12 @@ Combining these rules,
 i j k = − 1.
 */
 
+struct Vector3float
+{
+    float x;
+    float y;
+    float z;
+};
 
 
 class Quaternion // class containing the quaternion values as well as various functions to operate on them
@@ -111,6 +117,18 @@ class Quaternion // class containing the quaternion values as well as various fu
         
 };
 
+Quaternion axisangletoquat(float theta,Quaternion axis){
+    theta = theta * (3.14159/180);
+    theta = theta/2;
+    axis.normalize();
+    Quaternion q;
+    q.w = cos(theta);
+    q.x = axis.x*sin(theta);
+    q.y = axis.y*sin(theta);
+    q.z = axis.z*sin(theta);
+    return q;
+}
+
 Quaternion inv(Quaternion q){
     Quaternion result;
     result = q.conjugate().div(pow(q.magnitude(),2));
@@ -119,21 +137,15 @@ Quaternion inv(Quaternion q){
 
 
 Quaternion rotate(Quaternion torotate, Quaternion axis,float _theta){ // rotate torotate quaterion around quaterion axis by theta
-    float theta = _theta * (3.14159/180);
-    // construct the rotation quaternion from the input axis and theta values
+    //_theta = _theta; // idk why this is needed but it works when i do this?
     Quaternion result;
-    axis.normalize();
-    Quaternion q(1,0,0,0);
-    q.w = cos(theta);
-    q.x = axis.x*sin(theta);
-    q.y = axis.y*sin(theta);
-    q.z = axis.z*sin(theta);
+    Quaternion q = axisangletoquat(_theta,axis); // construct the rotation quaternion from the input axis and theta values
 
     //Serial.println("quaternion to rotate by");
     //printquat(q);
-    // rotate the original quaternion by the rotatino quaternion
+
     Quaternion _q = inv(q);
-    result = (q*torotate)*_q;
+    result = (q*torotate)*_q;// rotate the original quaternion by the rotatino quaternion
     return result;
 }
 
