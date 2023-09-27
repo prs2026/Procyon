@@ -13,7 +13,7 @@ Quaternion qcon = q.conjugate();
 
 Quaternion q1rot = rotate(q1,rotatezaxis,45);
 
-Vector3float gyromes = {10,20,0};
+Vector3float gyromes = {0,45,0};
 
 Quaternion q2gyro = intergrategyros(q1,gyromes,1);
 

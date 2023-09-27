@@ -163,6 +163,7 @@ Quaternion intergrategyros(Quaternion prevstate,Vector3float gyromes,float delta
     // 
     qdelta = gyromesquat.div(gyromag);
     qdelta.w = deltatime*gyromag;
+    qdelta = qdelta.normalize();
     prevstate = prevstate*qdelta;
     return prevstate;
 }
