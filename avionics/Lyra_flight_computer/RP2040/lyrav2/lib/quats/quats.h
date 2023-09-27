@@ -46,12 +46,14 @@ class Quaternion // class containing the quaternion values as well as various fu
             return d;
         }
 
-        void normalize(){
+        Quaternion normalize(){
+            Quaternion result;
             float d = (sqrt(pow(w,2)+pow(x,2)+pow(y,2)+pow(z,2)));
-            w /= d;
-            x /= d;
-            y /= d;
-            z /= d;
+            result.w = w/d;
+            result.x = x/d;
+            result.y = y/d;
+            result.z = z/d;
+            return result;
         }
 
         void setquat(int _a,int _i,int _j,int _k){
@@ -151,11 +153,14 @@ Quaternion rotate(Quaternion torotate, Quaternion axis,float _theta){ // rotate 
 
 Quaternion intergrategyros(Quaternion prevstate,Vector3float gyromes,float deltatime){
     Quaternion qdelta(1,0,0,0);
+    // assign vector3 to quat so i can use functions
     Quaternion gyromesquat;
     gyromesquat.x = gyromes.x;
     gyromesquat.y = gyromes.y;
     gyromesquat.z = gyromes.z;
     float gyromag = gyromesquat.magnitude();
+    gyromesquat = gyromesquat.normalize();
+    // 
     qdelta = gyromesquat.div(gyromag);
     qdelta.w = deltatime*gyromag;
     prevstate = prevstate*qdelta;

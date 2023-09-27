@@ -11,6 +11,8 @@
 #include <Adafruit_BMP3XX.h>
 #include <Adafruit_LIS3MDL.h>
 
+
+
 /* accelunit object */
 Bmi088Accel accelunit(Wire1,0x18);
 /* gyrounit object */
@@ -20,6 +22,7 @@ Adafruit_BMP3XX bmp;
 Adafruit_LIS3MDL mdl;
 
 const float SEALEVELPRESSURE = 1015.4;
+
 
 
 uint8_t scani2c(){

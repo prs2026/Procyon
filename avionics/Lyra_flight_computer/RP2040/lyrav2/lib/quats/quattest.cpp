@@ -1,8 +1,6 @@
 #include "quats.h"
 #include "stdio.h"
 
-
-
 Quaternion q(1,1,1,1);
 
 Quaternion q1(1,0,0,0)  ;
@@ -15,7 +13,9 @@ Quaternion qcon = q.conjugate();
 
 Quaternion q1rot = rotate(q1,rotatezaxis,45);
 
-Vector3float gyromes = {10,0,0};
+Vector3float gyromes = {10,20,0};
+
+Quaternion q2gyro = intergrategyros(q1,gyromes,1);
 
 void printquat(Quaternion qtoprint){
     printf("%f,%fi,%fj,%fk\n",qtoprint.w,qtoprint.x,qtoprint.y,qtoprint.z);
@@ -31,4 +31,6 @@ int main(){
     printquat(q1rot);
     q1rot = rotate(q1rot,rotatexaxis,-45);
     printquat(q1rot);
+
+    printquat(q2gyro);
 }
