@@ -1,6 +1,6 @@
 #include "quats.h"
 #include "stdio.h"
-
+/*
 Quaternion q(1,1,1,1);
 
 Quaternion q1(1,0,0,0)  ;
@@ -34,3 +34,4 @@ int main(){
 
     printquat(q2gyro);
 }
+*/

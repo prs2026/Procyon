@@ -16,14 +16,14 @@ Combining these rules,
 
 i j k = − 1.
 */
-
+/*
 struct Vector3float
 {
     float x;
     float y;
     float z;
 };
-
+*/
 
 class Quaternion // class containing the quaternion values as well as various functions to operate on them
 {
@@ -150,7 +150,7 @@ Quaternion rotate(Quaternion torotate, Quaternion axis,float _theta){ // rotate 
     result = (q*torotate)*_q;// rotate the original quaternion by the rotatino quaternion
     return result;
 }
-
+/*()
 Quaternion intergrategyros(Quaternion prevstate,Vector3float gyromes,float deltatime){
     Quaternion qdelta(1,0,0,0);
     // assign vector3 to quat so i can use functions
@@ -167,7 +167,7 @@ Quaternion intergrategyros(Quaternion prevstate,Vector3float gyromes,float delta
     prevstate = prevstate*qdelta;
     return prevstate;
 }
-
+*/
 
 
 #endif // quats

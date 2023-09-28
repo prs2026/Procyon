@@ -74,7 +74,13 @@ uint32_t fifopop(){
     return data;
 }
 
-
+Vector3float cross(Vector3float a, Vector3float b){
+    Vector3float c;
+    c.x = (a.y*b.z) - (a.z*b.y);
+    c.y = (a.z*b.x) - (a.x*b.z);
+    c.z = (a.x*b.y) - (a.y*b.x);
+    return c;
+}
 
 class MPCORE{
     
@@ -398,7 +404,10 @@ class MPCORE{
                 ">magraw x: %f \n"
                 ">magraw y: %f \n"
                 ">magraw z: %f \n"
-                ">heading: %f \n ",
+                ">heading: %f \n \n"
+                ">orientation x: %f \n"
+                ">orientation y: %f \n"
+                ">orientation z: %f \n",
                 _sysstate.r.uptime
                 ,_sysstate.r.navsysstate.r.uptime
 
@@ -425,6 +434,9 @@ class MPCORE{
                 ,_sysstate.r.navsysstate.r.magdata.gauss.z
 
                 ,_sysstate.r.navsysstate.r.magdata.headingdeg
+                ,_sysstate.r.navsysstate.r.orientation.x
+                ,_sysstate.r.navsysstate.r.orientation.y
+                ,_sysstate.r.navsysstate.r.orientation.z
                  );
                  // this is ugly, but better than a million seperate prints
                 return 0;
@@ -488,6 +500,7 @@ class NAVCORE{
         */
         struct timings{
             uint32_t sendpacket;
+            uint32_t intergrateorientation;
         };
         timings intervals[7] = {
             {50}, // ground idle
@@ -499,6 +512,7 @@ class NAVCORE{
             {50} // landed
         }; 
         timings prevtime;
+
 
         int sendpacket(navpacket datatosend){
             if (rp2040.fifo.available() > 250)
@@ -564,10 +578,42 @@ class NAVCORE{
             _sysstate.r.magdata = mag.data;
             _sysstate.r.imudata = imu.data;
             _sysstate.r.barodata = baro.data;
+            return;
         }
 
         void computeorientation(){
+            float timestep = (micros()-prevtime.intergrateorientation)/1e6;
+
+            _sysstate.r.orientation.x = _sysstate.r.orientation.x + (_sysstate.r.imudata.gyro.x*timestep);
+            _sysstate.r.orientation.y = _sysstate.r.orientation.y + (_sysstate.r.imudata.gyro.y*timestep);
+            _sysstate.r.orientation.z = _sysstate.r.orientation.z + (_sysstate.r.imudata.gyro.z*timestep);
+            prevtime.intergrateorientation = micros();
+
+            Vector3float accelmeasereus[3];
+            Vector3float acceleuler;
+
+            //cross accel and mag vectors for down (z)
+            //cross down and mag for east (y)
+            //cross down and east for north (x)
             
+           
+
+            accelmeasereus[2] = cross(_sysstate.r.imudata.accel,_sysstate.r.magdata.utesla);
+            accelmeasereus[1] = cross(accelmeasereus[2],_sysstate.r.magdata.utesla);
+            accelmeasereus[0] = cross(accelmeasereus[2],accelmeasereus[1]);
+
+            float sy = sqrt(pow(accelmeasereus[0].x,2) + pow(accelmeasereus[1].x,2));
+
+            acceleuler.x = atan2(accelmeasereus[2].y,accelmeasereus[2].z);
+            acceleuler.y = atan2(accelmeasereus[2].x,sy);
+            acceleuler.z = atan2(accelmeasereus[1].x,accelmeasereus[0].x);
+
+            //Serial.printf("%f,%f,%f \n%f,%f,%f \n%f,%f,%f \n",accelmeasereus[0].x,accelmeasereus[0].y,accelmeasereus[0].z,accelmeasereus[1].x,accelmeasereus[1].y,accelmeasereus[1].z,accelmeasereus[2].x,accelmeasereus[2].y,accelmeasereus[2].z);
+
+            //Serial.printf("%f,%f,%f \n",acceleuler.x,acceleuler.y,acceleuler.z);
+
+
+            return;
         }
 
 
