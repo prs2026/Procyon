@@ -29,13 +29,6 @@ void setup() { // main core setup
     Serial.print("NAV boot complete, error code :");
     Serial.println(MP._sysstate.r.navsysstate.r.errorflag);
 
-    Vector3float test1 = {2,3,4};
-    Vector3float test2 = {5,6,7};
-
-    Vector3float test3 = cross(test1,test2);
-
-    Serial.printf("%f,%f,%f",test3.x,test3.y,test3.z);
-
     //MP.beep();
 }
 
