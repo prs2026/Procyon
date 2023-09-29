@@ -148,8 +148,9 @@ Quatstruct quattostruct(Quaternion qquat){
     return result;
 }
 
-Quaternion axisangletoquat(float theta,Quaternion axis){
-    theta = theta * (3.14159/180);
+Quaternion axisangletoquat(float theta,Quaternion axis,bool radians){
+    radians == 0 ? theta = theta * (3.14159/180) : theta = theta;
+    
     theta = theta/2;
     axis.normalize();
     Quaternion q;
@@ -170,7 +171,7 @@ Quaternion inv(Quaternion q){
 Quaternion rotate(Quaternion torotate, Quaternion axis,float _theta){ // rotate torotate quaterion around quaterion axis by theta
     //_theta = _theta; // idk why this is needed but it works when i do this?
     Quaternion result;
-    Quaternion q = axisangletoquat(_theta,axis); // construct the rotation quaternion from the input axis and theta values
+    Quaternion q = axisangletoquat(_theta,axis,false); // construct the rotation quaternion from the input axis and theta values
 
     Quaternion _q = inv(q);
     result = (q*torotate)*_q;// rotate the original quaternion by the rotatinon quaternion
@@ -182,9 +183,11 @@ Quaternion intergrategyros(Quaternion prevstate,Vector3float gyromess,float delt
     Quaternion result;
     //printf("%f,%fi,%fj,%fk\n",prevstate.w,prevstate.x,prevstate.y,prevstate.z);
 
-    gyromesquat.r.x = gyromess.x;
-    gyromesquat.r.y = gyromess.y;
-    gyromesquat.r.z = gyromess.z;
+    float radiantodegrees = 180/3.14159;
+
+    gyromesquat.r.x = gyromess.x *= radiantodegrees;
+    gyromesquat.r.y = gyromess.y *= radiantodegrees;
+    gyromesquat.r.z = gyromess.z *= radiantodegrees;
 
     float gyromag = gyromesquat.magnitude();
 
@@ -192,7 +195,7 @@ Quaternion intergrategyros(Quaternion prevstate,Vector3float gyromess,float delt
 
     //printf("gyromesquat %f,%fi,%fj,%fk\n",gyromesquat.w,gyromesquat.x,gyromesquat.y,gyromesquat.z);
 
-    Quaternion qdelta = axisangletoquat(deltatime*gyromag,gyromesquat);
+    Quaternion qdelta = axisangletoquat(deltatime*gyromag,gyromesquat,true);
 
     //printf("qdelta %f,%fi,%fj,%fk\n",qdelta.w,qdelta.x,qdelta.y,qdelta.z);
 
@@ -205,9 +208,11 @@ Quatstruct intergrategyros(Quatstruct prevstate,Vector3float gyromess,float delt
     Quatstruct result;
     //printf("%f,%fi,%fj,%fk\n",prevstate.w,prevstate.x,prevstate.y,prevstate.z);
 
-    gyromesquat.r.x = gyromess.x;
-    gyromesquat.r.y = gyromess.y;
-    gyromesquat.r.z = gyromess.z;
+    float radiantodegrees = 180/3.14159;
+
+    gyromesquat.r.x = gyromess.x *= radiantodegrees;
+    gyromesquat.r.y = gyromess.y *= radiantodegrees;
+    gyromesquat.r.z = gyromess.z *= radiantodegrees;
 
     float gyromag = gyromesquat.magnitude();
 
@@ -215,13 +220,27 @@ Quatstruct intergrategyros(Quatstruct prevstate,Vector3float gyromess,float delt
 
     //printf("gyromesquat %f,%fi,%fj,%fk\n",gyromesquat.w,gyromesquat.x,gyromesquat.y,gyromesquat.z);
 
-    Quaternion qdelta = axisangletoquat(deltatime*gyromag,gyromesquat);
+    Quaternion qdelta = axisangletoquat(deltatime*gyromag,gyromesquat, true);
 
     //printf("qdelta %f,%fi,%fj,%fk\n",qdelta.w,qdelta.x,qdelta.y,qdelta.z);
     
     Quaternion tomult = structtoquat(prevstate);
 
     result = tomult * qdelta;
+    return result;
+}
+
+Vector3float Quattoeuler(Quatstruct q){
+    Vector3float result;
+    result.x = atan2(2*(q.w*q.x + q.y*q.z),1- (2*(pow(q.x,2)+pow(q.y,2))));
+    result.y = asin(2*(q.w*q.y + q.x*q.z));
+    result.z = atan2(2*(q.w*q.z + q.x*q.y),1- (2*(pow(q.y,2)+pow(q.z,2))));
+
+    float radiantodegrees = 180/3.14159;
+
+    result.x *= radiantodegrees;
+    result.y *= radiantodegrees;
+    result.z *= radiantodegrees;
     return result;
 }
 

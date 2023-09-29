@@ -23,7 +23,8 @@
 			"ranges": "cpp",
 			"streambuf": "cpp",
 			"tuple": "cpp",
-			"cstdlib": "cpp"
+			"cstdlib": "cpp",
+			"cmath": "cpp"
 		}
 	}
 }

@@ -1,6 +1,6 @@
 #include "quats.h"
 #include "stdio.h"
-/*
+
 Quaternion q(1,1,1,1);
 
 Quaternion q1(0,1,0,0)  ;
@@ -15,7 +15,7 @@ Quaternion qcon = q.conjugate();
 
 Quaternion q1rot = rotate(q1,zaxis,45);
 
-const Vector3float gyromes = {0,45,22.5};
+const Vector3float gyromes = {20,20,0};
 
 //Quaternion q2gyro = intergrategyros(q1,gyromes,1);
 
@@ -34,11 +34,16 @@ int main(){
     printquat(qtorot);
 
 
-    qtorot = intergrategyros(qtorot,gyromes,1);
+    //qtorot = intergrategyros(qtorot,gyromes,1);
 
     printquat(qtorot);
+
+    Vector3float euler;
+
+    euler = Quattoeuler(qtorot.r);
+
+    printf("%f,%f,%f\n",euler.x,euler.y,euler.z);
 
 
     //printquat(q2gyro);
 }
-*/

@@ -585,8 +585,9 @@ class NAVCORE{
 
         void computeorientation(){
             float timestep = (micros()-prevtime.intergrateorientation)/1e6;
-            
+
             _sysstate.r.orientationquat = intergrategyros(_sysstate.r.orientationquat,_sysstate.r.imudata.gyro,timestep);
+
             
             prevtime.intergrateorientation = micros();
 
