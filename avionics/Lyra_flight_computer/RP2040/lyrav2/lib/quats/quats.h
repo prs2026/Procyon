@@ -3,6 +3,7 @@
 
 //#include <Arduino.h>
 #include <cmath>
+#include <stdio.h>
 /*
 The multiplication with 1 of the basis elements i, j, and k is defined by the fact that 1 is a multiplicative identity, that is,
 
@@ -25,50 +26,62 @@ struct Vector3float
 };
 
 
+struct Quatstruct{
+    float w;
+    float x;
+    float y;
+    float z;
+};
+
+
+
 class Quaternion // class containing the quaternion values as well as various functions to operate on them
 {
     public:
 
-        float w,x,y,z; 
+        Quatstruct r; 
         Quaternion(float _w, float _x, float _y, float _z){
-            w = _w;
-            x = _x;
-            y = _y;
-            z = _z;
+            r.w = _w;
+            r.x = _x;
+            r.y = _y;
+            r.z = _z;
         }
 
         Quaternion(){
-
+            r.w = 0;
+            r.x = 0;
+            r.y = 0;
+            r.z = 0;
         }
 
         float magnitude(){
-            float d = (sqrt(pow(w,2)+pow(x,2)+pow(y,2)+pow(z,2)));
+            float d = (sqrt(pow(r.w,2)+pow(r.x,2)+pow(r.y,2)+pow(r.z,2)));
             return d;
         }
 
         Quaternion normalize(){
             Quaternion result;
-            float d = (sqrt(pow(w,2)+pow(x,2)+pow(y,2)+pow(z,2)));
-            result.w = w/d;
-            result.x = x/d;
-            result.y = y/d;
-            result.z = z/d;
+            float d = (sqrt(pow(r.w,2)+pow(r.x,2)+pow(r.y,2)+pow(r.z,2)));
+            result.r.w = r.w/d;
+            result.r.x = r.x/d;
+            result.r.y = r.y/d;
+            result.r.z = r.z/d;
             return result;
         }
 
         void setquat(int _a,int _i,int _j,int _k){
-            w = _a;
-            x = _i;
-            y = _j;
-            z = _k;
+            r.w = _a;
+            r.x = _i;
+            r.y = _j;
+            r.z = _k;
         }
 
         Quaternion conjugate(){
             Quaternion result;
-            result.w = w;
-            result.x = -x;
-            result.y = -y;
-            result.z = -z;
+            result.r.w = r.w;
+            result.r.x = -r.x;
+            result.r.y = -r.y;
+            result.r.z = -r.z;
             return result;
         }
         
@@ -76,19 +89,19 @@ class Quaternion // class containing the quaternion values as well as various fu
 
         Quaternion div(float scalar){
             Quaternion result;
-            result.w = w/scalar;
-            result.x = x/scalar;
-            result.y = y/scalar;
-            result.z = z/scalar;
+            result.r.w = r.w/scalar;
+            result.r.x = r.x/scalar;
+            result.r.y = r.y/scalar;
+            result.r.z = r.z/scalar;
             return result;
         }
 
         Quaternion operator+(const Quaternion& q2){
             Quaternion result;
-            result.w = w + q2.w;
-            result.x = x + q2.x;
-            result.y = y + q2.y;
-            result.z = z + q2.z;
+            result.r.w = r.w + q2.r.w;
+            result.r.x = r.x + q2.r.x;
+            result.r.y = r.y + q2.r.y;
+            result.r.z = r.z + q2.r.z;
             return result;
         }
 
@@ -96,20 +109,24 @@ class Quaternion // class containing the quaternion values as well as various fu
 
         Quaternion operator*(const Quaternion& q2){
             Quaternion result;
-            result.w = (-x * q2.x - y * q2.y - z * q2.z + w * q2.w);
-            result.x = ( x * q2.w + y * q2.z - z * q2.y + w * q2.x);
-            result.y = (-x * q2.z + y * q2.w + z * q2.x + w * q2.y);
-            result.z = ( x * q2.y - y * q2.x + z * q2.w + w * q2.z);
+            result.r.w = (-r.x * q2.r.x - r.y * q2.r.y - r.z * q2.r.z + r.w * q2.r.w);
+            result.r.x = ( r.x * q2.r.w + r.y * q2.r.z - r.z * q2.r.y + r.w * q2.r.x);
+            result.r.y = (-r.x * q2.r.z + r.y * q2.r.w + r.z * q2.r.x + r.w * q2.r.y);
+            result.r.z = ( r.x * q2.r.y - r.y * q2.r.x + r.z * q2.r.w + r.w * q2.r.z);
             return result;
         }
 
         Quaternion operator*(const float s){
             Quaternion result;
-            result.w = (w*s);
-            result.x = (x*s);
-            result.y = (y*s);
-            result.z = (z*s);
+            result.r.w = (r.w*s);
+            result.r.x = (r.x*s);
+            result.r.y = (r.y*s);
+            result.r.z = (r.z*s);
             return result;
+        }
+
+        operator Quatstruct (void) {
+            return r;   
         }
 
 
@@ -119,15 +136,27 @@ class Quaternion // class containing the quaternion values as well as various fu
         
 };
 
+Quaternion structtoquat(Quatstruct qstruct){
+    Quaternion result;
+    result.r = qstruct;
+    return result;
+}
+
+Quatstruct quattostruct(Quaternion qquat){
+    Quatstruct result;
+    result = qquat.r;
+    return result;
+}
+
 Quaternion axisangletoquat(float theta,Quaternion axis){
     theta = theta * (3.14159/180);
     theta = theta/2;
     axis.normalize();
     Quaternion q;
-    q.w = cos(theta);
-    q.x = axis.x*sin(theta);
-    q.y = axis.y*sin(theta);
-    q.z = axis.z*sin(theta);
+    q.r.w = cos(theta);
+    q.r.x = axis.r.x*sin(theta);
+    q.r.y = axis.r.y*sin(theta);
+    q.r.z = axis.r.z*sin(theta);
     return q;
 }
 
@@ -143,28 +172,57 @@ Quaternion rotate(Quaternion torotate, Quaternion axis,float _theta){ // rotate 
     Quaternion result;
     Quaternion q = axisangletoquat(_theta,axis); // construct the rotation quaternion from the input axis and theta values
 
-    //Serial.println("quaternion to rotate by");
-    //printquat(q);
-
     Quaternion _q = inv(q);
-    result = (q*torotate)*_q;// rotate the original quaternion by the rotatino quaternion
+    result = (q*torotate)*_q;// rotate the original quaternion by the rotatinon quaternion
     return result;
 }
 
-Quaternion intergrategyros(Quaternion prevstate,Vector3float gyromes,float deltatime){
-    Quaternion qdelta(1,0,0,0);
-    // assign vector3 to quat so i can use functions
+Quaternion intergrategyros(Quaternion prevstate,Vector3float gyromess,float deltatime){
     Quaternion gyromesquat;
-    gyromesquat.x = gyromes.x;
-    gyromesquat.y = gyromes.y;
-    gyromesquat.z = gyromes.z;
+    Quaternion result;
+    //printf("%f,%fi,%fj,%fk\n",prevstate.w,prevstate.x,prevstate.y,prevstate.z);
+
+    gyromesquat.r.x = gyromess.x;
+    gyromesquat.r.y = gyromess.y;
+    gyromesquat.r.z = gyromess.z;
+
     float gyromag = gyromesquat.magnitude();
+
     gyromesquat = gyromesquat.normalize();
-    // 
-    qdelta.w = deltatime*gyromag;
-    qdelta = qdelta.normalize();
-    prevstate = prevstate*qdelta;
-    return prevstate;
+
+    //printf("gyromesquat %f,%fi,%fj,%fk\n",gyromesquat.w,gyromesquat.x,gyromesquat.y,gyromesquat.z);
+
+    Quaternion qdelta = axisangletoquat(deltatime*gyromag,gyromesquat);
+
+    //printf("qdelta %f,%fi,%fj,%fk\n",qdelta.w,qdelta.x,qdelta.y,qdelta.z);
+
+    result = prevstate * qdelta;
+    return result;
+}
+
+Quatstruct intergrategyros(Quatstruct prevstate,Vector3float gyromess,float deltatime){
+    Quaternion gyromesquat;
+    Quatstruct result;
+    //printf("%f,%fi,%fj,%fk\n",prevstate.w,prevstate.x,prevstate.y,prevstate.z);
+
+    gyromesquat.r.x = gyromess.x;
+    gyromesquat.r.y = gyromess.y;
+    gyromesquat.r.z = gyromess.z;
+
+    float gyromag = gyromesquat.magnitude();
+
+    gyromesquat = gyromesquat.normalize();
+
+    //printf("gyromesquat %f,%fi,%fj,%fk\n",gyromesquat.w,gyromesquat.x,gyromesquat.y,gyromesquat.z);
+
+    Quaternion qdelta = axisangletoquat(deltatime*gyromag,gyromesquat);
+
+    //printf("qdelta %f,%fi,%fj,%fk\n",qdelta.w,qdelta.x,qdelta.y,qdelta.z);
+    
+    Quaternion tomult = structtoquat(prevstate);
+
+    result = tomult * qdelta;
+    return result;
 }
 
 

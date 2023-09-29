@@ -56,13 +56,15 @@
 
 
 #define HANDSHAKETIMEOUT 500;
-
+/*
 struct Vector3float
 {
     float x;
     float y;
     float z;
 };
+*/
+
 
 struct IMUdata{
     Vector3float accel;

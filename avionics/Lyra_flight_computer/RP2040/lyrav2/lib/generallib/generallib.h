@@ -9,6 +9,7 @@
 #include "SD.h"
 #include <string.h>
 #include "LittleFS.h"
+#include "quats.h"
 
 //SDfat::File logfile;
 
@@ -31,9 +32,10 @@ union navpacket
         BAROdata barodata;
         MAGdata magdata;
         Vector3float pos;
-        Vector3float orientation;
+        Vector3float orientationeuler;
         Vector3float vel;
         Vector3float acceleration;
+        Quatstruct orientationquat;
     } r;
     uint32_t data [sizeof(r)];
 };
@@ -405,9 +407,9 @@ class MPCORE{
                 ">magraw y: %f \n"
                 ">magraw z: %f \n"
                 ">heading: %f \n \n"
-                ">orientation x: %f \n"
-                ">orientation y: %f \n"
-                ">orientation z: %f \n",
+                ">orientationeuler x: %f \n"
+                ">orientationeuler y: %f \n"
+                ">orientationeuler z: %f \n",
                 _sysstate.r.uptime
                 ,_sysstate.r.navsysstate.r.uptime
 
@@ -434,9 +436,9 @@ class MPCORE{
                 ,_sysstate.r.navsysstate.r.magdata.gauss.z
 
                 ,_sysstate.r.navsysstate.r.magdata.headingdeg
-                ,_sysstate.r.navsysstate.r.orientation.x
-                ,_sysstate.r.navsysstate.r.orientation.y
-                ,_sysstate.r.navsysstate.r.orientation.z
+                ,_sysstate.r.navsysstate.r.orientationeuler.x
+                ,_sysstate.r.navsysstate.r.orientationeuler.y
+                ,_sysstate.r.navsysstate.r.orientationeuler.z
                  );
                  // this is ugly, but better than a million seperate prints
                 return 0;
@@ -583,10 +585,9 @@ class NAVCORE{
 
         void computeorientation(){
             float timestep = (micros()-prevtime.intergrateorientation)/1e6;
-
-            _sysstate.r.orientation.x = _sysstate.r.orientation.x + (_sysstate.r.imudata.gyro.x*timestep);
-            _sysstate.r.orientation.y = _sysstate.r.orientation.y + (_sysstate.r.imudata.gyro.y*timestep);
-            _sysstate.r.orientation.z = _sysstate.r.orientation.z + (_sysstate.r.imudata.gyro.z*timestep);
+            
+            _sysstate.r.orientationquat = intergrategyros(_sysstate.r.orientationquat,_sysstate.r.imudata.gyro,timestep);
+            
             prevtime.intergrateorientation = micros();
 
             Vector3float accelmeasereus[3];
