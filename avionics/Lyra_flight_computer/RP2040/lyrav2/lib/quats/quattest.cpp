@@ -9,11 +9,15 @@ Quaternion xaxis(0,1,0,0);
 Quaternion yaxis(0,0,1,0);
 Quaternion zaxis(0,0,0,1);
 
+Quaternion multaxis(0,1,1,0);
 
-Quaternion qinv = inv(q);
-Quaternion qcon = q.conjugate();
 
-Quaternion q1rot = rotate(q1,zaxis,45);
+//Quaternion qinv = inv(q);
+//Quaternion qcon = q.conjugate();
+
+//Quaternion qaa = axisangletoquat(45,multaxis,false);
+
+//Quaternion q1rot = rotate(q1,multaxis,45);
 
 const Vector3float gyromes = {20,20,0};
 
@@ -28,21 +32,27 @@ void printquat(Quaternion qtoprint){
 
 
 int main(){
-
-    qtorot = intergrategyros(qtorot,gyromes,1);
+    /*
+    printf("qaa");
+    printquat(qaa);
+    */
+    qtorot.r = intergrategyros(qtorot,gyromes,1);
+    
 
     printquat(qtorot);
 
 
-    //qtorot = intergrategyros(qtorot,gyromes,1);
+    //qtorot.r = intergrategyros(qtorot,gyromes,1);
 
-    printquat(qtorot);
+    //printquat(qtorot);
 
     Vector3float euler;
 
+    //printf("cos 90 = %f")
+
     euler = Quattoeuler(qtorot.r);
 
-    printf("%f,%f,%f\n",euler.x,euler.y,euler.z);
+    printf("converted back euler angles %f,%f,%f\n",euler.x,euler.y,euler.z);
 
 
     //printquat(q2gyro);
