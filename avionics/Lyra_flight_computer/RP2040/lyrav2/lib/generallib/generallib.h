@@ -10,7 +10,7 @@
 #include "LittleFS.h"
 //#include <ArduinoEigenDense.h>
 
-//SDfat::File logfile;
+
 
 //fs::File logtofile;
 

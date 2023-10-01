@@ -14,7 +14,7 @@
 #include <generallib.h>
 
 
-fs::File logtofile;
+//fs::File logtofile;
 
 
 Sd2Card card;
@@ -242,8 +242,8 @@ class MPCORE{
                 errorflag*=7;
                 return 1;
             }
-            /*
-            logfile = SD.open("test.txt",FILE_WRITE);
+            
+            SDLib::File logfile = SD.open("test.txt",FILE_WRITE);
 
             if (!logfile)
             {
@@ -253,38 +253,62 @@ class MPCORE{
             logfile.println("lyrav2 be workin");
             logfile.close();
             
-            */
+            
             Serial.println("SD card init succeess");
             return 0;
         }
 
         int flashinit(){
                 Serial.println("flash init start");
+                // LittleFSConfig cfg;
+                // cfg.setAutoFormat(false);
+                // LittleFS.setConfig(cfg);
 
-                rp2040.fifo.idleOtherCore();
-                delay(200);
-
+                //rp2040.fifo.idleOtherCore();
+                //delay(200);
+                Serial.println("other core idle, trying to begin littlefs");
                 int error = LittleFS.begin();
 
-                if (error != 0)
+                if (error = 0)
                 {
                     Serial.printf("filesystem mount fail %d\n",error);
                     errorflag *= 11;
                     rp2040.resumeOtherCore();
                     return 1;
                 }
+                //Serial.println("littlefs started!");
 
-                error = LittleFS.format();
+                // error = LittleFS.format();
 
-                if (error != 0)
+                // if (error != 0)
+                // {
+                //     Serial.printf("filesystem format fail %d\n", error);
+                //     errorflag *= 11;
+                //     rp2040.resumeOtherCore();
+                //     return 1;
+                // }
+
+                FSInfo64 *info;
+                error = LittleFS.info64(*info);
+
+                if (error != 1)
                 {
-                    Serial.printf("filesystem format fail %d\n", error);
+                    Serial.printf("filesystem info fail %d\n", error);
                     errorflag *= 11;
                     rp2040.resumeOtherCore();
                     return 1;
                 }
+                
 
-                fs::File testfile = LittleFS.open("/init.txt","w+");
+                uint32_t total = info->totalBytes;
+                uint32_t used = info->usedBytes;
+                uint32_t avail = total - used;
+
+                Serial.printf("FS info: total %d, used %d, avail %d\n",total,used,avail);
+
+                LittleFS.remove("/f.txt");
+
+                fs::File testfile = LittleFS.open("/f.txt","w+");
 
                 if (!testfile)
                 {
@@ -293,26 +317,28 @@ class MPCORE{
                     rp2040.resumeOtherCore();
                     return 2;
                 }
-                char teststr[] = "test";
 
-                testfile.print(teststr);
+                //Serial.println("file opened");
+                int testnum = 1;
 
-                char readstr[6];
+                testfile.print(testnum);
+                //Serial.print("file written");
+                testfile.close();
+                testfile = LittleFS.open("/f.txt","r");
 
-                testfile.readBytes(readstr,sizeof(teststr));
+                int readnum = testfile.read() - 48;
 
-                if (!strcmp(teststr,readstr))
+                //Serial.println("file read");
+
+                if (readnum != testnum)
                 {
-                    Serial.print("r/w mismatch, expected:");
-                    Serial.print(teststr);
-                    Serial.print(" got :");
-                    Serial.println(readstr);
+                    Serial.printf("read fail, expected %d, got %d\n",testnum,readnum);
+                    errorflag *= 11;
+                    rp2040.resumeOtherCore();
+                    return 3;
                 }
                 
-                Serial.print("r/w complete, expected:");
-                Serial.print(teststr);
-                Serial.print(" got :");
-                Serial.println(readstr);
+                //Serial.printf("read success, expected %d, got %d\n",testnum,readnum);
 
                 
                 testfile.close();
