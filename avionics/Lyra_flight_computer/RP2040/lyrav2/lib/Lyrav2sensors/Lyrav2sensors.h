@@ -144,8 +144,8 @@ public:
             accel.y() += accelunit.getAccelY_mss();
             accel.z() += accelunit.getAccelX_mss();
 
-            gyro.x() += gyrounit.getGyroZ_rads();
-            gyro.y() += gyrounit.getGyroY_rads();
+            gyro.x() += -gyrounit.getGyroZ_rads();
+            gyro.y() += -gyrounit.getGyroY_rads();
             gyro.z() += gyrounit.getGyroX_rads(); // when the radians to degrees calculation of 180/PI is done at runtime, it breaks but this works so 
 
             delayMicroseconds(500);

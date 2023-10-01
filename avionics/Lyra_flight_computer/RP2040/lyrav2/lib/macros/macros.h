@@ -8,6 +8,7 @@
 using Eigen::Vector3d;
 using Eigen::Matrix3d;
 using Eigen::Quaterniond;
+using Eigen::AngleAxisd;
 
 #define LEDRED 11
 #define LEDGREEN 10

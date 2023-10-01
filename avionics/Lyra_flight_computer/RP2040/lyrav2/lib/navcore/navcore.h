@@ -29,6 +29,8 @@ class NAVCORE{
         uint32_t errorflag = 1; 
         navpacket _sysstate;
 
+        float alpha = 0.97;
+
         NAVCORE(){
             _sysstate.r.orientationquat = {1,0,0,0};
         };
@@ -130,21 +132,49 @@ class NAVCORE{
             Quaterniond orientationquat = quatstructtoeigen(_sysstate.r.orientationquat);
             Vector3d gyro = vectorfloatto3(_sysstate.r.imudata.gyro);
             Vector3d accel = vectorfloatto3(_sysstate.r.imudata.accel);
+            Vector3d mag = vectorfloatto3(_sysstate.r.magdata.utesla);
             Vector3d orientationeuler = vectorfloatto3(_sysstate.r.orientationeuler);
 
-            Eigen::AngleAxisd aa(timestep*gyro.norm(), gyro.normalized());
+            AngleAxisd aa(timestep*gyro.norm(), gyro.normalized());
             Quaterniond qdelta(aa);
 
             orientationquat = orientationquat * qdelta;
 
+
+            prevtime.intergrateorientation = micros();
+
+            Quaterniond accelquat;
+
+            accelquat.x() = accel.x();
+            accelquat.y() = accel.y();
+            accelquat.z() = accel.z();
+
+            accelquat = orientationquat * accelquat * orientationquat.inverse();
+
+            accel.x() = accelquat.x();
+            accel.y() = accelquat.y();
+            accel.z() = accelquat.z();
+            
+
+            Vector3d accelnorm(accel.normalized());
+
+            float phi = acos(accelnorm.y());
+
+            Vector3d naxis(accelnorm.cross(Vector3d(0,1,0)));
+
+            naxis = naxis.normalized();
+
+
+            Quaterniond accelrotquat(AngleAxisd((1-alpha)*phi,naxis));
+
+            orientationquat = accelrotquat * orientationquat;
+
+
             orientationeuler = orientationquat.toRotationMatrix().eulerAngles(0,1,2);
-
-            //Serial.printf("%f,%f,%f",orientationeuler.x(),orientationeuler.y(),orientationeuler.z());
-
+            
             _sysstate.r.orientationquat = eigentoquatstruct(orientationquat);
             _sysstate.r.orientationeuler = vector3tofloat(orientationeuler);
 
-            prevtime.intergrateorientation = micros();
         };
 
 
