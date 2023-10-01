@@ -8,15 +8,9 @@
 #include "SD.h"
 #include <string.h>
 #include "LittleFS.h"
-//#include <ArduinoEigenDense.h>
 
 
-
-//fs::File logtofile;
-
-
-const uint8_t *flash_target_contents = (const uint8_t *) (XIP_BASE + FLASH_TARGET_OFFSET);
-
+uint8_t address[][6] = { "Rocky","Contr" };
 
 int waitfornextfifo(int timeoutmillis){
     uint32_t pushmillis = millis();
@@ -74,19 +68,6 @@ Quatstruct eigentoquatstruct(Quaterniond q){
     result.z = q.z();
     return result;
 }
-
-// Vector3float cross(Vector3float a, Vector3float b){
-//     Vector3float c;
-//     c.x = (a.y*b.z) - (a.z*b.y);
-//     c.y = (a.z*b.x) - (a.x*b.z);
-//     c.z = (a.x*b.y) - (a.y*b.x);
-//     return c;
-// }
-
-
-
-
-//**************************************************************************************\\
 
 
 

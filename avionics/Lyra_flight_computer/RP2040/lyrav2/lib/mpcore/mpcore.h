@@ -12,12 +12,15 @@
 #include "LittleFS.h"
 //#include <ArduinoEigenDense.h>
 #include <generallib.h>
+#include <RF24.h>
 
 
 //fs::File logtofile;
 
 
 Sd2Card card;
+
+RF24 radio(26,BRK_CS);
 
 
 class MPCORE{
@@ -39,7 +42,7 @@ class MPCORE{
             11 = flash init fail
             13 = no packet recived
             17 = bad telemetry packet
-            19 = telemetry send fail
+            19 = radio init fail
             23 = bad telemetry packet
         */
         bool sendserialon = false;
@@ -345,6 +348,52 @@ class MPCORE{
                 Serial.println("flash init complete");
                 rp2040.resumeOtherCore();
                 return 0;
+        }
+
+
+        int radioinit(){
+            Serial.println("radio init start");
+
+            int error = radio.begin();
+            if (error != 0)
+            {
+                Serial.println("radio init fail");
+                errorflag *= 19;
+                return 1;
+            }
+            Serial.println("radio init success");
+
+            radio.openReadingPipe(1,address[0]);
+            radio.openWritingPipe(address[1]);
+
+            uint8_t initpayload = 0xAB;
+            uint8_t exppayload = 0xCD;
+
+            error = radio.write(&initpayload,1);   
+            radio.startListening(); 
+
+            uint32_t timeoutstart = millis();
+            while (!radio.available()){
+            if (millis() - timeoutstart > 1000){
+                Serial.println("radio commcheck timeout");
+                errorflag = errorflag*19;
+                return 1;
+            }
+            }
+            
+            uint8_t buf;
+
+            radio.read(&buf,sizeof(buf));
+
+            if (buf != exppayload)
+            {
+                Serial.printf("radio commcheck fail, expected %x, got %x\n",exppayload,buf);
+                errorflag = errorflag*19;
+                return 1;
+            }
+            Serial.println("radio commcheck success");
+
+            return 0;
         }
 
         int senddatatoserial(){

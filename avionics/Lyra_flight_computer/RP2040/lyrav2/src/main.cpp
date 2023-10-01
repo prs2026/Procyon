@@ -18,6 +18,7 @@ void setup() { // main core setup
 
     MP.flashinit();
     MP.initsd();
+    MP.radioinit();
 
     MP.errorflag == 1 ? MP.setled(GREEN) : MP.setled(BLUE);
     
