@@ -82,7 +82,7 @@ void loop() { // main core loop
 
 void loop1() { // nav core loop
     NAV.getsensordata();
-    //NAV.computeorientation();
+    NAV.computeorientation();
     if ((millis() - NAV.prevtime.sendpacket) >= NAV.intervals[NAV._sysstate.r.state].sendpacket)
     {
         int inbuf = rp2040.fifo.available();

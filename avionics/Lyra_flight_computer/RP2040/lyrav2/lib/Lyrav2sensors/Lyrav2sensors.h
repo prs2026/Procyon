@@ -10,13 +10,9 @@
 #include <Adafruit_BMP3XX.h>
 #include <Adafruit_LIS3MDL.h>
 
-//#include <ArduinoEigenDense.h>
 
 #include <generallib.h>
 
-using Eigen::Quaterniond;
-using Eigen::Vector3d;
-using Eigen::MatrixXd;
 
 /* accelunit object */
 Bmi088Accel accelunit(Wire1,0x18);
@@ -70,13 +66,13 @@ uint8_t scani2c(){
     
     return 0;
 }
-
+/*
 Quaterniond intergrategyros(Quaterniond prevstate){
     Quaterniond result;
 
     return result;
 }
-
+*/
 class IMU{
 
 float bcali[3] = {0.02305,0.0063,0.003,};
@@ -88,16 +84,17 @@ float acali[3][3] = {
     {0,1.003614894,0},
     {0,0,1.007061535}};
 
-MatrixXd acal;
+Matrix3d acal;
 
 public:
     IMU(){
+        
         bcal << 0.02305,0.0063,0.003;
 
         acal << 1.004078865,0,0,
                 0,1.003614894,0,
                 0,0,1.007061535;
-
+        
     };
     IMUdata data;
 
@@ -133,6 +130,7 @@ public:
         IMUdata _data;
         Vector3d accel;
         Vector3d gyro;
+        
 
 
 
@@ -146,18 +144,18 @@ public:
             accel.y() += accelunit.getAccelY_mss();
             accel.z() += accelunit.getAccelX_mss();
 
-            gyro.x() += gyrounit.getGyroZ_rads()*(180/PI);
-            gyro.y() += gyrounit.getGyroY_rads()*(180/PI);
-            gyro.z() += gyrounit.getGyroX_rads()*(57.29577941458908); // when the radians to degrees calculation of 180/PI is done at runtime, it breaks but this works so 
+            gyro.x() += gyrounit.getGyroZ_rads();
+            gyro.y() += gyrounit.getGyroY_rads();
+            gyro.z() += gyrounit.getGyroX_rads(); // when the radians to degrees calculation of 180/PI is done at runtime, it breaks but this works so 
 
             delayMicroseconds(500);
-            gyro.x() < -737869746455707 || gyro.x() > 737869746455707 ? gyro.x() = gyro.x() : gyro.x() = gyro.x();
-            gyro.y() < -737869746455707 || gyro.y() > 737869746455707 ? gyro.y() = gyro.y() : gyro.y() = gyro.y();
-            gyro.z() < -737869746455707 || gyro.z() > 737869746455707 ? gyro.z() = gyro.z() : gyro.z() = gyro.z();
+            gyro.x() < -737869746455707 || gyro.x() > 737869746455707 ? gyro.x() = data.gyro.x : gyro.x() = gyro.x();
+            gyro.y() < -737869746455707 || gyro.y() > 737869746455707 ? gyro.y() = data.gyro.x : gyro.y() = gyro.y();
+            gyro.z() < -737869746455707 || gyro.z() > 737869746455707 ? gyro.z() = data.gyro.x : gyro.z() = gyro.z();
 
-            accel.x() < -737869746455707 || accel.x() > 737869746455707 ? accel.x() = accel.x() : accel.x() = accel.x();
-            accel.y() < -737869746455707 || accel.y() > 737869746455707 ? accel.y() = accel.y() : accel.y() = accel.y();
-            accel.z() < -737869746455707 || accel.z() > 737869746455707 ? accel.z() = accel.z() : accel.z() = accel.z();
+            accel.x() < -737869746455707 || accel.x() > 737869746455707 ? accel.x() = data.accel.x : accel.x() = accel.x();
+            accel.y() < -737869746455707 || accel.y() > 737869746455707 ? accel.y() = data.accel.x : accel.y() = accel.y();
+            accel.z() < -737869746455707 || accel.z() > 737869746455707 ? accel.z() = data.accel.x : accel.z() = accel.z();
             
         }
         
@@ -174,19 +172,19 @@ public:
         // _data.accel.x = acali[0][0]*currmeas[0]+acali[1][0]*currmeas[1]+acali[2][0]*currmeas[2];
         // _data.accel.y = acali[0][1]*currmeas[0]+acali[1][1]*currmeas[1]+acali[2][1]*currmeas[2];
         // _data.accel.z = acali[0][2]*currmeas[0]+acali[1][2]*currmeas[1]+acali[2][2]*currmeas[2];
-        //Serial.printf("multiplied: %f, %f, %f \n",_data.accel.x,_data.accel.y,_data.accel.z);
+        //
         
-       accel - bcal;
+       accel = accel - bcal;
 
-       accel * acal;
+       accel = acal * accel;
 
        _data.accel = vector3tofloat(accel);
        _data.gyro = vector3tofloat(gyro);
-        
+        //Serial.printf("multiplied: %f, %f, %f \n",_data.accel.x,_data.accel.y,_data.accel.z);
         _data.temp = accelunit.getTemperature_C();
 
         data = _data;
-
+        
         return;
         
     }

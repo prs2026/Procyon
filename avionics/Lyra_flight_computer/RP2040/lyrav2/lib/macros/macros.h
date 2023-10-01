@@ -6,6 +6,8 @@
 #include <ArduinoEigenDense.h>
 
 using Eigen::Vector3d;
+using Eigen::Matrix3d;
+using Eigen::Quaterniond;
 
 #define LEDRED 11
 #define LEDGREEN 10

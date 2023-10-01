@@ -8,7 +8,7 @@
 #include "SD.h"
 #include <string.h>
 #include "LittleFS.h"
-#include <ArduinoEigenDense.h>
+//#include <ArduinoEigenDense.h>
 
 //SDfat::File logfile;
 
@@ -54,6 +54,24 @@ Eigen::Vector3d vectorfloatto3(Vector3float v){
     result.x() = v.x;
     result.y() = v.y;
     result.z() = v.z;
+    return result;
+}
+
+Quaterniond quatstructtoeigen(Quatstruct q){
+    Quaterniond result;
+    result.w() = q.w;
+    result.x() = q.x;
+    result.y() = q.y;
+    result.z() = q.z;
+    return result;
+}
+
+Quatstruct eigentoquatstruct(Quaterniond q){
+    Quatstruct result;
+    result.w = q.w();
+    result.x = q.x();
+    result.y = q.y();
+    result.z = q.z();
     return result;
 }
 

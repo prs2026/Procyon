@@ -17,17 +17,21 @@ IMU imu;
 BARO baro;
 MAG mag;
 
-using Eigen::MatrixXd;
-using Eigen::Vector3d;
+//using Eigen::MatrixXd;
+//using Eigen::Vector3d;
 
 
 class NAVCORE{
     
 
     public:
-        NAVCORE(){};
+        
         uint32_t errorflag = 1; 
         navpacket _sysstate;
+
+        NAVCORE(){
+            _sysstate.r.orientationquat = {1,0,0,0};
+        };
         /*
         1 = no errors
         3 = failed handshake
@@ -110,7 +114,7 @@ class NAVCORE{
         }
 
         void getsensordata(){
-            //imu.read();
+            imu.read();
             baro.readsensor();
             mag.read();
 
@@ -120,6 +124,28 @@ class NAVCORE{
             _sysstate.r.barodata = baro.data;
             return;
         }
+
+        void computeorientation(){
+            double timestep = (micros() - prevtime.intergrateorientation)/1e6;
+            Quaterniond orientationquat = quatstructtoeigen(_sysstate.r.orientationquat);
+            Vector3d gyro = vectorfloatto3(_sysstate.r.imudata.gyro);
+            Vector3d accel = vectorfloatto3(_sysstate.r.imudata.accel);
+            Vector3d orientationeuler = vectorfloatto3(_sysstate.r.orientationeuler);
+
+            Eigen::AngleAxisd aa(timestep*gyro.norm(), gyro.normalized());
+            Quaterniond qdelta(aa);
+
+            orientationquat = orientationquat * qdelta;
+
+            orientationeuler = orientationquat.toRotationMatrix().eulerAngles(0,1,2);
+
+            //Serial.printf("%f,%f,%f",orientationeuler.x(),orientationeuler.y(),orientationeuler.z());
+
+            _sysstate.r.orientationquat = eigentoquatstruct(orientationquat);
+            _sysstate.r.orientationeuler = vector3tofloat(orientationeuler);
+
+            prevtime.intergrateorientation = micros();
+        };
 
 
 

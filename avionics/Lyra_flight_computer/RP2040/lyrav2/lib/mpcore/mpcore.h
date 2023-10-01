@@ -343,7 +343,6 @@ class MPCORE{
                 ">magraw x: %f \n"
                 ">magraw y: %f \n"
                 ">magraw z: %f \n"
-                ">heading: %f \n \n"
                 ">orientationeuler x: %f \n"
                 ">orientationeuler y: %f \n"
                 ">orientationeuler z: %f \n",
@@ -357,9 +356,9 @@ class MPCORE{
                 ,_sysstate.r.navsysstate.r.imudata.accel.y
                 ,_sysstate.r.navsysstate.r.imudata.accel.z
 
-                ,_sysstate.r.navsysstate.r.imudata.gyro.x
-                ,_sysstate.r.navsysstate.r.imudata.gyro.y
-                ,_sysstate.r.navsysstate.r.imudata.gyro.z
+                ,_sysstate.r.navsysstate.r.imudata.gyro.x*(180/M_PI)
+                ,_sysstate.r.navsysstate.r.imudata.gyro.y*(180/M_PI)
+                ,_sysstate.r.navsysstate.r.imudata.gyro.z*(180/M_PI)
 
                 , _sysstate.r.navsysstate.r.barodata.altitude
                 , _sysstate.r.navsysstate.r.barodata.verticalvel
@@ -372,10 +371,9 @@ class MPCORE{
                 ,_sysstate.r.navsysstate.r.magdata.gauss.y
                 ,_sysstate.r.navsysstate.r.magdata.gauss.z
 
-                //,_sysstate.r.navsysstate.r.magdata.headingdeg
-                // ,_sysstate.r.navsysstate.r.orientationeuler.x
-                // ,_sysstate.r.navsysstate.r.orientationeuler.y
-                // ,_sysstate.r.navsysstate.r.orientationeuler.z
+                ,_sysstate.r.navsysstate.r.orientationeuler.x*(180/M_PI)
+                ,_sysstate.r.navsysstate.r.orientationeuler.y*(180/M_PI)
+                ,_sysstate.r.navsysstate.r.orientationeuler.z*(180/M_PI)
                  );
                  // this is ugly, but better than a million seperate prints
                 return 0;
