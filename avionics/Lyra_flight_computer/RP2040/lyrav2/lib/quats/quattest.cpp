@@ -1,5 +1,7 @@
 #include "quats.h"
 #include "stdio.h"
+/*
+#include <ArduinoEigenDense.h>
 
 Quaternion q(1,1,1,1);
 
@@ -36,6 +38,7 @@ int main(){
     printf("qaa");
     printquat(qaa);
     */
+   /*
     qtorot.r = intergrategyros(qtorot,gyromes,1);
     
 
@@ -57,3 +60,4 @@ int main(){
 
     //printquat(q2gyro);
 }
+*/

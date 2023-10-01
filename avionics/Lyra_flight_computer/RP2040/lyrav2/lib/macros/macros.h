@@ -3,7 +3,9 @@
 #include <Arduino.h>
 #include "pico/stdlib.h"
 #include "pico/multicore.h"
-#include "Lyrav2sensors.h"
+#include <ArduinoEigenDense.h>
+
+using Eigen::Vector3d;
 
 #define LEDRED 11
 #define LEDGREEN 10
@@ -56,15 +58,20 @@
 
 
 #define HANDSHAKETIMEOUT 500;
-/*
+
 struct Vector3float
 {
     float x;
     float y;
     float z;
 };
-*/
 
+struct Quatstruct{
+    float w;
+    float x;
+    float y;
+    float z;
+};
 
 struct IMUdata{
     Vector3float accel;
@@ -82,7 +89,38 @@ struct BAROdata{
 struct MAGdata{
     Vector3float gauss;
     Vector3float utesla;
-    float headingdeg;
+};
+
+union navpacket
+{
+    struct
+    {
+        uint32_t errorflag;
+        uint32_t uptime;
+        uint32_t state;
+        IMUdata imudata;
+        BAROdata barodata;
+        MAGdata magdata;
+        Vector3float pos;
+        Vector3float orientationeuler;
+        Quatstruct orientationquat;
+        Vector3float vel;
+        Vector3float acceleration;
+        
+    } r;
+    uint32_t data [sizeof(r)];
+
+};
+
+union mpstate{
+    struct{
+        uint32_t errorflag;
+        uint32_t uptime;
+        uint32_t state;
+        navpacket navsysstate;
+
+    } r;
+    uint32_t data[sizeof(r)];
 };
 
 

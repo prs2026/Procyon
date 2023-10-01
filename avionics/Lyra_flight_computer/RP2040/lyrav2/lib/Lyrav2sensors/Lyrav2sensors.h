@@ -4,14 +4,19 @@
 #include <Wire.h>
 
 #include <macros.h>
-#include <quats.h>
 
 #include <BMI088.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BMP3XX.h>
 #include <Adafruit_LIS3MDL.h>
 
+//#include <ArduinoEigenDense.h>
 
+#include <generallib.h>
+
+using Eigen::Quaterniond;
+using Eigen::Vector3d;
+using Eigen::MatrixXd;
 
 /* accelunit object */
 Bmi088Accel accelunit(Wire1,0x18);
@@ -66,18 +71,36 @@ uint8_t scani2c(){
     return 0;
 }
 
+Quaterniond intergrategyros(Quaterniond prevstate){
+    Quaterniond result;
+
+    return result;
+}
+
 class IMU{
 
 float bcali[3] = {0.02305,0.0063,0.003,};
+
+Vector3d bcal;
 
 float acali[3][3] = {
     {1.004078865,0,0},
     {0,1.003614894,0},
     {0,0,1.007061535}};
 
+MatrixXd acal;
+
 public:
-    IMU(){};
+    IMU(){
+        bcal << 0.02305,0.0063,0.003;
+
+        acal << 1.004078865,0,0,
+                0,1.003614894,0,
+                0,0,1.007061535;
+
+    };
     IMUdata data;
+
 
     
 
@@ -108,6 +131,10 @@ public:
 
     void read(int oversampling = 50){
         IMUdata _data;
+        Vector3d accel;
+        Vector3d gyro;
+
+
 
         
         for (int i = 0; i < oversampling; i++)
@@ -115,41 +142,46 @@ public:
             accelunit.readSensor();
             gyrounit.readSensor();
 
-            _data.accel.x += accelunit.getAccelZ_mss();
-            _data.accel.y += accelunit.getAccelY_mss();
-            _data.accel.z += accelunit.getAccelX_mss();
+            accel.x() += accelunit.getAccelZ_mss();
+            accel.y() += accelunit.getAccelY_mss();
+            accel.z() += accelunit.getAccelX_mss();
 
-            _data.gyro.x += gyrounit.getGyroZ_rads()*(180/PI);
-            _data.gyro.y += gyrounit.getGyroY_rads()*(180/PI);
-            _data.gyro.z += gyrounit.getGyroX_rads()*(57.29577941458908); // when the radians to degrees calculation of 180/PI is done at runtime, it breaks but this works so 
+            gyro.x() += gyrounit.getGyroZ_rads()*(180/PI);
+            gyro.y() += gyrounit.getGyroY_rads()*(180/PI);
+            gyro.z() += gyrounit.getGyroX_rads()*(57.29577941458908); // when the radians to degrees calculation of 180/PI is done at runtime, it breaks but this works so 
 
             delayMicroseconds(500);
-            _data.gyro.x < -737869746455707 || _data.gyro.x > 737869746455707 ? _data.gyro.x = data.gyro.x : _data.gyro.x = _data.gyro.x;
-            _data.gyro.y < -737869746455707 || _data.gyro.y > 737869746455707 ? _data.gyro.y = data.gyro.y : _data.gyro.y = _data.gyro.y;
-            _data.gyro.z < -737869746455707 || _data.gyro.z > 737869746455707 ? _data.gyro.z = data.gyro.z : _data.gyro.z = _data.gyro.z;
+            gyro.x() < -737869746455707 || gyro.x() > 737869746455707 ? gyro.x() = gyro.x() : gyro.x() = gyro.x();
+            gyro.y() < -737869746455707 || gyro.y() > 737869746455707 ? gyro.y() = gyro.y() : gyro.y() = gyro.y();
+            gyro.z() < -737869746455707 || gyro.z() > 737869746455707 ? gyro.z() = gyro.z() : gyro.z() = gyro.z();
 
-            _data.accel.x < -737869746455707 || _data.accel.x > 737869746455707 ? _data.accel.x = data.accel.x : _data.accel.x = _data.accel.x;
-            _data.accel.y < -737869746455707 || _data.accel.y > 737869746455707 ? _data.accel.y = data.accel.y : _data.accel.y = _data.accel.y;
-            _data.accel.z < -737869746455707 || _data.accel.z > 737869746455707 ? _data.accel.z = data.accel.z : _data.accel.z = _data.accel.z;
+            accel.x() < -737869746455707 || accel.x() > 737869746455707 ? accel.x() = accel.x() : accel.x() = accel.x();
+            accel.y() < -737869746455707 || accel.y() > 737869746455707 ? accel.y() = accel.y() : accel.y() = accel.y();
+            accel.z() < -737869746455707 || accel.z() > 737869746455707 ? accel.z() = accel.z() : accel.z() = accel.z();
             
         }
         
-        _data.accel.x /= oversampling;
-        _data.accel.y /= oversampling;
-        _data.accel.z /= oversampling;
+        accel.x() /= oversampling;
+        accel.y() /= oversampling;
+        accel.z() /= oversampling;
         
-        _data.gyro.x /= oversampling;
-        _data.gyro.y /= oversampling;
-        _data.gyro.z /= oversampling;
+        gyro.x() /= oversampling;
+        gyro.y() /= oversampling;
+        gyro.z() /= oversampling;
         
-        float currmeas[3] = {_data.accel.x-bcali[0],_data.accel.y-bcali[1],_data.accel.z-bcali[2]};
+        //float currmeas[3] = {_data.accel.x-bcali[0],_data.accel.y-bcali[1],_data.accel.z-bcali[2]};
         //Serial.printf("%f, %f, %f gainadj: %f, %f, %f ",_data.accel.x,_data.accel.y,_data.accel.z,currmeas[0],currmeas[1],currmeas[2]);
-        _data.accel.x = acali[0][0]*currmeas[0]+acali[1][0]*currmeas[1]+acali[2][0]*currmeas[2];
-        _data.accel.y = acali[0][1]*currmeas[0]+acali[1][1]*currmeas[1]+acali[2][1]*currmeas[2];
-        _data.accel.z = acali[0][2]*currmeas[0]+acali[1][2]*currmeas[1]+acali[2][2]*currmeas[2];
+        // _data.accel.x = acali[0][0]*currmeas[0]+acali[1][0]*currmeas[1]+acali[2][0]*currmeas[2];
+        // _data.accel.y = acali[0][1]*currmeas[0]+acali[1][1]*currmeas[1]+acali[2][1]*currmeas[2];
+        // _data.accel.z = acali[0][2]*currmeas[0]+acali[1][2]*currmeas[1]+acali[2][2]*currmeas[2];
         //Serial.printf("multiplied: %f, %f, %f \n",_data.accel.x,_data.accel.y,_data.accel.z);
         
-       
+       accel - bcal;
+
+       accel * acal;
+
+       _data.accel = vector3tofloat(accel);
+       _data.gyro = vector3tofloat(gyro);
         
         _data.temp = accelunit.getTemperature_C();
 
@@ -263,12 +295,14 @@ public:
         data.utesla.y = acali[0][1]*currmeas[0]+acali[1][1]*currmeas[1]+acali[2][1]*currmeas[2];
         data.utesla.z = acali[0][2]*currmeas[0]+acali[1][2]*currmeas[1]+acali[2][2]*currmeas[2];
 
-        data.headingdeg = atan2(data.utesla.y,data.utesla.x)*(180/PI);
+        //data.headingdeg = atan2(data.utesla.y,data.utesla.x)*(180/PI);
         return 0;
     } 
 
 
 };
+
+
 
 
 #endif // Lyrav2sensors

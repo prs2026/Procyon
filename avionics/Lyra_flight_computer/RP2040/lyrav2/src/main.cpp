@@ -1,7 +1,7 @@
-
 #include <Arduino.h>
-#include <quats.h>
 #include "generallib.h"
+#include "navcore.h"
+#include "mpcore.h"
 
 MPCORE MP;
 NAVCORE NAV;
