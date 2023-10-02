@@ -86,6 +86,11 @@ float acali[3][3] = {
 
 Matrix3d acal;
 
+IMUdata prevdata;
+
+float gyroal = 0.2;
+float accelal = 0.2;
+
 public:
     IMU(){
         
@@ -130,9 +135,6 @@ public:
         IMUdata _data;
         Vector3d accel;
         Vector3d gyro;
-        
-
-
 
         
         for (int i = 0; i < oversampling; i++)
@@ -173,10 +175,20 @@ public:
         // _data.accel.y = acali[0][1]*currmeas[0]+acali[1][1]*currmeas[1]+acali[2][1]*currmeas[2];
         // _data.accel.z = acali[0][2]*currmeas[0]+acali[1][2]*currmeas[1]+acali[2][2]*currmeas[2];
         //
-        
+
+
        accel = accel - bcal;
 
        accel = acal * accel;
+
+        gyro.x() = gyroal*prevdata.gyro.x + (1-gyroal)*gyro.x();
+        gyro.y() = gyroal*prevdata.gyro.y + (1-gyroal)*gyro.y();
+        gyro.z() = gyroal*prevdata.gyro.z + (1-gyroal)*gyro.z();
+
+        accel.x() = accelal*prevdata.accel.x + (1-accelal)*accel.x();
+        accel.y() = accelal*prevdata.accel.y + (1-accelal)*accel.y();
+        accel.z() = accelal*prevdata.accel.z + (1-accelal)*accel.z();
+
 
        _data.accel = vector3tofloat(accel);
        _data.gyro = vector3tofloat(gyro);
@@ -184,6 +196,7 @@ public:
         _data.temp = accelunit.getTemperature_C();
 
         data = _data;
+        prevdata = _data;
         
         return;
         
