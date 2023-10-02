@@ -27,11 +27,14 @@ class MPCORE{
     
 
     public:
-        MPCORE(){
-
-        };
+        
 
         mpstate _sysstate;
+        int detectiontries = 0;
+
+        MPCORE(){
+            _sysstate.r.state = 0;
+        };
 
         uint32_t errorflag = 1;
         /*
@@ -131,7 +134,187 @@ class MPCORE{
             }
         }
 
+        int initsd(){
+            SPI.setRX(SPI0_MISO);
+            SPI.setTX(SPI0_MOSI);
+            SPI.setSCK(SPI0_SCLK);
+            SPI.begin();
+            
+            int loopbackbyte = SPI.transfer(0xEF);
+            if (loopbackbyte != 0xEF)
+            {
+                Serial.printf("\nloopback failed, expected 239 got: %d \n",loopbackbyte);
+            }
+            Serial.printf("loopback sucessed, expected 239 got %d \n",loopbackbyte);
+            
+            SPI.end();
 
+
+
+
+            if (!card.init(SPI_HALF_SPEED,CS_SD))
+            {
+                Serial.printf("SD card not present or not working, code: %d \n",card.errorCode());
+            }
+
+            if (!SD.begin(CS_SD))
+            {
+                Serial.println("SD init failure, card not present or not working");
+                errorflag*=7;
+                return 1;
+            }
+            
+            SDLib::File logfile = SD.open("test.txt",FILE_WRITE);
+
+            if (!logfile)
+            {
+                Serial.println("SD init fail, cant open file to log to");
+                return 1;
+            }
+            logfile.println("lyrav2 be workin");
+            logfile.close();
+            
+            
+            Serial.println("SD card init succeess");
+            return 0;
+        }
+
+
+
+        int logdata(){
+            fs::File logfile = LittleFS.open("/log.csv", "a+");
+            if (!logfile){
+                return 1;
+                errorflag *= 11;
+            };
+            logfile.printf(
+                "101,"//checksum
+                "%d,%d,"//uptimes
+                "%d,%d,"//errorflag
+                "%f,%f,%f," // accel
+                "%f,%f,%f," // gyro
+                "%f,%f,%f," // mag
+                "%f,%f,%f," // orientation euler"
+                "%f,%f,%f,%f," // orientation quat"
+                "%f,%f,%f," //altitude, presusre, verticalvel
+                "%f,%f,202\n", // temps, imu baro mag
+                _sysstate.r.uptime,
+                _sysstate.r.navsysstate.r.uptime,
+                _sysstate.r.errorflag,
+                _sysstate.r.navsysstate.r.errorflag,
+                _sysstate.r.navsysstate.r.imudata.accel.x,
+                _sysstate.r.navsysstate.r.imudata.accel.y,
+                _sysstate.r.navsysstate.r.imudata.accel.z,
+                _sysstate.r.navsysstate.r.imudata.gyro.x*(180/M_PI),
+                _sysstate.r.navsysstate.r.imudata.gyro.y*(180/M_PI),
+                _sysstate.r.navsysstate.r.imudata.gyro.z*(180/M_PI),
+                _sysstate.r.navsysstate.r.magdata.utesla.x,
+                _sysstate.r.navsysstate.r.magdata.utesla.y,
+                _sysstate.r.navsysstate.r.magdata.utesla.z,
+                _sysstate.r.navsysstate.r.orientationeuler.x*(180/M_PI),
+                _sysstate.r.navsysstate.r.orientationeuler.y*(180/M_PI),
+                _sysstate.r.navsysstate.r.orientationeuler.z*(180/M_PI),
+                _sysstate.r.navsysstate.r.orientationquat.w,
+                _sysstate.r.navsysstate.r.orientationquat.x,
+                _sysstate.r.navsysstate.r.orientationquat.y,
+                _sysstate.r.navsysstate.r.orientationquat.z,
+                _sysstate.r.navsysstate.r.barodata.altitude,
+                _sysstate.r.navsysstate.r.barodata.pressure,
+                _sysstate.r.navsysstate.r.barodata.verticalvel,
+                _sysstate.r.navsysstate.r.imudata.temp,
+                _sysstate.r.navsysstate.r.barodata.temp
+                );
+            logfile.close();
+            return 0;
+        }
+
+        int readdata(){
+            Serial.println("reading file back");
+            fs::File readfile = LittleFS.open("/log.csv", "r");
+            if (!readfile){
+                Serial.println("unable to open file");
+                return 1;
+            }
+            Serial.println("checksum,uptime mp,uptime nav,errorflag mp,errorflag nav,accel x,accel y,accel z,gyro x,gyro y,gyro z,mag x,mag y,mag z,euler x,euler y,euler z,quat w,quat x,quat y,quat z,altitude,pressure,verticalvel,imutemp,barotemp,checksum");
+            while (readfile.available() > 0)
+            {
+                Serial.println(readfile.readString());
+            }
+            return 0;
+
+        }
+
+        int erasedata(){
+           int error = LittleFS.remove("/log.csv");
+           if (error != 1)
+           {
+                Serial.println("file erase fail");
+                return 1;
+           }
+           Serial.println("file erase success");
+           return 0;
+           
+        }
+
+        int movedata(){
+            Serial.println("moving data to sd");
+            
+
+            int fileunique = 1;
+            char fileuniquestr[3];
+            char fileend[] = ".csv";
+
+            int error = 1;
+
+            char newfilename[25] = "/log";
+
+
+
+            for (int i = 0; i < 30; i++)
+            {  
+                strcpy(newfilename, "/log");
+                itoa(fileunique, fileuniquestr, 10);
+                strcat(newfilename, fileuniquestr);
+                strcat(newfilename, fileend);
+                Serial.print("checking if file exists ");
+                Serial.println(newfilename);
+                int exists = SD.exists(newfilename);
+                if (exists == 0)
+                {
+                    Serial.print("making new file with name ");
+                    Serial.println(newfilename);
+                    error = 0;
+                    break;
+                }
+                fileunique++;
+            }
+
+            SDLib::File sdfile = SD.open(newfilename, FILE_WRITE);
+
+            error = sdfile;
+            
+            if (error == 0)
+            {
+                Serial.print("unable to make file");
+                Serial.println(newfilename);
+                return 1;
+            }
+            
+            fs::File readfile = LittleFS.open("/log.csv", "r");
+            sdfile.println("checksum,uptime mp,uptime nav,errorflag mp,errorflag nav,accel x,accel y,accel z,gyro x,gyro y,gyro z,mag x,mag y,mag z,euler x,euler y,euler z,quat w,quat x,quat y,quat z,altitude,pressure,verticalvel,imutemp,barotemp,checksum");
+            
+            Serial.printf("flash amount used: %d\n",readfile.size());
+
+            while (readfile.available() > 0)
+            {
+                sdfile.print(readfile.readString());
+            }
+            
+            readfile.close();
+            sdfile.close();
+            Serial.println("done moving data");
+            return 0;
+        }
 
         int fetchnavdata(){
             navpacket recivedpacket;
@@ -202,6 +385,7 @@ class MPCORE{
             return 1;
         }
 
+
         void serialinit(){
             Serial.begin(115200);
             //Serial1.begin(115200);
@@ -216,50 +400,6 @@ class MPCORE{
             return;
         }
 
-        int initsd(){
-            SPI.setRX(SPI0_MISO);
-            SPI.setTX(SPI0_MOSI);
-            SPI.setSCK(SPI0_SCLK);
-            SPI.begin();
-            
-            int loopbackbyte = SPI.transfer(0xEF);
-            if (loopbackbyte != 0xEF)
-            {
-                Serial.printf("\nloopback failed, expected 239 got: %d \n",loopbackbyte);
-            }
-            Serial.printf("loopback sucessed, expected 239 got %d \n",loopbackbyte);
-            
-            SPI.end();
-
-
-
-
-            if (!card.init(SPI_HALF_SPEED,CS_SD))
-            {
-                Serial.printf("SD card not present or not working, code: %d \n",card.errorCode());
-            }
-
-            if (!SD.begin(CS_SD))
-            {
-                Serial.println("SD init failure, card not present or not working");
-                errorflag*=7;
-                return 1;
-            }
-            
-            SDLib::File logfile = SD.open("test.txt",FILE_WRITE);
-
-            if (!logfile)
-            {
-                Serial.println("SD init fail, cant open file to log to");
-                return 1;
-            }
-            logfile.println("lyrav2 be workin");
-            logfile.close();
-            
-            
-            Serial.println("SD card init succeess");
-            return 0;
-        }
 
         int flashinit(){
                 Serial.println("flash init start");
@@ -351,6 +491,7 @@ class MPCORE{
         }
 
 
+
         int radioinit(){
             Serial.println("radio init start");
 
@@ -420,7 +561,9 @@ class MPCORE{
                 ">magraw z: %f \n"
                 ">orientationeuler x: %f \n"
                 ">orientationeuler y: %f \n"
-                ">orientationeuler z: %f \n",
+                ">orientationeuler z: %f \n"
+                ">maxrecorded alt: %f \n"
+                ">state : %d \n",
                 _sysstate.r.uptime
                 ,_sysstate.r.navsysstate.r.uptime
 
@@ -449,6 +592,8 @@ class MPCORE{
                 ,_sysstate.r.navsysstate.r.orientationeuler.x*(180/M_PI)
                 ,_sysstate.r.navsysstate.r.orientationeuler.y*(180/M_PI)
                 ,_sysstate.r.navsysstate.r.orientationeuler.z*(180/M_PI)
+                , _sysstate.r.navsysstate.r.barodata.maxrecordedalt
+                , _sysstate.r.state
                  );
                  // this is ugly, but better than a million seperate prints
                 return 0;
@@ -458,6 +603,71 @@ class MPCORE{
                 //Serial.printf("%f,%f,%f \n",_sysstate.r.navsysstate.r.imudata.accel.x,_sysstate.r.navsysstate.r.imudata.accel.y,_sysstate.r.navsysstate.r.imudata.accel.z);
             }
             
+            
+
+            return 0;
+        }
+
+        int changestate(){
+            if (_sysstate.r.state == 1) // detect liftoff
+            {
+                Vector3d accelvec = vectorfloatto3(_sysstate.r.navsysstate.r.imudata.accel);
+                float accelmag = accelvec.norm();
+                accelmag > 1.5 ? detectiontries++ : detectiontries = 0;
+                if (detectiontries >= 20)
+                {
+                    _sysstate.r.state = 2;
+                    detectiontries = 0;
+                }
+                
+            }
+            else if (_sysstate.r.state == 2) // detect burnout
+            {
+                Vector3d accelvec = vectorfloatto3(_sysstate.r.navsysstate.r.imudata.accel);
+                float accelmag = accelvec.norm();
+                accelmag < 1 ? detectiontries++ : detectiontries = 0;
+                if (detectiontries >= 20)
+                {
+                    _sysstate.r.state = 3;
+                    detectiontries = 0;
+                }
+            }
+
+            else if (_sysstate.r.state == 3) // detect appogee
+            {
+                _sysstate.r.navsysstate.r.barodata.altitude > _sysstate.r.navsysstate.r.barodata.maxrecordedalt*0.95 ? detectiontries++ : detectiontries = 0;
+
+                if (detectiontries >= 20)
+                {
+                    _sysstate.r.state = 4;
+                    detectiontries = 0;
+                }
+            }
+
+            else if (_sysstate.r.state == 4) // detect chute opening
+            {
+                Vector3d accelvec = vectorfloatto3(_sysstate.r.navsysstate.r.imudata.accel);
+                float accelmag = accelvec.norm();
+                accelmag > 0.8 ? detectiontries++ : detectiontries = 0;
+                if (detectiontries >= 20)
+                {
+                    _sysstate.r.state = 5;
+                    detectiontries = 0;
+                }
+            }
+
+            else if (_sysstate.r.state == 5) // detect landing
+            {
+                _sysstate.r.navsysstate.r.barodata.verticalvel > -0.3 && _sysstate.r.navsysstate.r.barodata.verticalvel < 0.3  ? detectiontries++ : detectiontries = 0;
+
+                if (detectiontries >= 20)
+                {
+                    _sysstate.r.state = 6;
+                    detectiontries = 0;
+                }
+            }
+            
+
             
 
             return 0;
@@ -478,11 +688,35 @@ class MPCORE{
                 sendtoteleplot = false;
 
             }
+
+            else if (int(input) == 101){
+                erasedata();
+            }
+
+            else if (int(input) == 114){
+                readdata();
+            }
+
+            else if (int(input) == 68){
+                logdata();
+            }
+
+            else if (int(input) == 109){
+                movedata();
+            }
+
+            else if (int(input) == 109){
+                movedata();
+            }
+
+            else if (int(input) == 108){
+                _sysstate.r.state = 1;
+            }
+            
             
             return 0;
         }
 
-        
 };
 
 #endif // MPCOREHEADER

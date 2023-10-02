@@ -79,7 +79,7 @@ struct Quatstruct{
 struct IMUdata{
     Vector3float accel;
     Vector3float gyro;
-    int32_t temp;
+    float temp;
 };
 
 struct BAROdata{
@@ -87,6 +87,7 @@ struct BAROdata{
     float altitude;
     float temp;
     float verticalvel;
+    float maxrecordedalt;
 };
 
 struct MAGdata{
@@ -108,7 +109,6 @@ union navpacket
         Vector3float orientationeuler;
         Quatstruct orientationquat;
         Vector3float vel;
-        Vector3float acceleration;
         
     } r;
     uint32_t data [sizeof(r)];
@@ -121,7 +121,6 @@ union mpstate{
         uint32_t uptime;
         uint32_t state;
         navpacket navsysstate;
-
     } r;
     uint32_t data[sizeof(r)];
 };

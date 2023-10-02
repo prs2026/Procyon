@@ -240,6 +240,8 @@ public:
 
         address < 4 ? address++ : address = 0;
 
+        _data.altitude > data.maxrecordedalt ? data.maxrecordedalt = _data.altitude : data.maxrecordedalt = data.maxrecordedalt;
+
         prevalt = _data.altitude;
         prevtime = micros();
         data = _data;
@@ -292,6 +294,7 @@ public:
         data.utesla.x = acali[0][0]*currmeas[0]+acali[1][0]*currmeas[1]+acali[2][0]*currmeas[2];
         data.utesla.y = acali[0][1]*currmeas[0]+acali[1][1]*currmeas[1]+acali[2][1]*currmeas[2];
         data.utesla.z = acali[0][2]*currmeas[0]+acali[1][2]*currmeas[1]+acali[2][2]*currmeas[2];
+
 
         //data.headingdeg = atan2(data.utesla.y,data.utesla.x)*(180/PI);
         return 0;

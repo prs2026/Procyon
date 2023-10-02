@@ -17,8 +17,8 @@ void setup() { // main core setup
     MP.handshake();
 
     MP.flashinit();
-    MP.initsd();
     MP.radioinit();
+    MP.initsd();
 
     MP.errorflag == 1 ? MP.setled(GREEN) : MP.setled(BLUE);
     
@@ -29,6 +29,9 @@ void setup() { // main core setup
     
     Serial.print("NAV boot complete, error code :");
     Serial.println(MP._sysstate.r.navsysstate.r.errorflag);
+    MP._sysstate.r.uptime = millis();
+    MP.logdata();
+    //MP.readdata();
 
     //MP.beep();
 }
@@ -45,6 +48,7 @@ void setup1() { // nav core setup
 }
 
 void loop() { // main core loop
+    MP.changestate();
 
     if (rp2040.fifo.available())
     {
@@ -76,6 +80,13 @@ void loop() { // main core loop
         MP.senddatatoserial();
         MP.prevtime.serial = millis();
     }
+
+    if (millis() - MP.prevtime.logdata >= MP.intervals[MP._sysstate.r.state].logdata)
+    {
+        MP.logdata();
+        MP.prevtime.logdata = millis();
+    }
+    
     
     
 }
