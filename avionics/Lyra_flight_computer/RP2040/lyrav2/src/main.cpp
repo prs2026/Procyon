@@ -17,8 +17,9 @@ void setup() { // main core setup
     MP.handshake();
 
     MP.flashinit();
-    MP.radioinit();
     MP.initsd();
+    MP.radioinit();
+    
 
     MP.errorflag == 1 ? MP.setled(GREEN) : MP.setled(BLUE);
     

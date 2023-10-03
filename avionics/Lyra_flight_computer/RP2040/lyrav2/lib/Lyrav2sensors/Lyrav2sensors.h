@@ -176,11 +176,12 @@ public:
         // _data.accel.z = acali[0][2]*currmeas[0]+acali[1][2]*currmeas[1]+acali[2][2]*currmeas[2];
         //
 
-
+        // accel calibration
        accel = accel - bcal;
 
        accel = acal * accel;
 
+        // low pass filter
         gyro.x() = gyroal*prevdata.gyro.x + (1-gyroal)*gyro.x();
         gyro.y() = gyroal*prevdata.gyro.y + (1-gyroal)*gyro.y();
         gyro.z() = gyroal*prevdata.gyro.z + (1-gyroal)*gyro.z();
