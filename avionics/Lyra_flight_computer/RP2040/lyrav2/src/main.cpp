@@ -65,7 +65,41 @@ void loop() { // main core loop
         MP.ledstate =! MP.ledstate;
         MP.prevtime.led = millis();
     }
-    MP._sysstate.r.uptime = millis();
+
+    if (millis()- MP.prevtime.beep >= MP.intervals[MP._sysstate.r.state].beep)
+    {
+        switch (MP._sysstate.r.state)
+        {
+        case 0:
+            MP.beep(600);
+            break;
+
+        case 1: // ready to launch
+            MP.beep(4000);
+            break;
+
+        case 2: // powered ascent
+            MP.beep(6000);
+            break;
+
+        case 3: // unpowered descent
+            MP.beep(6000);
+            break;
+
+        case 4: // under canopy
+            MP.beep(6000);
+            break;
+
+        case 5: // landed
+            MP.beep(4000);
+            break;
+        
+        default:
+            break;
+        }
+        MP.prevtime.beep = millis();
+    }
+    
     
     if (Serial.available())
     {
@@ -89,7 +123,7 @@ void loop() { // main core loop
     }
     
     
-    
+    MP._sysstate.r.uptime = millis();
 }
 
 

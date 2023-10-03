@@ -56,15 +56,17 @@ class MPCORE{
             uint32_t logdata;
             uint32_t led;
             uint32_t serial;
+            uint32_t sendtelemetry;
+            uint32_t beep;
         };
         timings intervals[7] = {
-            {2000,1000,100}, // ground idle
-            {100,200,100}, // launch detect
-            {50,500,100}, // powered ascent
-            {50,500,100}, // unpowered ascent
-            {50,500,100}, // ballistic descent
-            {50,800,100}, //ready to land
-            {1000,1500,100} // landed
+            {2000,1000,100,3000,10000}, // ground idle
+            {100,200,100, 100, 500}, // launch detect
+            {50,500,100, 100, 1000}, // powered ascent
+            {50,500,100,100, 1000}, // unpowered ascent
+            {50,500,100,100, 1000}, // ballistic descent
+            {50,800,100,100, 1000}, //ready to land
+            {1000,1500,100, 1000, 200} // landed
         };
         timings prevtime;
         bool ledstate = false;
@@ -661,7 +663,7 @@ class MPCORE{
             {
                 _sysstate.r.navsysstate.r.barodata.verticalvel > -0.3 && _sysstate.r.navsysstate.r.barodata.verticalvel < 0.3  ? detectiontries++ : detectiontries = 0;
 
-                if (detectiontries >= 20)
+                if (detectiontries >= 100)
                 {
                     _sysstate.r.state = 6;
                     detectiontries = 0;

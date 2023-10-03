@@ -75,15 +75,7 @@ Quaterniond intergrategyros(Quaterniond prevstate){
 */
 class IMU{
 
-float bcali[3] = {0.02305,0.0063,0.003,};
-
 Vector3d bcal;
-
-float acali[3][3] = {
-    {1.004078865,0,0},
-    {0,1.003614894,0},
-    {0,0,1.007061535}};
-
 Matrix3d acal;
 
 IMUdata prevdata;
