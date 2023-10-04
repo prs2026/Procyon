@@ -59,6 +59,7 @@ using Eigen::AngleAxisd;
 
 #define FLASH_TARGET_OFFSET (256*1024)
 
+byte address[][7] = {"flight","ground"};
 
 #define HANDSHAKETIMEOUT 500;
 

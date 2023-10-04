@@ -10,8 +10,6 @@
 #include "LittleFS.h"
 
 
-uint8_t address[][6] = { "Rocky","Contr" };
-
 int waitfornextfifo(int timeoutmillis){
     uint32_t pushmillis = millis();
     //int currentavalible = rp2040.fifo.available();

@@ -101,7 +101,7 @@ class NAVCORE{
             Wire1.setSDA(SDA);
             Wire1.setClock(10000);
             Wire1.begin();
-            scani2c() ? errorflag*= 5 : errorflag *= 1;
+            scani2c(false) ? errorflag*= 5 : errorflag *= 1;
             return 0;
         }
 

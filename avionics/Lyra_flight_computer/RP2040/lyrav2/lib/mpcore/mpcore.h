@@ -60,7 +60,7 @@ class MPCORE{
             uint32_t beep;
         };
         timings intervals[7] = {
-            {2000,1000,100,3000,10000}, // ground idle
+            {2000,1000,100,3000,30000}, // ground idle
             {100,200,100, 100, 500}, // launch detect
             {50,500,100, 100, 1000}, // powered ascent
             {50,500,100,100, 1000}, // unpowered ascent
@@ -79,6 +79,7 @@ class MPCORE{
             pinMode(LEDBLUE,OUTPUT);
             pinMode(BUZZERPIN,OUTPUT);
             pinMode(CS_SD,OUTPUT);
+            pinMode(BRK_CS,OUTPUT);
 
             digitalWrite(CS_SD,HIGH);
             digitalWrite(LEDRED, LOW);
@@ -496,6 +497,11 @@ class MPCORE{
 
 
         int radioinit(){
+            SPI.end();
+            SPI.setRX(SPI0_MISO);
+            SPI.setTX(SPI0_MOSI);
+            SPI.setSCK(SPI0_SCLK);
+            SPI.begin();
             Serial.println("radio init start");
 
             int error = radio.begin(&SPI);
@@ -507,35 +513,46 @@ class MPCORE{
             }
             Serial.println("radio init success");
 
-            radio.openReadingPipe(1,address[0]);
-            radio.openWritingPipe(address[1]);
+            radio.openWritingPipe(address[0]);
+            radio.openReadingPipe(1,address[1]);
 
-            // uint8_t initpayload = 0xAB;
-            // uint8_t exppayload = 0xCD;
 
-            // error = radio.write(&initpayload,1);   
-            // radio.startListening(); 
+            uint8_t initpayload = 0xAB;
+            uint8_t exppayload = 0xCD;
 
-            // uint32_t timeoutstart = millis();
-            // while (!radio.available()){
-            // if (millis() - timeoutstart > 1000){
-            //     Serial.println("radio commcheck timeout");
-            //     errorflag = errorflag*19;
-            //     return 1;
-            // }
-            // }
+            radio.stopListening();
+            error = radio.write(&initpayload,sizeof(initpayload));   
+            radio.startListening(); 
+
+
+            if (!error)
+            {
+                Serial.println("other radio didnt ack/couldnt send");
+                errorflag = errorflag*19;
+                return 1;
+            }
             
-            // uint8_t buf;
 
-            // radio.read(&buf,sizeof(buf));
+            uint32_t timeoutstart = millis();
+            while (!radio.available()){
+                if (millis() - timeoutstart > 1000){
+                    Serial.println("radio commcheck timeout");
+                    errorflag = errorflag*19;
+                    return 1;
+                }
+            }
+            
+            uint8_t buf;
 
-            // if (buf != exppayload)
-            // {
-            //     Serial.printf("radio commcheck fail, expected %x, got %x\n",exppayload,buf);
-            //     errorflag = errorflag*19;
-            //     return 1;
-            // }
-            // Serial.println("radio commcheck success");
+            radio.read(&buf,sizeof(buf));
+
+            if (buf != exppayload)
+            {
+                Serial.printf("radio commcheck fail, expected %x, got %x\n",exppayload,buf);
+                errorflag = errorflag*19;
+                return 1;
+            }
+            Serial.println("radio commcheck success");
 
             return 0;
         }

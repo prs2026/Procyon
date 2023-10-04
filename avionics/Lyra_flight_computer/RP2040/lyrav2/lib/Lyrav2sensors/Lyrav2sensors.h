@@ -26,10 +26,10 @@ const float SEALEVELPRESSURE = 1015.4;
 
 
 
-uint8_t scani2c(){
+uint8_t scani2c(bool printout){
     byte error, address;
     int nDevices;
-    Serial.print("Scanning..");
+     printout ? Serial.print("Scanning..")  : 0;
     
     nDevices = 0;
     for(address = 1; address < 127; address++ )
@@ -41,28 +41,28 @@ uint8_t scani2c(){
         error = Wire1.endTransmission();
         if (error == 0)
         {
-        Serial.print("I2C device found at address 0x");
+        printout ? Serial.print("I2C device found at address 0x") : 0;
         if (address<16)
             Serial.print("0");
-        Serial.print(address,HEX);
-        Serial.println("  !");
+        printout ? Serial.print(address,HEX) : 0;
+        printout ? Serial.println("  !") : 0;
     
         nDevices++;
         }
         else if (error==4)
         {
-        Serial.print("Unknown error at address 0x");
+        printout ? Serial.print("Unknown error at address 0x") : 0;
         if (address<16)
-            Serial.print("0");
-        Serial.println(address,HEX);
+            printout ? Serial.print("0") : 0;
+            printout ? Serial.println(address,HEX) : 0;
         }    
     }
     if (nDevices == 0){
-        Serial.println("No I2C devices found\n");
+        printout ? Serial.println("No I2C devices found\n") : 0;
         return 1;
     }
     else
-        Serial.println("done\n");
+        printout ? Serial.println("done\n") : 0;
     
     return 0;
 }

@@ -8,6 +8,7 @@
 #define MOSI 11
 #define MISO 12
 
-uint8_t address[][6] = { "Rocky","Contr" };
+byte address[][7] = {"flight","ground"};
+
 
 #endif // MACROSH
