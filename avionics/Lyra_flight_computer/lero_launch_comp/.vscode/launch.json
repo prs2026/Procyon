@@ -19,7 +19,7 @@
             "svdPath": "C:/Users/E/.platformio/platforms/ststm32/misc/svd/STM32F103xx.svd",
             "preLaunchTask": {
                 "type": "PlatformIO",
-                "task": "Pre-Debug"
+                "task": "Pre-Debug (genericSTM32F103C8)"
             }
         },
         {

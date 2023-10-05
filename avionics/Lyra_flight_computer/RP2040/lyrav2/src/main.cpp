@@ -122,6 +122,13 @@ void loop() { // main core loop
         MP.prevtime.logdata = millis();
     }
     
+    if (millis() - MP.prevtime.sendtelemetry >= MP.intervals[MP._sysstate.r.state].sendtelemetry)
+    {
+        MP.sendtelemetry();
+        MP.prevtime.sendtelemetry = millis();
+        
+    }
+    
     
     MP._sysstate.r.uptime = millis();
 }

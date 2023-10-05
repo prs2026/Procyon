@@ -67,7 +67,41 @@ Quatstruct eigentoquatstruct(Quaterniond q){
     return result;
 }
 
+int radiocommcheck(){
+    uint8_t initpayload[32] = {0xAB,0xCD};
+    uint8_t exppayload = 0xCD;
+    bool error;
+    radio.stopListening();
+    error = radio.write(&initpayload,sizeof(initpayload));   
+    radio.startListening(); 
+    
+    if (!error)
+    {
+        Serial.println("other radio didnt ack/couldnt send");
+        return 2;
+    }
+    
 
+    uint32_t timeoutstart = millis();
+    while (!radio.available()){
+        if (millis() - timeoutstart > 200){
+            Serial.println("radio commcheck timeout");
+            return 1;
+        }
+    }
+    
+    uint8_t buf[32];
+
+    radio.read(&buf,sizeof(buf));
+
+    if (buf[0] != exppayload)
+    {
+        Serial.printf("radio commcheck fail, expected %x, got %x\n",exppayload,buf);
+        return 1;
+    }
+    Serial.println("radio commcheck success");
+    return 0;
+    }
 
 
 

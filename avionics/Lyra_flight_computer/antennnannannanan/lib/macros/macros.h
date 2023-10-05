@@ -8,7 +8,6 @@
 #define MOSI 11
 #define MISO 12
 
-byte address[][7] = {"flight","ground"};
-
+byte radioaddress[][7] = {"flight","ground"};
 
 #endif // MACROSH

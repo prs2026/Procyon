@@ -12,15 +12,13 @@
 #include "LittleFS.h"
 //#include <ArduinoEigenDense.h>
 #include <generallib.h>
-#include <RF24.h>
+
 
 
 //fs::File logtofile;
 
 
 Sd2Card card;
-
-RF24 radio(26,BRK_CS);
 
 
 class MPCORE{
@@ -60,13 +58,13 @@ class MPCORE{
             uint32_t beep;
         };
         timings intervals[7] = {
-            {2000,1000,100,3000,30000}, // ground idle
-            {100,200,100, 100, 500}, // launch detect
-            {50,500,100, 100, 1000}, // powered ascent
-            {50,500,100,100, 1000}, // unpowered ascent
-            {50,500,100,100, 1000}, // ballistic descent
-            {50,800,100,100, 1000}, //ready to land
-            {1000,1500,100, 1000, 200} // landed
+            {2000,1000,100,200,30000}, // ground idle
+            {100,200,100, 200, 500}, // launch detect
+            {50,500,100, 200, 1000}, // powered ascent
+            {50,500,100,200, 1000}, // unpowered ascent
+            {50,500,100,200, 1000}, // ballistic descent
+            {50,800,100,200, 1000}, //ready to land
+            {1000,15002100, 1000, 200} // landed
         };
         timings prevtime;
         bool ledstate = false;
@@ -495,7 +493,6 @@ class MPCORE{
         }
 
 
-
         int radioinit(){
             SPI.end();
             SPI.setRX(SPI0_MISO);
@@ -508,54 +505,54 @@ class MPCORE{
             if (!error)
             {
                 Serial.println("radio init fail");
-                errorflag *= 19;
-                return 1;
+                error = radio.isChipConnected();
+
+                if (!error)
+                {
+                    Serial.println("radio not connected");
+                    errorflag *= 19;
+                    return 1;
+                }
+
             }
             Serial.println("radio init success");
 
-            radio.openWritingPipe(address[0]);
-            radio.openReadingPipe(1,address[1]);
+    
 
+            radio.setPALevel(RF24_PA_MAX);
+            //radio.setAutoAck(false);
+            radio.setRetries(10,15);
+            radio.setDataRate(RF24_250KBPS);
 
-            uint8_t initpayload = 0xAB;
-            uint8_t exppayload = 0xCD;
+            radio.openWritingPipe(radioaddress[1]);
+            radio.openReadingPipe(1,radioaddress[0]);
 
-            radio.stopListening();
-            error = radio.write(&initpayload,sizeof(initpayload));   
-            radio.startListening(); 
+            uint32_t radiostarttime = millis();
 
+            bool sucess = false;
 
-            if (!error)
+            while ((millis() - radiostarttime) < 2000)
             {
-                Serial.println("other radio didnt ack/couldnt send");
-                errorflag = errorflag*19;
-                return 1;
-            }
-            
-
-            uint32_t timeoutstart = millis();
-            while (!radio.available()){
-                if (millis() - timeoutstart > 1000){
-                    Serial.println("radio commcheck timeout");
-                    errorflag = errorflag*19;
-                    return 1;
+                if (radiocommcheck() == 0)
+                {
+                    sucess == true;
+                    break;
                 }
+                Serial.println("radio handshake fail");
             }
-            
-            uint8_t buf;
-
-            radio.read(&buf,sizeof(buf));
-
-            if (buf != exppayload)
+            if (!sucess)
             {
-                Serial.printf("radio commcheck fail, expected %x, got %x\n",exppayload,buf);
-                errorflag = errorflag*19;
+               
+                Serial.println("radio handshake timeout");
+                errorflag *= 19;
                 return 1;
             }
-            Serial.println("radio commcheck success");
-
+            Serial.println("radio handshake complete");
             return 0;
+
+            
         }
+
 
         int senddatatoserial(){
             if (sendtoteleplot)
@@ -735,6 +732,39 @@ class MPCORE{
             
             
             return 0;
+        }
+
+        int sendtelemetry(){
+            uint8_t databufs[4][32];
+            databufs[0][0] = 0x12;
+            databufs[0][1] = 0x34;
+
+            databufs[3][30] = 0xAB;
+            databufs[3][31] = 0xCD;
+            int j;
+            for (int i = 0; i < sizeof(mpstate); i++)
+            {
+                j = i+2;
+                databufs[j/32][j%32] = _sysstate.data8[i];
+            }
+            radio.stopListening();
+
+
+            for (size_t i = 0; i < sizeof(databufs)/sizeof(databufs[0]); i++)
+            {
+                bool error = radio.write(&databufs[i],sizeof(databufs[0]));
+                if (!error)
+                {
+                    Serial.printf("telemetry send fail on cycle: %d \n",i);
+                    return 1;
+                }
+                
+            }
+            
+            
+            radio.startListening();
+            return 0;
+            
         }
 
 };

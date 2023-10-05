@@ -4,6 +4,7 @@
 #include "pico/stdlib.h"
 #include "pico/multicore.h"
 #include <ArduinoEigenDense.h>
+#include <RF24.h>
 
 using Eigen::Vector3d;
 using Eigen::Matrix3d;
@@ -59,9 +60,10 @@ using Eigen::AngleAxisd;
 
 #define FLASH_TARGET_OFFSET (256*1024)
 
-byte address[][7] = {"flight","ground"};
+byte radioaddress[][7] = {"flight","ground"};
 
-#define HANDSHAKETIMEOUT 500;
+
+RF24 radio(26,BRK_CS);
 
 struct Vector3float
 {
@@ -106,13 +108,13 @@ union navpacket
         IMUdata imudata;
         BAROdata barodata;
         MAGdata magdata;
-        Vector3float pos;
+        //Vector3float pos;
         Vector3float orientationeuler;
         Quatstruct orientationquat;
-        Vector3float vel;
+        //Vector3float vel;
         
     } r;
-    uint32_t data [sizeof(r)];
+    uint32_t data[sizeof(r)/sizeof(uint32_t)];
 
 };
 
@@ -123,7 +125,8 @@ union mpstate{
         uint32_t state;
         navpacket navsysstate;
     } r;
-    uint32_t data[sizeof(r)];
+    uint32_t data[sizeof(r)/sizeof(uint32_t)];
+    uint8_t data8[sizeof(r)/sizeof(uint8_t)];
 };
 
 

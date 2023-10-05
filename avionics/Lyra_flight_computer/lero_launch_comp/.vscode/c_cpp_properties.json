@@ -11,7 +11,6 @@
                 "c:/Users/E/Documents/GitHub/roleration/avionics/Lyra_flight_computer/lero_launch_comp/include",
                 "c:/Users/E/Documents/GitHub/roleration/avionics/Lyra_flight_computer/lero_launch_comp/src",
                 "c:/Users/E/Documents/GitHub/roleration/avionics/Lyra_flight_computer/lero_launch_comp/lib/lyralib",
-                "C:/Users/E/.platformio/packages/framework-arduinoststm32/libraries/Wire/src",
                 "c:/Users/E/Documents/GitHub/roleration/avionics/Lyra_flight_computer/lero_launch_comp/.pio/libdeps/genericSTM32F103C8/RF24",
                 "c:/Users/E/Documents/GitHub/roleration/avionics/Lyra_flight_computer/lero_launch_comp/.pio/libdeps/genericSTM32F103C8/RF24/utility",
                 "C:/Users/E/.platformio/packages/framework-arduinoststm32/libraries/SPI/src",
@@ -48,6 +47,7 @@
                 "C:/Users/E/.platformio/packages/framework-arduinoststm32/libraries/SoftwareSerial/src",
                 "C:/Users/E/.platformio/packages/framework-arduinoststm32/libraries/SrcWrapper/src",
                 "C:/Users/E/.platformio/packages/framework-arduinoststm32/libraries/SubGhz/src",
+                "C:/Users/E/.platformio/packages/framework-arduinoststm32/libraries/Wire/src",
                 ""
             ],
             "browse": {
@@ -56,7 +56,6 @@
                     "c:/Users/E/Documents/GitHub/roleration/avionics/Lyra_flight_computer/lero_launch_comp/include",
                     "c:/Users/E/Documents/GitHub/roleration/avionics/Lyra_flight_computer/lero_launch_comp/src",
                     "c:/Users/E/Documents/GitHub/roleration/avionics/Lyra_flight_computer/lero_launch_comp/lib/lyralib",
-                    "C:/Users/E/.platformio/packages/framework-arduinoststm32/libraries/Wire/src",
                     "c:/Users/E/Documents/GitHub/roleration/avionics/Lyra_flight_computer/lero_launch_comp/.pio/libdeps/genericSTM32F103C8/RF24",
                     "c:/Users/E/Documents/GitHub/roleration/avionics/Lyra_flight_computer/lero_launch_comp/.pio/libdeps/genericSTM32F103C8/RF24/utility",
                     "C:/Users/E/.platformio/packages/framework-arduinoststm32/libraries/SPI/src",
@@ -93,11 +92,12 @@
                     "C:/Users/E/.platformio/packages/framework-arduinoststm32/libraries/SoftwareSerial/src",
                     "C:/Users/E/.platformio/packages/framework-arduinoststm32/libraries/SrcWrapper/src",
                     "C:/Users/E/.platformio/packages/framework-arduinoststm32/libraries/SubGhz/src",
+                    "C:/Users/E/.platformio/packages/framework-arduinoststm32/libraries/Wire/src",
                     ""
                 ]
             },
             "defines": [
-                "PLATFORMIO=60110",
+                "PLATFORMIO=60111",
                 "STM32F1",
                 "STM32F103xB",
                 "STM32F1xx",
@@ -109,6 +109,7 @@
                 "HAL_UART_MODULE_ENABLED",
                 "USE_FULL_LL_DRIVER",
                 "VARIANT_H=\"variant_PILL_F103Cx.h\"",
+                "VECT_TAB_OFFSET=0x0",
                 ""
             ],
             "cStandard": "gnu17",

@@ -4,6 +4,31 @@
 
 RF24 radio(CE,CSN);
 
+void recivepacket(){
+  uint8_t buf[32];
+  radio.read(buf,32);
+
+  Serial.println("recived packet: ");
+  for (int i = 0; i < 32; i++)
+  {
+    Serial.print(buf[i],HEX);
+    Serial.print(" ");
+  }
+  Serial.println("eom");
+
+
+  if (buf[0] == 0xAB && buf[1] == 0xCD)
+  {
+    Serial.println("recived init packet");
+
+    uint8_t exppayload[32] = {0xCD};
+    radio.stopListening();
+    radio.write(exppayload,32);
+    radio.startListening();
+  }
+  return;
+}
+
 void setup() {
 
 
@@ -24,7 +49,7 @@ void setup() {
   while (!error)
   {
     error = radio.begin(&SPI1);
-    if (error == 1)
+    if (error)
     {
       break;
     }
@@ -33,8 +58,11 @@ void setup() {
     
   }
 
-  radio.openWritingPipe(address[1]);
-  radio.openReadingPipe(1,address[0]);
+  radio.setRetries(10,30);
+  radio.setDataRate(RF24_250KBPS);
+  radio.setPALevel(RF24_PA_MAX,true);
+  radio.openWritingPipe(radioaddress[0]);
+  radio.openReadingPipe(1,radioaddress[1]);
 
   radio.startListening();
   
@@ -46,14 +74,7 @@ void setup() {
 void loop() {
     if (radio.available())
     {
-      Serial.print("Received: ");
-      int buf[32];
-      radio.read(buf,32);
-      for (int i = 0; i < 32; i++)
-      {
-        Serial.print(buf[i]);
-        Serial.print(" ");
-      }
+      recivepacket();
     }
     
 
