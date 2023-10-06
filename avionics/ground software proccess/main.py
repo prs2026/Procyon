@@ -56,13 +56,16 @@ statetext = [
      "No Connection to LYRA", # 7
      "Disconnected" # 8
 ]
+try:
+    serialport = serial.Serial()
+    serialport.baudrate = 115200
+    serialport.bytesize = 8
+    serialport.parity = "N"
+    serialport.stopbits = 1
+    serialport.timeout = 10
+finally:
+    print("serial fail")
 
-serialport = serial.Serial()
-serialport.baudrate = 115200
-serialport.bytesize = 8
-serialport.parity = "N"
-serialport.stopbits = 1
-serialport.timeout = 10
 
 def getserialdata():
     while not quit:
@@ -94,9 +97,11 @@ def getserialdata():
 
 
 
-
-serialthread = threading.Thread(target=getserialdata, daemon=True)
-serialthread.start()
+try:
+    serialthread = threading.Thread(target=getserialdata, daemon=True)
+    serialthread.start()
+except:
+    print("thread fail")
 
 class MainWidget(BoxLayout):
     def updatescreen(self,dt):
