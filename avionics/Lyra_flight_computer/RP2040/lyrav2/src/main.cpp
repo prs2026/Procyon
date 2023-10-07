@@ -6,7 +6,7 @@
 MPCORE MP;
 NAVCORE NAV;
 
-
+bool dataismoved = false;
 
 void setup() { // main core setup
     MP.setuppins();
@@ -157,10 +157,12 @@ void loop() { // main core loop
         MP.parsecommand(buf);
     }
     
-    if (MP._sysstate.r.state == 6 && millis() - MP.landedtime >= 5000 && MP.datamoved == false)
+    if ( dataismoved == false)
     {
-        MP.movedata();
-        MP.datamoved == true;
+        if (MP._sysstate.r.state == 6 && millis() - MP.landedtime >= 5000){
+            dataismoved = true;
+            MP.movedata();
+        }
     }
     
     
