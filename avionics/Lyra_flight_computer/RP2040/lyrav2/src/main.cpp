@@ -59,6 +59,8 @@ void setup1() { // nav core setup
 }
 
 void loop() { // main core loop
+
+    
     
     if (millis()- MP.prevtime.detectstatechange >= MP.intervals[MP._sysstate.r.state].detectstatechange)
     {

@@ -603,11 +603,10 @@ class MPCORE{
 
     
 
-            radio.setPALevel(RF24_PA_MAX);
-            radio.setAutoAck(false);
-            radio.setRetries(10,15);
-            radio.setDataRate(RF24_1MBPS);
-            //radio.enableDynamicAck();
+            //radio.setPALevel(RF24_PA_MAX);
+            //radio.setAutoAck(true);
+            //radio.setRetries(10,15);
+            //radio.setDataRate(RF24_250KBPS);
 
             radio.openWritingPipe(radioaddress[1]);
             radio.openReadingPipe(1,radioaddress[0]);
@@ -739,7 +738,7 @@ class MPCORE{
 
             else if (_sysstate.r.state == 3) // detect appogee
             {
-                _sysstate.r.navsysstate.r.barodata.altitude > _sysstate.r.navsysstate.r.barodata.maxrecordedalt*0.95 ? detectiontries++ : detectiontries = 0;
+                _sysstate.r.navsysstate.r.barodata.altitude < _sysstate.r.navsysstate.r.barodata.maxrecordedalt*0.95 && _sysstate.r.navsysstate.r.barodata.verticalvel < 0 ?  detectiontries++ : detectiontries = 0;
 
                 if (detectiontries >= 10)
                 {
