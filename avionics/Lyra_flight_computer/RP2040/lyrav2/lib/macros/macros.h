@@ -126,10 +126,12 @@ union navpacket
 
 union mpstate{
     struct{
+        uint8_t checksum1;
         uint32_t errorflag;
         uint32_t uptime;
         uint32_t state;
         navpacket navsysstate;
+        uint8_t checksum2;
     } r;
     uint32_t data[sizeof(r)/sizeof(uint32_t)];
     uint8_t data8[sizeof(r)/sizeof(uint8_t)];

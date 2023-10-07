@@ -159,6 +159,7 @@ MainWidget:
                         Button:
                             id: setlaunchaware_button
                             text: "Go For Launch"
+                            on_press: root.launch()
                             background_color: 0.922, 0.243, 0.243,0.25
                         TextInput:
                             id: setlaunchaware_input
@@ -166,13 +167,15 @@ MainWidget:
                             size_hint: 1,0.5
                     
                     Button:
-                        id: zeroimu_button
-                        text: "Zero IMU"
-                        background_color: 0.251, 0.282, 0.31,0.24
+                        id: abort_button
+                        text: "Abort"
+                        on_press: root.abort()
+                        background_color: 0.922, 0.243, 0.243,0.25 
                     Button:
-                        id: zeroimu_button
-                        text: "Zero Barometer"
+                        id: movedata_button
+                        text: "Move data to sd"
                         background_color: 0.251, 0.282, 0.31,0.24
+                        on_press: root.movedata()
                     BoxLayout:
                         orientation: "vertical"
                         Button:

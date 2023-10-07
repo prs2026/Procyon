@@ -21,7 +21,6 @@ void setup() { // main core setup
     MP.radioinit();
     
 
-    MP.errorflag == 1 ? MP.setled(GREEN) : MP.setled(BLUE);
     
     Serial.print("MP boot complete error code: ");
     Serial.println(MP.errorflag);
@@ -30,7 +29,18 @@ void setup() { // main core setup
     
     Serial.print("NAV boot complete, error code :");
     Serial.println(MP._sysstate.r.navsysstate.r.errorflag);
+
+    if (MP._sysstate.r.navsysstate.r.errorflag * MP._sysstate.r.errorflag != 0)
+    {
+        MP.ledcolor = BLUE;
+    }
+    else{
+        MP.ledcolor = GREEN;
+    }
+    
+
     MP._sysstate.r.uptime = millis();
+    MP.movedata();
     MP.logdata();
     //MP.readdata();
 
@@ -49,7 +59,14 @@ void setup1() { // nav core setup
 }
 
 void loop() { // main core loop
-    MP.changestate();
+    
+    if (millis()- MP.prevtime.detectstatechange >= MP.intervals[MP._sysstate.r.state].detectstatechange)
+    {
+        MP.changestate();
+        MP.prevtime.detectstatechange = millis();
+    }
+    
+    
 
     if (rp2040.fifo.available())
     {
@@ -61,7 +78,7 @@ void loop() { // main core loop
 
     if (millis()- MP.prevtime.led >= MP.intervals[MP._sysstate.r.state].led)
     {
-        MP.ledstate ? MP.setled(GREEN) : MP.setled(OFF);
+        MP.ledstate ? MP.setled(MP.ledcolor) : MP.setled(OFF);
         MP.ledstate =! MP.ledstate;
         MP.prevtime.led = millis();
     }
@@ -90,7 +107,11 @@ void loop() { // main core loop
             MP.beep(6000);
             break;
 
-        case 5: // landed
+        case 5: // ready to land
+            MP.beep(4000);
+            break;
+        
+        case 6: // landed
             MP.beep(4000);
             break;
         
@@ -136,6 +157,11 @@ void loop() { // main core loop
         MP.parsecommand(buf);
     }
     
+    if (MP._sysstate.r.state == 6 && millis() - MP.landedtime >= 5000 && MP.datamoved == false)
+    {
+        MP.movedata();
+        MP.datamoved == true;
+    }
     
     
     MP._sysstate.r.uptime = millis();

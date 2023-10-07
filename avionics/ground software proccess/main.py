@@ -94,25 +94,25 @@ def getserialdata():
         if serialport.isOpen():
              while serialport.inWaiting() > 0:
                 reciveddata = str(serialport.readline())
-                print(reciveddata)
+                #print(reciveddata)
                 reciveddata = reciveddata.replace("b'","")
                 reciveddata = reciveddata.replace("'","")
                 reciveddata = reciveddata.replace(" \\n","")
-                print(reciveddata)
+                #print(reciveddata)
                 reciveddata = reciveddata.split(",")
                 reciveddata[len(reciveddata)-1] = reciveddata[len(reciveddata)-1].replace("\\r\\n'","")
                 print(reciveddata)
                 if reciveddata[0] != "AB" or reciveddata[len(reciveddata)-1] != "CD":
                     print("badpacket")
                     break
-                print(reciveddata)
+                #print(reciveddata)
                 for i in range(1,len(reciveddata)-1):
                     if databuf[list(databuf)[i]] != '':
                         try:
                             databuf[list(databuf)[i]] = round(float(reciveddata[i]),2)
                         except:
                             print("bad num at index: " + str(i))
-                if databuf["dataage"] > 1000:
+                if databuf["dataage"] > 15000:
                     databuf["state"] = 7
                 else:
                     databuf["state"] = int(databuf["state"])
@@ -131,31 +131,33 @@ except:
 
 class MainWidget(BoxLayout):
     def updatescreen(self,dt):
-        
-        self.ids.localtime_label.text = time.strftime("Local Time: %Y-%m-%d-%H:%M:%S %z UTC")
-        self.ids.met_label.text = "Mission Elapsed Time: " + time.strftime("%H:%M:%S.",time.gmtime(met/1000)) + str(met%1000)
-        self.ids.alt_label.text = "Altitude: " + str(databuf["alt"],) + "m AGL"
-        self.ids.vvel_label.text = "Vertical Velocity: " + str(databuf["vvel"]) + "m/s"
-        #self.ids.batt_label.text = "Battery State: " + str(databuf["flightcompbatt"]) + "V"
-        #self.ids.pyro_label.text = "Pyro State: " + str(databuf["flightcompyrostate:"]) + "V"
-        self.ids.uptime_label.text = "Uptimes: \n LERO: " + str(databuf["selfuptime"])+ "\n LYRA: " + str(databuf["uptime"])
-        self.ids.dataage_label.text = "Data Age: " + str(databuf["dataage"])
-        
-        self.statecolor = statecolors[databuf["state"]]
-        self.ids.state_label.text = statetext[databuf["state"]]
-        
-        if self.ids.setlaunchaware_input.text == "ARMED":
+        try:
+            self.ids.localtime_label.text = time.strftime("Local Time: %Y-%m-%d-%H:%M:%S %z UTC")
+            self.ids.met_label.text = "Mission Elapsed Time: " + time.strftime("%H:%M:%S.",time.gmtime(met/1000)) + str(met%1000)
+            self.ids.alt_label.text = "Altitude: " + str(databuf["alt"],) + "m AGL"
+            self.ids.vvel_label.text = "Vertical Velocity: " + str(databuf["vvel"]) + "m/s"
+            #self.ids.batt_label.text = "Battery State: " + str(databuf["flightcompbatt"]) + "V"
+            #self.ids.pyro_label.text = "Pyro State: " + str(databuf["flightcompyrostate:"]) + "V"
+            self.ids.uptime_label.text = "Uptimes: \n LERO: " + str(databuf["selfuptime"])+ "\n LYRA: " + str(databuf["uptime"])
+            self.ids.dataage_label.text = "Data Age: " + str(databuf["dataage"])
             
-            if self.launcharmed == False:
-                self.ids.setlaunchaware_button.background_color = 0.376, 0.729, 0.212,0.25
-                self.ids.setlaunchaware_input.background_color = 0.376, 0.729, 0.212,0.25 
-            self.launcharmed = True
-        else:
-            if self.launcharmed == True:
-                print("setting the dang labels over and over again")
-                self.ids.setlaunchaware_button.background_color = 0.922, 0.243, 0.243,0.25
-                self.ids.setlaunchaware_input.background_color = 0.922, 0.243, 0.243,0.25 
-            self.launcharmed = False
+            self.statecolor = statecolors[databuf["state"]]
+            self.ids.state_label.text = statetext[databuf["state"]]
+            
+            if self.ids.setlaunchaware_input.text == "ARMED":
+                
+                if self.launcharmed == False:
+                    self.ids.setlaunchaware_button.background_color = 0.376, 0.729, 0.212,0.25
+                    self.ids.setlaunchaware_input.background_color = 0.376, 0.729, 0.212,0.25 
+                self.launcharmed = True
+            else:
+                if self.launcharmed == True:
+                    #print("setting the dang labels over and over again")
+                    self.ids.setlaunchaware_button.background_color = 0.922, 0.243, 0.243,0.25
+                    self.ids.setlaunchaware_input.background_color = 0.922, 0.243, 0.243,0.25 
+                self.launcharmed = False
+        finally:
+            return
         
 
         
@@ -171,6 +173,23 @@ class MainWidget(BoxLayout):
             self.ids.serialbutton.text = "Connect to Serial \nOpened Port\n" + port
         except:
             self.ids.serialbutton.text = "Connect to Serial \nCant Open Port \n" + port
+
+    def launch(self):
+        if self.launcharmed:
+            try:
+                serialport.write(b'l')
+                print("sent launch command")
+            except:
+                print("cant send launch command")
+        else:
+            print("not armed")
+    
+    def abort(self):
+        try:
+            serialport.write(b'a')
+            print("sent abort command")
+        except:
+            print("cant send abort command")
 
     def __init__(self, **kwargs):
             super().__init__(**kwargs)

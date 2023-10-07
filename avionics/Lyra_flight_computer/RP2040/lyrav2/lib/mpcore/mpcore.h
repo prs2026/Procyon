@@ -29,9 +29,15 @@ class MPCORE{
 
         mpstate _sysstate;
         int detectiontries = 0;
+        uint32_t landedtime = 0;
+        bool datamoved = false;
+
+
 
         MPCORE(){
             _sysstate.r.state = 0;
+            _sysstate.r.checksum1 = 0xAB;
+            _sysstate.r.checksum2 = 0xCD;
         };
 
         uint32_t errorflag = 1;
@@ -49,6 +55,8 @@ class MPCORE{
         bool sendserialon = false;
         bool sendtoteleplot = true;
 
+        int ledcolor;
+
 
         struct timings{
             uint32_t logdata;
@@ -56,15 +64,16 @@ class MPCORE{
             uint32_t serial;
             uint32_t sendtelemetry;
             uint32_t beep;
+            uint32_t detectstatechange;
         };
         timings intervals[7] = {
-            {2000,1000,100,200,30000}, // ground idle
-            {100,200,100, 200, 500}, // launch detect
-            {50,500,100, 200, 1000}, // powered ascent
-            {50,500,100,200, 1000}, // unpowered ascent
-            {50,500,100,200, 1000}, // ballistic descent
-            {50,800,100,200, 1000}, //ready to land
-            {1000,15002100, 1000, 200} // landed
+            {2000,1000,100,200,30000,10}, // ground idle
+            {100,200,100, 200, 500,10}, // launch detect
+            {50,500,100, 200, 1000,10}, // powered ascent
+            {50,500,100,200, 1000,10}, // unpowered ascent
+            {50,500,100,200, 1000,10}, // ballistic descent
+            {50,800,100,200, 1000,10}, //ready to land
+            {1000,1500,100,200, 1000,10} // landed
         };
         timings prevtime;
         bool ledstate = false;
@@ -188,43 +197,47 @@ class MPCORE{
                 return 1;
                 errorflag *= 11;
             };
-            logfile.printf(
-                "101,"//checksum
-                "%d,%d,"//uptimes
-                "%d,%d,"//errorflag
-                "%f,%f,%f," // accel
-                "%f,%f,%f," // gyro
-                "%f,%f,%f," // mag
-                "%f,%f,%f," // orientation euler"
-                "%f,%f,%f,%f," // orientation quat"
-                "%f,%f,%f," //altitude, presusre, verticalvel
-                "%f,%f,202\n", // temps, imu baro mag
-                _sysstate.r.uptime,
-                _sysstate.r.navsysstate.r.uptime,
-                _sysstate.r.errorflag,
-                _sysstate.r.navsysstate.r.errorflag,
-                _sysstate.r.navsysstate.r.imudata.accel.x,
-                _sysstate.r.navsysstate.r.imudata.accel.y,
-                _sysstate.r.navsysstate.r.imudata.accel.z,
-                _sysstate.r.navsysstate.r.imudata.gyro.x*(180/M_PI),
-                _sysstate.r.navsysstate.r.imudata.gyro.y*(180/M_PI),
-                _sysstate.r.navsysstate.r.imudata.gyro.z*(180/M_PI),
-                _sysstate.r.navsysstate.r.magdata.utesla.x,
-                _sysstate.r.navsysstate.r.magdata.utesla.y,
-                _sysstate.r.navsysstate.r.magdata.utesla.z,
-                _sysstate.r.navsysstate.r.orientationeuler.x*(180/M_PI),
-                _sysstate.r.navsysstate.r.orientationeuler.y*(180/M_PI),
-                _sysstate.r.navsysstate.r.orientationeuler.z*(180/M_PI),
-                _sysstate.r.navsysstate.r.orientationquat.w,
-                _sysstate.r.navsysstate.r.orientationquat.x,
-                _sysstate.r.navsysstate.r.orientationquat.y,
-                _sysstate.r.navsysstate.r.orientationquat.z,
-                _sysstate.r.navsysstate.r.barodata.altitude,
-                _sysstate.r.navsysstate.r.barodata.pressure,
-                _sysstate.r.navsysstate.r.barodata.verticalvel,
-                _sysstate.r.navsysstate.r.imudata.temp,
-                _sysstate.r.navsysstate.r.barodata.temp
-                );
+            logfile.write(_sysstate.data8,sizeof(mpstate));
+            
+
+            // logfile.printf(
+            //     "101,"//checksum
+            //     "%d,%d,"//uptimes
+            //     "%d,%d,"//errorflag
+            //     "%f,%f,%f," // accel
+            //     "%f,%f,%f," // gyro
+            //     "%f,%f,%f," // mag
+            //     "%f,%f,%f," // orientation euler"
+            //     "%f,%f,%f,%f," // orientation quat"
+            //     "%f,%f,%f," //altitude, presusre, verticalvel
+            //     "%f,%f,202\n", // temps, imu baro mag
+            //     _sysstate.r.uptime,
+            //     _sysstate.r.navsysstate.r.uptime,
+            //     _sysstate.r.errorflag,
+            //     _sysstate.r.navsysstate.r.errorflag,
+            //     _sysstate.r.navsysstate.r.imudata.accel.x,
+            //     _sysstate.r.navsysstate.r.imudata.accel.y,
+            //     _sysstate.r.navsysstate.r.imudata.accel.z,
+            //     _sysstate.r.navsysstate.r.imudata.gyro.x*(180/M_PI),
+            //     _sysstate.r.navsysstate.r.imudata.gyro.y*(180/M_PI),
+            //     _sysstate.r.navsysstate.r.imudata.gyro.z*(180/M_PI),
+            //     _sysstate.r.navsysstate.r.magdata.utesla.x,
+            //     _sysstate.r.navsysstate.r.magdata.utesla.y,
+            //     _sysstate.r.navsysstate.r.magdata.utesla.z,
+            //     _sysstate.r.navsysstate.r.orientationeuler.x*(180/M_PI),
+            //     _sysstate.r.navsysstate.r.orientationeuler.y*(180/M_PI),
+            //     _sysstate.r.navsysstate.r.orientationeuler.z*(180/M_PI),
+            //     _sysstate.r.navsysstate.r.orientationquat.w,
+            //     _sysstate.r.navsysstate.r.orientationquat.x,
+            //     _sysstate.r.navsysstate.r.orientationquat.y,
+            //     _sysstate.r.navsysstate.r.orientationquat.z,
+            //     _sysstate.r.navsysstate.r.barodata.altitude,
+            //     _sysstate.r.navsysstate.r.barodata.pressure,
+            //     _sysstate.r.navsysstate.r.barodata.verticalvel,
+            //     _sysstate.r.navsysstate.r.imudata.temp,
+            //     _sysstate.r.navsysstate.r.barodata.temp
+            //     );
+            
             logfile.close();
             return 0;
         }
@@ -239,7 +252,7 @@ class MPCORE{
             Serial.println("checksum,uptime mp,uptime nav,errorflag mp,errorflag nav,accel x,accel y,accel z,gyro x,gyro y,gyro z,mag x,mag y,mag z,euler x,euler y,euler z,quat w,quat x,quat y,quat z,altitude,pressure,verticalvel,imutemp,barotemp,checksum");
             while (readfile.available() > 0)
             {
-                Serial.println(readfile.readString());
+                Serial.print(readfile.read());
             }
             return 0;
 
@@ -271,7 +284,7 @@ class MPCORE{
 
 
 
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < 100; i++)
             {  
                 strcpy(newfilename, "/log");
                 itoa(fileunique, fileuniquestr, 10);
@@ -302,13 +315,84 @@ class MPCORE{
             }
             
             fs::File readfile = LittleFS.open("/log.csv", "r");
-            sdfile.println("checksum,uptime mp,uptime nav,errorflag mp,errorflag nav,accel x,accel y,accel z,gyro x,gyro y,gyro z,mag x,mag y,mag z,euler x,euler y,euler z,quat w,quat x,quat y,quat z,altitude,pressure,verticalvel,imutemp,barotemp,checksum");
+            sdfile.println("checksum,uptime mp,uptime nav, errorflag mp, errorflag nav,accel x, accel y, accel z, gyro x, gyro y, gyro z, mag x, mag y, mag z, magraw x, magraw y, magraw z, euler x, euler y, euler z, quat w, quat x, quat y, quat z, altitude, pressure, verticalvel,maxrecorded alt,  imutemp, barotemp, state,checksum2");
             
             Serial.printf("flash amount used: %d\n",readfile.size());
 
             while (readfile.available() > 0)
             {
-                sdfile.print(readfile.readString());
+                mpstate readentry;
+                uint8_t buf[sizeof(mpstate)];
+                readfile.read(buf,sizeof(mpstate));
+                int j = 0;
+                for (int i = 0; i < sizeof(mpstate); i++)
+                {
+                    readentry.data8[j] = buf[j];
+                    j++;
+                }
+                if (readentry.r.checksum1 != 0xAB || readentry.r.checksum2 != 0xCD)
+                {
+                    uint32_t starttime = millis();
+                    while (millis() - starttime < 1000)
+                    {   
+                        int thisbyte = readfile.read();
+                        if (thisbyte == 0xAB)
+                        {
+                            Serial.println("found start of next entry");
+                            readfile.seek(readfile.position() - 1);
+                            break;
+                        }
+                        Serial.printf("waiting for start of next entry, exp 0xAB got %x", thisbyte);
+                        
+                    }
+                    
+                }
+                
+                sdfile.printf(
+                    "101,"//checksum // checksum,uptime mp,uptime nav, errorflag mp, accel x, accel y, accel z, gyro x, gyro y, gyro z, mag x, mag y, mag z, magraw x, magraw y, magraw z, euler x, euler y, euler z, quat w, quat x, quat y, quat z, altitude, pressure, verticalvel, imutemp, barotemp, state,checksum
+                    "%d,%d,"//uptimes
+                    "%d,%d,"//errorflag
+                    "%f,%f,%f," // accel
+                    "%f,%f,%f," // gyro
+                    "%f,%f,%f," // mag
+                    "%f,%f,%f," // magraw
+                    "%f,%f,%f," // orientation euler"
+                    "%f,%f,%f,%f," // orientation quat"
+                    "%f,%f,%f,%f," //altitude, presusre, verticalvel
+                    "%f,%f," // temps, imu baro mag
+                    "%d,202\n", //state
+                    readentry.r.uptime,
+                    readentry.r.navsysstate.r.uptime,
+                    readentry.r.errorflag,
+                    readentry.r.navsysstate.r.errorflag,
+                    readentry.r.navsysstate.r.imudata.accel.x,
+                    readentry.r.navsysstate.r.imudata.accel.y,
+                    readentry.r.navsysstate.r.imudata.accel.z,
+                    readentry.r.navsysstate.r.imudata.gyro.x*(180/M_PI),
+                    readentry.r.navsysstate.r.imudata.gyro.y*(180/M_PI),
+                    readentry.r.navsysstate.r.imudata.gyro.z*(180/M_PI),
+                    readentry.r.navsysstate.r.magdata.utesla.x,
+                    readentry.r.navsysstate.r.magdata.utesla.y,
+                    readentry.r.navsysstate.r.magdata.utesla.z,
+                    readentry.r.navsysstate.r.magdata.gauss.x,
+                    readentry.r.navsysstate.r.magdata.gauss.y,
+                    readentry.r.navsysstate.r.magdata.gauss.z,
+                    readentry.r.navsysstate.r.orientationeuler.x*(180/M_PI),
+                    readentry.r.navsysstate.r.orientationeuler.y*(180/M_PI),
+                    readentry.r.navsysstate.r.orientationeuler.z*(180/M_PI),
+                    readentry.r.navsysstate.r.orientationquat.w,
+                    readentry.r.navsysstate.r.orientationquat.x,
+                    readentry.r.navsysstate.r.orientationquat.y,
+                    readentry.r.navsysstate.r.orientationquat.z,
+                    readentry.r.navsysstate.r.barodata.altitude,
+                    readentry.r.navsysstate.r.barodata.pressure,
+                    readentry.r.navsysstate.r.barodata.verticalvel,
+                    readentry.r.navsysstate.r.barodata.maxrecordedalt,
+                    readentry.r.navsysstate.r.imudata.temp,
+                    readentry.r.navsysstate.r.barodata.temp,
+                    readentry.r.state
+                    );
+
             }
             
             readfile.close();
@@ -520,9 +604,10 @@ class MPCORE{
     
 
             radio.setPALevel(RF24_PA_MAX);
-            //radio.setAutoAck(false);
+            radio.setAutoAck(false);
             radio.setRetries(10,15);
-            radio.setDataRate(RF24_250KBPS);
+            radio.setDataRate(RF24_1MBPS);
+            //radio.enableDynamicAck();
 
             radio.openWritingPipe(radioaddress[1]);
             radio.openReadingPipe(1,radioaddress[0]);
@@ -580,7 +665,8 @@ class MPCORE{
                 ">orientationeuler y: %f \n"
                 ">orientationeuler z: %f \n"
                 ">maxrecorded alt: %f \n"
-                ">state : %d \n",
+                ">state : %d \n"
+                ">detection tries : %d \n",
                 _sysstate.r.uptime
                 ,_sysstate.r.navsysstate.r.uptime
 
@@ -611,6 +697,7 @@ class MPCORE{
                 ,_sysstate.r.navsysstate.r.orientationeuler.z*(180/M_PI)
                 , _sysstate.r.navsysstate.r.barodata.maxrecordedalt
                 , _sysstate.r.state
+                , detectiontries
                  );
                  // this is ugly, but better than a million seperate prints
                 return 0;
@@ -630,8 +717,8 @@ class MPCORE{
             {
                 Vector3d accelvec = vectorfloatto3(_sysstate.r.navsysstate.r.imudata.accel);
                 float accelmag = accelvec.norm();
-                accelmag > 1.5 ? detectiontries++ : detectiontries = 0;
-                if (detectiontries >= 20)
+                accelmag > 20 ? detectiontries++ : detectiontries = 0;
+                if (detectiontries >= 10)
                 {
                     _sysstate.r.state = 2;
                     detectiontries = 0;
@@ -642,8 +729,8 @@ class MPCORE{
             {
                 Vector3d accelvec = vectorfloatto3(_sysstate.r.navsysstate.r.imudata.accel);
                 float accelmag = accelvec.norm();
-                accelmag < 1 ? detectiontries++ : detectiontries = 0;
-                if (detectiontries >= 20)
+                accelmag < 15 ? detectiontries++ : detectiontries = 0;
+                if (detectiontries >= 10)
                 {
                     _sysstate.r.state = 3;
                     detectiontries = 0;
@@ -654,7 +741,7 @@ class MPCORE{
             {
                 _sysstate.r.navsysstate.r.barodata.altitude > _sysstate.r.navsysstate.r.barodata.maxrecordedalt*0.95 ? detectiontries++ : detectiontries = 0;
 
-                if (detectiontries >= 20)
+                if (detectiontries >= 10)
                 {
                     _sysstate.r.state = 4;
                     detectiontries = 0;
@@ -665,8 +752,8 @@ class MPCORE{
             {
                 Vector3d accelvec = vectorfloatto3(_sysstate.r.navsysstate.r.imudata.accel);
                 float accelmag = accelvec.norm();
-                accelmag > 0.8 ? detectiontries++ : detectiontries = 0;
-                if (detectiontries >= 20)
+                accelmag > 7 ? detectiontries++ : detectiontries = 0;
+                if (detectiontries >= 10)
                 {
                     _sysstate.r.state = 5;
                     detectiontries = 0;
@@ -674,13 +761,24 @@ class MPCORE{
             }
 
             else if (_sysstate.r.state == 5) // detect landing
-            {
-                _sysstate.r.navsysstate.r.barodata.verticalvel > -0.3 && _sysstate.r.navsysstate.r.barodata.verticalvel < 0.3  ? detectiontries++ : detectiontries = 0;
+            {   
 
-                if (detectiontries >= 100)
+                Vector3d accelvec = vectorfloatto3(_sysstate.r.navsysstate.r.imudata.accel);
+                Vector3d gyrovec  = vectorfloatto3(_sysstate.r.navsysstate.r.imudata.gyro);
+
+                if (abs(_sysstate.r.navsysstate.r.barodata.verticalvel) < 0.3 && accelvec.norm() < 20 &&  accelvec.norm() > 5  && gyrovec.norm() < 0.5)
+                {
+                     detectiontries++;
+                }
+                else{
+                     detectiontries = 0;
+                }
+
+                if (detectiontries >= 40)
                 {
                     _sysstate.r.state = 6;
                     detectiontries = 0;
+                    landedtime = millis();
                 }
             }
             
@@ -722,12 +820,12 @@ class MPCORE{
                 movedata();
             }
 
-            else if (int(input) == 109){
-                movedata();
+            else if (int(input) == 108 && _sysstate.r.state < 2){
+                _sysstate.r.state = 1;
             }
 
-            else if (int(input) == 108){
-                _sysstate.r.state = 1;
+            else if (input == 'a' && (_sysstate.r.state < 3 || _sysstate.r.state >= 6 )){
+                _sysstate.r.state = 0;
             }
             
             
@@ -747,13 +845,15 @@ class MPCORE{
                 j++;
             }
             radio.stopListening();
-            bool error = radio.write(&databufs,sizeof(databufs));
+            bool error = radio.write(&databufs,sizeof(databufs),true);
+            //radio.txStandBy(100);
+            
             radio.startListening();
-            if (!error)
-            {
-                Serial.printf("telemetry send fail \n");
-                return 1;
-            }
+            // if (!error)
+            // {
+            //     //Serial.printf("telemetry send fail \n");
+            //     return 1;
+            // }
 
             // for (int i = 0; i < sizeof(databufs); i++)
             // {

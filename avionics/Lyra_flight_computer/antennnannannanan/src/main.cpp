@@ -8,23 +8,26 @@ uint32_t dataage;
 uint32_t uptime;
 uint32_t previousdatapacketmillis;
 uint32_t prevserialmillis;
+uint32_t launchattempmillis;
+uint32_t launchstartmillis;
+uint32_t abortattemptmillis;
 
 telepacket currentpacket;
 
-bool trylaunch;
+bool trylaunch = false;
 
 telepacket recivepacket(){
   uint8_t buf[32] = {};
 
   radio.read(buf,32);
 
-  Serial.print("recived packet: ");
+  //Serial.print("recived packet: ");
   // for (int i = 0; i < sizeof(buf); i++)
   // {
   //   Serial.print(buf[i],HEX);
   //   Serial.print(" ");
   // }
-  Serial.println("eom");
+  //Serial.println("eom");
 
   telepacket temppacket;
   
@@ -74,10 +77,13 @@ void parsecommand(char command){
   switch (command)
   {
   case 'l':
+    Serial.println("trying to launch");
     trylaunch = true;
+    launchstartmillis = millis();
     break;
 
   case 'a':
+    Serial.println("aborting launch");
     trylaunch = false;
     break;
   
@@ -103,6 +109,9 @@ void setup() {
   SPI1.setTX(MOSI);
   SPI1.setSCK(SCK);
   SPI1.begin();
+
+
+  currentpacket.r.state = 0;
 
   int error = 0; 
 
@@ -148,8 +157,30 @@ void loop() {
     if (Serial.available())
     {
       char com = Serial.read();
+      Serial.printf("echo: %c \n",com);
       parsecommand(com);
     }
+    
+    if (millis() - launchstartmillis < 5000 && trylaunch && currentpacket.r.state < 1 && millis()- launchattempmillis > 300)
+    {
+      char launchchar = 'l';
+      Serial.println("sending launch");
+      radio.stopListening();
+      radio.write(&launchchar,1);
+      radio.startListening();
+      launchattempmillis = millis();
+    }
+
+    if (!trylaunch && currentpacket.r.state > 0 && currentpacket.r.state < 10 && millis()- abortattemptmillis > 300)
+    {
+      char abortchar = 'a';
+      Serial.printf("aborting launch, state: %d \n",currentpacket.r.state );
+      radio.stopListening();
+      radio.write(&abortchar,1);
+      radio.startListening();
+      abortattemptmillis = millis();
+    }
+    
     
     
   
