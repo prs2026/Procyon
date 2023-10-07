@@ -128,6 +128,14 @@ void loop() { // main core loop
         MP.prevtime.sendtelemetry = millis();
         
     }
+
+    if (radio.available())
+    {
+        char buf;
+        radio.read(&buf,1);
+        MP.parsecommand(buf);
+    }
+    
     
     
     MP._sysstate.r.uptime = millis();

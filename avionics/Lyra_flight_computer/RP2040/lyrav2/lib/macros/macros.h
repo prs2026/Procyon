@@ -72,6 +72,12 @@ struct Vector3float
     float z;
 };
 
+struct Vector3int{
+    int16_t x;
+    int16_t y;
+    int16_t z;
+};
+
 struct Quatstruct{
     float w;
     float x;
@@ -128,6 +134,51 @@ union mpstate{
     uint32_t data[sizeof(r)/sizeof(uint32_t)];
     uint8_t data8[sizeof(r)/sizeof(uint8_t)];
 };
+
+union telepacket{
+    struct 
+    {
+        uint8_t checksum;
+        Vector3int orientationeuler;
+        Vector3int accel;
+        Vector3int gyro;
+        int16_t altitude;
+        int16_t verticalvel;
+        uint32_t uptime;
+        uint8_t errorflagmp;
+        uint8_t errorflagnav;
+        uint8_t state;
+        uint8_t checksum2;
+    } r;
+    uint8_t data[sizeof(r)];
+
+};
+
+telepacket statetopacket(mpstate state){
+    telepacket packet;
+    packet.r.checksum = 0x12;
+    packet.r.checksum2 = 0x34;
+    packet.r.accel.x = int16_t(state.r.navsysstate.r.imudata.accel.x*100);
+    packet.r.accel.y = int16_t(state.r.navsysstate.r.imudata.accel.y*100);
+    packet.r.accel.z = int16_t(state.r.navsysstate.r.imudata.accel.z*100);
+
+    packet.r.gyro.x = int16_t(state.r.navsysstate.r.imudata.gyro.x*100);
+    packet.r.gyro.y = int16_t(state.r.navsysstate.r.imudata.gyro.y*100);
+    packet.r.gyro.z = int16_t(state.r.navsysstate.r.imudata.gyro.z*100);
+
+    packet.r.orientationeuler.x = int16_t(state.r.navsysstate.r.orientationeuler.x*100);
+    packet.r.orientationeuler.y = int16_t(state.r.navsysstate.r.orientationeuler.y*100);
+    packet.r.orientationeuler.z = int16_t(state.r.navsysstate.r.orientationeuler.z*100);
+
+    packet.r.uptime = state.r.uptime;
+    packet.r.errorflagmp = state.r.errorflag;
+    packet.r.errorflagnav = state.r.navsysstate.r.errorflag;
+    packet.r.state = state.r.state;
+
+    packet.r.altitude = int16_t(state.r.navsysstate.r.barodata.altitude*10);
+    packet.r.verticalvel = int16_t(state.r.navsysstate.r.barodata.verticalvel*100);
+    return packet;
+}
 
 
 

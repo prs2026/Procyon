@@ -735,34 +735,45 @@ class MPCORE{
         }
 
         int sendtelemetry(){
-            uint8_t databufs[4][32];
-            databufs[0][0] = 0x12;
-            databufs[0][1] = 0x34;
+            telepacket packettosend;
+            uint8_t databufs[32];
+            
 
-            databufs[3][30] = 0xAB;
-            databufs[3][31] = 0xCD;
-            int j;
-            for (int i = 0; i < sizeof(mpstate); i++)
+            packettosend = statetopacket(_sysstate);
+            int j = 0;
+            for (int i = 0; i < sizeof(databufs); i++)
             {
-                j = i+2;
-                databufs[j/32][j%32] = _sysstate.data8[i];
+                databufs[j] = packettosend.data[j];
+                j++;
             }
             radio.stopListening();
-
-
-            for (size_t i = 0; i < sizeof(databufs)/sizeof(databufs[0]); i++)
-            {
-                bool error = radio.write(&databufs[i],sizeof(databufs[0]));
-                if (!error)
-                {
-                    Serial.printf("telemetry send fail on cycle: %d \n",i);
-                    return 1;
-                }
-                
-            }
-            
-            
+            bool error = radio.write(&databufs,sizeof(databufs));
             radio.startListening();
+            if (!error)
+            {
+                Serial.printf("telemetry send fail \n");
+                return 1;
+            }
+
+            // for (int i = 0; i < sizeof(databufs); i++)
+            // {
+            //   Serial.print(databufs[i],HEX);
+            //   Serial.print(" ");
+            // }
+            // Serial.println("eom");
+            
+            // Serial.printf("%f,%f,%f"//accel
+            // ",%f,%f,%f" // gyro
+            // ",%f,%f" // alt, vvel
+            // ",%f,%f,%f" // orientation
+            // ",%d,%d,%d \n", // uptime, errorflagmp, errorflagnav, dataage, selfuptime
+            // float(packettosend.r.accel.x)/100,float(packettosend.r.accel.y)/100,float(packettosend.r.accel.z)/100,
+            // float(packettosend.r.gyro.x)/100,float(packettosend.r.gyro.y)/100,float(packettosend.r.gyro.z)/100,
+            // float(packettosend.r.altitude)/100,float(packettosend.r.verticalvel)/100,
+            // float(packettosend.r.orientationeuler.x)/100,float(packettosend.r.orientationeuler.y)/100,float(packettosend.r.orientationeuler.z)/100,
+            // packettosend.r.uptime,packettosend.r.errorflagmp,packettosend.r.errorflagnav);
+
+            
             return 0;
             
         }
