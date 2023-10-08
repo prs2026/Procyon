@@ -192,13 +192,25 @@ class MPCORE{
 
 
         int logdata(){
+            uint32_t openingtime = micros();
             fs::File logfile = LittleFS.open("/log.csv", "a+");
+            Serial.printf("opening file took %d \n",micros()-openingtime);
+            openingtime = micros();
             if (!logfile){
                 return 1;
                 errorflag *= 11;
             };
-            logfile.write(_sysstate.data8,sizeof(mpstate));
+            Serial.printf("checking file took %d \n",micros()-openingtime);
+            openingtime = micros();
+            int j = 0;
+            for (int i = 0; i < sizeof(mpstate); i++)
+            {
+                logfile.write(_sysstate.data8[j]);
+                j++;
+            }
             
+            
+            Serial.printf("writing file took %d \n",micros()-openingtime);
 
             // logfile.printf(
             //     "101,"//checksum
@@ -238,7 +250,9 @@ class MPCORE{
             //     _sysstate.r.navsysstate.r.barodata.temp
             //     );
             
+            openingtime = micros();
             logfile.close();
+            Serial.printf("closing file took %d \n\n",micros()-openingtime);
             return 0;
         }
 
@@ -738,7 +752,7 @@ class MPCORE{
 
             else if (_sysstate.r.state == 3) // detect appogee
             {
-                _sysstate.r.navsysstate.r.barodata.altitude < _sysstate.r.navsysstate.r.barodata.maxrecordedalt*0.95 && _sysstate.r.navsysstate.r.barodata.verticalvel < 0 ?  detectiontries++ : detectiontries = 0;
+                _sysstate.r.navsysstate.r.barodata.altitude < _sysstate.r.navsysstate.r.barodata.maxrecordedalt*0.95 ?  detectiontries++ : detectiontries = 0;
 
                 if (detectiontries >= 10)
                 {

@@ -72,8 +72,10 @@ void loop() { // main core loop
 
     if (rp2040.fifo.available())
     {
+        uint32_t gettingnavdata = micros();
         int _avalible = rp2040.fifo.available();
         int _error = MP.fetchnavdata();
+        //Serial.printf("fetching nav data took %d \n",micros() - gettingnavdata);
         //Serial.printf("recived packet at timestamp : %d with error %d and %d bytes in the fifo",MP._sysstate.r.uptime,_error,_avalible);
     }
 
@@ -141,15 +143,18 @@ void loop() { // main core loop
 
     if (millis() - MP.prevtime.logdata >= MP.intervals[MP._sysstate.r.state].logdata)
     {
+        uint32_t prevlogmicros = micros();
         MP.logdata();
         MP.prevtime.logdata = millis();
+        //Serial.printf("logging  took: %d \n",micros() - prevlogmicros);
     }
     
     if (millis() - MP.prevtime.sendtelemetry >= MP.intervals[MP._sysstate.r.state].sendtelemetry)
     {
+        uint32_t prevtelemmicros = micros();
         MP.sendtelemetry();
         MP.prevtime.sendtelemetry = millis();
-        
+        //Serial.printf("telemetry sending took: %d \n",micros() - prevtelemmicros);
     }
 
     if (radio.available())
