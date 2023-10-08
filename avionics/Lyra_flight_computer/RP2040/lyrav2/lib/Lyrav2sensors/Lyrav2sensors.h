@@ -22,7 +22,7 @@ Bmi088Gyro gyrounit(Wire1,0x68);
 Adafruit_BMP3XX bmp;
 Adafruit_LIS3MDL mdl;
 
-const float SEALEVELPRESSURE = 1015.4;
+const float SEALEVELPRESSURE = 1012.19;
 
 
 

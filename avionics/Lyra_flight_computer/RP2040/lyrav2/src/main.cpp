@@ -6,7 +6,7 @@
 MPCORE MP;
 NAVCORE NAV;
 
-
+bool dataismoved = false;
 
 void setup() { // main core setup
     MP.setuppins();
@@ -21,7 +21,6 @@ void setup() { // main core setup
     MP.radioinit();
     
 
-    MP.errorflag == 1 ? MP.setled(GREEN) : MP.setled(BLUE);
     
     Serial.print("MP boot complete error code: ");
     Serial.println(MP.errorflag);
@@ -30,7 +29,18 @@ void setup() { // main core setup
     
     Serial.print("NAV boot complete, error code :");
     Serial.println(MP._sysstate.r.navsysstate.r.errorflag);
+
+    if (MP._sysstate.r.navsysstate.r.errorflag * MP._sysstate.r.errorflag != 0)
+    {
+        MP.ledcolor = BLUE;
+    }
+    else{
+        MP.ledcolor = GREEN;
+    }
+    
+
     MP._sysstate.r.uptime = millis();
+    MP.movedata();
     MP.logdata();
     //MP.readdata();
 
@@ -49,19 +59,30 @@ void setup1() { // nav core setup
 }
 
 void loop() { // main core loop
-    MP.changestate();
+
+    
+    
+    if (millis()- MP.prevtime.detectstatechange >= MP.intervals[MP._sysstate.r.state].detectstatechange)
+    {
+        MP.changestate();
+        MP.prevtime.detectstatechange = millis();
+    }
+    
+    
 
     if (rp2040.fifo.available())
     {
+        uint32_t gettingnavdata = micros();
         int _avalible = rp2040.fifo.available();
         int _error = MP.fetchnavdata();
+        //Serial.printf("fetching nav data took %d \n",micros() - gettingnavdata);
         //Serial.printf("recived packet at timestamp : %d with error %d and %d bytes in the fifo",MP._sysstate.r.uptime,_error,_avalible);
     }
 
 
     if (millis()- MP.prevtime.led >= MP.intervals[MP._sysstate.r.state].led)
     {
-        MP.ledstate ? MP.setled(GREEN) : MP.setled(OFF);
+        MP.ledstate ? MP.setled(MP.ledcolor) : MP.setled(OFF);
         MP.ledstate =! MP.ledstate;
         MP.prevtime.led = millis();
     }
@@ -90,7 +111,11 @@ void loop() { // main core loop
             MP.beep(6000);
             break;
 
-        case 5: // landed
+        case 5: // ready to land
+            MP.beep(4000);
+            break;
+        
+        case 6: // landed
             MP.beep(4000);
             break;
         
@@ -118,15 +143,33 @@ void loop() { // main core loop
 
     if (millis() - MP.prevtime.logdata >= MP.intervals[MP._sysstate.r.state].logdata)
     {
+        uint32_t prevlogmicros = micros();
         MP.logdata();
         MP.prevtime.logdata = millis();
+        //Serial.printf("logging  took: %d \n",micros() - prevlogmicros);
     }
     
     if (millis() - MP.prevtime.sendtelemetry >= MP.intervals[MP._sysstate.r.state].sendtelemetry)
     {
+        uint32_t prevtelemmicros = micros();
         MP.sendtelemetry();
         MP.prevtime.sendtelemetry = millis();
-        
+        //Serial.printf("telemetry sending took: %d \n",micros() - prevtelemmicros);
+    }
+
+    if (radio.available())
+    {
+        char buf;
+        radio.read(&buf,1);
+        MP.parsecommand(buf);
+    }
+    
+    if ( dataismoved == false)
+    {
+        if (MP._sysstate.r.state == 6 && millis() - MP.landedtime >= 5000){
+            dataismoved = true;
+            MP.movedata();
+        }
     }
     
     
