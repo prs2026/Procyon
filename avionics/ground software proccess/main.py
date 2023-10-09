@@ -191,6 +191,20 @@ class MainWidget(BoxLayout):
         except:
             print("cant send abort command")
 
+    def movedata(self):
+        try:
+            serialport.write(b'm')
+            print("sent movedata command")
+        except:
+            print("couldnt send movedata command")
+        
+    def getnewpadoffset(self):
+        try:
+            serialport.write(b'o')
+            print("sent getpadoffset command")
+        except:
+            print("couldnt send getpadcommand")
+
     def __init__(self, **kwargs):
             super().__init__(**kwargs)
             Clock.schedule_interval(self.updatescreen, 0.1)

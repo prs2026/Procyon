@@ -86,6 +86,22 @@ void parsecommand(char command){
     Serial.println("aborting launch");
     trylaunch = false;
     break;
+
+  case 'm':
+    Serial.println("moving data to sd");
+    char movechar = 'm';
+    radio.stopListening();
+    radio.write(&movechar,1);
+    radio.startListening();
+    break;
+  
+  case 'o':
+    Serial.println("getting new pad offsets");
+    char padchar = 'o';
+    radio.stopListening();
+    radio.write(&padchar,1);
+    radio.startListening();
+    break;
   
   default:
     break;

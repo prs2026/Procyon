@@ -372,7 +372,7 @@ class MPCORE{
                     "%f,%f,%f," // magraw
                     "%f,%f,%f," // orientation euler"
                     "%f,%f,%f,%f," // orientation quat"
-                    "%f,%f,%f,%f," //altitude, presusre, verticalvel
+                    "%f,%f,%f,%f,%f" //altitude, presusre, verticalvel, altitudeagl
                     "%f,%f," // temps, imu baro mag
                     "%d,202\n", //state
                     readentry.r.uptime,
@@ -402,6 +402,7 @@ class MPCORE{
                     readentry.r.navsysstate.r.barodata.pressure,
                     readentry.r.navsysstate.r.barodata.verticalvel,
                     readentry.r.navsysstate.r.barodata.maxrecordedalt,
+                    readentry.r.navsysstate.r.barodata.altitudeagl,
                     readentry.r.navsysstate.r.imudata.temp,
                     readentry.r.navsysstate.r.barodata.temp,
                     readentry.r.state
@@ -679,7 +680,7 @@ class MPCORE{
                 ">orientationeuler z: %f \n"
                 ">maxrecorded alt: %f \n"
                 ">state : %d \n"
-                ">detection tries : %d \n",
+                ">altitudeagl : %d \n",
                 _sysstate.r.uptime
                 ,_sysstate.r.navsysstate.r.uptime
 
@@ -710,7 +711,7 @@ class MPCORE{
                 ,_sysstate.r.navsysstate.r.orientationeuler.z*(180/M_PI)
                 , _sysstate.r.navsysstate.r.barodata.maxrecordedalt
                 , _sysstate.r.state
-                , detectiontries
+                , _sysstate.r.navsysstate.r.barodata.altitudeagl
                  );
                  // this is ugly, but better than a million seperate prints
                 return 0;
@@ -803,42 +804,53 @@ class MPCORE{
 
         int parsecommand(char input){
             Serial.println(input);
-            if (int(input) == 115)
-            {
-                Serial.println("printing data to teleplot");
-                sendserialon = !sendserialon;
-                sendtoteleplot = true;
-            }
-            else if (int(input) == 113)
-            {
-                Serial.println("sending accel data to magneto");
-                sendserialon = !sendserialon;
-                sendtoteleplot = false;
 
-            }
-
-            else if (int(input) == 101){
-                erasedata();
-            }
-
-            else if (int(input) == 114){
-                readdata();
-            }
-
-            else if (int(input) == 68){
-                logdata();
-            }
-
-            else if (int(input) == 109){
-                movedata();
-            }
-
-            else if (int(input) == 108 && _sysstate.r.state < 2){
+            if (input == 'l' && _sysstate.r.state < 2){
                 _sysstate.r.state = 1;
+                return;
             }
 
             else if (input == 'a' && (_sysstate.r.state < 3 || _sysstate.r.state >= 6 )){
                 _sysstate.r.state = 0;
+                return;
+            }
+
+            switch (input)
+            {
+            case 's':
+                Serial.println("printing data to teleplot");
+                sendserialon = !sendserialon;
+                sendtoteleplot = true;
+                break;
+
+            case 'q':
+                Serial.println("sending accel data to magneto");
+                sendserialon = !sendserialon;
+                sendtoteleplot = false;
+                break;
+
+            case 'e':
+                erasedata();
+                break;
+
+            case 'r':
+                readdata();
+                break;
+
+            case 'D':
+                logdata();
+                break;
+            
+            case 'm':
+                movedata();
+                break;
+            
+            case 'o':
+                baro.getpadoffset();
+                break;
+            
+            default:
+                break;
             }
             
             

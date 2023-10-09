@@ -136,7 +136,7 @@ public:
 
             accel.x() += accelunit.getAccelZ_mss();
             accel.y() += accelunit.getAccelY_mss();
-            accel.z() += accelunit.getAccelX_mss();
+            accel.z() += -accelunit.getAccelX_mss();
 
             gyro.x() += -gyrounit.getGyroZ_rads();
             gyro.y() += -gyrounit.getGyroY_rads();
@@ -204,10 +204,22 @@ float prevalt;
 float prevverticalvel[5];
 int address = 0;
 uint64_t prevtime;
+double padalt = 0;
 
 public:
     BARO(){};
     BAROdata data;
+
+    int getpadoffset(int samplesize = 100){
+        for (int i = 0; i < samplesize; i++)
+        {
+            padalt += bmp.readAltitude(SEALEVELPRESSURE);
+        }
+
+        padalt /= samplesize;
+        Serial.printf("new pad offset: %f\n",padalt);
+
+    }
 
     int init(){
         if (!bmp.begin_I2C(0x76,&Wire1))
@@ -216,6 +228,7 @@ public:
             return 1;
         }
         bmp.setPressureOversampling(BMP3_OVERSAMPLING_32X);
+        getpadoffset();
         Serial.println("BMP init success");
         return 0;
     }
@@ -223,6 +236,7 @@ public:
         BAROdata _data;
 
         _data.altitude = bmp.readAltitude(SEALEVELPRESSURE);
+        _data.altitudeagl = _data.altitude-padalt;
         _data.pressure = bmp.readPressure();
         _data.temp = bmp.readTemperature();
 

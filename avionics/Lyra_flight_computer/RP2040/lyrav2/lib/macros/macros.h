@@ -97,6 +97,7 @@ struct BAROdata{
     float temp;
     float verticalvel;
     float maxrecordedalt;
+    float altitudeagl;
 };
 
 struct MAGdata{
