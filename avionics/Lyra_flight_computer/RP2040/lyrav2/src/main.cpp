@@ -30,12 +30,17 @@ void setup() { // main core setup
     Serial.print("NAV boot complete, error code :");
     Serial.println(MP._sysstate.r.navsysstate.r.errorflag);
 
-    if (MP._sysstate.r.navsysstate.r.errorflag * MP._sysstate.r.errorflag != 0)
+    if (MP._sysstate.r.navsysstate.r.errorflag * MP._sysstate.r.errorflag != 1)
     {
         MP.ledcolor = BLUE;
+        //Serial.println("core error");
+    }
+    else if (MP._sysstate.r.navsysstate.r.errorflag * MP._sysstate.r.errorflag < 0){
+        MP.ledcolor = RED;
     }
     else{
         MP.ledcolor = GREEN;
+        //Serial.println("cores good");
     }
     
 
@@ -53,9 +58,9 @@ void setup1() { // nav core setup
     NAV.initi2c();
     NAV.sensorinit();
     navpacket initpacket;
-    initpacket.r.errorflag = NAV.errorflag;
+    initpacket.r.errorflag = NAV._sysstate.r.errorflag;
     NAV.sendpacket(initpacket);
-
+    baro.getpadoffset();
 }
 
 void loop() { // main core loop

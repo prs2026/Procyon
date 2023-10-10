@@ -25,8 +25,7 @@ class NAVCORE{
     
 
     public:
-        
-        uint32_t errorflag = 1; 
+    
         navpacket _sysstate;
 
         float alpha = 0.97;
@@ -43,6 +42,7 @@ class NAVCORE{
         13 = baro init fail
         17 = mag init fail
         19 = packet send fail
+        negative = fatal error
         */
         struct timings{
             uint32_t sendpacket;
@@ -85,7 +85,7 @@ class NAVCORE{
             if (data != 0xAB)
             {
                 rp2040.fifo.push(data);
-                errorflag*3;
+                _sysstate.r.errorflag*3;
                 return 1;
             }
             rp2040.fifo.push(0xCD);
@@ -101,17 +101,28 @@ class NAVCORE{
             Wire1.setSDA(SDA);
             Wire1.setClock(10000);
             Wire1.begin();
-            scani2c(false) ? errorflag*= 5 : errorflag *= 1;
+            scani2c(false) ? _sysstate.r.errorflag*= 5 : _sysstate.r.errorflag *= 1;
             return 0;
         }
 
         uint32_t sensorinit(){
             int imustatus;
-            imustatus = imu.init();
-            imustatus == 1 ? errorflag *= 7 : errorflag *= 1;
-            imustatus == 2 ? errorflag *= 11 : errorflag *= 1;
-            baro.init() ? errorflag *= 13 : errorflag *= 1;
-            mag.init() ? errorflag *= 17 : errorflag *= 1;
+            int barostatus;
+            int magstatus;
+            imustatus = imu.init();;
+            imustatus == 1 ? _sysstate.r.errorflag *= 7 : _sysstate.r.errorflag *= 1;
+            imustatus == 2 ? _sysstate.r.errorflag *= 11 : _sysstate.r.errorflag *= 1;
+            barostatus = baro.init();
+            barostatus ? _sysstate.r.errorflag *= 13 : _sysstate.r.errorflag *= 1;
+            magstatus = mag.init();
+            magstatus ? _sysstate.r.errorflag *= 17 : _sysstate.r.errorflag *= 1;
+
+            if (magstatus != 0 || imustatus != 0 || barostatus != 0)
+            {
+                _sysstate.r.errorflag *= -1;
+            }
+            
+            
             return 0;
         }
 

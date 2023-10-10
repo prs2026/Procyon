@@ -109,7 +109,7 @@ union navpacket
 {
     struct
     {
-        uint32_t errorflag;
+        int32_t errorflag;
         uint32_t uptime;
         uint32_t state;
         IMUdata imudata;
@@ -128,7 +128,7 @@ union navpacket
 union mpstate{
     struct{
         uint8_t checksum1;
-        uint32_t errorflag;
+        int32_t errorflag;
         uint32_t uptime;
         uint32_t state;
         navpacket navsysstate;
@@ -178,7 +178,7 @@ telepacket statetopacket(mpstate state){
     packet.r.errorflagnav = state.r.navsysstate.r.errorflag;
     packet.r.state = state.r.state;
 
-    packet.r.altitude = int16_t(state.r.navsysstate.r.barodata.altitude*10);
+    packet.r.altitude = int16_t(state.r.navsysstate.r.barodata.altitudeagl*10);
     packet.r.verticalvel = int16_t(state.r.navsysstate.r.barodata.verticalvel*100);
     return packet;
 }

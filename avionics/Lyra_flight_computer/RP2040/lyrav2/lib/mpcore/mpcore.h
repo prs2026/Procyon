@@ -40,7 +40,7 @@ class MPCORE{
             _sysstate.r.checksum2 = 0xCD;
         };
 
-        uint32_t errorflag = 1;
+        int32_t errorflag = 1;
         /*
             1 = no error
             3 = handshake fail
@@ -194,13 +194,13 @@ class MPCORE{
         int logdata(){
             uint32_t openingtime = micros();
             fs::File logfile = LittleFS.open("/log.csv", "a+");
-            Serial.printf("opening file took %d \n",micros()-openingtime);
+            //Serial.printf("opening file took %d \n",micros()-openingtime);
             openingtime = micros();
             if (!logfile){
                 return 1;
                 errorflag *= 11;
             };
-            Serial.printf("checking file took %d \n",micros()-openingtime);
+            //Serial.printf("checking file took %d \n",micros()-openingtime);
             openingtime = micros();
             int j = 0;
             for (int i = 0; i < sizeof(mpstate); i++)
@@ -210,7 +210,7 @@ class MPCORE{
             }
             
             
-            Serial.printf("writing file took %d \n",micros()-openingtime);
+           //Serial.printf("writing file took %d \n",micros()-openingtime);
 
             // logfile.printf(
             //     "101,"//checksum
@@ -252,7 +252,7 @@ class MPCORE{
             
             openingtime = micros();
             logfile.close();
-            Serial.printf("closing file took %d \n\n",micros()-openingtime);
+            //Serial.printf("closing file took %d \n\n",micros()-openingtime);
             return 0;
         }
 
@@ -356,7 +356,7 @@ class MPCORE{
                             readfile.seek(readfile.position() - 1);
                             break;
                         }
-                        Serial.printf("waiting for start of next entry, exp 0xAB got %x", thisbyte);
+                        Serial.printf("waiting for start of next entry, exp 0xAB got %x \n", thisbyte);
                         
                     }
                     
@@ -483,6 +483,7 @@ class MPCORE{
             }
             Serial.println("NAV Handshake failed");
             errorflag*= 3;
+            errorflag *= -1;
             return 1;
         }
 
@@ -637,7 +638,7 @@ class MPCORE{
                     sucess == true;
                     break;
                 }
-                Serial.println("radio handshake fail");
+                //Serial.println("radio handshake fail");
             }
             if (!sucess)
             {
@@ -680,7 +681,7 @@ class MPCORE{
                 ">orientationeuler z: %f \n"
                 ">maxrecorded alt: %f \n"
                 ">state : %d \n"
-                ">altitudeagl : %d \n",
+                ">altitudeagl : %f \n",
                 _sysstate.r.uptime
                 ,_sysstate.r.navsysstate.r.uptime
 
@@ -807,12 +808,12 @@ class MPCORE{
 
             if (input == 'l' && _sysstate.r.state < 2){
                 _sysstate.r.state = 1;
-                return;
+                return 0;
             }
 
             else if (input == 'a' && (_sysstate.r.state < 3 || _sysstate.r.state >= 6 )){
                 _sysstate.r.state = 0;
-                return;
+                return 0;
             }
 
             switch (input)
