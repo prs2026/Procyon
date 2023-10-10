@@ -82,27 +82,27 @@ void parsecommand(char command){
     launchstartmillis = millis();
     break;
 
-  case 'a':
+  case 'a':{
     Serial.println("aborting launch");
     trylaunch = false;
     break;
-
-  case 'm':
+  }
+  case 'm':{
     Serial.println("moving data to sd");
     char movechar = 'm';
     radio.stopListening();
     radio.write(&movechar,1);
     radio.startListening();
     break;
-  
-  case 'o':
+  }
+  case 'o':{
     Serial.println("getting new pad offsets");
     char padchar = 'o';
     radio.stopListening();
     radio.write(&padchar,1);
     radio.startListening();
     break;
-  
+  }
   default:
     break;
   }
