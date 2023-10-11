@@ -190,11 +190,20 @@ MainWidget:
                             text: "COM11"
                             font_size: self.y/9
                             size_hint: 1,0.5
+                    
                     Button:
-                        id: firep1
-                        text: "Fire P1"
+                        id: zerobaro_button
+                        text: "Zero alt agl"
                         background_color: 0.251, 0.282, 0.31,0.24
-                    Button:
-                        id: firep2
-                        text: "Fire P2"
-                        background_color: 0.251, 0.282, 0.31,0.24
+                        on_press: root.getnewpadoffset()
+
+                    BoxLayout:
+                        orientation: "vertical"
+                        Button:
+                            id: firep1
+                            text: "Fire P1"
+                            background_color: 0.251, 0.282, 0.31,0.24
+                        Button:
+                            id: firep2
+                            text: "Fire P2"
+                            background_color: 0.251, 0.282, 0.31,0.24

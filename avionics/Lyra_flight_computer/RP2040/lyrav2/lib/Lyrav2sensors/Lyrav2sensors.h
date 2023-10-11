@@ -210,15 +210,18 @@ public:
     BARO(){};
     BAROdata data;
 
-    int getpadoffset(int samplesize = 100){
-        for (int i = 0; i < samplesize; i++)
-        {
-            padalt += bmp.readAltitude(SEALEVELPRESSURE);
-        }
+    int getpadoffset(int samplesize = 1){
+        double _padalt = 0;
+        // for (int i = 0; i < samplesize; i++)
+        // {
+            _padalt += bmp.readAltitude(SEALEVELPRESSURE);
+            delayMicroseconds(100);
+        // }
 
-        padalt /= samplesize;
-        Serial.printf("new pad offset: %f\n",padalt);
-
+        _padalt /= samplesize;
+        Serial.printf("new pad offset: %f\n",_padalt);
+        padalt = _padalt;
+        return 0;
     }
 
     int init(){

@@ -77,7 +77,7 @@ int radiocommcheck(){
     
     if (!error)
     {
-        Serial.println("other radio didnt ack/couldnt send");
+        //Serial.println("other radio didnt ack/couldnt send");
         return 2;
     }
     
@@ -85,7 +85,7 @@ int radiocommcheck(){
     uint32_t timeoutstart = millis();
     while (!radio.available()){
         if (millis() - timeoutstart > 200){
-            Serial.println("radio commcheck timeout");
+            //Serial.println("radio commcheck timeout");
             return 1;
         }
     }
