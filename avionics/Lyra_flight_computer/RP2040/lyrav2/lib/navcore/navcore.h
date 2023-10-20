@@ -28,7 +28,7 @@ class NAVCORE{
     
         navpacket _sysstate;
 
-        float alpha = 0.97;
+        float alpha = 0.98;
 
         NAVCORE(){
             _sysstate.r.orientationquat = {1,0,0,0};

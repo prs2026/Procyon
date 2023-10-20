@@ -117,10 +117,12 @@ void loop() { // main core loop
             break;
 
         case 5: // ready to land
-            MP.beep(4000);
+            MP.beep(2000);
             break;
         
         case 6: // landed
+            MP.beep(4000);
+            delay(50);
             MP.beep(4000);
             break;
         
@@ -183,8 +185,22 @@ void loop() { // main core loop
 
 
 void loop1() { // nav core loop
+    if (MP._sysstate.r.state == 0)
+    {
+        NAV.alpha = 0.1;
+    }
+    else
+    {
+        NAV.alpha = 0.98;
+    }
+    
     NAV.getsensordata();
     NAV.computeorientation();
+
+    
+    
+    
+
     if ((millis() - NAV.prevtime.sendpacket) >= NAV.intervals[NAV._sysstate.r.state].sendpacket)
     {
         int inbuf = rp2040.fifo.available();

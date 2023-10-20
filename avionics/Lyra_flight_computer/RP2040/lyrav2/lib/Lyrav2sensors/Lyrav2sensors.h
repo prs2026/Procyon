@@ -205,6 +205,7 @@ float prevverticalvel[5];
 int address = 0;
 uint64_t prevtime;
 double padalt = 0;
+float lpfal = 0.7;
 
 public:
     BARO(){};
@@ -239,6 +240,9 @@ public:
         BAROdata _data;
 
         _data.altitude = bmp.readAltitude(SEALEVELPRESSURE);
+
+        _data.altitude = lpfal*prevalt + (1-lpfal)*_data.altitude;
+
         _data.altitudeagl = _data.altitude-padalt;
         _data.pressure = bmp.readPressure();
         _data.temp = bmp.readTemperature();
