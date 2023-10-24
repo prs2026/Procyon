@@ -201,6 +201,7 @@ void loop1() { // nav core loop
     if (millis()- NAV.prevtime.kfupdate >= 100)
     {
         NAV.KFupdate();
+        NAV.prevtime.kfupdate = millis();
     }
     
 
