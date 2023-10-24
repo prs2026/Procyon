@@ -115,6 +115,8 @@ union navpacket
         IMUdata imudata;
         BAROdata barodata;
         MAGdata magdata;
+        float filteredalt;
+        float filteredvvel;
         //Vector3float pos;
         Vector3float orientationeuler;
         Quatstruct orientationquat;
@@ -123,6 +125,11 @@ union navpacket
     } r;
     uint32_t data[sizeof(r)/sizeof(uint32_t)];
 
+};
+
+struct variences{
+    float alt;
+    float vvel;
 };
 
 union mpstate{

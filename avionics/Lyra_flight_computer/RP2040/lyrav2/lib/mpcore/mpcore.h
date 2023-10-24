@@ -329,7 +329,7 @@ class MPCORE{
             }
             
             fs::File readfile = LittleFS.open("/log.csv", "r");
-            sdfile.println("checksum,uptime mp,uptime nav, errorflag mp, errorflag nav,accel x, accel y, accel z, gyro x, gyro y, gyro z, mag x, mag y, mag z, magraw x, magraw y, magraw z, euler x, euler y, euler z, quat w, quat x, quat y, quat z, altitude, pressure, verticalvel,maxrecorded alt,altitudeagl,imutemp, barotemp, state,checksum2");
+            sdfile.println("checksum,uptime mp,uptime nav, errorflag mp, errorflag nav,accel x, accel y, accel z, gyro x, gyro y, gyro z, mag x, mag y, mag z, magraw x, magraw y, magraw z, euler x, euler y, euler z, quat w, quat x, quat y, quat z, altitude, pressure, verticalvel,maxrecorded alt,altitudeagl,filteredalt,imutemp, barotemp, state,checksum2");
             
             Serial.printf("flash amount used: %d\n",readfile.size());
 
@@ -372,7 +372,7 @@ class MPCORE{
                     "%f,%f,%f," // magraw
                     "%f,%f,%f," // orientation euler"
                     "%f,%f,%f,%f," // orientation quat"
-                    "%f,%f,%f,%f,%f" //altitude, presusre, verticalvel, altitudeagl
+                    "%f,%f,%f,%f,%f,%f" //altitude, presusre, verticalvel, altitudeagl, filtered alt
                     "%f,%f," // temps, imu baro mag
                     "%d,202\n", //state
                     readentry.r.uptime,
@@ -403,6 +403,7 @@ class MPCORE{
                     readentry.r.navsysstate.r.barodata.verticalvel,
                     readentry.r.navsysstate.r.barodata.maxrecordedalt,
                     readentry.r.navsysstate.r.barodata.altitudeagl,
+                    readentry.r.navsysstate.r.filteredalt,
                     readentry.r.navsysstate.r.imudata.temp,
                     readentry.r.navsysstate.r.barodata.temp,
                     readentry.r.state
@@ -670,6 +671,7 @@ class MPCORE{
                 ">gyro z: %f \n"
                 ">altitude: %f \n" 
                 ">verticalvel: %f \n"
+                ">filtered vvel: %f \n"
                 ">mag x: %f \n" 
                 ">mag y: %f \n" 
                 ">mag z: %f \n"
@@ -680,6 +682,7 @@ class MPCORE{
                 ">orientationeuler y: %f \n"
                 ">orientationeuler z: %f \n"
                 ">maxrecorded alt: %f \n"
+                ">filtered alt: %f \n"
                 ">state : %d \n"
                 ">altitudeagl : %f \n",
                 _sysstate.r.uptime
@@ -698,6 +701,7 @@ class MPCORE{
 
                 , _sysstate.r.navsysstate.r.barodata.altitude
                 , _sysstate.r.navsysstate.r.barodata.verticalvel
+                , _sysstate.r.navsysstate.r.filteredvvel
 
                 ,_sysstate.r.navsysstate.r.magdata.utesla.x
                 ,_sysstate.r.navsysstate.r.magdata.utesla.y
@@ -711,6 +715,7 @@ class MPCORE{
                 ,_sysstate.r.navsysstate.r.orientationeuler.y*(180/M_PI)
                 ,_sysstate.r.navsysstate.r.orientationeuler.z*(180/M_PI)
                 , _sysstate.r.navsysstate.r.barodata.maxrecordedalt
+                , _sysstate.r.navsysstate.r.filteredalt
                 , _sysstate.r.state
                 , _sysstate.r.navsysstate.r.barodata.altitudeagl
                  );

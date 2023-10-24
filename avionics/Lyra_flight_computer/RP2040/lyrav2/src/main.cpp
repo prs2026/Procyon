@@ -196,6 +196,13 @@ void loop1() { // nav core loop
     
     NAV.getsensordata();
     NAV.computeorientation();
+    NAV.KFpredict();
+
+    if (millis()- NAV.prevtime.kfupdate >= 100)
+    {
+        NAV.KFupdate();
+    }
+    
 
     
     

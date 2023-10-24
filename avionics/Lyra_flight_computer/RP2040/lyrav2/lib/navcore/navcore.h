@@ -23,15 +23,23 @@ MAG mag;
 
 class NAVCORE{
     
-
+    navpacket prevsysstate;
+    navpacket nextsysstate;
+    variences currentvariences;
+    variences nextvariences;
+    variences prevvariences;
     public:
     
         navpacket _sysstate;
+        
 
         float alpha = 0.98;
 
         NAVCORE(){
             _sysstate.r.orientationquat = {1,0,0,0};
+            prevsysstate = _sysstate;
+            currentvariences.alt = 0.1;
+            currentvariences.vvel = 0.1;
         };
         /*
         1 = no errors
@@ -47,6 +55,8 @@ class NAVCORE{
         struct timings{
             uint32_t sendpacket;
             uint32_t intergrateorientation;
+            uint32_t kfpredict;
+            uint32_t kfupdate;
         };
         timings intervals[7] = {
             {50}, // ground idle
@@ -138,6 +148,36 @@ class NAVCORE{
             return;
         }
 
+        void KFpredict(){
+            double timestep = (micros() - prevtime.kfpredict)/1e6;
+
+            nextsysstate.r.filteredalt = _sysstate.r.filteredalt + (timestep*_sysstate.r.filteredvvel); // extrapolate with velocity dynamics
+            nextsysstate.r.filteredvvel = _sysstate.r.filteredvvel; 
+
+            nextvariences.alt = currentvariences.alt + pow(timestep,2)*currentvariences.vvel; // extrapolate variences with velocity dynamics
+            nextvariences.vvel = currentvariences.vvel;
+
+            prevsysstate = _sysstate;
+            prevtime.kfpredict = micros();
+        }
+
+        void KFupdate(){
+            double timestep = (micros() - prevtime.kfupdate)/1e6;
+
+            variences kgain; // calc new kalman gain
+            kgain.alt = prevvariences.alt/prevvariences.alt+0.1;
+            kgain.vvel = prevvariences.vvel/prevvariences.vvel+0.1;
+            
+            _sysstate.r.filteredalt = prevsysstate.r.filteredalt + kgain.alt*(_sysstate.r.barodata.altitudeagl - prevsysstate.r.filteredalt); // state update
+            _sysstate.r.filteredvvel = prevsysstate.r.filteredvvel + kgain.vvel*(_sysstate.r.barodata.verticalvel - prevsysstate.r.filteredvvel);
+
+            currentvariences.alt = (1-kgain.alt)*prevvariences.alt; // variences update
+            currentvariences.vvel = (1-kgain.vvel)*prevvariences.vvel;
+            
+            prevtime.kfupdate = micros();
+            prevvariences = currentvariences;
+        }
+
         void computeorientation(){
             double timestep = (micros() - prevtime.intergrateorientation)/1e6;
             Quaterniond orientationquat = quatstructtoeigen(_sysstate.r.orientationquat);
@@ -186,9 +226,10 @@ class NAVCORE{
             _sysstate.r.orientationquat = eigentoquatstruct(orientationquat);
             _sysstate.r.orientationeuler = vector3tofloat(orientationeuler);
 
+
         };
 
-
+        
 
 };
 
