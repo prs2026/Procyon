@@ -105,6 +105,13 @@ struct MAGdata{
     Vector3float utesla;
 };
 
+
+struct variences{
+    float alt;
+    float vvel;
+};
+
+
 union navpacket
 {
     struct
@@ -120,16 +127,12 @@ union navpacket
         //Vector3float pos;
         Vector3float orientationeuler;
         Quatstruct orientationquat;
+        variences confidence;
         //Vector3float vel;
         
     } r;
     uint32_t data[sizeof(r)/sizeof(uint32_t)];
 
-};
-
-struct variences{
-    float alt;
-    float vvel;
 };
 
 union mpstate{

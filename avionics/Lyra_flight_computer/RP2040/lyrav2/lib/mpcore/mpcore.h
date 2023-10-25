@@ -65,6 +65,7 @@ class MPCORE{
             uint32_t sendtelemetry;
             uint32_t beep;
             uint32_t detectstatechange;
+            uint32_t loop;
         };
         timings intervals[7] = {
             {2000,1000,100,200,30000,10}, // ground idle
@@ -684,7 +685,9 @@ class MPCORE{
                 ">maxrecorded alt: %f \n"
                 ">filtered alt: %f \n"
                 ">state : %d \n"
-                ">altitudeagl : %f \n",
+                ">altitudeagl : %f \n"
+                ">varience alt : %f \n"
+                ">varience vvel : %f \n",
                 _sysstate.r.uptime
                 ,_sysstate.r.navsysstate.r.uptime
 
@@ -718,6 +721,8 @@ class MPCORE{
                 , _sysstate.r.navsysstate.r.filteredalt
                 , _sysstate.r.state
                 , _sysstate.r.navsysstate.r.barodata.altitudeagl
+                , _sysstate.r.navsysstate.r.confidence.alt
+                , _sysstate.r.navsysstate.r.confidence.vvel
                  );
                  // this is ugly, but better than a million seperate prints
                 return 0;
