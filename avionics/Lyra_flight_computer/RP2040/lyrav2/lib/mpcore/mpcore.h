@@ -151,12 +151,12 @@ class MPCORE{
             SPI.setSCK(SPI0_SCLK);
             SPI.begin();
             
-            int loopbackbyte = SPI.transfer(0xEF);
-            if (loopbackbyte != 0xEF)
-            {
-                Serial.printf("\nloopback failed, expected 239 got: %d \n",loopbackbyte);
-            }
-            Serial.printf("loopback sucessed, expected 239 got %d \n",loopbackbyte);
+            // int loopbackbyte = SPI.transfer(0xEF);
+            // if (loopbackbyte != 0xEF)
+            // {
+            //     Serial.printf("\nloopback failed, expected 239 got: %d \n",loopbackbyte);
+            // }
+            // Serial.printf("loopback sucessed, expected 239 got %d \n",loopbackbyte);
             
             SPI.end();
 
@@ -209,68 +209,12 @@ class MPCORE{
                 logfile.write(_sysstate.data8[j]);
                 j++;
             }
-            
-            
-           //Serial.printf("writing file took %d \n",micros()-openingtime);
-
-            // logfile.printf(
-            //     "101,"//checksum
-            //     "%d,%d,"//uptimes
-            //     "%d,%d,"//errorflag
-            //     "%f,%f,%f," // accel
-            //     "%f,%f,%f," // gyro
-            //     "%f,%f,%f," // mag
-            //     "%f,%f,%f," // orientation euler"
-            //     "%f,%f,%f,%f," // orientation quat"
-            //     "%f,%f,%f," //altitude, presusre, verticalvel
-            //     "%f,%f,202\n", // temps, imu baro mag
-            //     _sysstate.r.uptime,
-            //     _sysstate.r.navsysstate.r.uptime,
-            //     _sysstate.r.errorflag,
-            //     _sysstate.r.navsysstate.r.errorflag,
-            //     _sysstate.r.navsysstate.r.imudata.accel.x,
-            //     _sysstate.r.navsysstate.r.imudata.accel.y,
-            //     _sysstate.r.navsysstate.r.imudata.accel.z,
-            //     _sysstate.r.navsysstate.r.imudata.gyro.x*(180/M_PI),
-            //     _sysstate.r.navsysstate.r.imudata.gyro.y*(180/M_PI),
-            //     _sysstate.r.navsysstate.r.imudata.gyro.z*(180/M_PI),
-            //     _sysstate.r.navsysstate.r.magdata.utesla.x,
-            //     _sysstate.r.navsysstate.r.magdata.utesla.y,
-            //     _sysstate.r.navsysstate.r.magdata.utesla.z,
-            //     _sysstate.r.navsysstate.r.orientationeuler.x*(180/M_PI),
-            //     _sysstate.r.navsysstate.r.orientationeuler.y*(180/M_PI),
-            //     _sysstate.r.navsysstate.r.orientationeuler.z*(180/M_PI),
-            //     _sysstate.r.navsysstate.r.orientationquat.w,
-            //     _sysstate.r.navsysstate.r.orientationquat.x,
-            //     _sysstate.r.navsysstate.r.orientationquat.y,
-            //     _sysstate.r.navsysstate.r.orientationquat.z,
-            //     _sysstate.r.navsysstate.r.barodata.altitude,
-            //     _sysstate.r.navsysstate.r.barodata.pressure,
-            //     _sysstate.r.navsysstate.r.barodata.verticalvel,
-            //     _sysstate.r.navsysstate.r.imudata.temp,
-            //     _sysstate.r.navsysstate.r.barodata.temp
-            //     );
+        
             
             openingtime = micros();
             logfile.close();
             //Serial.printf("closing file took %d \n\n",micros()-openingtime);
             return 0;
-        }
-
-        int readdata(){
-            Serial.println("reading file back");
-            fs::File readfile = LittleFS.open("/log.csv", "r");
-            if (!readfile){
-                Serial.println("unable to open file");
-                return 1;
-            }
-            Serial.println("checksum,uptime mp,uptime nav,errorflag mp,errorflag nav,accel x,accel y,accel z,gyro x,gyro y,gyro z,mag x,mag y,mag z,euler x,euler y,euler z,quat w,quat x,quat y,quat z,altitude,pressure,verticalvel,imutemp,barotemp,checksum");
-            while (readfile.available() > 0)
-            {
-                Serial.print(readfile.read());
-            }
-            return 0;
-
         }
 
         int erasedata(){
@@ -299,14 +243,14 @@ class MPCORE{
 
 
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 400; i++)
             {  
                 strcpy(newfilename, "/log");
                 itoa(fileunique, fileuniquestr, 10);
                 strcat(newfilename, fileuniquestr);
                 strcat(newfilename, fileend);
-                Serial.print("checking if file exists ");
-                Serial.println(newfilename);
+                //Serial.print("checking if file exists ");
+                //Serial.println(newfilename);
                 int exists = SD.exists(newfilename);
                 if (exists == 0)
                 {
@@ -814,7 +758,13 @@ class MPCORE{
         }
 
         int parsecommand(char input){
-            Serial.println(input);
+            if (int(input) == 0)
+            {
+                return 1;
+            }
+            Serial.println(int(input));
+            
+            
 
             if (input == 'l' && _sysstate.r.state < 2){
                 _sysstate.r.state = 1;
@@ -842,10 +792,6 @@ class MPCORE{
 
             case 'e':
                 erasedata();
-                break;
-
-            case 'r':
-                readdata();
                 break;
 
             case 'D':

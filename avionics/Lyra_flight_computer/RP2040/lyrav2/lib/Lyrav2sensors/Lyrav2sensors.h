@@ -241,7 +241,7 @@ public:
 
         _data.altitude = bmp.readAltitude(SEALEVELPRESSURE);
 
-        _data.altitude = lpfal*prevalt + (1-lpfal)*_data.altitude;
+        //_data.altitude = lpfal*prevalt + (1-lpfal)*_data.altitude;
 
         _data.altitudeagl = _data.altitude-padalt;
         _data.pressure = bmp.readPressure();
@@ -251,6 +251,7 @@ public:
         //Serial.printf(">timestep: %f \n",timestep);
         //prevverticalvel[address] = ((data.altitude - prevalt)/timestep);
         float deltaaltitude = _data.altitude - prevalt;
+        //_data.verticalvel = lpfal*prevalt + (1-lpfal)*_data.altitude;
         //Serial.printf(">dalt: %f \n",deltaaltitude);
 
         prevverticalvel[address] = ((deltaaltitude)/timestep);//prevverticalvel[address];

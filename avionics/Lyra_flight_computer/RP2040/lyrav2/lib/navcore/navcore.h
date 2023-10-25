@@ -24,6 +24,8 @@ MAG mag;
 class NAVCORE{
     
     navpacket prevsysstate;
+    uint32_t kfupdatetime;
+    uint32_t kfpredicttime;
 
     public:
     
@@ -156,26 +158,26 @@ class NAVCORE{
         void KFpredict(){
             navpacket extrapolatedsysstate = _sysstate;
 
-            double timestep = (micros() - prevtime.kfpredict)/1e6;
+            double timestep = (micros() - kfpredicttime)/1e6;
 
-            extrapolatedsysstate.r.filteredalt = _sysstate.r.filteredalt;// + (timestep*_sysstate.r.filteredvvel); // extrapolate with velocity dynamics
+            extrapolatedsysstate.r.filteredalt = _sysstate.r.filteredalt + (timestep*_sysstate.r.filteredvvel); // extrapolate with velocity dynamics
             extrapolatedsysstate.r.filteredvvel = _sysstate.r.filteredvvel; 
 
             extrapolatedsysstate.r.confidence.alt = _sysstate.r.confidence.alt + pow(timestep,2)*_sysstate.r.confidence.vvel + 0.05; // extrapolate variences with velocity dynamics
-            extrapolatedsysstate.r.confidence.vvel = _sysstate.r.confidence.vvel + 0.15;
+            extrapolatedsysstate.r.confidence.vvel = _sysstate.r.confidence.vvel + 0.1;
             //Serial.printf(">extrap var: %f\n",extrapolatedsysstate.r.confidence.alt);
             
 
-            prevtime.kfpredict = micros();
+            kfpredicttime = micros();
             _sysstate = extrapolatedsysstate;
         }
 
         void KFupdate(){
-            double timestep = (micros() - prevtime.kfupdate)/1e6;
+            double timestep = (micros() - kfupdatetime)/1e6;
 
             variences kgain; // calc new kalman gain
-            kgain.alt = /*0.2;*/  _sysstate.r.confidence.alt/(_sysstate.r.confidence.alt+2);
-            kgain.vvel = /*0.5;*/ _sysstate.r.confidence.vvel/(_sysstate.r.confidence.vvel+0.01);
+            kgain.alt = /*0.2;*/  _sysstate.r.confidence.alt/(_sysstate.r.confidence.alt+1);
+            kgain.vvel = /*0.5;*/ _sysstate.r.confidence.vvel/(_sysstate.r.confidence.vvel+0.1);
             //Serial.printf(">kalman gain: %f\n",kgain.alt);
             
             _sysstate.r.filteredalt = prevsysstate.r.filteredalt + kgain.alt*(_sysstate.r.barodata.altitudeagl - prevsysstate.r.filteredalt); // state update
@@ -187,7 +189,7 @@ class NAVCORE{
             
             prevsysstate = _sysstate;
             prevsysstate.r.confidence = _sysstate.r.confidence;
-            prevtime.kfupdate = micros();
+            kfupdatetime = micros();
         }
 
         void computeorientation(){
