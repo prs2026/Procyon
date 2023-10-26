@@ -199,7 +199,7 @@ void loop() { // main core loop
 void loop1() { // nav core loop
     if (MP._sysstate.r.state == 0)
     {
-        NAV.alpha = 0.1;
+        NAV.alpha = 0.2;
     }
     else
     {

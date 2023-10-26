@@ -122,6 +122,7 @@ union navpacket
         IMUdata imudata;
         BAROdata barodata;
         MAGdata magdata;
+        Vector3float accelworld;
         float filteredalt;
         float filteredvvel;
         //Vector3float pos;

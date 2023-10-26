@@ -610,7 +610,10 @@ class MPCORE{
                 ">NAV errorflag %d \n" 
                 ">accel x: %f \n" 
                 ">accel y: %f \n"
-                ">accel z: %f \n"  
+                ">accel z: %f \n"
+                ">accelworld x: %f \n" 
+                ">accelworld y: %f \n"
+                ">accelworld z: %f \n"  
                 ">gyro x: %f \n" 
                 ">gyro y: %f \n"
                 ">gyro z: %f \n"
@@ -641,6 +644,10 @@ class MPCORE{
                 ,_sysstate.r.navsysstate.r.imudata.accel.x
                 ,_sysstate.r.navsysstate.r.imudata.accel.y
                 ,_sysstate.r.navsysstate.r.imudata.accel.z
+
+                ,_sysstate.r.navsysstate.r.accelworld.x
+                ,_sysstate.r.navsysstate.r.accelworld.y
+                ,_sysstate.r.navsysstate.r.accelworld.z
 
                 ,_sysstate.r.navsysstate.r.imudata.gyro.x*(180/M_PI)
                 ,_sysstate.r.navsysstate.r.imudata.gyro.y*(180/M_PI)

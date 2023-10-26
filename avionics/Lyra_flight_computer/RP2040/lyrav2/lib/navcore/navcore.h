@@ -32,7 +32,7 @@ class NAVCORE{
         navpacket _sysstate;
         
 
-        float alpha = 0.98;
+        float alpha = 0.05;
 
         void KFinit(){
             _sysstate.r.filteredalt = _sysstate.r.barodata.altitudeagl;
@@ -161,10 +161,10 @@ class NAVCORE{
             double timestep = (micros() - kfpredicttime)/1e6;
 
             extrapolatedsysstate.r.filteredalt = _sysstate.r.filteredalt + (timestep*_sysstate.r.filteredvvel); // extrapolate with velocity dynamics
-            extrapolatedsysstate.r.filteredvvel = _sysstate.r.filteredvvel; 
+            extrapolatedsysstate.r.filteredvvel = _sysstate.r.filteredvvel;// + (timestep*_sysstate.r.accelworld.z); 
 
             extrapolatedsysstate.r.confidence.alt = _sysstate.r.confidence.alt + pow(timestep,2)*_sysstate.r.confidence.vvel + 0.05; // extrapolate variences with velocity dynamics
-            extrapolatedsysstate.r.confidence.vvel = _sysstate.r.confidence.vvel + 0.1;
+            extrapolatedsysstate.r.confidence.vvel = _sysstate.r.confidence.vvel + 0.05;// +pow(timestep,2)*0.5 + 0.05;
             //Serial.printf(">extrap var: %f\n",extrapolatedsysstate.r.confidence.alt);
             
 
@@ -176,8 +176,8 @@ class NAVCORE{
             double timestep = (micros() - kfupdatetime)/1e6;
 
             variences kgain; // calc new kalman gain
-            kgain.alt = /*0.2;*/  _sysstate.r.confidence.alt/(_sysstate.r.confidence.alt+1);
-            kgain.vvel = /*0.5;*/ _sysstate.r.confidence.vvel/(_sysstate.r.confidence.vvel+0.1);
+            kgain.alt = /*0.2;*/  _sysstate.r.confidence.alt/(_sysstate.r.confidence.alt+0.5);
+            kgain.vvel = /*0.5;*/ _sysstate.r.confidence.vvel/(_sysstate.r.confidence.vvel+0.5);
             //Serial.printf(">kalman gain: %f\n",kgain.alt);
             
             _sysstate.r.filteredalt = prevsysstate.r.filteredalt + kgain.alt*(_sysstate.r.barodata.altitudeagl - prevsysstate.r.filteredalt); // state update
@@ -200,7 +200,7 @@ class NAVCORE{
             Vector3d mag = vectorfloatto3(_sysstate.r.magdata.utesla);
             Vector3d orientationeuler = vectorfloatto3(_sysstate.r.orientationeuler);
 
-            AngleAxisd aa(timestep*gyro.norm(), gyro.normalized());
+            AngleAxisd aa(timestep*gyro.norm(), gyro/gyro.norm());
             Quaterniond qdelta(aa);
 
             orientationquat = orientationquat * qdelta;
@@ -234,12 +234,19 @@ class NAVCORE{
 
             orientationquat = accelrotquat * orientationquat;
 
+            Matrix3d R = orientationquat.toRotationMatrix();
 
-            orientationeuler = orientationquat.toRotationMatrix().eulerAngles(0,1,2);
+
+            orientationeuler = R.eulerAngles(0,1,2);
             
             _sysstate.r.orientationquat = eigentoquatstruct(orientationquat);
             _sysstate.r.orientationeuler = vector3tofloat(orientationeuler);
+            
+            Matrix3d Rtrans = R.inverse();
+            Vector3d grav(0,0,9.801);
+            Vector3d _accelworld = (Rtrans * accel)-grav;
 
+            _sysstate.r.accelworld = vector3tofloat(_accelworld);
 
         };
 
