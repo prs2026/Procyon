@@ -163,7 +163,7 @@ class NAVCORE{
             extrapolatedsysstate.r.filteredalt = _sysstate.r.filteredalt + (timestep*_sysstate.r.filteredvvel); // extrapolate with velocity dynamics
             extrapolatedsysstate.r.filteredvvel = _sysstate.r.filteredvvel;// + (timestep*_sysstate.r.accelworld.z); 
 
-            extrapolatedsysstate.r.confidence.alt = _sysstate.r.confidence.alt + pow(timestep,2)*_sysstate.r.confidence.vvel + 0.05; // extrapolate variences with velocity dynamics
+            extrapolatedsysstate.r.confidence.alt = _sysstate.r.confidence.alt + pow(timestep,2)*_sysstate.r.confidence.vvel; // extrapolate variences with velocity dynamics
             extrapolatedsysstate.r.confidence.vvel = _sysstate.r.confidence.vvel + 0.05;// +pow(timestep,2)*0.5 + 0.05;
             //Serial.printf(">extrap var: %f\n",extrapolatedsysstate.r.confidence.alt);
             
