@@ -28,9 +28,10 @@ class MPCORE{
         
 
         mpstate _sysstate;
-        int detectiontries = 0;
+        int detectiontime = 0;
         uint32_t landedtime = 0;
         bool datamoved = false;
+        uint32_t landingdetectiontime = 0;
 
 
 
@@ -623,12 +624,12 @@ class MPCORE{
                 ">mag x: %f \n" 
                 ">mag y: %f \n" 
                 ">mag z: %f \n"
-                ">magraw x: %f \n"
-                ">magraw y: %f \n"
-                ">magraw z: %f \n"
-                ">orientationeuler x: %f \n"
-                ">orientationeuler y: %f \n"
-                ">orientationeuler z: %f \n"
+                // ">magraw x: %f \n"
+                // ">magraw y: %f \n"
+                // ">magraw z: %f \n"
+                ">orientation pitch: %f \n"
+                ">orientation yaw: %f \n"
+                ">orientation roll: %f \n"
                 ">maxrecorded alt: %f \n"
                 ">filtered alt: %f \n"
                 ">state : %d \n"
@@ -661,9 +662,9 @@ class MPCORE{
                 ,_sysstate.r.navsysstate.r.magdata.utesla.y
                 ,_sysstate.r.navsysstate.r.magdata.utesla.z
 
-                ,_sysstate.r.navsysstate.r.magdata.gauss.x
-                ,_sysstate.r.navsysstate.r.magdata.gauss.y
-                ,_sysstate.r.navsysstate.r.magdata.gauss.z
+                // ,_sysstate.r.navsysstate.r.magdata.gauss.x
+                // ,_sysstate.r.navsysstate.r.magdata.gauss.y
+                // ,_sysstate.r.navsysstate.r.magdata.gauss.z
 
                 ,_sysstate.r.navsysstate.r.orientationeuler.x*(180/M_PI)
                 ,_sysstate.r.navsysstate.r.orientationeuler.y*(180/M_PI)
@@ -680,7 +681,7 @@ class MPCORE{
             }
             else
             {
-                //Serial.printf("%f,%f,%f \n",_sysstate.r.navsysstate.r.imudata.accel.x,_sysstate.r.navsysstate.r.imudata.accel.y,_sysstate.r.navsysstate.r.imudata.accel.z);
+                Serial.printf("%f,%f,%f,%f \n",_sysstate.r.navsysstate.r.orientationquat.w,_sysstate.r.navsysstate.r.orientationquat.x,_sysstate.r.navsysstate.r.orientationquat.y,_sysstate.r.navsysstate.r.orientationquat.z);
             }
             
             
@@ -689,74 +690,93 @@ class MPCORE{
         }
 
         int changestate(){
+
+            Vector3d accelvec = vectorfloatto3(_sysstate.r.navsysstate.r.imudata.accel);
+            Vector3d gyrovec  = vectorfloatto3(_sysstate.r.navsysstate.r.imudata.gyro);
             if (_sysstate.r.state == 1) // detect liftoff
             {
-                Vector3d accelvec = vectorfloatto3(_sysstate.r.navsysstate.r.imudata.accel);
+                
                 float accelmag = accelvec.norm();
-                accelmag > 20 ? detectiontries++ : detectiontries = 0;
-                if (detectiontries >= 10)
+                accelmag > 20 ? detectiontime = detectiontime : detectiontime = millis();
+                if (millis() - detectiontime >= 50)
                 {
                     _sysstate.r.state = 2;
-                    detectiontries = 0;
+                    detectiontime = millis();
                 }
                 
             }
             else if (_sysstate.r.state == 2) // detect burnout
             {
-                Vector3d accelvec = vectorfloatto3(_sysstate.r.navsysstate.r.imudata.accel);
+                
                 float accelmag = accelvec.norm();
-                accelmag < 15 ? detectiontries++ : detectiontries = 0;
-                if (detectiontries >= 10)
+                accelmag < 15 ? detectiontime = detectiontime : detectiontime = millis();
+                if (millis() - detectiontime >= 200)
                 {
                     _sysstate.r.state = 3;
-                    detectiontries = 0;
+                    detectiontime = millis();
                 }
             }
 
             else if (_sysstate.r.state == 3) // detect appogee
             {
-                _sysstate.r.navsysstate.r.barodata.altitude < _sysstate.r.navsysstate.r.barodata.maxrecordedalt*0.95 ?  detectiontries++ : detectiontries = 0;
+                _sysstate.r.navsysstate.r.barodata.altitude < _sysstate.r.navsysstate.r.barodata.maxrecordedalt*0.95 ?  detectiontime = detectiontime : detectiontime = millis();
 
-                if (detectiontries >= 10)
+                if (millis() - detectiontime >= 100)
                 {
                     _sysstate.r.state = 4;
-                    detectiontries = 0;
+                    detectiontime = millis();
                 }
             }
 
             else if (_sysstate.r.state == 4) // detect chute opening
             {
-                Vector3d accelvec = vectorfloatto3(_sysstate.r.navsysstate.r.imudata.accel);
+                
                 float accelmag = accelvec.norm();
-                accelmag > 7 ? detectiontries++ : detectiontries = 0;
-                if (detectiontries >= 10)
+                accelmag > 7 ? detectiontime = detectiontime : detectiontime = millis();
+                if (millis() - detectiontime >= 300)
                 {
                     _sysstate.r.state = 5;
-                    detectiontries = 0;
+                    detectiontime = millis();
                 }
             }
 
             else if (_sysstate.r.state == 5) // detect landing
             {   
 
-                Vector3d accelvec = vectorfloatto3(_sysstate.r.navsysstate.r.imudata.accel);
-                Vector3d gyrovec  = vectorfloatto3(_sysstate.r.navsysstate.r.imudata.gyro);
+                
 
                 if (abs(_sysstate.r.navsysstate.r.barodata.verticalvel) < 0.3 && accelvec.norm() < 20 &&  accelvec.norm() > 5  && gyrovec.norm() < 0.5)
                 {
-                     detectiontries++;
+                     detectiontime = detectiontime;
                 }
                 else{
-                     detectiontries = 0;
+                    detectiontime = millis();
                 }
 
-                if (detectiontries >= 40)
+                if (millis() - detectiontime >= 500)
                 {
                     _sysstate.r.state = 6;
-                    detectiontries = 0;
+                    detectiontime = millis();
                     landedtime = millis();
                 }
             }
+            
+
+            if (_sysstate.r.state > 1 && abs(_sysstate.r.navsysstate.r.barodata.verticalvel) < 0.3 && accelvec.norm() < 20 &&  accelvec.norm() > 5  && gyrovec.norm() < 0.5)
+            {
+                landingdetectiontime = landingdetectiontime;
+            }
+            else{
+                landingdetectiontime = millis();
+            }
+            if (millis() - landingdetectiontime >= 1000)
+                {
+                    _sysstate.r.state = 6;
+                    detectiontime = millis();
+                    landedtime = millis();
+            }
+            
+
             
 
             
@@ -789,12 +809,6 @@ class MPCORE{
                 Serial.println("printing data to teleplot");
                 sendserialon = !sendserialon;
                 sendtoteleplot = true;
-                break;
-
-            case 'q':
-                Serial.println("sending accel data to magneto");
-                sendserialon = !sendserialon;
-                sendtoteleplot = false;
                 break;
 
             case 'e':

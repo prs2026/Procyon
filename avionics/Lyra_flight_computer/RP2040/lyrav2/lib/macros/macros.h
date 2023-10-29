@@ -58,7 +58,14 @@ using Eigen::AngleAxisd;
 #define GREEN 2
 #define BLUE 3
 
-#define FLASH_TARGET_OFFSET (256*1024)
+#define ALTVAR 0.5 
+#define VVELVAR 0.5
+
+#define ALTNOISE 0.1
+#define VVELNOISE 0.2
+
+
+
 
 byte radioaddress[][7] = {"flight","ground"};
 

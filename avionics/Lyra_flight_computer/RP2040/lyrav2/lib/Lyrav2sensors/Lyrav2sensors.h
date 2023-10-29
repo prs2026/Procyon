@@ -209,6 +209,7 @@ int address = 0;
 uint64_t prevtime;
 double padalt = 0;
 float lpfal = 0.7;
+float lpfalv = 0.7;
 // float hpfcutoff = 5;
 // float hpfstate = 0;
 
@@ -239,7 +240,7 @@ public:
             Serial.println("BMP init failure");
             return 1;
         }
-        bmp.setPressureOversampling(BMP3_OVERSAMPLING_32X);
+        bmp.setPressureOversampling(BMP3_OVERSAMPLING_8X);
         bmp.setOutputDataRate(BMP3_ODR_100_HZ);
         getpadoffset();
         Serial.println("BMP init success");
@@ -282,6 +283,8 @@ public:
         }
         
         _data.verticalvel /= 5;
+
+        _data.verticalvel = lpfal*data.verticalvel + (1-lpfal)*_data.verticalvel;
 
         address < 4 ? address++ : address = 0;
 

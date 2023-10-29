@@ -155,6 +155,27 @@ class NAVCORE{
             return;
         }
 
+        Quatstruct quatfromaccel(Vector3float accelfloat, Vector3float magfloat){ 
+            Vector3d accel = vectorfloatto3(accelfloat).normalized();
+            Vector3d mag = vectorfloatto3(magfloat).normalized();
+            Quaterniond rotquat;
+            Matrix3d rotmatrix;
+            Vector3d rot[3]; // [0] = down, [1] = east [2] = north
+            rot[0] = -accel;
+            rot[0] = rot[0].normalized();
+
+            rot[1] = (rot[0].cross(mag));
+            rot[1] = rot[1].normalized();
+
+            rot[2] = rot[0].cross(rot[1]);
+            rot[2] = rot[2].normalized();
+            
+            rotmatrix << rot[0].transpose() , rot[1].transpose(), rot[2].transpose();
+            rotquat = rotmatrix;
+            Quatstruct result = eigentoquatstruct(rotquat);
+            return result;
+        }
+
         void KFpredict(){
             navpacket extrapolatedsysstate = _sysstate;
 
@@ -163,25 +184,30 @@ class NAVCORE{
             extrapolatedsysstate.r.filteredalt = _sysstate.r.filteredalt + (timestep*_sysstate.r.filteredvvel); // extrapolate with velocity dynamics
             extrapolatedsysstate.r.filteredvvel = _sysstate.r.filteredvvel;// + (timestep*_sysstate.r.accelworld.z); 
 
-            extrapolatedsysstate.r.confidence.alt = _sysstate.r.confidence.alt + pow(timestep,2)*_sysstate.r.confidence.vvel; // extrapolate variences with velocity dynamics
-            extrapolatedsysstate.r.confidence.vvel = _sysstate.r.confidence.vvel + 0.05;// +pow(timestep,2)*0.5 + 0.05;
+            extrapolatedsysstate.r.confidence.alt = _sysstate.r.confidence.alt + (pow(timestep,2)*_sysstate.r.confidence.vvel) + ALTVAR; // extrapolate variences with velocity dynamics
+            extrapolatedsysstate.r.confidence.vvel = _sysstate.r.confidence.vvel + VVELVAR;// +pow(timestep,2)*0.5 + 0.05;
             //Serial.printf(">extrap var: %f\n",extrapolatedsysstate.r.confidence.alt);
             
 
             kfpredicttime = micros();
             _sysstate = extrapolatedsysstate;
-        }
+        }                                                         
+
+
 
         void KFupdate(){
             double timestep = (micros() - kfupdatetime)/1e6;
 
             variences kgain; // calc new kalman gain
-            kgain.alt = /*0.2;*/  _sysstate.r.confidence.alt/(_sysstate.r.confidence.alt+0.5);
-            kgain.vvel = /*0.5;*/ _sysstate.r.confidence.vvel/(_sysstate.r.confidence.vvel+0.5);
+            kgain.alt = /*0.2;*/  _sysstate.r.confidence.alt/(_sysstate.r.confidence.alt+ALTNOISE);
+            kgain.vvel = /*0.5;*/ _sysstate.r.confidence.vvel/(_sysstate.r.confidence.vvel+VVELNOISE);
             //Serial.printf(">kalman gain: %f\n",kgain.alt);
             
             _sysstate.r.filteredalt = prevsysstate.r.filteredalt + kgain.alt*(_sysstate.r.barodata.altitudeagl - prevsysstate.r.filteredalt); // state update
             _sysstate.r.filteredvvel = prevsysstate.r.filteredvvel + kgain.vvel*(_sysstate.r.barodata.verticalvel - prevsysstate.r.filteredvvel);
+            _sysstate.r.orientationquat = quatfromaccel(_sysstate.r.imudata.accel,_sysstate.r.magdata.utesla);
+            Quaterniond rotquat = quatstructtoeigen(_sysstate.r.orientationquat);
+            _sysstate.r.orientationeuler = vector3tofloat(rotquat.toRotationMatrix().eulerAngles(0,1,2));
 
             _sysstate.r.confidence.alt = (1-kgain.alt)*prevsysstate.r.confidence.alt; // variences update
             _sysstate.r.confidence.vvel = (1-kgain.vvel)*prevsysstate.r.confidence.vvel;

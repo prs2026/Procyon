@@ -68,6 +68,15 @@ void setup1() { // nav core setup
 
 void loop() { // main core loop
     int eventsfired = 0;
+
+    if (millis() - MP.prevtime.logdata >= MP.intervals[MP._sysstate.r.state].logdata)
+    {
+        uint32_t prevlogmicros = micros();
+        MP.logdata();
+        MP.prevtime.logdata = millis();
+        eventsfired += 2;
+        //Serial.printf("logging  took: %d \n",micros() - prevlogmicros);
+    }
     
     
     if (millis()- MP.prevtime.detectstatechange >= MP.intervals[MP._sysstate.r.state].detectstatechange)
@@ -87,6 +96,8 @@ void loop() { // main core loop
         //Serial.printf("fetching nav data took %d \n",micros() - gettingnavdata);
         //Serial.printf("recived packet at timestamp : %d with error %d and %d bytes in the fifo",MP._sysstate.r.uptime,_error,_avalible);
     }
+
+
 
 
     if (millis()- MP.prevtime.led >= MP.intervals[MP._sysstate.r.state].led)
@@ -155,14 +166,7 @@ void loop() { // main core loop
         eventsfired += 20;
     }
 
-    if (millis() - MP.prevtime.logdata >= MP.intervals[MP._sysstate.r.state].logdata)
-    {
-        uint32_t prevlogmicros = micros();
-        MP.logdata();
-        MP.prevtime.logdata = millis();
-        eventsfired += 2;
-        //Serial.printf("logging  took: %d \n",micros() - prevlogmicros);
-    }
+
     
     if (millis() - MP.prevtime.sendtelemetry >= MP.intervals[MP._sysstate.r.state].sendtelemetry)
     {
@@ -207,10 +211,10 @@ void loop1() { // nav core loop
     }
     
     NAV.getsensordata();
-    NAV.computeorientation();
+    //NAV.computeorientation();
     NAV.KFpredict();
 
-    if (millis() - NAV.prevtime.kfupdate >= 100)
+    if (millis() - NAV.prevtime.kfupdate >= 300)
     {
         NAV.KFupdate();
         NAV.prevtime.kfupdate = millis();
