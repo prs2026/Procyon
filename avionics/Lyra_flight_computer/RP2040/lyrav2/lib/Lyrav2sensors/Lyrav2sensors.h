@@ -231,6 +231,7 @@ public:
         _padalt /= samplesize;
         Serial.printf("new pad offset: %f\n",_padalt);
         padalt = _padalt;
+        data.maxrecordedalt = 0;
         return 0;
     }
 
@@ -288,7 +289,7 @@ public:
 
         address < 4 ? address++ : address = 0;
 
-        _data.altitude > data.maxrecordedalt ? data.maxrecordedalt = _data.altitude : data.maxrecordedalt = data.maxrecordedalt;
+        _data.altitudeagl > data.maxrecordedalt ? data.maxrecordedalt = _data.altitudeagl : data.maxrecordedalt = data.maxrecordedalt;
 
         prevalt = _data.altitude;
         prevtime = micros();

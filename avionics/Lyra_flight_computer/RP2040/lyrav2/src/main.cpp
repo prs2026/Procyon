@@ -71,8 +71,20 @@ void loop() { // main core loop
 
     if (millis() - MP.prevtime.logdata >= MP.intervals[MP._sysstate.r.state].logdata)
     {
-        uint32_t prevlogmicros = micros();
+        if (MP.sendserialon)
+        {
+            Serial.print(">shouldlog: 1 \n");
+        }
+    }
+
+    if (millis() - MP.prevtime.logdata >= MP.intervals[MP._sysstate.r.state].logdata)
+    {
+        //uint32_t prevlogmicros = micros();
         MP.logdata();
+        if (MP.sendserialon)
+        {
+            Serial.printf(">lograte: %f \n",1000/float((millis()-MP.prevtime.logdata)));
+        }
         MP.prevtime.logdata = millis();
         eventsfired += 2;
         //Serial.printf("logging  took: %d \n",micros() - prevlogmicros);
@@ -83,6 +95,13 @@ void loop() { // main core loop
     {
         MP.changestate();
         MP.prevtime.detectstatechange = millis();
+    }
+
+    if (MP.sendserialon & millis() - MP.prevtime.serial >= MP.intervals[MP._sysstate.r.state].serial)
+    {
+        MP.senddatatoserial();
+        MP.prevtime.serial = millis();
+        //eventsfired += 20;
     }
     
     
@@ -159,16 +178,11 @@ void loop() { // main core loop
 
     }
 
-    if (MP.sendserialon & millis() - MP.prevtime.serial >= MP.intervals[MP._sysstate.r.state].serial)
-    {
-        MP.senddatatoserial();
-        MP.prevtime.serial = millis();
-        eventsfired += 20;
-    }
+    
 
 
     
-    if (millis() - MP.prevtime.sendtelemetry >= MP.intervals[MP._sysstate.r.state].sendtelemetry)
+    if ((millis() - MP.prevtime.sendtelemetry >= MP.intervals[MP._sysstate.r.state].sendtelemetry) && MP.errorflag %19 != 0)
     {
         uint32_t prevtelemmicros = micros();
         MP.sendtelemetry();
@@ -193,9 +207,15 @@ void loop() { // main core loop
     }
     
     
+    
     MP._sysstate.r.uptime = millis();
-    //Serial.printf(">looptime: %f \n", float(micros() - MP.prevtime.loop)/1000);
-    //Serial.printf(">eventstranspired: %d \n", eventsfired);
+    if (MP.sendserialon)
+    {
+        Serial.printf(">looptime: %f \n", float(micros() - MP.prevtime.loop)/1000);
+        Serial.printf(">eventstranspired: %d \n", eventsfired);
+        Serial.print(">shouldlog: 0 \n");
+    }
+    
     MP.prevtime.loop = micros();
 }
 
