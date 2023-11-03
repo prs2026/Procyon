@@ -318,7 +318,7 @@ class MPCORE{
                     "%f,%f,%f," // magraw
                     "%f,%f,%f," // orientation euler"
                     "%f,%f,%f,%f," // orientation quat"
-                    "%f,%f,%f,%f,%f,%f" //altitude, presusre, verticalvel, altitudeagl, filtered alt
+                    "%f,%f,%f,%f,%f,%f," //altitude, presusre, verticalvel, altitudeagl, filtered alt
                     "%f,%f," // temps, imu baro mag
                     "%d,202\n", //state
                     readentry.r.uptime,
@@ -587,7 +587,7 @@ class MPCORE{
                 }
                 //Serial.println("radio handshake fail");
             }
-            if (!sucess)
+            if (sucess)
             {
                
                 Serial.println("radio handshake timeout");
@@ -635,7 +635,8 @@ class MPCORE{
                 ">state : %d \n"
                 ">altitudeagl : %f \n"
                 ">varience alt : %f \n"
-                ">varience vvel : %f \n",
+                ">varience vvel : %f \n"
+                ">baro temp : %f \n",
                 _sysstate.r.uptime
                 ,_sysstate.r.navsysstate.r.uptime
 
@@ -675,6 +676,7 @@ class MPCORE{
                 , _sysstate.r.navsysstate.r.barodata.altitudeagl
                 , _sysstate.r.navsysstate.r.confidence.alt
                 , _sysstate.r.navsysstate.r.confidence.vvel
+                , _sysstate.r.navsysstate.r.barodata.temp
                  );
                  // this is ugly, but better than a million seperate prints
                 return 0;
