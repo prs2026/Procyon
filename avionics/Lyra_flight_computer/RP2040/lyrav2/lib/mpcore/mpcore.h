@@ -28,9 +28,10 @@ class MPCORE{
         
 
         mpstate _sysstate;
-        int detectiontries = 0;
+        int detectiontime = 0;
         uint32_t landedtime = 0;
         bool datamoved = false;
+        uint32_t landingdetectiontime = 0;
 
 
 
@@ -65,6 +66,7 @@ class MPCORE{
             uint32_t sendtelemetry;
             uint32_t beep;
             uint32_t detectstatechange;
+            uint32_t loop;
         };
         timings intervals[7] = {
             {2000,1000,100,200,30000,10}, // ground idle
@@ -150,12 +152,12 @@ class MPCORE{
             SPI.setSCK(SPI0_SCLK);
             SPI.begin();
             
-            int loopbackbyte = SPI.transfer(0xEF);
-            if (loopbackbyte != 0xEF)
-            {
-                Serial.printf("\nloopback failed, expected 239 got: %d \n",loopbackbyte);
-            }
-            Serial.printf("loopback sucessed, expected 239 got %d \n",loopbackbyte);
+            // int loopbackbyte = SPI.transfer(0xEF);
+            // if (loopbackbyte != 0xEF)
+            // {
+            //     Serial.printf("\nloopback failed, expected 239 got: %d \n",loopbackbyte);
+            // }
+            // Serial.printf("loopback sucessed, expected 239 got %d \n",loopbackbyte);
             
             SPI.end();
 
@@ -208,68 +210,12 @@ class MPCORE{
                 logfile.write(_sysstate.data8[j]);
                 j++;
             }
-            
-            
-           //Serial.printf("writing file took %d \n",micros()-openingtime);
-
-            // logfile.printf(
-            //     "101,"//checksum
-            //     "%d,%d,"//uptimes
-            //     "%d,%d,"//errorflag
-            //     "%f,%f,%f," // accel
-            //     "%f,%f,%f," // gyro
-            //     "%f,%f,%f," // mag
-            //     "%f,%f,%f," // orientation euler"
-            //     "%f,%f,%f,%f," // orientation quat"
-            //     "%f,%f,%f," //altitude, presusre, verticalvel
-            //     "%f,%f,202\n", // temps, imu baro mag
-            //     _sysstate.r.uptime,
-            //     _sysstate.r.navsysstate.r.uptime,
-            //     _sysstate.r.errorflag,
-            //     _sysstate.r.navsysstate.r.errorflag,
-            //     _sysstate.r.navsysstate.r.imudata.accel.x,
-            //     _sysstate.r.navsysstate.r.imudata.accel.y,
-            //     _sysstate.r.navsysstate.r.imudata.accel.z,
-            //     _sysstate.r.navsysstate.r.imudata.gyro.x*(180/M_PI),
-            //     _sysstate.r.navsysstate.r.imudata.gyro.y*(180/M_PI),
-            //     _sysstate.r.navsysstate.r.imudata.gyro.z*(180/M_PI),
-            //     _sysstate.r.navsysstate.r.magdata.utesla.x,
-            //     _sysstate.r.navsysstate.r.magdata.utesla.y,
-            //     _sysstate.r.navsysstate.r.magdata.utesla.z,
-            //     _sysstate.r.navsysstate.r.orientationeuler.x*(180/M_PI),
-            //     _sysstate.r.navsysstate.r.orientationeuler.y*(180/M_PI),
-            //     _sysstate.r.navsysstate.r.orientationeuler.z*(180/M_PI),
-            //     _sysstate.r.navsysstate.r.orientationquat.w,
-            //     _sysstate.r.navsysstate.r.orientationquat.x,
-            //     _sysstate.r.navsysstate.r.orientationquat.y,
-            //     _sysstate.r.navsysstate.r.orientationquat.z,
-            //     _sysstate.r.navsysstate.r.barodata.altitude,
-            //     _sysstate.r.navsysstate.r.barodata.pressure,
-            //     _sysstate.r.navsysstate.r.barodata.verticalvel,
-            //     _sysstate.r.navsysstate.r.imudata.temp,
-            //     _sysstate.r.navsysstate.r.barodata.temp
-            //     );
+        
             
             openingtime = micros();
             logfile.close();
             //Serial.printf("closing file took %d \n\n",micros()-openingtime);
             return 0;
-        }
-
-        int readdata(){
-            Serial.println("reading file back");
-            fs::File readfile = LittleFS.open("/log.csv", "r");
-            if (!readfile){
-                Serial.println("unable to open file");
-                return 1;
-            }
-            Serial.println("checksum,uptime mp,uptime nav,errorflag mp,errorflag nav,accel x,accel y,accel z,gyro x,gyro y,gyro z,mag x,mag y,mag z,euler x,euler y,euler z,quat w,quat x,quat y,quat z,altitude,pressure,verticalvel,imutemp,barotemp,checksum");
-            while (readfile.available() > 0)
-            {
-                Serial.print(readfile.read());
-            }
-            return 0;
-
         }
 
         int erasedata(){
@@ -298,14 +244,14 @@ class MPCORE{
 
 
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 400; i++)
             {  
                 strcpy(newfilename, "/log");
                 itoa(fileunique, fileuniquestr, 10);
                 strcat(newfilename, fileuniquestr);
                 strcat(newfilename, fileend);
-                Serial.print("checking if file exists ");
-                Serial.println(newfilename);
+                //Serial.print("checking if file exists ");
+                //Serial.println(newfilename);
                 int exists = SD.exists(newfilename);
                 if (exists == 0)
                 {
@@ -329,7 +275,7 @@ class MPCORE{
             }
             
             fs::File readfile = LittleFS.open("/log.csv", "r");
-            sdfile.println("checksum,uptime mp,uptime nav, errorflag mp, errorflag nav,accel x, accel y, accel z, gyro x, gyro y, gyro z, mag x, mag y, mag z, magraw x, magraw y, magraw z, euler x, euler y, euler z, quat w, quat x, quat y, quat z, altitude, pressure, verticalvel,maxrecorded alt,altitudeagl,imutemp, barotemp, state,checksum2");
+            sdfile.println("checksum,uptime mp,uptime nav, errorflag mp, errorflag nav,accel x, accel y, accel z, gyro x, gyro y, gyro z, mag x, mag y, mag z, magraw x, magraw y, magraw z, euler x, euler y, euler z, quat w, quat x, quat y, quat z, altitude, pressure, verticalvel,maxrecorded alt,altitudeagl,filteredalt,imutemp, barotemp, state,checksum2");
             
             Serial.printf("flash amount used: %d\n",readfile.size());
 
@@ -372,7 +318,7 @@ class MPCORE{
                     "%f,%f,%f," // magraw
                     "%f,%f,%f," // orientation euler"
                     "%f,%f,%f,%f," // orientation quat"
-                    "%f,%f,%f,%f,%f" //altitude, presusre, verticalvel, altitudeagl
+                    "%f,%f,%f,%f,%f,%f" //altitude, presusre, verticalvel, altitudeagl, filtered alt
                     "%f,%f," // temps, imu baro mag
                     "%d,202\n", //state
                     readentry.r.uptime,
@@ -403,6 +349,7 @@ class MPCORE{
                     readentry.r.navsysstate.r.barodata.verticalvel,
                     readentry.r.navsysstate.r.barodata.maxrecordedalt,
                     readentry.r.navsysstate.r.barodata.altitudeagl,
+                    readentry.r.navsysstate.r.filteredalt,
                     readentry.r.navsysstate.r.imudata.temp,
                     readentry.r.navsysstate.r.barodata.temp,
                     readentry.r.state
@@ -664,24 +611,31 @@ class MPCORE{
                 ">NAV errorflag %d \n" 
                 ">accel x: %f \n" 
                 ">accel y: %f \n"
-                ">accel z: %f \n"  
+                ">accel z: %f \n"
+                ">accelworld x: %f \n" 
+                ">accelworld y: %f \n"
+                ">accelworld z: %f \n"  
                 ">gyro x: %f \n" 
                 ">gyro y: %f \n"
                 ">gyro z: %f \n"
                 ">altitude: %f \n" 
                 ">verticalvel: %f \n"
+                ">filtered vvel: %f \n"
                 ">mag x: %f \n" 
                 ">mag y: %f \n" 
                 ">mag z: %f \n"
-                ">magraw x: %f \n"
-                ">magraw y: %f \n"
-                ">magraw z: %f \n"
-                ">orientationeuler x: %f \n"
-                ">orientationeuler y: %f \n"
-                ">orientationeuler z: %f \n"
+                // ">magraw x: %f \n"
+                // ">magraw y: %f \n"
+                // ">magraw z: %f \n"
+                ">orientation pitch: %f \n"
+                ">orientation yaw: %f \n"
+                ">orientation roll: %f \n"
                 ">maxrecorded alt: %f \n"
+                ">filtered alt: %f \n"
                 ">state : %d \n"
-                ">altitudeagl : %f \n",
+                ">altitudeagl : %f \n"
+                ">varience alt : %f \n"
+                ">varience vvel : %f \n",
                 _sysstate.r.uptime
                 ,_sysstate.r.navsysstate.r.uptime
 
@@ -692,34 +646,42 @@ class MPCORE{
                 ,_sysstate.r.navsysstate.r.imudata.accel.y
                 ,_sysstate.r.navsysstate.r.imudata.accel.z
 
+                ,_sysstate.r.navsysstate.r.accelworld.x
+                ,_sysstate.r.navsysstate.r.accelworld.y
+                ,_sysstate.r.navsysstate.r.accelworld.z
+
                 ,_sysstate.r.navsysstate.r.imudata.gyro.x*(180/M_PI)
                 ,_sysstate.r.navsysstate.r.imudata.gyro.y*(180/M_PI)
                 ,_sysstate.r.navsysstate.r.imudata.gyro.z*(180/M_PI)
 
                 , _sysstate.r.navsysstate.r.barodata.altitude
                 , _sysstate.r.navsysstate.r.barodata.verticalvel
+                , _sysstate.r.navsysstate.r.filteredvvel
 
                 ,_sysstate.r.navsysstate.r.magdata.utesla.x
                 ,_sysstate.r.navsysstate.r.magdata.utesla.y
                 ,_sysstate.r.navsysstate.r.magdata.utesla.z
 
-                ,_sysstate.r.navsysstate.r.magdata.gauss.x
-                ,_sysstate.r.navsysstate.r.magdata.gauss.y
-                ,_sysstate.r.navsysstate.r.magdata.gauss.z
+                // ,_sysstate.r.navsysstate.r.magdata.gauss.x
+                // ,_sysstate.r.navsysstate.r.magdata.gauss.y
+                // ,_sysstate.r.navsysstate.r.magdata.gauss.z
 
                 ,_sysstate.r.navsysstate.r.orientationeuler.x*(180/M_PI)
                 ,_sysstate.r.navsysstate.r.orientationeuler.y*(180/M_PI)
                 ,_sysstate.r.navsysstate.r.orientationeuler.z*(180/M_PI)
                 , _sysstate.r.navsysstate.r.barodata.maxrecordedalt
+                , _sysstate.r.navsysstate.r.filteredalt
                 , _sysstate.r.state
                 , _sysstate.r.navsysstate.r.barodata.altitudeagl
+                , _sysstate.r.navsysstate.r.confidence.alt
+                , _sysstate.r.navsysstate.r.confidence.vvel
                  );
                  // this is ugly, but better than a million seperate prints
                 return 0;
             }
             else
             {
-                //Serial.printf("%f,%f,%f \n",_sysstate.r.navsysstate.r.imudata.accel.x,_sysstate.r.navsysstate.r.imudata.accel.y,_sysstate.r.navsysstate.r.imudata.accel.z);
+                Serial.printf("%f,%f,%f,%f \n",_sysstate.r.navsysstate.r.orientationquat.w,_sysstate.r.navsysstate.r.orientationquat.x,_sysstate.r.navsysstate.r.orientationquat.y,_sysstate.r.navsysstate.r.orientationquat.z);
             }
             
             
@@ -728,74 +690,93 @@ class MPCORE{
         }
 
         int changestate(){
+
+            Vector3d accelvec = vectorfloatto3(_sysstate.r.navsysstate.r.imudata.accel);
+            Vector3d gyrovec  = vectorfloatto3(_sysstate.r.navsysstate.r.imudata.gyro);
             if (_sysstate.r.state == 1) // detect liftoff
             {
-                Vector3d accelvec = vectorfloatto3(_sysstate.r.navsysstate.r.imudata.accel);
+                
                 float accelmag = accelvec.norm();
-                accelmag > 20 ? detectiontries++ : detectiontries = 0;
-                if (detectiontries >= 10)
+                accelmag > 20 ? detectiontime = detectiontime : detectiontime = millis();
+                if (millis() - detectiontime >= 50)
                 {
                     _sysstate.r.state = 2;
-                    detectiontries = 0;
+                    detectiontime = millis();
                 }
                 
             }
             else if (_sysstate.r.state == 2) // detect burnout
             {
-                Vector3d accelvec = vectorfloatto3(_sysstate.r.navsysstate.r.imudata.accel);
+                
                 float accelmag = accelvec.norm();
-                accelmag < 15 ? detectiontries++ : detectiontries = 0;
-                if (detectiontries >= 10)
+                accelmag < 15 ? detectiontime = detectiontime : detectiontime = millis();
+                if (millis() - detectiontime >= 200)
                 {
                     _sysstate.r.state = 3;
-                    detectiontries = 0;
+                    detectiontime = millis();
                 }
             }
 
             else if (_sysstate.r.state == 3) // detect appogee
             {
-                _sysstate.r.navsysstate.r.barodata.altitude < _sysstate.r.navsysstate.r.barodata.maxrecordedalt*0.95 ?  detectiontries++ : detectiontries = 0;
+                _sysstate.r.navsysstate.r.barodata.altitude < _sysstate.r.navsysstate.r.barodata.maxrecordedalt*0.95 ?  detectiontime = detectiontime : detectiontime = millis();
 
-                if (detectiontries >= 10)
+                if (millis() - detectiontime >= 100)
                 {
                     _sysstate.r.state = 4;
-                    detectiontries = 0;
+                    detectiontime = millis();
                 }
             }
 
             else if (_sysstate.r.state == 4) // detect chute opening
             {
-                Vector3d accelvec = vectorfloatto3(_sysstate.r.navsysstate.r.imudata.accel);
+                
                 float accelmag = accelvec.norm();
-                accelmag > 7 ? detectiontries++ : detectiontries = 0;
-                if (detectiontries >= 10)
+                accelmag > 7 ? detectiontime = detectiontime : detectiontime = millis();
+                if (millis() - detectiontime >= 300)
                 {
                     _sysstate.r.state = 5;
-                    detectiontries = 0;
+                    detectiontime = millis();
                 }
             }
 
             else if (_sysstate.r.state == 5) // detect landing
             {   
 
-                Vector3d accelvec = vectorfloatto3(_sysstate.r.navsysstate.r.imudata.accel);
-                Vector3d gyrovec  = vectorfloatto3(_sysstate.r.navsysstate.r.imudata.gyro);
+                
 
                 if (abs(_sysstate.r.navsysstate.r.barodata.verticalvel) < 0.3 && accelvec.norm() < 20 &&  accelvec.norm() > 5  && gyrovec.norm() < 0.5)
                 {
-                     detectiontries++;
+                     detectiontime = detectiontime;
                 }
                 else{
-                     detectiontries = 0;
+                    detectiontime = millis();
                 }
 
-                if (detectiontries >= 40)
+                if (millis() - detectiontime >= 500)
                 {
                     _sysstate.r.state = 6;
-                    detectiontries = 0;
+                    detectiontime = millis();
                     landedtime = millis();
                 }
             }
+            
+
+            if (_sysstate.r.state > 1 && abs(_sysstate.r.navsysstate.r.barodata.verticalvel) < 0.3 && accelvec.norm() < 20 &&  accelvec.norm() > 5  && gyrovec.norm() < 0.5)
+            {
+                landingdetectiontime = landingdetectiontime;
+            }
+            else{
+                landingdetectiontime = millis();
+            }
+            if (millis() - landingdetectiontime >= 1000)
+                {
+                    _sysstate.r.state = 6;
+                    detectiontime = millis();
+                    landedtime = millis();
+            }
+            
+
             
 
             
@@ -804,7 +785,13 @@ class MPCORE{
         }
 
         int parsecommand(char input){
-            Serial.println(input);
+            if (int(input) == 0)
+            {
+                return 1;
+            }
+            Serial.println(int(input));
+            
+            
 
             if (input == 'l' && _sysstate.r.state < 2){
                 _sysstate.r.state = 1;
@@ -824,18 +811,8 @@ class MPCORE{
                 sendtoteleplot = true;
                 break;
 
-            case 'q':
-                Serial.println("sending accel data to magneto");
-                sendserialon = !sendserialon;
-                sendtoteleplot = false;
-                break;
-
             case 'e':
                 erasedata();
-                break;
-
-            case 'r':
-                readdata();
                 break;
 
             case 'D':

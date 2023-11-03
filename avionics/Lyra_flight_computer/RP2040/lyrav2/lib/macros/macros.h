@@ -58,7 +58,14 @@ using Eigen::AngleAxisd;
 #define GREEN 2
 #define BLUE 3
 
-#define FLASH_TARGET_OFFSET (256*1024)
+#define ALTVAR 0.5 
+#define VVELVAR 0.5
+
+#define ALTNOISE 0.1
+#define VVELNOISE 0.2
+
+
+
 
 byte radioaddress[][7] = {"flight","ground"};
 
@@ -105,6 +112,13 @@ struct MAGdata{
     Vector3float utesla;
 };
 
+
+struct variences{
+    float alt;
+    float vvel;
+};
+
+
 union navpacket
 {
     struct
@@ -115,9 +129,13 @@ union navpacket
         IMUdata imudata;
         BAROdata barodata;
         MAGdata magdata;
+        Vector3float accelworld;
+        float filteredalt;
+        float filteredvvel;
         //Vector3float pos;
         Vector3float orientationeuler;
         Quatstruct orientationquat;
+        variences confidence;
         //Vector3float vel;
         
     } r;

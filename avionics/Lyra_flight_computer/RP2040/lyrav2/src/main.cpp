@@ -8,6 +8,7 @@ NAVCORE NAV;
 
 bool dataismoved = false;
 
+
 void setup() { // main core setup
     MP.setuppins();
     MP.beep();
@@ -61,16 +62,46 @@ void setup1() { // nav core setup
     initpacket.r.errorflag = NAV._sysstate.r.errorflag;
     NAV.sendpacket(initpacket);
     baro.getpadoffset();
+    NAV.getsensordata();
+    NAV.KFinit();
 }
 
 void loop() { // main core loop
+    int eventsfired = 0;
 
+    if (millis() - MP.prevtime.logdata >= MP.intervals[MP._sysstate.r.state].logdata)
+    {
+        if (MP.sendserialon)
+        {
+            Serial.print(">shouldlog: 1 \n");
+        }
+    }
+
+    if (millis() - MP.prevtime.logdata >= MP.intervals[MP._sysstate.r.state].logdata)
+    {
+        //uint32_t prevlogmicros = micros();
+        MP.logdata();
+        if (MP.sendserialon)
+        {
+            Serial.printf(">lograte: %f \n",1000/float((millis()-MP.prevtime.logdata)));
+        }
+        MP.prevtime.logdata = millis();
+        eventsfired += 2;
+        //Serial.printf("logging  took: %d \n",micros() - prevlogmicros);
+    }
     
     
     if (millis()- MP.prevtime.detectstatechange >= MP.intervals[MP._sysstate.r.state].detectstatechange)
     {
         MP.changestate();
         MP.prevtime.detectstatechange = millis();
+    }
+
+    if (MP.sendserialon & millis() - MP.prevtime.serial >= MP.intervals[MP._sysstate.r.state].serial)
+    {
+        MP.senddatatoserial();
+        MP.prevtime.serial = millis();
+        //eventsfired += 20;
     }
     
     
@@ -80,9 +111,12 @@ void loop() { // main core loop
         uint32_t gettingnavdata = micros();
         int _avalible = rp2040.fifo.available();
         int _error = MP.fetchnavdata();
+        eventsfired += 1;
         //Serial.printf("fetching nav data took %d \n",micros() - gettingnavdata);
         //Serial.printf("recived packet at timestamp : %d with error %d and %d bytes in the fifo",MP._sysstate.r.uptime,_error,_avalible);
     }
+
+
 
 
     if (millis()- MP.prevtime.led >= MP.intervals[MP._sysstate.r.state].led)
@@ -90,6 +124,7 @@ void loop() { // main core loop
         MP.ledstate ? MP.setled(MP.ledcolor) : MP.setled(OFF);
         MP.ledstate =! MP.ledstate;
         MP.prevtime.led = millis();
+        
     }
 
     if (millis()- MP.prevtime.beep >= MP.intervals[MP._sysstate.r.state].beep)
@@ -130,6 +165,7 @@ void loop() { // main core loop
             break;
         }
         MP.prevtime.beep = millis();
+        eventsfired += 10;
     }
     
     
@@ -142,25 +178,16 @@ void loop() { // main core loop
 
     }
 
-    if (MP.sendserialon & millis() - MP.prevtime.serial >= MP.intervals[MP._sysstate.r.state].serial)
-    {
-        MP.senddatatoserial();
-        MP.prevtime.serial = millis();
-    }
-
-    if (millis() - MP.prevtime.logdata >= MP.intervals[MP._sysstate.r.state].logdata)
-    {
-        uint32_t prevlogmicros = micros();
-        MP.logdata();
-        MP.prevtime.logdata = millis();
-        //Serial.printf("logging  took: %d \n",micros() - prevlogmicros);
-    }
     
-    if (millis() - MP.prevtime.sendtelemetry >= MP.intervals[MP._sysstate.r.state].sendtelemetry)
+
+
+    
+    if ((millis() - MP.prevtime.sendtelemetry >= MP.intervals[MP._sysstate.r.state].sendtelemetry) && MP.errorflag %19 != 0)
     {
         uint32_t prevtelemmicros = micros();
         MP.sendtelemetry();
         MP.prevtime.sendtelemetry = millis();
+        eventsfired += 4;
         //Serial.printf("telemetry sending took: %d \n",micros() - prevtelemmicros);
     }
 
@@ -180,14 +207,23 @@ void loop() { // main core loop
     }
     
     
+    
     MP._sysstate.r.uptime = millis();
+    if (MP.sendserialon)
+    {
+        Serial.printf(">looptime: %f \n", float(micros() - MP.prevtime.loop)/1000);
+        Serial.printf(">eventstranspired: %d \n", eventsfired);
+        Serial.print(">shouldlog: 0 \n");
+    }
+    
+    MP.prevtime.loop = micros();
 }
 
 
 void loop1() { // nav core loop
     if (MP._sysstate.r.state == 0)
     {
-        NAV.alpha = 0.1;
+        NAV.alpha = 0.2;
     }
     else
     {
@@ -195,7 +231,15 @@ void loop1() { // nav core loop
     }
     
     NAV.getsensordata();
-    NAV.computeorientation();
+    //NAV.computeorientation();
+    NAV.KFpredict();
+
+    if (millis() - NAV.prevtime.kfupdate >= 300)
+    {
+        NAV.KFupdate();
+        NAV.prevtime.kfupdate = millis();
+    }
+    
 
     
     
