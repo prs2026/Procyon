@@ -70,11 +70,11 @@ class MPCORE{
         };
         timings intervals[7] = {
             {2000,1000,100,200,30000,10}, // ground idle
-            {100,200,100, 200, 500,10}, // launch detect
-            {50,500,100, 200, 1000,10}, // powered ascent
-            {50,500,100,200, 1000,10}, // unpowered ascent
-            {50,500,100,200, 1000,10}, // ballistic descent
-            {50,800,100,200, 1000,10}, //ready to land
+            {10,200,100, 200, 500,10}, // launch detect
+            {10,500,100, 200, 1000,10}, // powered ascent
+            {10,500,100,200, 1000,10}, // unpowered ascent
+            {10,500,100,200, 1000,10}, // ballistic descent
+            {10,800,100,200, 1000,10}, //ready to land
             {1000,1500,100,200, 1000,10} // landed
         };
         timings prevtime;
@@ -275,7 +275,7 @@ class MPCORE{
             }
             
             fs::File readfile = LittleFS.open("/log.csv", "r");
-            sdfile.println("checksum,uptime mp,uptime nav, errorflag mp, errorflag nav,accel x, accel y, accel z, gyro x, gyro y, gyro z, mag x, mag y, mag z, magraw x, magraw y, magraw z, euler x, euler y, euler z, quat w, quat x, quat y, quat z, altitude, pressure, verticalvel,maxrecorded alt,altitudeagl,filteredalt,imutemp, barotemp, state,checksum2");
+            sdfile.println("checksum,uptime mp,uptime nav, errorflag mp, errorflag nav,accel x, accel y, accel z, accelworld x,accelworld y,accelworld z, gyro x, gyro y, gyro z, mag x, mag y, mag z, magraw x, magraw y, magraw z, euler x, euler y, euler z, quat w, quat x, quat y, quat z, altitude, pressure, verticalvel,filteredvvel,maxrecorded alt,altitudeagl,filteredalt,imutemp, barotemp, state,checksum2");
             
             Serial.printf("flash amount used: %d\n",readfile.size());
 
@@ -318,7 +318,7 @@ class MPCORE{
                     "%f,%f,%f," // magraw
                     "%f,%f,%f," // orientation euler"
                     "%f,%f,%f,%f," // orientation quat"
-                    "%f,%f,%f,%f,%f,%f," //altitude, presusre, verticalvel, altitudeagl, filtered alt
+                    "%f,%f,%f,%f,%f,%f,%f," //altitude, presusre, verticalvel,filtered vvel, altitudeagl, filtered alt
                     "%f,%f," // temps, imu baro mag
                     "%d,202\n", //state
                     readentry.r.uptime,
@@ -328,6 +328,9 @@ class MPCORE{
                     readentry.r.navsysstate.r.imudata.accel.x,
                     readentry.r.navsysstate.r.imudata.accel.y,
                     readentry.r.navsysstate.r.imudata.accel.z,
+                    readentry.r.navsysstate.r.accelworld.x,
+                    readentry.r.navsysstate.r.accelworld.y,
+                    readentry.r.navsysstate.r.accelworld.z,
                     readentry.r.navsysstate.r.imudata.gyro.x*(180/M_PI),
                     readentry.r.navsysstate.r.imudata.gyro.y*(180/M_PI),
                     readentry.r.navsysstate.r.imudata.gyro.z*(180/M_PI),
@@ -347,6 +350,7 @@ class MPCORE{
                     readentry.r.navsysstate.r.barodata.altitude,
                     readentry.r.navsysstate.r.barodata.pressure,
                     readentry.r.navsysstate.r.barodata.verticalvel,
+                    readentry.r.navsysstate.r.filteredvvel,
                     readentry.r.navsysstate.r.barodata.maxrecordedalt,
                     readentry.r.navsysstate.r.barodata.altitudeagl,
                     readentry.r.navsysstate.r.filteredalt,
@@ -711,7 +715,7 @@ class MPCORE{
             {
                 
                 float accelmag = accelvec.norm();
-                accelmag < 15 ? detectiontime = detectiontime : detectiontime = millis();
+                accelvec.z() < 2 ? detectiontime = detectiontime : detectiontime = millis();
                 if (millis() - detectiontime >= 200)
                 {
                     _sysstate.r.state = 3;

@@ -158,21 +158,19 @@ class NAVCORE{
         Quatstruct quatfromaccel(Vector3float accelfloat, Vector3float magfloat){ 
             Vector3d accel = vectorfloatto3(accelfloat).normalized();
             Vector3d mag = vectorfloatto3(magfloat).normalized();
-            Quaterniond rotquat;
-            Matrix3d rotmatrix;
-            Vector3d rot[3]; // [0] = down, [1] = east [2] = north
-            rot[0] = -accel;
-            rot[0] = rot[0].normalized();
+            Quaterniond rotquat(0,0,0,0);
 
-            rot[1] = (rot[0].cross(mag));
-            rot[1] = rot[1].normalized();
+            double rotx = asin(accel.x());
+            double roty = atan2(-accel.y(),accel.z());
 
-            rot[2] = rot[0].cross(rot[1]);
-            rot[2] = rot[2].normalized();
+            double rotz = atan2(mag.y() * cos(roty) - mag.z() *sin(roty),mag.x() * cos(rotx) + mag.y() + sin(rotx) * sin(roty) + mag.z() * cos(roty) * sin(rotx));
             
-            rotmatrix << rot[0].transpose() , rot[1].transpose(), rot[2].transpose();
-            rotquat = rotmatrix;
+            rotquat = AngleAxisd(rotz, Vector3d::UnitZ()) *
+                      AngleAxisd(roty, Vector3d::UnitY()) *
+                      AngleAxisd(rotx, Vector3d::UnitX());
+
             Quatstruct result = eigentoquatstruct(rotquat);
+            
             return result;
         }
 
