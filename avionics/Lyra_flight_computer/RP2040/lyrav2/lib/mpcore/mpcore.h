@@ -69,7 +69,7 @@ class MPCORE{
             uint32_t loop;
         };
         timings intervals[7] = {
-            {2000,1000,100,200,30000,10}, // ground idle
+            {2000,1000,50,200,30000,10}, // ground idle
             {10,200,100, 200, 500,10}, // launch detect
             {10,500,100, 200, 1000,10}, // powered ascent
             {10,500,100,200, 1000,10}, // unpowered ascent
@@ -634,6 +634,12 @@ class MPCORE{
                 ">orientation pitch: %f \n"
                 ">orientation yaw: %f \n"
                 ">orientation roll: %f \n"
+
+                ">orientation w: %f \n"
+                ">orientation x: %f \n"
+                ">orientation y: %f \n"
+                ">orientation z:s %f \n"
+
                 ">maxrecorded alt: %f \n"
                 ">filtered alt: %f \n"
                 ">state : %d \n"
@@ -674,6 +680,12 @@ class MPCORE{
                 ,_sysstate.r.navsysstate.r.orientationeuler.x*(180/M_PI)
                 ,_sysstate.r.navsysstate.r.orientationeuler.y*(180/M_PI)
                 ,_sysstate.r.navsysstate.r.orientationeuler.z*(180/M_PI)
+
+                ,_sysstate.r.navsysstate.r.orientationquat.w
+                ,_sysstate.r.navsysstate.r.orientationquat.x
+                ,_sysstate.r.navsysstate.r.orientationquat.y
+                ,_sysstate.r.navsysstate.r.orientationquat.z
+
                 , _sysstate.r.navsysstate.r.barodata.maxrecordedalt
                 , _sysstate.r.navsysstate.r.filteredalt
                 , _sysstate.r.state
@@ -687,7 +699,7 @@ class MPCORE{
             }
             else
             {
-                Serial.printf("%f,%f,%f,%f \n",_sysstate.r.navsysstate.r.orientationquat.w,_sysstate.r.navsysstate.r.orientationquat.x,_sysstate.r.navsysstate.r.orientationquat.y,_sysstate.r.navsysstate.r.orientationquat.z);
+                Serial.printf("%f,%f,%f \n",_sysstate.r.navsysstate.r.orientationeuler.x,_sysstate.r.navsysstate.r.orientationeuler.y,_sysstate.r.navsysstate.r.orientationeuler.z);
             }
             
             
@@ -816,6 +828,13 @@ class MPCORE{
                 sendserialon = !sendserialon;
                 sendtoteleplot = true;
                 break;
+
+            case 'w':
+                Serial.println("printing data to processing");
+                sendserialon = !sendserialon;
+                sendtoteleplot = false;
+                break;
+
 
             case 'e':
                 erasedata();

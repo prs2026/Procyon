@@ -71,7 +71,7 @@ void loop() { // main core loop
 
     if (millis() - MP.prevtime.logdata >= MP.intervals[MP._sysstate.r.state].logdata)
     {
-        if (MP.sendserialon)
+        if (MP.sendserialon && MP.sendtoteleplot)
         {
             Serial.print(">shouldlog: 1 \n");
         }
@@ -81,7 +81,7 @@ void loop() { // main core loop
     {
         //uint32_t prevlogmicros = micros();
         MP.logdata();
-        if (MP.sendserialon)
+        if (MP.sendserialon && MP.sendtoteleplot)
         {
             Serial.printf(">lograte: %f \n",1000/float((millis()-MP.prevtime.logdata)));
         }
@@ -209,7 +209,7 @@ void loop() { // main core loop
     
     
     MP._sysstate.r.uptime = millis();
-    if (MP.sendserialon)
+    if (MP.sendserialon && MP.sendtoteleplot)
     {
         Serial.printf(">looptime: %f \n", float(micros() - MP.prevtime.loop)/1000);
         Serial.printf(">eventstranspired: %d \n", eventsfired);
