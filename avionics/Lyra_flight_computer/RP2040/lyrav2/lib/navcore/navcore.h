@@ -206,8 +206,7 @@ class NAVCORE{
             _sysstate.r.filteredvvel = prevsysstate.r.filteredvvel + kgain.vvel*(_sysstate.r.barodata.verticalvel - prevsysstate.r.filteredvvel);
 
             _sysstate.r.orientationquat = quatfromaccel(_sysstate.r.imudata.accel,_sysstate.r.magdata.utesla);
-            Quaterniond rotquat = quatstructtoeigen(_sysstate.r.orientationquat);
-            _sysstate.r.orientationeuler = vector3tofloat(rotquat.toRotationMatrix().eulerAngles(0,1,2));
+            
 
             _sysstate.r.confidence.alt = (1-kgain.alt)*prevsysstate.r.confidence.alt; // variences update
             _sysstate.r.confidence.vvel = (1-kgain.vvel)*prevsysstate.r.confidence.vvel;
@@ -219,6 +218,11 @@ class NAVCORE{
         }
 
         void computeorientation(){
+
+            Quaterniond rotquat = quatstructtoeigen(_sysstate.r.orientationquat);
+            _sysstate.r.orientationeuler = vector3tofloat(rotquat.toRotationMatrix().eulerAngles(0,1,2));
+            _sysstate.r.orientationquat = eigentoquatstruct(rotquat);
+            return;
             double timestep = (micros() - prevtime.intergrateorientation)/1e6;
             Quaterniond orientationquat = quatstructtoeigen(_sysstate.r.orientationquat);
             Vector3d gyro = vectorfloatto3(_sysstate.r.imudata.gyro);
