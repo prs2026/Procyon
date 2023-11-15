@@ -737,7 +737,7 @@ class MPCORE{
 
             else if (_sysstate.r.state == 3) // detect appogee
             {
-                _sysstate.r.navsysstate.r.barodata.altitude < _sysstate.r.navsysstate.r.barodata.maxrecordedalt*0.95 ?  detectiontime = detectiontime : detectiontime = millis();
+                _sysstate.r.navsysstate.r.barodata.altitudeagl < _sysstate.r.navsysstate.r.barodata.maxrecordedalt*0.95 ?  detectiontime = detectiontime : detectiontime = millis();
 
                 if (millis() - detectiontime >= 100)
                 {

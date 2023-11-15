@@ -186,6 +186,9 @@ class NAVCORE{
 
             extrapolatedsysstate.r.confidence.alt = _sysstate.r.confidence.alt + (pow(timestep,2)*_sysstate.r.confidence.vvel) + ALTVAR; // extrapolate variences with velocity dynamics
             extrapolatedsysstate.r.confidence.vvel = _sysstate.r.confidence.vvel + VVELVAR;// +pow(timestep,2)*0.5 + 0.05;
+
+            extrapolatedsysstate = computeorientation(extrapolatedsysstate);
+            extrapolatedsysstate.r.accelworld = getworldaccel(extrapolatedsysstate);
             //Serial.printf(">extrap var: %f\n",extrapolatedsysstate.r.confidence.alt);
 
             kfpredicttime = micros();
@@ -205,9 +208,9 @@ class NAVCORE{
             _sysstate.r.filteredalt = prevsysstate.r.filteredalt + kgain.alt*(_sysstate.r.barodata.altitudeagl - prevsysstate.r.filteredalt); // state update
             _sysstate.r.filteredvvel = prevsysstate.r.filteredvvel + kgain.vvel*(_sysstate.r.barodata.verticalvel - prevsysstate.r.filteredvvel);
 
-            _sysstate.r.orientationquat = quatfromaccel(_sysstate.r.imudata.accel,_sysstate.r.magdata.utesla);
-            Quaterniond rotquat = quatstructtoeigen(_sysstate.r.orientationquat);
-            _sysstate.r.orientationeuler = vector3tofloat(rotquat.toRotationMatrix().eulerAngles(0,1,2));
+            // _sysstate.r.orientationquat = quatfromaccel(_sysstate.r.imudata.accel,_sysstate.r.magdata.utesla);
+            // Quaterniond rotquat = quatstructtoeigen(_sysstate.r.orientationquat);
+            // _sysstate.r.orientationeuler = vector3tofloat(rotquat.toRotationMatrix().eulerAngles(0,1,2));
 
             _sysstate.r.confidence.alt = (1-kgain.alt)*prevsysstate.r.confidence.alt; // variences update
             _sysstate.r.confidence.vvel = (1-kgain.vvel)*prevsysstate.r.confidence.vvel;
@@ -218,13 +221,13 @@ class NAVCORE{
             kfupdatetime = micros();
         }
 
-        void computeorientation(){
+        navpacket computeorientation(navpacket currentpacket){
             double timestep = (micros() - prevtime.intergrateorientation)/1e6;
-            Quaterniond orientationquat = quatstructtoeigen(_sysstate.r.orientationquat);
-            Vector3d gyro = vectorfloatto3(_sysstate.r.imudata.gyro);
-            Vector3d accel = vectorfloatto3(_sysstate.r.imudata.accel);
-            Vector3d mag = vectorfloatto3(_sysstate.r.magdata.utesla);
-            Vector3d orientationeuler = vectorfloatto3(_sysstate.r.orientationeuler);
+            Quaterniond orientationquat = quatstructtoeigen(currentpacket.r.orientationquat);
+            Vector3d gyro = vectorfloatto3(currentpacket.r.imudata.gyro);
+            Vector3d accel = vectorfloatto3(currentpacket.r.imudata.accel);
+            Vector3d mag = vectorfloatto3(currentpacket.r.magdata.utesla);
+            Vector3d orientationeuler = vectorfloatto3(currentpacket.r.orientationeuler);
 
             AngleAxisd aa(timestep*gyro.norm(), gyro/gyro.norm());
             Quaterniond qdelta(aa);
@@ -260,19 +263,47 @@ class NAVCORE{
 
             orientationquat = accelrotquat * orientationquat;
 
-            Matrix3d R = orientationquat.toRotationMatrix();
 
+            Quaterniond quatadj(0.707,0.707,0,0);
+
+            Quaterniond orientationquatadj = quatadj*orientationquat;//*quatadj.conjugate();
+
+            Matrix3d R = orientationquatadj.toRotationMatrix();
 
             orientationeuler = R.eulerAngles(0,1,2);
-            
-            _sysstate.r.orientationquat = eigentoquatstruct(orientationquat);
-            _sysstate.r.orientationeuler = vector3tofloat(orientationeuler);
-            
-            Matrix3d Rtrans = R.inverse();
-            Vector3d grav(0,0,9.801);
-            Vector3d _accelworld = (Rtrans * accel)-grav;
 
-            _sysstate.r.accelworld = vector3tofloat(_accelworld);
+            
+
+            currentpacket.r.orientationquatadj = eigentoquatstruct(orientationquatadj);
+            currentpacket.r.orientationquat = eigentoquatstruct(orientationquat);
+            currentpacket.r.orientationeuler = vector3tofloat(orientationeuler);
+            
+            return currentpacket;
+        }
+
+        Vector3float getworldaccel(navpacket _state){
+            Vector3d accelvec = vectorfloatto3(_state.r.imudata.accel);
+            Quaterniond orientationquat = quatstructtoeigen(_state.r.orientationquatadj);//.inverse();
+            Quaterniond accelquat2;
+            accelquat2.w() = 0;
+
+            // Matrix3d R = orientationquat.toRotationMatrix();
+            // Matrix3d Rtrans = R.inverse();
+
+            accelquat2.x() = accelvec.x();
+            accelquat2.y() = accelvec.y();
+            accelquat2.z() = accelvec.z();
+
+            accelquat2 = orientationquat.inverse() * accelquat2 * orientationquat;
+
+            accelvec.x() = accelquat2.x();
+            accelvec.y() = accelquat2.y();
+            accelvec.z() = accelquat2.z();
+
+            Vector3d grav(0,0,9.801);
+            Vector3d _accelworld = accelvec-grav;
+
+            return vector3tofloat(_accelworld);
 
         };
 

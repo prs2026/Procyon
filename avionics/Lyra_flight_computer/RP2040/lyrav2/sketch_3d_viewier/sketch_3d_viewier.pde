@@ -11,7 +11,7 @@ void setup(){
   size(800, 600, P3D);
   //perspective(PI/3, float(width)/height, 1, 200);
   printArray(Serial.list());
-  serialport = new Serial(this, "COM8",115200);
+  serialport = new Serial(this, "COM23",115200);
   shape = new Box(
     100,    // width
     200,    // height
@@ -28,7 +28,7 @@ void draw(){
     println(inByte);
     float innums[] = float(split(inByte,','));
     println(innums);
-    x = innums[0];
+    x = innums[0]+(3.141592/2);
     y = innums[1];
     z = innums[2];
   }
