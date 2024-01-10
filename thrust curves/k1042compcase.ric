@@ -1,0 +1,44 @@
+data:
+  config:
+    ambPressure: 101324.99674500001
+    burnoutThrustThres: 0.1
+    burnoutWebThres: 2.5400050800101604e-05
+    mapDim: 750
+    maxMassFlux: 1406.4697609001405
+    maxPressure: 10342500.000000002
+    minPortThroat: 2.0
+    timestep: 0.03
+  grains:
+  - properties:
+      coreDiameter: 0.01778003556007112
+      coreOffset: 0.012700025400050802
+      diameter: 0.047625095250190506
+      inhibitedEnds: Neither
+      length: 0.6096012192024385
+    type: Moon Burner
+  nozzle:
+    convAngle: 30.0
+    divAngle: 10.0
+    efficiency: 0.9
+    erosionCoeff: 0.0
+    exit: 0.026072720345440694
+    slagCoeff: 0.0
+    throat: 0.011430022860045722
+    throatLength: 0.0031750063500127004
+  propellant:
+    density: 1625.0868456817973
+    name: PropX
+    tabs:
+    - a: 6.994600946367753e-05
+      k: 1.235
+      m: 23.038
+      maxPressure: 10342500.000000002
+      minPressure: 0.0
+      n: 0.321
+      t: 2616.0
+type: !!python/object/apply:uilib.fileIO.fileTypes
+- 3
+version: !!python/tuple
+- 0
+- 5
+- 0
