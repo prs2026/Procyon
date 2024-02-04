@@ -10,20 +10,37 @@ data:
     timestep: 0.03
   grains:
   - properties:
-      aftCoreDiameter: 0.025400050800101603
+      coreDiameter: 0.005080010160020321
       diameter: 0.04572009144018289
-      forwardCoreDiameter: 0.005080010160020321
-      inhibitedEnds: Both
-      length: 0.6273812547625096
-    type: Conical
+      inhibitedEnds: Neither
+      length: 0.10160020320040641
+    type: BATES
+  - properties:
+      coreDiameter: 0.012700025400050802
+      diameter: 0.04572009144018289
+      inhibitedEnds: Neither
+      length: 0.10160020320040641
+    type: BATES
+  - properties:
+      coreDiameter: 0.019050038100076203
+      diameter: 0.04572009144018289
+      inhibitedEnds: Neither
+      length: 0.10160020320040641
+    type: BATES
+  - properties:
+      coreDiameter: 0.025400050800101603
+      diameter: 0.04572009144018289
+      inhibitedEnds: Neither
+      length: 0.10160020320040641
+    type: BATES
   nozzle:
     convAngle: 30.0
     divAngle: 10.0
     efficiency: 0.95
     erosionCoeff: 0.0
-    exit: 0.038100076200152405
+    exit: 0.023899695199390402
     slagCoeff: 0.0
-    throat: 0.012700025400050802
+    throat: 0.010160020320040642
     throatLength: 0.0031750063500127004
   propellant:
     density: 1671.8658742834366
