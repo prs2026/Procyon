@@ -14,21 +14,21 @@ data:
       coreOffset: 0.020320040640081284
       diameter: 0.06350012700025401
       inhibitedEnds: Both
-      length: 0.5359410718821439
+      length: 0.6096012192024385
+    type: Moon Burner
+  - properties:
+      coreDiameter: 0.017145034290068584
+      coreOffset: 0.019050038100076203
+      diameter: 0.06350012700025401
+      inhibitedEnds: Both
+      length: 0.12700025400050802
     type: Moon Burner
   - properties:
       coreDiameter: 0.019050038100076203
       coreOffset: 0.019050038100076203
       diameter: 0.06350012700025401
       inhibitedEnds: Both
-      length: 0.13398526797053598
-    type: Moon Burner
-  - properties:
-      coreDiameter: 0.019050038100076203
-      coreOffset: 0.019050038100076203
-      diameter: 0.06350012700025401
-      inhibitedEnds: Both
-      length: 0.13398526797053598
+      length: 0.12700025400050802
     type: Moon Burner
   nozzle:
     convAngle: 65.0
