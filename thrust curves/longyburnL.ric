@@ -1,0 +1,65 @@
+data:
+  config:
+    ambPressure: 101324.99674500001
+    burnoutThrustThres: 0.1
+    burnoutWebThres: 2.5400050800101604e-05
+    mapDim: 750
+    maxMassFlux: 1406.4697609001405
+    maxPressure: 10342500.000000002
+    minPortThroat: 2.0
+    timestep: 0.03
+  grains:
+  - properties:
+      coreDiameter: 0.012700025400050802
+      coreOffset: 0.012700025400050802
+      diameter: 0.06350012700025401
+      inhibitedEnds: Both
+      length: 0.45720091440182886
+    type: Moon Burner
+  - properties:
+      coreDiameter: 0.012700025400050802
+      coreOffset: 0.012700025400050802
+      diameter: 0.06350012700025401
+      inhibitedEnds: Both
+      length: 0.20320040640081283
+    type: Moon Burner
+  - properties:
+      coreDiameter: 0.019050038100076203
+      coreOffset: 0.00889001778003556
+      diameter: 0.06350012700025401
+      inhibitedEnds: Both
+      length: 0.10160020320040641
+    type: Moon Burner
+  - properties:
+      coreDiameter: 0.025400050800101603
+      coreOffset: 0.007620015240030481
+      diameter: 0.06350012700025401
+      inhibitedEnds: Both
+      length: 0.10160020320040641
+    type: Moon Burner
+  nozzle:
+    convAngle: 30.0
+    divAngle: 10.0
+    efficiency: 0.95
+    erosionCoeff: 0.0
+    exit: 0.036267000556372476
+    slagCoeff: 0.0
+    throat: 0.015240030480060961
+    throatLength: 0.0031750063500127004
+  propellant:
+    density: 1674.6338641415216
+    name: Alexprop
+    tabs:
+    - a: 4.479342932566496e-05
+      k: 1.206
+      m: 25.207
+      maxPressure: 13790000.000000002
+      minPressure: 0.0
+      n: 0.3
+      t: 2938.0
+type: !!python/object/apply:uilib.fileIO.fileTypes
+- 3
+version: !!python/tuple
+- 0
+- 5
+- 0
