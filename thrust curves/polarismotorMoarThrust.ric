@@ -1,0 +1,97 @@
+data:
+  config:
+    ambPressure: 101324.99674500001
+    burnoutThrustThres: 0.1
+    burnoutWebThres: 2.5400050800101604e-05
+    mapDim: 750
+    maxMassFlux: 1758.0872011251756
+    maxPressure: 10342500.000000002
+    minPortThroat: 1.25
+    timestep: 0.001
+  grains:
+  - properties:
+      coreDiameter: 0.009525019050038101
+      diameter: 0.04572009144018289
+      inhibitedEnds: Neither
+      length: 0.05588011176022353
+    type: BATES
+  - properties:
+      coreDiameter: 0.009525019050038101
+      diameter: 0.04572009144018289
+      inhibitedEnds: Neither
+      length: 0.05588011176022353
+    type: BATES
+  - properties:
+      coreDiameter: 0.009525019050038101
+      diameter: 0.04572009144018289
+      inhibitedEnds: Neither
+      length: 0.05588011176022353
+    type: BATES
+  - properties:
+      coreDiameter: 0.009525019050038101
+      diameter: 0.04572009144018289
+      inhibitedEnds: Neither
+      length: 0.05588011176022353
+    type: BATES
+  - properties:
+      coreDiameter: 0.011112522225044452
+      diameter: 0.04572009144018289
+      inhibitedEnds: Neither
+      length: 0.05588011176022353
+    type: BATES
+  - properties:
+      coreDiameter: 0.012700025400050802
+      diameter: 0.04572009144018289
+      inhibitedEnds: Neither
+      length: 0.05588011176022353
+    type: BATES
+  - properties:
+      coreDiameter: 0.012700025400050802
+      diameter: 0.04572009144018289
+      inhibitedEnds: Neither
+      length: 0.05588011176022353
+    type: BATES
+  - properties:
+      coreDiameter: 0.014287528575057152
+      diameter: 0.04572009144018289
+      inhibitedEnds: Neither
+      length: 0.05588011176022353
+    type: BATES
+  - properties:
+      coreDiameter: 0.014287528575057152
+      diameter: 0.04572009144018289
+      inhibitedEnds: Neither
+      length: 0.05588011176022353
+    type: BATES
+  - properties:
+      coreDiameter: 0.01778003556007112
+      diameter: 0.04572009144018289
+      inhibitedEnds: Neither
+      length: 0.05588011176022353
+    type: BATES
+  nozzle:
+    convAngle: 45.0
+    divAngle: 15.0
+    efficiency: 0.95
+    erosionCoeff: 0.0
+    exit: 0.031750063500127004
+    slagCoeff: 0.0
+    throat: 0.01155702311404623
+    throatLength: 0.0
+  propellant:
+    density: 1815.801346903865
+    name: RCS - Slower White
+    tabs:
+    - a: 7.994680775880937e-05
+      k: 1.245
+      m: 27.022
+      maxPressure: 20685000.000000004
+      minPressure: 0.0
+      n: 0.244
+      t: 2364.0
+type: !!python/object/apply:uilib.fileIO.fileTypes
+- 3
+version: !!python/tuple
+- 0
+- 5
+- 0

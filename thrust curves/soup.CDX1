@@ -3,8 +3,8 @@
   <RocketDesign>
     <NoseCone>
       <PartType>NoseCone</PartType>
-      <Length>15.4</Length>
-      <Diameter>2.213</Diameter>
+      <Length>15.847</Length>
+      <Diameter>2.205</Diameter>
       <Shape>Tangent Ogive</Shape>
       <BluntRadius>0</BluntRadius>
       <Location>0</Location>
@@ -12,14 +12,62 @@
     </NoseCone>
     <BodyTube>
       <PartType>BodyTube</PartType>
-      <Length>26.85</Length>
+      <Length>3.15</Length>
+      <Diameter>2.205</Diameter>
+      <LaunchLugDiameter>0</LaunchLugDiameter>
+      <LaunchLugLength>0</LaunchLugLength>
+      <RailGuideDiameter>0</RailGuideDiameter>
+      <RailGuideHeight>0</RailGuideHeight>
+      <LaunchShoeArea>0</LaunchShoeArea>
+      <Location>15.847</Location>
+      <Color>Black</Color>
+      <BoattailLength>0</BoattailLength>
+      <BoattailRearDiameter>0</BoattailRearDiameter>
+      <BoattailOffset>0</BoattailOffset>
+      <Overhang>0</Overhang>
+    </BodyTube>
+    <Transition>
+      <PartType>Transition</PartType>
+      <Length>0.5</Length>
+      <Diameter>2.125</Diameter>
+      <Location>18.997</Location>
+      <RearDiameter>2.125</RearDiameter>
+      <Color>Black</Color>
+    </Transition>
+    <BodyTube>
+      <PartType>BodyTube</PartType>
+      <Length>14</Length>
+      <Diameter>2.125</Diameter>
+      <LaunchLugDiameter>0</LaunchLugDiameter>
+      <LaunchLugLength>0</LaunchLugLength>
+      <RailGuideDiameter>0</RailGuideDiameter>
+      <RailGuideHeight>0</RailGuideHeight>
+      <LaunchShoeArea>0</LaunchShoeArea>
+      <Location>19.497</Location>
+      <Color>Black</Color>
+      <BoattailLength>0</BoattailLength>
+      <BoattailRearDiameter>0</BoattailRearDiameter>
+      <BoattailOffset>0</BoattailOffset>
+      <Overhang>0</Overhang>
+    </BodyTube>
+    <Transition>
+      <PartType>Transition</PartType>
+      <Length>0.5</Length>
+      <Diameter>2.213</Diameter>
+      <Location>33.497</Location>
+      <RearDiameter>2.213</RearDiameter>
+      <Color>Black</Color>
+    </Transition>
+    <BodyTube>
+      <PartType>BodyTube</PartType>
+      <Length>7</Length>
       <Diameter>2.213</Diameter>
       <LaunchLugDiameter>0</LaunchLugDiameter>
       <LaunchLugLength>0</LaunchLugLength>
       <RailGuideDiameter>0</RailGuideDiameter>
       <RailGuideHeight>0</RailGuideHeight>
       <LaunchShoeArea>0</LaunchShoeArea>
-      <Location>15.4</Location>
+      <Location>33.997</Location>
       <Color>Black</Color>
       <BoattailLength>0</BoattailLength>
       <BoattailRearDiameter>0</BoattailRearDiameter>
@@ -31,12 +79,12 @@
         <Span>2.362</Span>
         <SweepDistance>5.315</SweepDistance>
         <TipChord>1.181</TipChord>
-        <Thickness>0.138</Thickness>
-        <LERadius>0.01</LERadius>
+        <Thickness>0.157</Thickness>
+        <LERadius>0.0313</LERadius>
         <Location>6.693</Location>
         <AirfoilSection>Hexagonal</AirfoilSection>
-        <FX1>1</FX1>
-        <FX3>1</FX3>
+        <FX1>0.5</FX1>
+        <FX3>0.5</FX3>
       </Fin>
     </BodyTube>
     <BodyTube>
@@ -48,7 +96,7 @@
       <RailGuideDiameter>0</RailGuideDiameter>
       <RailGuideHeight>0</RailGuideHeight>
       <LaunchShoeArea>0</LaunchShoeArea>
-      <Location>42.25</Location>
+      <Location>40.997</Location>
       <Color>Black</Color>
       <BoattailLength>1.378</BoattailLength>
       <BoattailRearDiameter>1.969</BoattailRearDiameter>
@@ -60,10 +108,10 @@
       <Length>1.378</Length>
       <Diameter>2.213</Diameter>
       <RearDiameter>1.969</RearDiameter>
-      <Location>43.037</Location>
+      <Location>41.784</Location>
       <Color>Black</Color>
     </BoatTail>
-    <Surface>Camouflage Paint</Surface>
+    <Surface>Smooth Paint</Surface>
     <CP>0</CP>
     <ModifiedBarrowman>True</ModifiedBarrowman>
     <Turbulence>True</Turbulence>
@@ -76,11 +124,11 @@
   </RocketDesign>
   <LaunchSite>
     <Altitude>2000</Altitude>
-    <Pressure>29.9</Pressure>
+    <Pressure>29.92</Pressure>
     <RodAngle>0</RodAngle>
-    <RodLength>10</RodLength>
-    <Temperature>74</Temperature>
-    <WindSpeed>10</WindSpeed>
+    <RodLength>6</RodLength>
+    <Temperature>59</Temperature>
+    <WindSpeed>4.47</WindSpeed>
   </LaunchSite>
   <Recovery>
     <Altitude1>1000</Altitude1>
@@ -99,10 +147,10 @@
   <MachAlt />
   <SimulationList>
     <Simulation>
-      <SustainerEngine>L645AP  (Walter)</SustainerEngine>
-      <SustainerLaunchWt>6.97</SustainerLaunchWt>
-      <SustainerNozzleDiameter>1</SustainerNozzleDiameter>
-      <SustainerCG>30.19</SustainerCG>
+      <SustainerEngine>L444  (Alex)</SustainerEngine>
+      <SustainerLaunchWt>7.05</SustainerLaunchWt>
+      <SustainerNozzleDiameter>1.2</SustainerNozzleDiameter>
+      <SustainerCG>26.81</SustainerCG>
       <SustainerIgnitionDelay>0</SustainerIgnitionDelay>
       <Booster1LaunchWt>0</Booster1LaunchWt>
       <Booster1SeparationDelay>0</Booster1SeparationDelay>
@@ -116,11 +164,11 @@
       <Booster2NozzleDiameter>0</Booster2NozzleDiameter>
       <IncludeBooster2>False</IncludeBooster2>
       <FlightTime>0</FlightTime>
-      <TimetoApogee>33.97031</TimetoApogee>
-      <MaxAltitude>27859.82</MaxAltitude>
-      <MaxVelocity>2953.25</MaxVelocity>
-      <OptimumWt>0</OptimumWt>
-      <OptimumMaxAlt>0</OptimumMaxAlt>
+      <TimetoApogee>33.19044</TimetoApogee>
+      <MaxAltitude>26792.92</MaxAltitude>
+      <MaxVelocity>2494.865</MaxVelocity>
+      <OptimumWt>7.57875</OptimumWt>
+      <OptimumMaxAlt>7.57875</OptimumMaxAlt>
     </Simulation>
   </SimulationList>
 </RASAeroDocument>
