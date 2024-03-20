@@ -36,7 +36,7 @@
     </Transition>
     <BodyTube>
       <PartType>BodyTube</PartType>
-      <Length>14</Length>
+      <Length>14.4</Length>
       <Diameter>2.125</Diameter>
       <LaunchLugDiameter>0</LaunchLugDiameter>
       <LaunchLugLength>0</LaunchLugLength>
@@ -54,20 +54,20 @@
       <PartType>Transition</PartType>
       <Length>0.5</Length>
       <Diameter>2.213</Diameter>
-      <Location>33.497</Location>
+      <Location>33.897</Location>
       <RearDiameter>2.213</RearDiameter>
       <Color>Black</Color>
     </Transition>
     <BodyTube>
       <PartType>BodyTube</PartType>
-      <Length>7</Length>
+      <Length>8</Length>
       <Diameter>2.213</Diameter>
       <LaunchLugDiameter>0</LaunchLugDiameter>
       <LaunchLugLength>0</LaunchLugLength>
       <RailGuideDiameter>0</RailGuideDiameter>
       <RailGuideHeight>0</RailGuideHeight>
       <LaunchShoeArea>0</LaunchShoeArea>
-      <Location>33.997</Location>
+      <Location>34.397</Location>
       <Color>Black</Color>
       <BoattailLength>0</BoattailLength>
       <BoattailRearDiameter>0</BoattailRearDiameter>
@@ -96,7 +96,7 @@
       <RailGuideDiameter>0</RailGuideDiameter>
       <RailGuideHeight>0</RailGuideHeight>
       <LaunchShoeArea>0</LaunchShoeArea>
-      <Location>40.997</Location>
+      <Location>42.397</Location>
       <Color>Black</Color>
       <BoattailLength>1.378</BoattailLength>
       <BoattailRearDiameter>1.969</BoattailRearDiameter>
@@ -108,7 +108,7 @@
       <Length>1.378</Length>
       <Diameter>2.213</Diameter>
       <RearDiameter>1.969</RearDiameter>
-      <Location>41.784</Location>
+      <Location>43.184</Location>
       <Color>Black</Color>
     </BoatTail>
     <Surface>Smooth Paint</Surface>
