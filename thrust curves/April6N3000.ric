@@ -1,0 +1,85 @@
+data:
+  config:
+    ambPressure: 101325.0
+    burnoutThrustThres: 0.1
+    burnoutWebThres: 2.5400050800101604e-05
+    mapDim: 750
+    maxMassFlux: 1406.4697609001405
+    maxPressure: 10342500.0
+    minPortThroat: 2.0
+    timestep: 0.03
+  grains:
+  - properties:
+      coreDiameter: 0.028575057150114304
+      diameter: 0.0633223266446533
+      inhibitedEnds: Neither
+      length: 0.15392430784861572
+    type: BATES
+  - properties:
+      coreDiameter: 0.02870205740411481
+      diameter: 0.0633223266446533
+      inhibitedEnds: Neither
+      length: 0.14224028448056897
+    type: BATES
+  - properties:
+      coreDiameter: 0.02882905765811532
+      diameter: 0.0633223266446533
+      inhibitedEnds: Neither
+      length: 0.14986029972059947
+    type: BATES
+  - properties:
+      coreDiameter: 0.02882905765811532
+      diameter: 0.0633223266446533
+      inhibitedEnds: Bottom
+      length: 0.15316230632461267
+    type: BATES
+  - properties:
+      coreDiameter: 0.03200406400812802
+      diameter: 0.0633223266446533
+      inhibitedEnds: Both
+      length: 0.15341630683261367
+    type: BATES
+  - properties:
+      coreDiameter: 0.03200406400812802
+      diameter: 0.0633223266446533
+      inhibitedEnds: Both
+      length: 0.15494030988061977
+    type: BATES
+  - properties:
+      coreDiameter: 0.03213106426212853
+      diameter: 0.0633223266446533
+      inhibitedEnds: Both
+      length: 0.13868427736855476
+    type: BATES
+  - properties:
+      coreDiameter: 0.034925069850139705
+      diameter: 0.0633223266446533
+      inhibitedEnds: Both
+      length: 0.13970027940055882
+    type: BATES
+  nozzle:
+    convAngle: 60.0
+    divAngle: 15.0
+    efficiency: 0.9
+    erosionCoeff: 0.0
+    exit: 0.06477012954025908
+    slagCoeff: 0.0
+    throat: 0.024130048260096522
+    throatLength: 0.016510033020066043
+  propellant:
+    density: 1662.1779097801384
+    name: Reliant Robin (1)
+    tabs:
+    - a: 8.755565848145842e-06
+      k: 1.198
+      m: 24.98
+      maxPressure: 6895000.000000001
+      minPressure: 0.0
+      n: 0.412
+      t: 3500.0
+type: !!python/object/apply:uilib.fileIO.fileTypes
+- 3
+version: !!python/tuple
+- 0
+- 5
+- 0
