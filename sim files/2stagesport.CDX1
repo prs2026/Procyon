@@ -3,23 +3,23 @@
   <RocketDesign>
     <NoseCone>
       <PartType>NoseCone</PartType>
-      <Length>11.5</Length>
+      <Length>7.5</Length>
       <Diameter>1.4961</Diameter>
-      <Shape>Conical</Shape>
+      <Shape>Tangent Ogive</Shape>
       <BluntRadius>0.065</BluntRadius>
       <Location>0</Location>
       <Color>Black</Color>
     </NoseCone>
     <BodyTube>
       <PartType>BodyTube</PartType>
-      <Length>1.968504</Length>
+      <Length>4</Length>
       <Diameter>1.4961</Diameter>
       <LaunchLugDiameter>0</LaunchLugDiameter>
       <LaunchLugLength>0</LaunchLugLength>
       <RailGuideDiameter>0</RailGuideDiameter>
       <RailGuideHeight>0</RailGuideHeight>
       <LaunchShoeArea>0</LaunchShoeArea>
-      <Location>11.5</Location>
+      <Location>7.5</Location>
       <Color>Black</Color>
       <BoattailLength>0</BoattailLength>
       <BoattailRearDiameter>0</BoattailRearDiameter>
@@ -35,7 +35,7 @@
       <RailGuideDiameter>0</RailGuideDiameter>
       <RailGuideHeight>0</RailGuideHeight>
       <LaunchShoeArea>0</LaunchShoeArea>
-      <Location>13.4685</Location>
+      <Location>11.5</Location>
       <Color>Black</Color>
       <BoattailLength>0</BoattailLength>
       <BoattailRearDiameter>0</BoattailRearDiameter>
@@ -44,14 +44,14 @@
     </BodyTube>
     <BodyTube>
       <PartType>BodyTube</PartType>
-      <Length>4</Length>
+      <Length>5</Length>
       <Diameter>1.4961</Diameter>
       <LaunchLugDiameter>0</LaunchLugDiameter>
       <LaunchLugLength>0</LaunchLugLength>
       <RailGuideDiameter>0</RailGuideDiameter>
       <RailGuideHeight>0</RailGuideHeight>
       <LaunchShoeArea>0</LaunchShoeArea>
-      <Location>31.18504</Location>
+      <Location>29.21654</Location>
       <Color>Black</Color>
       <BoattailLength>0</BoattailLength>
       <BoattailRearDiameter>0</BoattailRearDiameter>
@@ -65,7 +65,7 @@
         <TipChord>1</TipChord>
         <Thickness>0.075</Thickness>
         <LERadius>0.065</LERadius>
-        <Location>4</Location>
+        <Location>5</Location>
         <AirfoilSection>Hexagonal</AirfoilSection>
         <FX1>0.25</FX1>
         <FX3>0.25</FX3>
@@ -78,15 +78,15 @@
       <InsideDiameter>1.4961</InsideDiameter>
       <LaunchLugDiameter>0</LaunchLugDiameter>
       <LaunchLugLength>0</LaunchLugLength>
-      <RailGuideDiameter>0</RailGuideDiameter>
-      <RailGuideHeight>0</RailGuideHeight>
+      <RailGuideDiameter>0.4</RailGuideDiameter>
+      <RailGuideHeight>0.5</RailGuideHeight>
       <LaunchShoeArea>0</LaunchShoeArea>
-      <Location>35.18504</Location>
+      <Location>34.21654</Location>
       <ShoulderLength>0.7874</ShoulderLength>
       <Color>Black</Color>
       <NozzleExitDiameter>0</NozzleExitDiameter>
-      <BoattailLength>0.3937</BoattailLength>
-      <BoattailRearDiameter>2.2047</BoattailRearDiameter>
+      <BoattailLength>1.2</BoattailLength>
+      <BoattailRearDiameter>1.5</BoattailRearDiameter>
       <Fin>
         <Count>4</Count>
         <Chord>6.6929</Chord>
@@ -113,9 +113,9 @@
     <Comments />
   </RocketDesign>
   <LaunchSite>
-    <Altitude>4000</Altitude>
+    <Altitude>2000</Altitude>
     <Pressure>29.9</Pressure>
-    <RodAngle>2</RodAngle>
+    <RodAngle>1</RodAngle>
     <RodLength>10</RodLength>
     <Temperature>74</Temperature>
     <WindSpeed>10</WindSpeed>
@@ -141,7 +141,7 @@
       <SustainerLaunchWt>3.3</SustainerLaunchWt>
       <SustainerNozzleDiameter>1.25</SustainerNozzleDiameter>
       <SustainerCG>21.5</SustainerCG>
-      <SustainerIgnitionDelay>5</SustainerIgnitionDelay>
+      <SustainerIgnitionDelay>7</SustainerIgnitionDelay>
       <Booster1Engine>L416SW  (Walter)</Booster1Engine>
       <Booster1LaunchWt>9.73</Booster1LaunchWt>
       <Booster1SeparationDelay>0</Booster1SeparationDelay>
@@ -155,9 +155,9 @@
       <Booster2NozzleDiameter>0</Booster2NozzleDiameter>
       <IncludeBooster2>False</IncludeBooster2>
       <FlightTime>0</FlightTime>
-      <TimetoApogee>60.96687</TimetoApogee>
-      <MaxAltitude>65813.05</MaxAltitude>
-      <MaxVelocity>3374.145</MaxVelocity>
+      <TimetoApogee>55.80774</TimetoApogee>
+      <MaxAltitude>53889.1</MaxAltitude>
+      <MaxVelocity>3066.25</MaxVelocity>
       <OptimumWt>3.3825</OptimumWt>
       <OptimumMaxAlt>3.3825</OptimumMaxAlt>
     </Simulation>
