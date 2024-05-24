@@ -20,23 +20,23 @@
       <RailGuideHeight>0</RailGuideHeight>
       <LaunchShoeArea>0</LaunchShoeArea>
       <Location>11.025</Location>
-      <Color>Blue</Color>
+      <Color>Black</Color>
       <BoattailLength>0</BoattailLength>
       <BoattailRearDiameter>0</BoattailRearDiameter>
       <BoattailOffset>0</BoattailOffset>
       <Overhang>0</Overhang>
       <Fin>
         <Count>4</Count>
-        <Chord>4.5</Chord>
+        <Chord>5</Chord>
         <Span>1.5</Span>
-        <SweepDistance>3.5</SweepDistance>
-        <TipChord>0.5</TipChord>
+        <SweepDistance>3</SweepDistance>
+        <TipChord>1.5</TipChord>
         <Thickness>0.1181</Thickness>
-        <LERadius>0</LERadius>
-        <Location>4.5</Location>
-        <AirfoilSection>Rounded</AirfoilSection>
-        <FX1>0</FX1>
-        <FX3>0</FX3>
+        <LERadius>0.065</LERadius>
+        <Location>5</Location>
+        <AirfoilSection>Hexagonal</AirfoilSection>
+        <FX1>0.25</FX1>
+        <FX3>0.25</FX3>
       </Fin>
     </BodyTube>
     <Surface>Smooth Paint</Surface>
@@ -75,7 +75,6 @@
   <MachAlt />
   <SimulationList>
     <Simulation>
-      <SustainerEngine>I540WT  (CTI)</SustainerEngine>
       <SustainerLaunchWt>1.92</SustainerLaunchWt>
       <SustainerNozzleDiameter>0.75</SustainerNozzleDiameter>
       <SustainerCG>18.89</SustainerCG>
@@ -92,9 +91,9 @@
       <Booster2NozzleDiameter>0</Booster2NozzleDiameter>
       <IncludeBooster2>False</IncludeBooster2>
       <FlightTime>0</FlightTime>
-      <TimetoApogee>18.74033</TimetoApogee>
-      <MaxAltitude>10609.33</MaxAltitude>
-      <MaxVelocity>2530.726</MaxVelocity>
+      <TimetoApogee>0</TimetoApogee>
+      <MaxAltitude>0</MaxAltitude>
+      <MaxVelocity>0</MaxVelocity>
       <OptimumWt>0</OptimumWt>
       <OptimumMaxAlt>0</OptimumMaxAlt>
     </Simulation>
