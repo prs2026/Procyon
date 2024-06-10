@@ -3,9 +3,9 @@
   <RocketDesign>
     <NoseCone>
       <PartType>NoseCone</PartType>
-      <Length>12</Length>
+      <Length>9</Length>
       <Diameter>1.5</Diameter>
-      <Shape>Tangent Ogive</Shape>
+      <Shape>Conical</Shape>
       <BluntRadius>0</BluntRadius>
       <Location>0</Location>
       <Color>Black</Color>
@@ -19,7 +19,7 @@
       <RailGuideDiameter>0</RailGuideDiameter>
       <RailGuideHeight>0</RailGuideHeight>
       <LaunchShoeArea>0</LaunchShoeArea>
-      <Location>12</Location>
+      <Location>9</Location>
       <Color>Black</Color>
       <BoattailLength>0</BoattailLength>
       <BoattailRearDiameter>0</BoattailRearDiameter>
@@ -35,7 +35,7 @@
       <RailGuideDiameter>0</RailGuideDiameter>
       <RailGuideHeight>0</RailGuideHeight>
       <LaunchShoeArea>0</LaunchShoeArea>
-      <Location>18</Location>
+      <Location>15</Location>
       <Color>Black</Color>
       <BoattailLength>0</BoattailLength>
       <BoattailRearDiameter>0</BoattailRearDiameter>
@@ -46,7 +46,7 @@
       <PartType>Transition</PartType>
       <Length>0.5</Length>
       <Diameter>1.575</Diameter>
-      <Location>35.8</Location>
+      <Location>32.8</Location>
       <RearDiameter>1.575</RearDiameter>
       <Color>Black</Color>
     </Transition>
@@ -59,7 +59,7 @@
       <RailGuideDiameter>0</RailGuideDiameter>
       <RailGuideHeight>0</RailGuideHeight>
       <LaunchShoeArea>0</LaunchShoeArea>
-      <Location>36.3</Location>
+      <Location>33.3</Location>
       <Color>Black</Color>
       <BoattailLength>0</BoattailLength>
       <BoattailRearDiameter>0</BoattailRearDiameter>
@@ -83,7 +83,7 @@
       <PartType>Transition</PartType>
       <Length>1.3</Length>
       <Diameter>1.37</Diameter>
-      <Location>40.42</Location>
+      <Location>37.42</Location>
       <RearDiameter>1.37</RearDiameter>
       <Color>Black</Color>
     </Transition>
@@ -97,7 +97,7 @@
       <RailGuideDiameter>0.3</RailGuideDiameter>
       <RailGuideHeight>0.3</RailGuideHeight>
       <LaunchShoeArea>0</LaunchShoeArea>
-      <Location>41.72</Location>
+      <Location>38.72</Location>
       <ShoulderLength>1</ShoulderLength>
       <Color>Black</Color>
       <NozzleExitDiameter>0</NozzleExitDiameter>
@@ -156,7 +156,7 @@
       <SustainerEngine>K478  (Polaris)</SustainerEngine>
       <SustainerLaunchWt>3.33</SustainerLaunchWt>
       <SustainerNozzleDiameter>1.325</SustainerNozzleDiameter>
-      <SustainerCG>27</SustainerCG>
+      <SustainerCG>24.5</SustainerCG>
       <SustainerIgnitionDelay>8</SustainerIgnitionDelay>
       <Booster1Engine>L898  (thomas)</Booster1Engine>
       <Booster1LaunchWt>9.87</Booster1LaunchWt>
@@ -171,9 +171,9 @@
       <Booster2NozzleDiameter>0</Booster2NozzleDiameter>
       <IncludeBooster2>False</IncludeBooster2>
       <FlightTime>0</FlightTime>
-      <TimetoApogee>61.94619</TimetoApogee>
-      <MaxAltitude>70080.87</MaxAltitude>
-      <MaxVelocity>4331.115</MaxVelocity>
+      <TimetoApogee>61.9162</TimetoApogee>
+      <MaxAltitude>70185.01</MaxAltitude>
+      <MaxVelocity>4326.99</MaxVelocity>
       <OptimumWt>4.120875</OptimumWt>
       <OptimumMaxAlt>4.120875</OptimumMaxAlt>
     </Simulation>
