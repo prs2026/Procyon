@@ -90,7 +90,7 @@
     <Booster>
       <PartType>Booster</PartType>
       <Length>33.2</Length>
-      <Diameter>2.2</Diameter>
+      <Diameter>2.15</Diameter>
       <InsideDiameter>1.37</InsideDiameter>
       <LaunchLugDiameter>0</LaunchLugDiameter>
       <LaunchLugLength>0</LaunchLugLength>
@@ -159,7 +159,7 @@
       <SustainerCG>24.5</SustainerCG>
       <SustainerIgnitionDelay>8</SustainerIgnitionDelay>
       <Booster1Engine>L898  (thomas)</Booster1Engine>
-      <Booster1LaunchWt>9.87</Booster1LaunchWt>
+      <Booster1LaunchWt>9.8</Booster1LaunchWt>
       <Booster1SeparationDelay>0</Booster1SeparationDelay>
       <Booster1IgnitionDelay>0</Booster1IgnitionDelay>
       <Booster1CG>48.3</Booster1CG>
@@ -171,9 +171,9 @@
       <Booster2NozzleDiameter>0</Booster2NozzleDiameter>
       <IncludeBooster2>False</IncludeBooster2>
       <FlightTime>0</FlightTime>
-      <TimetoApogee>62.36612</TimetoApogee>
-      <MaxAltitude>70996.2</MaxAltitude>
-      <MaxVelocity>4336.774</MaxVelocity>
+      <TimetoApogee>62.99602</TimetoApogee>
+      <MaxAltitude>72397.34</MaxAltitude>
+      <MaxVelocity>4356.413</MaxVelocity>
       <OptimumWt>4.120875</OptimumWt>
       <OptimumMaxAlt>4.120875</OptimumMaxAlt>
     </Simulation>
