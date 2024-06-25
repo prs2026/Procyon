@@ -72,7 +72,7 @@
         <SweepDistance>3.5</SweepDistance>
         <TipChord>1.5</TipChord>
         <Thickness>0.1</Thickness>
-        <LERadius>0.065</LERadius>
+        <LERadius>0.024</LERadius>
         <Location>4</Location>
         <AirfoilSection>Double Wedge</AirfoilSection>
         <FX1>0.75</FX1>
@@ -171,11 +171,11 @@
       <Booster2NozzleDiameter>0</Booster2NozzleDiameter>
       <IncludeBooster2>False</IncludeBooster2>
       <FlightTime>0</FlightTime>
-      <TimetoApogee>58.9367</TimetoApogee>
-      <MaxAltitude>65363.5</MaxAltitude>
-      <MaxVelocity>4261.726</MaxVelocity>
-      <OptimumWt>4.07925</OptimumWt>
-      <OptimumMaxAlt>4.07925</OptimumMaxAlt>
+      <TimetoApogee>65.01568</TimetoApogee>
+      <MaxAltitude>76696.16</MaxAltitude>
+      <MaxVelocity>4392.185</MaxVelocity>
+      <OptimumWt>3.57975</OptimumWt>
+      <OptimumMaxAlt>3.57975</OptimumMaxAlt>
     </Simulation>
   </SimulationList>
 </RASAeroDocument>
