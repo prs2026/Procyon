@@ -171,11 +171,11 @@
       <Booster2NozzleDiameter>0</Booster2NozzleDiameter>
       <IncludeBooster2>False</IncludeBooster2>
       <FlightTime>0</FlightTime>
-      <TimetoApogee>56.16716</TimetoApogee>
-      <MaxAltitude>60943.08</MaxAltitude>
-      <MaxVelocity>4197.053</MaxVelocity>
-      <OptimumWt>4.120875</OptimumWt>
-      <OptimumMaxAlt>4.120875</OptimumMaxAlt>
+      <TimetoApogee>58.9367</TimetoApogee>
+      <MaxAltitude>65363.5</MaxAltitude>
+      <MaxVelocity>4261.726</MaxVelocity>
+      <OptimumWt>4.07925</OptimumWt>
+      <OptimumMaxAlt>4.07925</OptimumMaxAlt>
     </Simulation>
   </SimulationList>
 </RASAeroDocument>
