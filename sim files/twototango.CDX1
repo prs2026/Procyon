@@ -153,12 +153,12 @@
   <MachAlt />
   <SimulationList>
     <Simulation>
-      <SustainerEngine>K478  (Polaris)</SustainerEngine>
+      <SustainerEngine>J360  (Walter)</SustainerEngine>
       <SustainerLaunchWt>3.33</SustainerLaunchWt>
       <SustainerNozzleDiameter>1.325</SustainerNozzleDiameter>
       <SustainerCG>23.75</SustainerCG>
       <SustainerIgnitionDelay>8</SustainerIgnitionDelay>
-      <Booster1Engine>L898  (thomas)</Booster1Engine>
+      <Booster1Engine>L416SW  (Walter)</Booster1Engine>
       <Booster1LaunchWt>9.8</Booster1LaunchWt>
       <Booster1SeparationDelay>0</Booster1SeparationDelay>
       <Booster1IgnitionDelay>0</Booster1IgnitionDelay>
@@ -171,9 +171,9 @@
       <Booster2NozzleDiameter>0</Booster2NozzleDiameter>
       <IncludeBooster2>False</IncludeBooster2>
       <FlightTime>0</FlightTime>
-      <TimetoApogee>67.2553</TimetoApogee>
-      <MaxAltitude>80531.73</MaxAltitude>
-      <MaxVelocity>4427.662</MaxVelocity>
+      <TimetoApogee>65.46611</TimetoApogee>
+      <MaxAltitude>70063.3</MaxAltitude>
+      <MaxVelocity>3449.096</MaxVelocity>
       <OptimumWt>3.475688</OptimumWt>
       <OptimumMaxAlt>3.475688</OptimumMaxAlt>
     </Simulation>
