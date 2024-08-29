@@ -1,0 +1,52 @@
+data:
+  config:
+    ambPressure: 101324.99674500001
+    burnoutThrustThres: 0.1
+    burnoutWebThres: 2.5400050800101604e-05
+    mapDim: 750
+    maxMassFlux: 1406.4697609001405
+    maxPressure: 10342500.000000002
+    minPortThroat: 2.0
+    timestep: 0.01
+  grains:
+  - properties:
+      coreDiameter: 0.006350012700025401
+      diameter: 0.027000254000508005
+      inhibitedEnds: Both
+      length: 0.20320040640081283
+    type: BATES
+  - properties:
+      coreDiameter: 0.009525019050038101
+      diameter: 0.027000254000508005
+      finLength: 0.006350012700025401
+      finWidth: 0.0016510033020066042
+      inhibitedEnds: Neither
+      length: 0.08890017780035561
+      numFins: 4
+    type: Finocyl
+  nozzle:
+    convAngle: 45.0
+    divAngle: 15.0
+    efficiency: 0.9
+    erosionCoeff: 0.0
+    exit: 0.025400050800101603
+    slagCoeff: 0.0
+    throat: 0.00889001778003556
+    throatLength: 0.0031750063500127004
+  propellant:
+    density: 1711.7249282398627
+    name: Alex Performance Fast
+    tabs:
+    - a: 1.0707556481836478e-05
+      k: 1.192
+      m: 28.849
+      maxPressure: 13790000.000000002
+      minPressure: 0.0
+      n: 0.426
+      t: 3402.0
+type: !!python/object/apply:uilib.fileIO.fileTypes
+- 3
+version: !!python/tuple
+- 0
+- 5
+- 0
