@@ -6,7 +6,7 @@
       <Length>12.75</Length>
       <Diameter>2.125</Diameter>
       <Shape>Conical</Shape>
-      <BluntRadius>0</BluntRadius>
+      <BluntRadius>0.065</BluntRadius>
       <Location>0</Location>
       <Color>Blue</Color>
     </NoseCone>
@@ -44,7 +44,7 @@
     </BodyTube>
     <BodyTube>
       <PartType>BodyTube</PartType>
-      <Length>20</Length>
+      <Length>18</Length>
       <Diameter>2.125</Diameter>
       <LaunchLugDiameter>0</LaunchLugDiameter>
       <LaunchLugLength>0</LaunchLugLength>
@@ -52,7 +52,7 @@
       <RailGuideHeight>0</RailGuideHeight>
       <LaunchShoeArea>0</LaunchShoeArea>
       <Location>16.5</Location>
-      <Color>Blue</Color>
+      <Color>Black</Color>
       <BoattailLength>0</BoattailLength>
       <BoattailRearDiameter>0</BoattailRearDiameter>
       <BoattailOffset>0</BoattailOffset>
@@ -62,21 +62,21 @@
       <PartType>Transition</PartType>
       <Length>2</Length>
       <Diameter>2.2</Diameter>
-      <Location>36.4999</Location>
+      <Location>34.5</Location>
       <RearDiameter>2.2</RearDiameter>
       <Color>Blue</Color>
     </Transition>
     <BodyTube>
       <PartType>BodyTube</PartType>
-      <Length>5</Length>
+      <Length>7</Length>
       <Diameter>2.2</Diameter>
       <LaunchLugDiameter>0</LaunchLugDiameter>
       <LaunchLugLength>0</LaunchLugLength>
       <RailGuideDiameter>0</RailGuideDiameter>
       <RailGuideHeight>0</RailGuideHeight>
       <LaunchShoeArea>0</LaunchShoeArea>
-      <Location>38.4999</Location>
-      <Color>Blue</Color>
+      <Location>36.5</Location>
+      <Color>Black</Color>
       <BoattailLength>0</BoattailLength>
       <BoattailRearDiameter>0</BoattailRearDiameter>
       <BoattailOffset>0</BoattailOffset>
@@ -88,11 +88,11 @@
         <SweepDistance>4</SweepDistance>
         <TipChord>3</TipChord>
         <Thickness>0.125</Thickness>
-        <LERadius>0</LERadius>
+        <LERadius>0.024</LERadius>
         <Location>7</Location>
-        <AirfoilSection>Subsonic NACA</AirfoilSection>
-        <FX1>0</FX1>
-        <FX3>0</FX3>
+        <AirfoilSection>Hexagonal</AirfoilSection>
+        <FX1>0.5</FX1>
+        <FX3>0.5</FX3>
       </Fin>
     </BodyTube>
     <Surface>Rough Camouflage Paint</Surface>
@@ -116,25 +116,25 @@
   </LaunchSite>
   <Recovery>
     <Altitude1>0</Altitude1>
-    <Altitude2>0</Altitude2>
-    <DeviceType1>None</DeviceType1>
-    <DeviceType2>None</DeviceType2>
-    <Event1>False</Event1>
-    <Event2>False</Event2>
-    <Size1>0</Size1>
-    <Size2>0</Size2>
-    <EventType1>None</EventType1>
-    <EventType2>None</EventType2>
-    <CD1>0</CD1>
-    <CD2>0</CD2>
+    <Altitude2>1000</Altitude2>
+    <DeviceType1>Parachute</DeviceType1>
+    <DeviceType2>Parachute</DeviceType2>
+    <Event1>True</Event1>
+    <Event2>True</Event2>
+    <Size1>5</Size1>
+    <Size2>25</Size2>
+    <EventType1>Apogee</EventType1>
+    <EventType2>Altitude</EventType2>
+    <CD1>0.5</CD1>
+    <CD2>0.8</CD2>
   </Recovery>
   <MachAlt />
   <SimulationList>
     <Simulation>
-      <SustainerEngine>L1066AB  (Polaris)</SustainerEngine>
-      <SustainerLaunchWt>6.64</SustainerLaunchWt>
-      <SustainerNozzleDiameter>2.08</SustainerNozzleDiameter>
-      <SustainerCG>26.56</SustainerCG>
+      <SustainerEngine>L1049AB(NC)  (Polaris)</SustainerEngine>
+      <SustainerLaunchWt>6.68</SustainerLaunchWt>
+      <SustainerNozzleDiameter>2</SustainerNozzleDiameter>
+      <SustainerCG>28.06</SustainerCG>
       <SustainerIgnitionDelay>0</SustainerIgnitionDelay>
       <Booster1LaunchWt>0</Booster1LaunchWt>
       <Booster1SeparationDelay>0</Booster1SeparationDelay>
@@ -148,9 +148,9 @@
       <Booster2NozzleDiameter>0</Booster2NozzleDiameter>
       <IncludeBooster2>False</IncludeBooster2>
       <FlightTime>0</FlightTime>
-      <TimetoApogee>25.20048</TimetoApogee>
-      <MaxAltitude>18107.86</MaxAltitude>
-      <MaxVelocity>3126.667</MaxVelocity>
+      <TimetoApogee>25.14048</TimetoApogee>
+      <MaxAltitude>17690.69</MaxAltitude>
+      <MaxVelocity>3033.125</MaxVelocity>
       <OptimumWt>0</OptimumWt>
       <OptimumMaxAlt>0</OptimumMaxAlt>
     </Simulation>
