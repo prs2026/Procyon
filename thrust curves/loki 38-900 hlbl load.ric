@@ -12,7 +12,7 @@ data:
   - properties:
       coreDiameter: 0.01778003556007112
       diameter: 0.03258826517653036
-      inhibitedEnds: Neither
+      inhibitedEnds: Both
       length: 0.38100076200152405
     type: BATES
   - properties:
@@ -32,7 +32,7 @@ data:
     throatLength: 0.0031750063500127004
   propellant:
     density: 1743.8336105936507
-    name: '"superthunder"'
+    name: HairlessAndBalless
     tabs:
     - a: 4.217180980234135e-05
       k: 1.213
