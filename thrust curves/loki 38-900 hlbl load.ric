@@ -10,30 +10,27 @@ data:
     timestep: 0.03
   grains:
   - properties:
-      coreDiameter: 0.007620015240030481
+      coreDiameter: 0.009525019050038101
       diameter: 0.03258826517653036
-      finLength: 0.006350012700025401
-      finWidth: 0.0020320040640081282
       inhibitedEnds: Both
-      length: 0.10160020320040641
-      numFins: 4
-    type: Finocyl
-  - properties:
-      coreDiameter: 0.010160020320040642
-      diameter: 0.03258826517653036
-      inhibitedEnds: Neither
       length: 0.15240030480060962
     type: BATES
   - properties:
-      coreDiameter: 0.012700025400050802
+      coreDiameter: 0.009525019050038101
       diameter: 0.03258826517653036
-      inhibitedEnds: Neither
+      inhibitedEnds: Both
       length: 0.10160020320040641
     type: BATES
   - properties:
-      coreDiameter: 0.015240030480060961
+      coreDiameter: 0.009525019050038101
       diameter: 0.03258826517653036
-      inhibitedEnds: Neither
+      inhibitedEnds: Both
+      length: 0.10160020320040641
+    type: BATES
+  - properties:
+      coreDiameter: 0.017145034290068584
+      diameter: 0.03258826517653036
+      inhibitedEnds: Both
       length: 0.10160020320040641
     type: BATES
   nozzle:
