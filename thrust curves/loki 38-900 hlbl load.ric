@@ -28,7 +28,7 @@ data:
       length: 0.10160020320040641
     type: BATES
   - properties:
-      coreDiameter: 0.017145034290068584
+      coreDiameter: 0.015875031750063502
       diameter: 0.03258826517653036
       inhibitedEnds: Both
       length: 0.10160020320040641
