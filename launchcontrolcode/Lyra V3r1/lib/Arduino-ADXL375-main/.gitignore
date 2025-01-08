@@ -1,0 +1,7 @@
+.pio
+CMakeListsPrivate.txt
+cmake-build-*/
+.idea
+/test/tmp_pio_test_transport.cpp
+.vscode/
+test/__pycache__/
