@@ -10,16 +10,28 @@ data:
     timestep: 0.03
   grains:
   - properties:
-      coreDiameter: 0.01778003556007112
+      coreDiameter: 0.009525019050038101
       diameter: 0.03258826517653036
       inhibitedEnds: Both
-      length: 0.38100076200152405
+      length: 0.15240030480060962
     type: BATES
   - properties:
-      coreDiameter: 0.01778003556007112
+      coreDiameter: 0.009525019050038101
       diameter: 0.03258826517653036
       inhibitedEnds: Both
-      length: 0.07620015240030481
+      length: 0.10160020320040641
+    type: BATES
+  - properties:
+      coreDiameter: 0.009525019050038101
+      diameter: 0.03258826517653036
+      inhibitedEnds: Both
+      length: 0.10160020320040641
+    type: BATES
+  - properties:
+      coreDiameter: 0.015875031750063502
+      diameter: 0.03258826517653036
+      inhibitedEnds: Both
+      length: 0.10160020320040641
     type: BATES
   nozzle:
     convAngle: 45.0
@@ -28,11 +40,11 @@ data:
     erosionCoeff: 3.683958531918653e-11
     exit: 0.025400050800101603
     slagCoeff: 0.0
-    throat: 0.015240030480060961
+    throat: 0.013970027940055883
     throatLength: 0.0031750063500127004
   propellant:
     density: 1743.8336105936507
-    name: HairlessAndBalless
+    name: '"superthunder"'
     tabs:
     - a: 4.217180980234135e-05
       k: 1.213
