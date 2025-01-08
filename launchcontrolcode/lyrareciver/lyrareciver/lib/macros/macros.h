@@ -51,6 +51,18 @@
 
 #define BATTSENSE 29
 
+// pyro enable pins
+#define P1_EN 19
+#define P2_EN 21
+#define P3_EN 23
+#define P4_EN 25
+
+// pyro cont pins
+#define P1_CONT 18
+#define P2_CONT 20
+#define P3_CONT 22
+#define P4_CONT 24
+
 //define basic data structs
 struct Vector3float
 {

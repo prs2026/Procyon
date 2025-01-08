@@ -1,12 +1,8 @@
 #include <Arduino.h>
 #include <macros.h>
 #include <radio.h>
-#include <lcd.h>
-
 
 RADIO radio;
-LCDDISPLAY lcddisplay;
-
 telepacket currentstate;
 
 uint32_t serialtime;
@@ -15,62 +11,66 @@ bool ready = false;
 uint32_t dataage = 0;
 uint32_t packettime;
 
+#define BUZZERPIN 16
+
 void setup() {
   delay(3000);
   Serial.begin();
   Serial.print("init");
   pinMode(LEDINDICATION,OUTPUT);
+  pinMode(BUZZERPIN,OUTPUT);
+  pinMode(P2_EN,OUTPUT);
+  pinMode(P2_CONT,INPUT_PULLUP);
+
   digitalWrite(LEDINDICATION,HIGH);
   delay(500);
   digitalWrite(LEDINDICATION,LOW);
   
   radio.init();
   Serial.println("radio good");
-  lcddisplay.init();
   ready = true;
-}
-
-void setup1(){
-  while (ready == false)
-  {
-    delay(100);
-  }
+  Serial.println("/----------------PADSIDE------------/");
 }
 
 void loop() {
 
-  if (millis() - serialtime > 100)
-  {
-    serialtime = millis();
-    Serial.printf(">Data age: %f\n",float((millis()-packettime))/1000);
-  }
-  
-  delay(5000);
-  // Lora.beginPacket();
-  // int j = 0;
-
-  //   Lora.write('f');
-    
-    
-  //   if (!Lora.endPacket())
-  //   {
-  //       Serial.println("packet send fail");
-  //   }
-  
-  //Serial.println("loop");
-  
-}
-
-void loop1(){
-  Lora.request();
+  Lora.request(200);
   Lora.wait();
-  if (Lora.available())
+  int fire = 0;
+  int firecode[] = {'f','i','r','e'};
+  while (Lora.available())
   {
-    currentstate = radio.recivepacket();
-    Serial.println("newpacket");
-    Serial.printf(">State: %d\n",currentstate.r.state);
-    Serial.printf(">Altitude: %f\n",float(currentstate.r.altitude)/10);
-    Serial.printf(">Verticalvel: %f\n",float(currentstate.r.verticalvel)/100);
+    int buf = Lora.read();
+    Serial.printf("recieved %c\n",buf);
+    if (buf == firecode[fire])
+    {
+      fire++;
+    }
+    Serial.printf("firenum = %d\n",fire);
+    if (fire == 4)
+    {
+      Serial.printf("FIRING FIRING FIRING\n");
+      digitalWrite(P2_EN,HIGH);
+      delay(500);
+      digitalWrite(P2_EN,LOW);
+      break;
+    }
+    
     packettime = millis();
   }
+  fire = 0;
+
+  int contuinty = digitalRead(P2_CONT);
+
+  if (!contuinty == 1)
+  {
+    Serial.print("continuity  ");
+    tone(BUZZERPIN,4000,300);
+  }
+  else
+  {
+    noTone(BUZZERPIN);
+  }
+  Serial.printf("cont: %d\n",contuinty);
+  
 }

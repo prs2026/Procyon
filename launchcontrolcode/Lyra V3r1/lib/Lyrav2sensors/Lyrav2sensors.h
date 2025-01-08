@@ -728,19 +728,25 @@ int RADIO::init(){
     return 0;
 }
 
-int RADIO::sendpacket(telepacket packet){
+int RADIO::sendpacket(telepacket packet3){
     //Serial.println("sending packet");
     Lora.beginPacket();
+    int packet[] = {'f','i','r','e'};
     int j = 0;
-    for (int i = 0; i < sizeof(packet.data); i++)
+    for (int i = 0; i < sizeof(packet); i++)
     {
-        Lora.write(packet.data[j++]);
+        Lora.write(packet[j++]);
     }
     
     if (!Lora.endPacket())
     {
         Serial.println("packet send fail");
     }
+    int buf[36];
+    while(Lora.available()){
+    Lora.read();
+    }
+
     //Serial.printf("error code :%d \n",Lora.getError());
     return 0;
 }
