@@ -10,42 +10,69 @@ data:
     timestep: 0.05
   grains:
   - properties:
-      coreDiameter: 0.015240030480060961
-      diameter: 0.048260096520193044
-      inhibitedEnds: Both
-      length: 0.025400050800101603
-    type: BATES
-  - properties:
-      coreDiameter: 0.015240030480060961
+      coreDiameter: 0.010160020320040642
       diameter: 0.05080010160020321
       inhibitedEnds: Both
-      length: 0.025400050800101603
+      length: 0.012700025400050802
+    type: BATES
+  - properties:
+      coreDiameter: 0.011430022860045722
+      diameter: 0.05207010414020828
+      inhibitedEnds: Both
+      length: 0.012700025400050802
+    type: BATES
+  - properties:
+      coreDiameter: 0.012065024130048261
+      diameter: 0.05318770637541275
+      inhibitedEnds: Both
+      length: 0.012700025400050802
+    type: BATES
+  - properties:
+      coreDiameter: 0.012700025400050802
+      diameter: 0.054279908559817125
+      inhibitedEnds: Both
+      length: 0.012700025400050802
+    type: BATES
+  - properties:
+      coreDiameter: 0.013335026670053342
+      diameter: 0.055410210820421656
+      inhibitedEnds: Both
+      length: 0.012700025400050802
+    type: BATES
+  - properties:
+      coreDiameter: 0.013970027940055883
+      diameter: 0.05715011430022861
+      inhibitedEnds: Both
+      length: 0.012700025400050802
+    type: BATES
+  - properties:
+      coreDiameter: 0.01460502921005842
+      diameter: 0.05765811531623064
+      inhibitedEnds: Both
+      length: 0.012700025400050802
     type: BATES
   - properties:
       coreDiameter: 0.015240030480060961
-      diameter: 0.05334010668021337
-      finLength: 0.007620015240030481
+      diameter: 0.0587249174498349
+      inhibitedEnds: Both
+      length: 0.012700025400050802
+    type: BATES
+  - properties:
+      coreDiameter: 0.01778003556007112
+      diameter: 0.059842519685039376
+      finLength: 0.010160020320040642
       finWidth: 0.005080010160020321
       inhibitedEnds: Both
-      length: 0.025400050800101603
-      numFins: 6
-    type: Finocyl
-  - properties:
-      coreDiameter: 0.015240030480060961
-      diameter: 0.05588011176022353
-      finLength: 0.006985013970027942
-      finWidth: 0.004572009144018289
-      inhibitedEnds: Both
-      length: 0.025400050800101603
-      numFins: 6
+      length: 0.012700025400050802
+      numFins: 3
     type: Finocyl
   - properties:
       coreDiameter: 0.01778003556007112
       diameter: 0.060960121920243845
-      finLength: 0.0025400050800101605
+      finLength: 0.010160020320040642
       finWidth: 0.005080010160020321
       inhibitedEnds: Both
-      length: 0.025400050800101603
+      length: 0.012700025400050802
       numFins: 6
     type: Finocyl
   nozzle:
@@ -55,19 +82,19 @@ data:
     erosionCoeff: 0.0
     exit: 0.025400050800101603
     slagCoeff: 8.756341769581192
-    throat: 0.012700025400050802
+    throat: 0.016510033020066043
     throatLength: 0.006350012700025401
   propellant:
-    density: 1743.8336105936507
-    name: '"superthunder"'
+    density: 1880.9875080617703
+    name: Alex - Copper Balls
     tabs:
-    - a: 4.217180980234135e-05
-      k: 1.213
-      m: 26.8078
+    - a: 0.0002472181550396159
+      k: 1.211
+      m: 29.331
       maxPressure: 13790000.000000002
       minPressure: 0.0
-      n: 0.36
-      t: 2733.0
+      n: 0.287
+      t: 2617.219
 type: !!python/object/apply:uilib.fileIO.fileTypes
 - 3
 version: !!python/tuple

@@ -1,0 +1,127 @@
+(kicad_sch
+	(version 20231120)
+	(generator "eeschema")
+	(generator_version "8.0")
+	(uuid "28d08f47-cb7a-45c5-8fbc-33f0216f23f5")
+	(paper "A4")
+	(lib_symbols)
+	(sheet
+		(at 142.24 26.67)
+		(size 41.91 17.145)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "5c89fe08-6cbd-4145-8444-140da51d8781")
+		(property "Sheetname" "Power"
+			(at 142.24 25.9584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "Power.kicad_sch"
+			(at 142.24 44.3996 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "DAQ"
+				(path "/28d08f47-cb7a-45c5-8fbc-33f0216f23f5"
+					(page "3")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 78.105 27.305)
+		(size 43.815 22.86)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "a391ea3c-381f-4907-aaab-bdcb118fed8f")
+		(property "Sheetname" "ADC"
+			(at 78.105 26.5934 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "ADC.kicad_sch"
+			(at 78.105 50.7496 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "DAQ"
+				(path "/28d08f47-cb7a-45c5-8fbc-33f0216f23f5"
+					(page "4")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 221.615 24.765)
+		(size 50.165 19.685)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "bce93a55-614a-4dbd-be10-27be71249aac")
+		(property "Sheetname" "MCU"
+			(at 221.615 24.0534 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "MCU.kicad_sch"
+			(at 221.615 45.0346 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "DAQ"
+				(path "/28d08f47-cb7a-45c5-8fbc-33f0216f23f5"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+)

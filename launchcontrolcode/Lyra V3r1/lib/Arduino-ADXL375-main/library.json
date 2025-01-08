@@ -1,0 +1,32 @@
+{
+  "name": "Arduino-ADXL375",
+  "version": "1.0.0",
+  "description": "PlatformIO / Arduino library for the ADXL375 accelerometer by Analog Devices",
+  "keywords": "arduino, sensor, ADXL375, adafruit, interrupt, accelerometer, FIFO",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/TeamSunride/Arduino-ADXL375.git"
+  },
+  "authors":
+  [
+    {
+      "name": "Santosh Somayajula",
+      "maintainer": true
+    },
+    {
+      "name": "Tom Danvers",
+      "maintainer": true
+    },
+    {
+      "name": "Sam Scott",
+      "maintainer": true
+    }
+  ],
+  "dependencies":
+  {
+    "TeamSunride/Fifo#v1.1": "https://github.com/TeamSunride/Fifo#v1.1",
+    "TeamSunride/Protocol#v1.1": "https://github.com/TeamSunride/Protocol#v1.1",
+    "TeamSunride/Vector#v1.0": "https://github.com/TeamSunride/Vector#v1.0"
+  }
+}
