@@ -147,6 +147,7 @@ void loop() { // main core loop
         eventsfired += 4;
         Serial.print("firing");
         MP.sendserialon ? Serial.printf(">telemetrytime: %d \n",micros() - prevtelemmicros): 1==1;
+        delay(1000);
     }
     //Lora.request(200);
     if (Lora.available())

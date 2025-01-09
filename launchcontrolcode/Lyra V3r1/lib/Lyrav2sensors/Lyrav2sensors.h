@@ -731,7 +731,7 @@ int RADIO::init(){
 int RADIO::sendpacket(telepacket packet3){
     //Serial.println("sending packet");
     Lora.beginPacket();
-    int packet[] = {'f','i','r','e'};
+    int packet[] = {'l','a','u','n','c','h','t','h','a','t','t','h','a','n','g',millis()};
     int j = 0;
     for (int i = 0; i < sizeof(packet); i++)
     {
