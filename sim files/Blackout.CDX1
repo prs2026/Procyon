@@ -74,9 +74,9 @@
         <Thickness>0.125</Thickness>
         <LERadius>0.01</LERadius>
         <Location>6</Location>
-        <AirfoilSection>Hexagonal</AirfoilSection>
+        <AirfoilSection>Hexagonal Blunt Base</AirfoilSection>
         <FX1>0.75</FX1>
-        <FX3>0.5</FX3>
+        <FX3>0</FX3>
       </Fin>
     </BodyTube>
     <Surface>Rough Camouflage Paint</Surface>
@@ -132,9 +132,9 @@
       <Booster2NozzleDiameter>0</Booster2NozzleDiameter>
       <IncludeBooster2>False</IncludeBooster2>
       <FlightTime>0</FlightTime>
-      <TimetoApogee>23.71045</TimetoApogee>
-      <MaxAltitude>16931.21</MaxAltitude>
-      <MaxVelocity>3459.111</MaxVelocity>
+      <TimetoApogee>21.92041</TimetoApogee>
+      <MaxAltitude>15112.68</MaxAltitude>
+      <MaxVelocity>3409.292</MaxVelocity>
       <OptimumWt>0</OptimumWt>
       <OptimumMaxAlt>0</OptimumMaxAlt>
     </Simulation>
