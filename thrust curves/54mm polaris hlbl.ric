@@ -1,0 +1,67 @@
+data:
+  config:
+    ambPressure: 101324.99674500001
+    burnoutThrustThres: 0.1
+    burnoutWebThres: 2.5400050800101604e-05
+    mapDim: 750
+    maxMassFlux: 7032.3488045007025
+    maxPressure: 13790000.000000002
+    minPortThroat: 1.0
+    timestep: 0.005
+  grains:
+  - properties:
+      coreDiameter: 0.017957835915671832
+      diameter: 0.04572009144018289
+      inhibitedEnds: Neither
+      length: 0.11938023876047754
+    type: BATES
+  - properties:
+      coreDiameter: 0.017957835915671832
+      diameter: 0.04572009144018289
+      inhibitedEnds: Neither
+      length: 0.10668021336042674
+    type: BATES
+  - properties:
+      coreDiameter: 0.017957835915671832
+      diameter: 0.04572009144018289
+      inhibitedEnds: Neither
+      length: 0.10668021336042674
+    type: BATES
+  - properties:
+      coreDiameter: 0.017957835915671832
+      diameter: 0.04572009144018289
+      inhibitedEnds: Neither
+      length: 0.10668021336042674
+    type: BATES
+  - properties:
+      coreDiameter: 0.017957835915671832
+      diameter: 0.04572009144018289
+      inhibitedEnds: Neither
+      length: 0.10668021336042674
+    type: BATES
+  nozzle:
+    convAngle: 60.0
+    divAngle: 15.0
+    efficiency: 0.97
+    erosionCoeff: 7.367917063837305e-11
+    exit: 0.031750063500127004
+    slagCoeff: 0.0
+    throat: 0.017957835915671832
+    throatLength: 0.005080010160020321
+  propellant:
+    density: 1716.153712012799
+    name: Hairless Ballless
+    tabs:
+    - a: 7.559289282265625e-05
+      k: 1.214
+      m: 26.536
+      maxPressure: 13790000.000000002
+      minPressure: 0.0
+      n: 0.33
+      t: 2748.0
+type: !!python/object/apply:uilib.fileIO.fileTypes
+- 3
+version: !!python/tuple
+- 0
+- 5
+- 0
