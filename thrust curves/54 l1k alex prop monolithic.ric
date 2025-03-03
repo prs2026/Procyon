@@ -1,0 +1,56 @@
+data:
+  config:
+    ambPressure: 51712.50000000001
+    burnoutThrustThres: 0.1
+    burnoutWebThres: 2.5400050800101604e-05
+    mapDim: 750
+    maxMassFlux: 1406.4697609001405
+    maxPressure: 10342500.000000002
+    minPortThroat: 2.0
+    timestep: 0.03
+  grains:
+  - properties:
+      coreDiameter: 0.012700025400050802
+      diameter: 0.047625095250190506
+      inhibitedEnds: Both
+      length: 0.025400050800101603
+    type: BATES
+  - properties:
+      aftCoreDiameter: 0.01778003556007112
+      diameter: 0.047625095250190506
+      forwardCoreDiameter: 0.012700025400050802
+      inhibitedEnds: Both
+      length: 0.5207010414020828
+    type: Conical
+  - properties:
+      coreDiameter: 0.01778003556007112
+      diameter: 0.047625095250190506
+      inhibitedEnds: Both
+      length: 0.025400050800101603
+    type: BATES
+  nozzle:
+    convAngle: 45.0
+    divAngle: 15.0
+    efficiency: 0.95
+    erosionCoeff: 0.0
+    exit: 0.05080010160020321
+    slagCoeff: 0.0
+    throat: 0.012700025400050802
+    throatLength: 0.0031750063500127004
+  propellant:
+    density: 1674.6338641415216
+    name: Alex P Motor prop
+    tabs:
+    - a: 4.479342932566496e-05
+      k: 1.206
+      m: 25.207
+      maxPressure: 13790000.000000002
+      minPressure: 0.0
+      n: 0.3
+      t: 2938.0
+type: !!python/object/apply:uilib.fileIO.fileTypes
+- 3
+version: !!python/tuple
+- 0
+- 5
+- 0
