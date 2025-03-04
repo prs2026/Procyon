@@ -20,7 +20,7 @@ data:
       diameter: 0.047625095250190506
       forwardCoreDiameter: 0.019050038100076203
       inhibitedEnds: Both
-      length: 0.5207010414020828
+      length: 0.5080010160020321
     type: Conical
   - properties:
       coreDiameter: 0.025400050800101603

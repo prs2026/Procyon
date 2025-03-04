@@ -145,12 +145,12 @@
   <MachAlt />
   <SimulationList>
     <Simulation>
-      <SustainerEngine>L1078APNC  (Polaris)</SustainerEngine>
+      <SustainerEngine>L1695APNC  (Polaris)</SustainerEngine>
       <SustainerLaunchWt>7.89</SustainerLaunchWt>
       <SustainerNozzleDiameter>1.9</SustainerNozzleDiameter>
       <SustainerCG>26.1</SustainerCG>
       <SustainerIgnitionDelay>4</SustainerIgnitionDelay>
-      <Booster1Engine>L2954FBNC  (Polaris)</Booster1Engine>
+      <Booster1Engine>K2370HLBLNC  (Polaris)</Booster1Engine>
       <Booster1LaunchWt>15.43</Booster1LaunchWt>
       <Booster1SeparationDelay>0</Booster1SeparationDelay>
       <Booster1IgnitionDelay>0</Booster1IgnitionDelay>
@@ -163,9 +163,9 @@
       <Booster2NozzleDiameter>0</Booster2NozzleDiameter>
       <IncludeBooster2>False</IncludeBooster2>
       <FlightTime>0</FlightTime>
-      <TimetoApogee>45.2486</TimetoApogee>
-      <MaxAltitude>48742.98</MaxAltitude>
-      <MaxVelocity>4239.679</MaxVelocity>
+      <TimetoApogee>39.44956</TimetoApogee>
+      <MaxAltitude>36860.7</MaxAltitude>
+      <MaxVelocity>3934.126</MaxVelocity>
       <OptimumWt>9.862499</OptimumWt>
       <OptimumMaxAlt>9.862499</OptimumMaxAlt>
     </Simulation>
