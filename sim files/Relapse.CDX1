@@ -45,15 +45,15 @@
     <Transition>
       <PartType>Transition</PartType>
       <Length>0.75</Length>
-      <Diameter>2.2</Diameter>
+      <Diameter>2.185</Diameter>
       <Location>35.25</Location>
-      <RearDiameter>2.2</RearDiameter>
+      <RearDiameter>2.185</RearDiameter>
       <Color>Blue</Color>
     </Transition>
     <BodyTube>
       <PartType>BodyTube</PartType>
       <Length>6</Length>
-      <Diameter>2.2</Diameter>
+      <Diameter>2.185</Diameter>
       <LaunchLugDiameter>0</LaunchLugDiameter>
       <LaunchLugLength>0</LaunchLugLength>
       <RailGuideDiameter>0</RailGuideDiameter>
@@ -69,21 +69,21 @@
         <Count>4</Count>
         <Chord>6</Chord>
         <Span>2.5</Span>
-        <SweepDistance>4</SweepDistance>
+        <SweepDistance>5</SweepDistance>
         <TipChord>4</TipChord>
         <Thickness>0.1578</Thickness>
         <LERadius>0.01</LERadius>
         <Location>6</Location>
-        <AirfoilSection>Hexagonal Blunt Base</AirfoilSection>
-        <FX1>0.5</FX1>
-        <FX3>0</FX3>
+        <AirfoilSection>Hexagonal</AirfoilSection>
+        <FX1>0.75</FX1>
+        <FX3>0.5</FX3>
       </Fin>
     </BodyTube>
     <Booster>
       <PartType>Booster</PartType>
       <Length>31.5</Length>
-      <Diameter>2.2</Diameter>
-      <InsideDiameter>2.2</InsideDiameter>
+      <Diameter>2.185</Diameter>
+      <InsideDiameter>2.185</InsideDiameter>
       <LaunchLugDiameter>0</LaunchLugDiameter>
       <LaunchLugLength>0</LaunchLugLength>
       <RailGuideDiameter>0</RailGuideDiameter>
@@ -97,14 +97,14 @@
       <BoattailRearDiameter>0</BoattailRearDiameter>
       <Fin>
         <Count>4</Count>
-        <Chord>6</Chord>
-        <Span>3</Span>
-        <SweepDistance>3</SweepDistance>
-        <TipChord>4</TipChord>
-        <Thickness>0.125</Thickness>
+        <Chord>5</Chord>
+        <Span>3.25</Span>
+        <SweepDistance>2</SweepDistance>
+        <TipChord>3</TipChord>
+        <Thickness>0.1875</Thickness>
         <LERadius>0</LERadius>
-        <Location>6</Location>
-        <AirfoilSection>Hexagonal Blunt Base</AirfoilSection>
+        <Location>5.5</Location>
+        <AirfoilSection>Hexagonal</AirfoilSection>
         <FX1>0.75</FX1>
         <FX3>0.75</FX3>
       </Fin>
@@ -146,10 +146,10 @@
   <SimulationList>
     <Simulation>
       <SustainerEngine>L1695APNC  (Polaris)</SustainerEngine>
-      <SustainerLaunchWt>7.89</SustainerLaunchWt>
+      <SustainerLaunchWt>7.8</SustainerLaunchWt>
       <SustainerNozzleDiameter>1.9</SustainerNozzleDiameter>
       <SustainerCG>26.1</SustainerCG>
-      <SustainerIgnitionDelay>4</SustainerIgnitionDelay>
+      <SustainerIgnitionDelay>9</SustainerIgnitionDelay>
       <Booster1Engine>K2370HLBLNC  (Polaris)</Booster1Engine>
       <Booster1LaunchWt>15.43</Booster1LaunchWt>
       <Booster1SeparationDelay>0</Booster1SeparationDelay>
@@ -163,9 +163,9 @@
       <Booster2NozzleDiameter>0</Booster2NozzleDiameter>
       <IncludeBooster2>False</IncludeBooster2>
       <FlightTime>0</FlightTime>
-      <TimetoApogee>39.44956</TimetoApogee>
-      <MaxAltitude>36860.7</MaxAltitude>
-      <MaxVelocity>3934.126</MaxVelocity>
+      <TimetoApogee>53.21725</TimetoApogee>
+      <MaxAltitude>52905.16</MaxAltitude>
+      <MaxVelocity>4013.926</MaxVelocity>
       <OptimumWt>9.862499</OptimumWt>
       <OptimumMaxAlt>9.862499</OptimumMaxAlt>
     </Simulation>
