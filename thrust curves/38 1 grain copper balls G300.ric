@@ -1,0 +1,45 @@
+data:
+  config:
+    ambPressure: 101324.99674500001
+    burnoutThrustThres: 0.1
+    burnoutWebThres: 2.5400050800101604e-05
+    flowSeparationWarnPercent: 0.05
+    mapDim: 750
+    maxMassFlux: 1406.4697609001405
+    maxPressure: 10342500.000000002
+    minPortThroat: 2.0
+    sepPressureRatio: 0.4
+    timestep: 0.001
+  grains:
+  - properties:
+      coreDiameter: 0.019050038100076203
+      diameter: 0.03296926593853188
+      inhibitedEnds: Neither
+      length: 0.0650241300482601
+    type: BATES
+  nozzle:
+    convAngle: 45.0
+    divAngle: 15.0
+    efficiency: 0.93
+    erosionCoeff: 0.0
+    exit: 0.019050038100076203
+    slagCoeff: 0.0
+    throat: 0.010160020320040642
+    throatLength: 0.0031750063500127004
+  propellant:
+    density: 1880.9875080617703
+    name: Patrus Copper Balls
+    tabs:
+    - a: 0.0002472181550396159
+      k: 1.211
+      m: 29.331
+      maxPressure: 13790000.000000002
+      minPressure: 0.0
+      n: 0.287
+      t: 2617.219
+type: !!python/object/apply:uilib.fileIO.fileTypes
+- 3
+version: !!python/tuple
+- 0
+- 6
+- 0
