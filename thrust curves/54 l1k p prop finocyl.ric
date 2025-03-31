@@ -3,10 +3,12 @@ data:
     ambPressure: 51712.50000000001
     burnoutThrustThres: 0.1
     burnoutWebThres: 2.5400050800101604e-05
+    flowSeparationWarnPercent: 0.05
     mapDim: 750
     maxMassFlux: 1406.4697609001405
     maxPressure: 10342500.000000002
     minPortThroat: 2.0
+    sepPressureRatio: 0.4
     timestep: 0.03
   grains:
   - properties:
@@ -21,6 +23,7 @@ data:
       finLength: 0.009525019050038101
       finWidth: 0.004762509525019051
       inhibitedEnds: Both
+      invertedFins: false
       length: 0.17780035560071122
       numFins: 4
     type: Finocyl
@@ -31,11 +34,11 @@ data:
     erosionCoeff: 0.0
     exit: 0.048260096520193044
     slagCoeff: 0.0
-    throat: 0.013970027940055883
+    throat: 0.015875031750063502
     throatLength: 0.0031750063500127004
   propellant:
-    density: 1674.6338641415216
-    name: Alex P Motor prop (1)
+    density: 1602.6661278313074
+    name: Alex P Motor prop Melamine Voidy
     tabs:
     - a: 5.7335589536851146e-05
       k: 1.206
@@ -48,5 +51,5 @@ type: !!python/object/apply:uilib.fileIO.fileTypes
 - 3
 version: !!python/tuple
 - 0
-- 5
+- 6
 - 0
