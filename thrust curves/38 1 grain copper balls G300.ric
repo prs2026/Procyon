@@ -24,19 +24,19 @@ data:
     erosionCoeff: 0.0
     exit: 0.012700025400050802
     slagCoeff: 0.0
-    throat: 0.00889001778003556
+    throat: 0.006350012700025401
     throatLength: 0.0031750063500127004
   propellant:
-    density: 1880.9875080617703
-    name: Patrus Copper Balls
+    density: 1743.8336105936507
+    name: Alex - HairlessAndBalless
     tabs:
-    - a: 0.0002472181550396159
-      k: 1.211
-      m: 29.331
+    - a: 4.217180980234135e-05
+      k: 1.213
+      m: 26.8078
       maxPressure: 13790000.000000002
       minPressure: 0.0
-      n: 0.287
-      t: 2617.219
+      n: 0.36
+      t: 2733.0
 type: !!python/object/apply:uilib.fileIO.fileTypes
 - 3
 version: !!python/tuple
