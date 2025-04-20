@@ -1,6 +1,6 @@
 data:
   config:
-    ambPressure: 51712.50000000001
+    ambPressure: 101324.99674500001
     burnoutThrustThres: 0.1
     burnoutWebThres: 2.5400050800101604e-05
     flowSeparationWarnPercent: 0.05
@@ -9,33 +9,33 @@ data:
     maxPressure: 10342500.000000002
     minPortThroat: 2.0
     sepPressureRatio: 0.4
-    timestep: 0.03
+    timestep: 0.01
   grains:
   - properties:
-      coreDiameter: 0.017957835915671832
-      diameter: 0.047625095250190506
+      coreDiameter: 0.025400050800101603
+      diameter: 0.06781813563627127
       inhibitedEnds: Both
-      length: 0.38100076200152405
+      length: 0.7620015240030481
     type: BATES
   - properties:
-      coreDiameter: 0.020066040132080267
-      diameter: 0.047625095250190506
-      finLength: 0.009525019050038101
+      coreDiameter: 0.028575057150114304
+      diameter: 0.06781813563627127
+      finLength: 0.012700025400050802
       finWidth: 0.004762509525019051
-      inhibitedEnds: Both
+      inhibitedEnds: Neither
       invertedFins: false
-      length: 0.17780035560071122
+      length: 0.25400050800101603
       numFins: 4
     type: Finocyl
   nozzle:
-    convAngle: 45.0
+    convAngle: 60.0
     divAngle: 15.0
     efficiency: 0.95
     erosionCoeff: 0.0
-    exit: 0.048260096520193044
+    exit: 0.07620015240030481
     slagCoeff: 0.0
-    throat: 0.01460502921005842
-    throatLength: 0.0031750063500127004
+    throat: 0.022860045720091444
+    throatLength: 0.006350012700025401
   propellant:
     density: 1682.3011960484175
     name: Joe - Risky Batman

@@ -1,0 +1,63 @@
+data:
+  config:
+    ambPressure: 101324.99674500001
+    burnoutThrustThres: 0.1
+    burnoutWebThres: 2.5400050800101604e-05
+    flowSeparationWarnPercent: 0.05
+    mapDim: 750
+    maxMassFlux: 1406.4697609001405
+    maxPressure: 10342500.000000002
+    minPortThroat: 2.0
+    sepPressureRatio: 0.4
+    timestep: 0.05
+  grains:
+  - properties:
+      coreDiameter: 0.012700025400050802
+      diameter: 0.032359664719329446
+      inhibitedEnds: Neither
+      length: 0.06350012700025401
+    type: BATES
+  - properties:
+      coreDiameter: 0.012700025400050802
+      diameter: 0.032359664719329446
+      inhibitedEnds: Neither
+      length: 0.06350012700025401
+    type: BATES
+  - properties:
+      coreDiameter: 0.012700025400050802
+      diameter: 0.032359664719329446
+      inhibitedEnds: Neither
+      length: 0.06350012700025401
+    type: BATES
+  - properties:
+      coreDiameter: 0.012700025400050802
+      diameter: 0.032359664719329446
+      inhibitedEnds: Neither
+      length: 0.06350012700025401
+    type: BATES
+  nozzle:
+    convAngle: 45.0
+    divAngle: 15.0
+    efficiency: 0.95
+    erosionCoeff: 0.0
+    exit: 0.012700025400050802
+    slagCoeff: 0.0
+    throat: 0.007620015240030481
+    throatLength: 0.0031750063500127004
+  propellant:
+    density: 1815.801346903865
+    name: RCS - Slower White
+    tabs:
+    - a: 7.994680775880937e-05
+      k: 1.245
+      m: 27.022
+      maxPressure: 20685000.000000004
+      minPressure: 0.0
+      n: 0.244
+      t: 2364.0
+type: !!python/object/apply:uilib.fileIO.fileTypes
+- 3
+version: !!python/tuple
+- 0
+- 6
+- 0
