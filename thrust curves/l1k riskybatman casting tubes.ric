@@ -1,0 +1,69 @@
+data:
+  config:
+    ambPressure: 51712.50000000001
+    burnoutThrustThres: 0.1
+    burnoutWebThres: 2.5400050800101604e-05
+    flowSeparationWarnPercent: 0.05
+    mapDim: 750
+    maxMassFlux: 1406.4697609001405
+    maxPressure: 10342500.000000002
+    minPortThroat: 2.0
+    sepPressureRatio: 0.4
+    timestep: 0.03
+  grains:
+  - properties:
+      coreDiameter: 0.019050038100076203
+      diameter: 0.04572009144018289
+      inhibitedEnds: Neither
+      length: 0.11430022860045722
+    type: BATES
+  - properties:
+      coreDiameter: 0.019050038100076203
+      diameter: 0.04572009144018289
+      inhibitedEnds: Neither
+      length: 0.11430022860045722
+    type: BATES
+  - properties:
+      coreDiameter: 0.019050038100076203
+      diameter: 0.04572009144018289
+      inhibitedEnds: Neither
+      length: 0.11430022860045722
+    type: BATES
+  - properties:
+      coreDiameter: 0.022225044450088903
+      diameter: 0.04572009144018289
+      inhibitedEnds: Neither
+      length: 0.11430022860045722
+    type: BATES
+  - properties:
+      coreDiameter: 0.022225044450088903
+      diameter: 0.04572009144018289
+      inhibitedEnds: Neither
+      length: 0.11430022860045722
+    type: BATES
+  nozzle:
+    convAngle: 45.0
+    divAngle: 15.0
+    efficiency: 0.95
+    erosionCoeff: 3.683958531918653e-11
+    exit: 0.031750063500127004
+    slagCoeff: 0.0
+    throat: 0.013970027940055883
+    throatLength: 0.0031750063500127004
+  propellant:
+    density: 1682.3011960484175
+    name: Joe - Risky Batman
+    tabs:
+    - a: 5.054532350783141e-06
+      k: 1.19889
+      m: 23.7923
+      maxPressure: 13790000.000000002
+      minPressure: 0.0
+      n: 0.456
+      t: 2883.666666
+type: !!python/object/apply:uilib.fileIO.fileTypes
+- 3
+version: !!python/tuple
+- 0
+- 6
+- 0

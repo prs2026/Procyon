@@ -12,21 +12,21 @@ data:
     timestep: 0.01
   grains:
   - properties:
-      coreDiameter: 0.006350012700025401
-      diameter: 0.047625095250190506
+      coreDiameter: 0.012700025400050802
+      diameter: 0.06477012954025908
       inhibitedEnds: Bottom
       length: 0.025400050800101603
     type: BATES
   - properties:
-      aftCoreDiameter: 0.019050038100076203
-      diameter: 0.047625095250190506
-      forwardCoreDiameter: 0.006350012700025401
+      aftCoreDiameter: 0.031750063500127004
+      diameter: 0.06477012954025908
+      forwardCoreDiameter: 0.012700025400050802
       inhibitedEnds: Both
-      length: 0.9398018796037593
+      length: 1.4478028956057913
     type: Conical
   - properties:
-      coreDiameter: 0.019050038100076203
-      diameter: 0.047625095250190506
+      coreDiameter: 0.031750063500127004
+      diameter: 0.06477012954025908
       inhibitedEnds: Top
       length: 0.025400050800101603
     type: BATES
@@ -34,22 +34,22 @@ data:
     convAngle: 45.0
     divAngle: 15.0
     efficiency: 0.95
-    erosionCoeff: 1.473583412767461e-10
-    exit: 0.048260096520193044
+    erosionCoeff: 7.367917063837305e-11
+    exit: 0.07620015240030481
     slagCoeff: 0.0
-    throat: 0.013970027940055883
+    throat: 0.025400050800101603
     throatLength: 0.012700025400050802
   propellant:
-    density: 1674.6338641415216
-    name: Boostka Fast
+    density: 1682.3011960484175
+    name: Joe - Risky Batman
     tabs:
-    - a: 1.1152476321943208e-05
-      k: 1.2
-      m: 24.47
+    - a: 5.054532350783141e-06
+      k: 1.19889
+      m: 23.7923
       maxPressure: 13790000.000000002
       minPressure: 0.0
-      n: 0.415
-      t: 2955.0
+      n: 0.456
+      t: 2883.666666
 type: !!python/object/apply:uilib.fileIO.fileTypes
 - 3
 version: !!python/tuple
