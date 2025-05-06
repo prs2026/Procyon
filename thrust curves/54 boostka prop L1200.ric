@@ -18,14 +18,14 @@ data:
       length: 0.025400050800101603
     type: BATES
   - properties:
-      aftCoreDiameter: 0.019050038100076203
+      aftCoreDiameter: 0.01778003556007112
       diameter: 0.047625095250190506
       forwardCoreDiameter: 0.006350012700025401
       inhibitedEnds: Both
-      length: 0.9398018796037593
+      length: 0.5080010160020321
     type: Conical
   - properties:
-      coreDiameter: 0.019050038100076203
+      coreDiameter: 0.01778003556007112
       diameter: 0.047625095250190506
       inhibitedEnds: Top
       length: 0.025400050800101603
@@ -37,7 +37,7 @@ data:
     erosionCoeff: 1.473583412767461e-10
     exit: 0.048260096520193044
     slagCoeff: 0.0
-    throat: 0.013970027940055883
+    throat: 0.01155702311404623
     throatLength: 0.012700025400050802
   propellant:
     density: 1674.6338641415216

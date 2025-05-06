@@ -37,16 +37,16 @@ data:
     throat: 0.01460502921005842
     throatLength: 0.0031750063500127004
   propellant:
-    density: 1682.3011960484175
-    name: Joe - Risky Batman
+    density: 1602.6661278313074
+    name: Alex P Motor prop Melamine Voidy
     tabs:
-    - a: 5.054532350783141e-06
-      k: 1.199
-      m: 23.7923
+    - a: 5.7335589536851146e-05
+      k: 1.206
+      m: 25.207
       maxPressure: 13790000.000000002
       minPressure: 0.0
-      n: 0.456
-      t: 2883.666666
+      n: 0.3
+      t: 2938.0
 type: !!python/object/apply:uilib.fileIO.fileTypes
 - 3
 version: !!python/tuple
