@@ -3,101 +3,87 @@ data:
     ambPressure: 101324.99674500001
     burnoutThrustThres: 0.1
     burnoutWebThres: 2.5400050800101604e-05
+    flowSeparationWarnPercent: 0.05
     mapDim: 750
     maxMassFlux: 1406.4697609001405
     maxPressure: 10342500.000000002
     minPortThroat: 2.0
-    timestep: 0.05
+    sepPressureRatio: 0.4
+    timestep: 0.01
   grains:
   - properties:
       coreDiameter: 0.010160020320040642
-      diameter: 0.05080010160020321
+      diameter: 0.03937007874015749
+      finLength: 0.0055880111760223524
+      finWidth: 0.0040640081280162565
       inhibitedEnds: Both
-      length: 0.012700025400050802
-    type: BATES
-  - properties:
-      coreDiameter: 0.011430022860045722
-      diameter: 0.05207010414020828
-      inhibitedEnds: Both
-      length: 0.012700025400050802
-    type: BATES
-  - properties:
-      coreDiameter: 0.012065024130048261
-      diameter: 0.05318770637541275
-      inhibitedEnds: Both
-      length: 0.012700025400050802
-    type: BATES
-  - properties:
-      coreDiameter: 0.012700025400050802
-      diameter: 0.054279908559817125
-      inhibitedEnds: Both
-      length: 0.012700025400050802
-    type: BATES
-  - properties:
-      coreDiameter: 0.013335026670053342
-      diameter: 0.055410210820421656
-      inhibitedEnds: Both
-      length: 0.012700025400050802
-    type: BATES
-  - properties:
-      coreDiameter: 0.013970027940055883
-      diameter: 0.05715011430022861
-      inhibitedEnds: Both
-      length: 0.012700025400050802
-    type: BATES
-  - properties:
-      coreDiameter: 0.01460502921005842
-      diameter: 0.05765811531623064
-      inhibitedEnds: Both
-      length: 0.012700025400050802
-    type: BATES
-  - properties:
-      coreDiameter: 0.015240030480060961
-      diameter: 0.0587249174498349
-      inhibitedEnds: Both
-      length: 0.012700025400050802
-    type: BATES
-  - properties:
-      coreDiameter: 0.01778003556007112
-      diameter: 0.059842519685039376
-      finLength: 0.010160020320040642
-      finWidth: 0.005080010160020321
-      inhibitedEnds: Both
-      length: 0.012700025400050802
-      numFins: 3
+      invertedFins: false
+      length: 0.022860045720091444
+      numFins: 5
     type: Finocyl
   - properties:
-      coreDiameter: 0.01778003556007112
-      diameter: 0.060960121920243845
-      finLength: 0.010160020320040642
+      coreDiameter: 0.011430022860045722
+      diameter: 0.043180086360172724
+      finLength: 0.006096012192024385
+      finWidth: 0.004318008636017273
+      inhibitedEnds: Both
+      invertedFins: false
+      length: 0.022860045720091444
+      numFins: 5
+    type: Finocyl
+  - properties:
+      coreDiameter: 0.013970027940055883
+      diameter: 0.04724409448818898
+      finLength: 0.006604013208026417
+      finWidth: 0.004572009144018289
+      inhibitedEnds: Both
+      invertedFins: false
+      length: 0.022860045720091444
+      numFins: 5
+    type: Finocyl
+  - properties:
+      coreDiameter: 0.016510033020066043
+      diameter: 0.05080010160020321
+      finLength: 0.007112014224028449
+      finWidth: 0.004826009652019305
+      inhibitedEnds: Both
+      invertedFins: false
+      length: 0.022860045720091444
+      numFins: 5
+    type: Finocyl
+  - properties:
+      coreDiameter: 0.015875031750063502
+      diameter: 0.05511811023622048
+      finLength: 0.007620015240030481
       finWidth: 0.005080010160020321
       inhibitedEnds: Both
-      length: 0.012700025400050802
-      numFins: 6
+      invertedFins: false
+      length: 0.022860045720091444
+      numFins: 5
     type: Finocyl
   nozzle:
     convAngle: 45.0
-    divAngle: 15.0
+    divAngle: 20.0
     efficiency: 0.95
     erosionCoeff: 0.0
-    exit: 0.025400050800101603
-    slagCoeff: 8.756341769581192
-    throat: 0.016510033020066043
+    exit: 0.019050038100076203
+    slagCoeff: 0.0
+    throat: 0.009525019050038101
     throatLength: 0.006350012700025401
   propellant:
-    density: 1880.9875080617703
-    name: Alex - Copper Balls
+    density: 1743.8336105936507
+    name: '"superthunder"'
     tabs:
-    - a: 0.0002472181550396159
-      k: 1.211
-      m: 29.331
+    - a: 4.217180980234135e-05
+      k: 1.213
+      m: 26.8078
       maxPressure: 13790000.000000002
       minPressure: 0.0
-      n: 0.287
-      t: 2617.219
+      n: 0.36
+      t: 2733.0
 type: !!python/object/apply:uilib.fileIO.fileTypes
 - 3
 version: !!python/tuple
 - 0
-- 5
+- 6
 - 0
