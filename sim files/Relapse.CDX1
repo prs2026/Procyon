@@ -25,14 +25,6 @@
       <BoattailRearDiameter>0</BoattailRearDiameter>
       <BoattailOffset>0</BoattailOffset>
       <Overhang>0</Overhang>
-      <Protuberance>
-        <StreamlinedNoBaseDrag>0</StreamlinedNoBaseDrag>
-        <StreamlinedWithBaseDrag>0.5</StreamlinedWithBaseDrag>
-        <InclinedPlate1Angle>0</InclinedPlate1Angle>
-        <InclinedPlate1FrontalArea>0</InclinedPlate1FrontalArea>
-        <InclinedPlate2Angle>0</InclinedPlate2Angle>
-        <InclinedPlate2FrontalArea>0</InclinedPlate2FrontalArea>
-      </Protuberance>
     </BodyTube>
     <BodyTube>
       <PartType>BodyTube</PartType>
@@ -171,9 +163,9 @@
       <Booster2NozzleDiameter>0</Booster2NozzleDiameter>
       <IncludeBooster2>False</IncludeBooster2>
       <FlightTime>0</FlightTime>
-      <TimetoApogee>62.32594</TimetoApogee>
-      <MaxAltitude>69149.89</MaxAltitude>
-      <MaxVelocity>4290.843</MaxVelocity>
+      <TimetoApogee>67.9656</TimetoApogee>
+      <MaxAltitude>79287.52</MaxAltitude>
+      <MaxVelocity>4379.413</MaxVelocity>
       <OptimumWt>9.862499</OptimumWt>
       <OptimumMaxAlt>9.862499</OptimumMaxAlt>
     </Simulation>
