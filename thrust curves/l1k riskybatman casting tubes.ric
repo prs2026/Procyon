@@ -15,24 +15,37 @@ data:
       coreDiameter: 0.019050038100076203
       diameter: 0.04572009144018289
       inhibitedEnds: Neither
+<<<<<<< Updated upstream
       length: 0.13970027940055882
+=======
+      length: 0.11430022860045722
+>>>>>>> Stashed changes
     type: BATES
   - properties:
       coreDiameter: 0.019050038100076203
       diameter: 0.04572009144018289
       inhibitedEnds: Neither
+<<<<<<< Updated upstream
       length: 0.13970027940055882
+=======
+      length: 0.11430022860045722
+>>>>>>> Stashed changes
     type: BATES
   - properties:
       coreDiameter: 0.019050038100076203
       diameter: 0.04572009144018289
       inhibitedEnds: Neither
+<<<<<<< Updated upstream
       length: 0.13970027940055882
+=======
+      length: 0.11430022860045722
+>>>>>>> Stashed changes
     type: BATES
   - properties:
       coreDiameter: 0.022225044450088903
       diameter: 0.04572009144018289
       inhibitedEnds: Neither
+<<<<<<< Updated upstream
       length: 0.13970027940055882
     type: BATES
   - properties:
@@ -40,15 +53,31 @@ data:
       diameter: 0.04572009144018289
       inhibitedEnds: Neither
       length: 0.13970027940055882
+=======
+      length: 0.11430022860045722
+    type: BATES
+  - properties:
+      coreDiameter: 0.022225044450088903
+      diameter: 0.04572009144018289
+      inhibitedEnds: Neither
+      length: 0.11430022860045722
+>>>>>>> Stashed changes
     type: BATES
   nozzle:
     convAngle: 45.0
     divAngle: 15.0
     efficiency: 0.95
+<<<<<<< Updated upstream
     erosionCoeff: 0.0
     exit: 0.031750063500127004
     slagCoeff: 0.0
     throat: 0.015875031750063502
+=======
+    erosionCoeff: 3.683958531918653e-11
+    exit: 0.031750063500127004
+    slagCoeff: 0.0
+    throat: 0.013970027940055883
+>>>>>>> Stashed changes
     throatLength: 0.0031750063500127004
   propellant:
     density: 1682.3011960484175
