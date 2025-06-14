@@ -104,9 +104,9 @@
         <Thickness>0.1875</Thickness>
         <LERadius>0</LERadius>
         <Location>5.5</Location>
-        <AirfoilSection>Hexagonal</AirfoilSection>
+        <AirfoilSection>Hexagonal Blunt Base</AirfoilSection>
         <FX1>0.75</FX1>
-        <FX3>0.75</FX3>
+        <FX3>0</FX3>
       </Fin>
     </Booster>
     <Surface>Smooth Paint</Surface>
@@ -145,12 +145,12 @@
   <MachAlt />
   <SimulationList>
     <Simulation>
-      <SustainerEngine>L1118BPNC  (Polaris)</SustainerEngine>
+      <SustainerEngine>L1083APNC  (Polaris)</SustainerEngine>
       <SustainerLaunchWt>7.8</SustainerLaunchWt>
       <SustainerNozzleDiameter>1.905</SustainerNozzleDiameter>
       <SustainerCG>26.1</SustainerCG>
       <SustainerIgnitionDelay>10</SustainerIgnitionDelay>
-      <Booster1Engine>L1410RBNC  (Polaris)</Booster1Engine>
+      <Booster1Engine>K1700PFNC  (Polaris)</Booster1Engine>
       <Booster1LaunchWt>15</Booster1LaunchWt>
       <Booster1SeparationDelay>0.02</Booster1SeparationDelay>
       <Booster1IgnitionDelay>0</Booster1IgnitionDelay>
@@ -163,9 +163,9 @@
       <Booster2NozzleDiameter>0</Booster2NozzleDiameter>
       <IncludeBooster2>False</IncludeBooster2>
       <FlightTime>0</FlightTime>
-      <TimetoApogee>67.9656</TimetoApogee>
-      <MaxAltitude>79287.52</MaxAltitude>
-      <MaxVelocity>4379.413</MaxVelocity>
+      <TimetoApogee>50.39773</TimetoApogee>
+      <MaxAltitude>43398.64</MaxAltitude>
+      <MaxVelocity>3391.05</MaxVelocity>
       <OptimumWt>9.862499</OptimumWt>
       <OptimumMaxAlt>9.862499</OptimumMaxAlt>
     </Simulation>
