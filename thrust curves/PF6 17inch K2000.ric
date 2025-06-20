@@ -12,19 +12,19 @@ data:
     timestep: 0.03
   grains:
   - properties:
-      coreDiameter: 0.017957835915671832
+      coreDiameter: 0.019050038100076203
       diameter: 0.04572009144018289
       inhibitedEnds: Neither
       length: 0.13970027940055882
     type: BATES
   - properties:
-      coreDiameter: 0.017957835915671832
+      coreDiameter: 0.022313944627889257
       diameter: 0.04572009144018289
       inhibitedEnds: Neither
       length: 0.13970027940055882
     type: BATES
   - properties:
-      coreDiameter: 0.017957835915671832
+      coreDiameter: 0.025400050800101603
       diameter: 0.04572009144018289
       inhibitedEnds: Neither
       length: 0.13970027940055882
@@ -36,19 +36,19 @@ data:
     erosionCoeff: 7.367917063837305e-11
     exit: 0.048260096520193044
     slagCoeff: 0.0
-    throat: 0.015875031750063502
+    throat: 0.01778003556007112
     throatLength: 0.012700025400050802
   propellant:
-    density: 1716.153712012799
-    name: Hairless Ballless
+    density: 1723.3504856438205
+    name: Chase - Performance Fast 1
     tabs:
-    - a: 7.559289282265625e-05
-      k: 1.214
-      m: 26.536
+    - a: 0.00016191374726809584
+      k: 1.209
+      m: 25.764
       maxPressure: 13790000.000000002
       minPressure: 0.0
-      n: 0.33
-      t: 2748.0
+      n: 0.284683
+      t: 2767.892
 type: !!python/object/apply:uilib.fileIO.fileTypes
 - 3
 version: !!python/tuple

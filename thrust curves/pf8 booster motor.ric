@@ -1,0 +1,63 @@
+data:
+  config:
+    ambPressure: 51712.50000000001
+    burnoutThrustThres: 0.1
+    burnoutWebThres: 2.5400050800101604e-05
+    flowSeparationWarnPercent: 0.05
+    mapDim: 750
+    maxMassFlux: 1406.4697609001405
+    maxPressure: 10342500.000000002
+    minPortThroat: 2.0
+    sepPressureRatio: 0.4
+    timestep: 0.03
+  grains:
+  - properties:
+      coreDiameter: 0.019050038100076203
+      diameter: 0.04572009144018289
+      inhibitedEnds: Neither
+      length: 0.10477520955041911
+    type: BATES
+  - properties:
+      coreDiameter: 0.019050038100076203
+      diameter: 0.04572009144018289
+      inhibitedEnds: Neither
+      length: 0.10477520955041911
+    type: BATES
+  - properties:
+      coreDiameter: 0.019050038100076203
+      diameter: 0.04572009144018289
+      inhibitedEnds: Neither
+      length: 0.10477520955041911
+    type: BATES
+  - properties:
+      coreDiameter: 0.019050038100076203
+      diameter: 0.04572009144018289
+      inhibitedEnds: Neither
+      length: 0.10477520955041911
+    type: BATES
+  nozzle:
+    convAngle: 45.0
+    divAngle: 15.0
+    efficiency: 0.95
+    erosionCoeff: 7.367917063837305e-11
+    exit: 0.031750063500127004
+    slagCoeff: 0.0
+    throat: 0.015875031750063502
+    throatLength: 0.0031750063500127004
+  propellant:
+    density: 1723.3504856438205
+    name: Chase - Performance Fast 1
+    tabs:
+    - a: 0.00016191374726809584
+      k: 1.209
+      m: 25.764
+      maxPressure: 13790000.000000002
+      minPressure: 0.0
+      n: 0.284683
+      t: 2767.892
+type: !!python/object/apply:uilib.fileIO.fileTypes
+- 3
+version: !!python/tuple
+- 0
+- 6
+- 0
