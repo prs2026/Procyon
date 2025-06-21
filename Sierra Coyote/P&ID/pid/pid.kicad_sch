@@ -609,13 +609,14 @@
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
-			(property "Reference" "Tank_Slim_4Port?"
+			(property "Reference" "Tank_Slim_4Port1"
 				(at 7.62 0.635 0)
 				(effects
 					(font
 						(size 0.508 0.508)
 					)
 					(justify left)
+					(hide yes)
 				)
 			)
 			(property "Value" "Tank_Slim_4Port"
@@ -625,6 +626,7 @@
 						(size 0.508 0.508)
 					)
 					(justify left)
+					(hide yes)
 				)
 			)
 			(property "Footprint" ""
@@ -711,6 +713,28 @@
 				(rectangle
 					(start -6.35 10.16)
 					(end 6.35 -10.16)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -6.096 3.556)
+					(end 6.096 -0.762)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 4.826 3.556)
+					(end -4.572 4.318)
 					(stroke
 						(width 0)
 						(type default)
@@ -1057,6 +1081,7 @@
 		(stroke
 			(width 0)
 			(type default)
+			(color 0 194 0 1)
 		)
 		(uuid "087afb9e-7838-460e-92b4-539998e1f3df")
 	)
@@ -1067,6 +1092,7 @@
 		(stroke
 			(width 0)
 			(type default)
+			(color 194 0 0 1)
 		)
 		(uuid "098ef1be-3913-42c5-bcd4-436e0ef247b5")
 	)
@@ -1077,6 +1103,7 @@
 		(stroke
 			(width 0)
 			(type default)
+			(color 0 194 0 1)
 		)
 		(uuid "09d7f2bc-3d55-4745-83b6-102e0ac05fb9")
 	)
@@ -1087,6 +1114,7 @@
 		(stroke
 			(width 0)
 			(type default)
+			(color 194 0 0 1)
 		)
 		(uuid "1dd952c2-409c-4b53-800e-eee0700316e6")
 	)
@@ -1097,6 +1125,7 @@
 		(stroke
 			(width 0)
 			(type default)
+			(color 0 194 0 1)
 		)
 		(uuid "2e4f4a78-51db-4cf8-9765-1972bea73016")
 	)
@@ -1107,6 +1136,7 @@
 		(stroke
 			(width 0)
 			(type default)
+			(color 0 194 0 1)
 		)
 		(uuid "344e032a-b9d0-4348-9016-948f8ef924b4")
 	)
@@ -1117,6 +1147,7 @@
 		(stroke
 			(width 0)
 			(type default)
+			(color 0 194 0 1)
 		)
 		(uuid "3925582b-726e-4398-bdeb-06c240bc426b")
 	)
@@ -1127,6 +1158,7 @@
 		(stroke
 			(width 0)
 			(type default)
+			(color 194 0 0 1)
 		)
 		(uuid "530107a7-ca36-4653-955c-31f3313b7c64")
 	)
@@ -1137,6 +1169,7 @@
 		(stroke
 			(width 0)
 			(type default)
+			(color 0 194 0 1)
 		)
 		(uuid "64e4a1f8-7267-482f-a682-3e6ce78fc33b")
 	)
@@ -1147,6 +1180,7 @@
 		(stroke
 			(width 0)
 			(type default)
+			(color 194 0 0 1)
 		)
 		(uuid "673cbacd-d583-4f96-b726-0f2f724b5776")
 	)
@@ -1157,6 +1191,7 @@
 		(stroke
 			(width 0)
 			(type default)
+			(color 194 0 0 1)
 		)
 		(uuid "6af5b8ee-efc6-4eb5-bd24-003829b4e33b")
 	)
@@ -1167,6 +1202,7 @@
 		(stroke
 			(width 0)
 			(type default)
+			(color 0 194 0 1)
 		)
 		(uuid "6e81c161-af31-4e8d-b672-b67644a5a051")
 	)
@@ -1177,6 +1213,7 @@
 		(stroke
 			(width 0)
 			(type default)
+			(color 0 194 0 1)
 		)
 		(uuid "76f17f0e-329a-4736-b73f-13da494af57b")
 	)
@@ -1187,6 +1224,7 @@
 		(stroke
 			(width 0)
 			(type default)
+			(color 194 0 0 1)
 		)
 		(uuid "7a3a4d8f-a148-4560-8d34-e12025248e6b")
 	)
@@ -1197,6 +1235,7 @@
 		(stroke
 			(width 0)
 			(type default)
+			(color 0 194 0 1)
 		)
 		(uuid "80b8194b-f5d2-460c-92e3-1f985b3a27c4")
 	)
@@ -1207,6 +1246,7 @@
 		(stroke
 			(width 0)
 			(type default)
+			(color 194 0 0 1)
 		)
 		(uuid "870cc4a2-144a-42dd-be20-1143a0a7f57b")
 	)
@@ -1217,6 +1257,7 @@
 		(stroke
 			(width 0)
 			(type default)
+			(color 0 194 0 1)
 		)
 		(uuid "a497f5cd-2682-4c54-b760-9652c145b0ef")
 	)
@@ -1227,6 +1268,7 @@
 		(stroke
 			(width 0)
 			(type default)
+			(color 194 0 0 1)
 		)
 		(uuid "aad694a3-781c-46d3-a7a0-6e1cc1541e87")
 	)
@@ -1237,8 +1279,32 @@
 		(stroke
 			(width 0)
 			(type default)
+			(color 0 194 0 1)
 		)
 		(uuid "c869d89f-165e-487c-8bf6-f8fa03faf95a")
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 100.33 85.09 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "6d09ab04-a1bc-4201-ab00-e20b6686717d")
+		(property "Netclass" "OX"
+			(at 101.0285 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify left)
+			)
+		)
 	)
 	(symbol
 		(lib_id "PnID:Hose")
@@ -1318,15 +1384,14 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "23ebe1ea-bf72-4071-82c6-d0774cc2cc06")
-		(property "Reference" "igniter1"
-			(at 131.826 100.33 0)
+		(property "Reference" "ignitercartridge"
+			(at 113.538 105.156 90)
 			(effects
 				(font
-					(size 0.508 0.508)
+					(size 1 1)
 				)
-				(hide yes)
+				(justify left)
 			)
 		)
 		(property "Value" "igniter"
@@ -1381,7 +1446,7 @@
 		(instances
 			(project "pid"
 				(path "/dc29bb4e-9c9a-4427-b7c6-9d7a2377948e"
-					(reference "igniter1")
+					(reference "ignitercartridge")
 					(unit 1)
 				)
 			)
@@ -1466,13 +1531,12 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "5800bb33-1064-462a-961c-ce6a1e51d188")
-		(property "Reference" "Tank_Slim_4Port1"
-			(at 143.51 66.675 0)
+		(property "Reference" "Tank1"
+			(at 124.46 67.31 0)
 			(effects
 				(font
-					(size 0.508 0.508)
+					(size 1 1)
 				)
 				(justify left)
 			)
@@ -1484,6 +1548,7 @@
 					(size 0.508 0.508)
 				)
 				(justify left)
+				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -1552,7 +1617,7 @@
 		(instances
 			(project "pid"
 				(path "/dc29bb4e-9c9a-4427-b7c6-9d7a2377948e"
-					(reference "Tank_Slim_4Port1")
+					(reference "Tank1")
 					(unit 1)
 				)
 			)
@@ -1566,13 +1631,12 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "67c2da05-e893-45b3-b1b6-96cd9e687ecc")
-		(property "Reference" "GasBottle1"
-			(at 91.44 101.6 0)
+		(property "Reference" "N2O"
+			(at 83.566 101.854 0)
 			(effects
 				(font
-					(size 0.508 0.508)
+					(size 1 1)
 				)
 				(justify left)
 			)
@@ -1619,7 +1683,7 @@
 		(instances
 			(project "pid"
 				(path "/dc29bb4e-9c9a-4427-b7c6-9d7a2377948e"
-					(reference "GasBottle1")
+					(reference "N2O")
 					(unit 1)
 				)
 			)
@@ -1718,14 +1782,14 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "96df17bb-353e-4f5b-a560-6634c63b77a4")
 		(property "Reference" "SV3"
-			(at 135.128 99.06 0)
+			(at 133.858 99.06 90)
 			(effects
 				(font
-					(size 0.508 0.508)
+					(size 1 1)
 				)
+				(justify left)
 			)
 		)
 		(property "Value" "Valve_Servo_Small"
@@ -1801,10 +1865,10 @@
 		(fields_autoplaced yes)
 		(uuid "e5e423cc-7975-4a3a-a670-fbedd54816ce")
 		(property "Reference" "SV1"
-			(at 92.71 88.392 0)
+			(at 92.71 77.47 0)
 			(effects
 				(font
-					(size 0.508 0.508)
+					(size 1 1)
 				)
 			)
 		)
@@ -1880,10 +1944,10 @@
 		(fields_autoplaced yes)
 		(uuid "f2408028-9751-4598-981c-9c066b0e905f")
 		(property "Reference" "SV2"
-			(at 143.51 54.102 0)
+			(at 143.51 43.18 0)
 			(effects
 				(font
-					(size 0.508 0.508)
+					(size 1 1)
 				)
 			)
 		)
