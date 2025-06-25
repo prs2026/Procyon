@@ -15,7 +15,13 @@ data:
       coreDiameter: 0.017462534925069852
       diameter: 0.03284226568453137
       inhibitedEnds: Neither
-      length: 0.062230124460248934
+      length: 0.05588011176022353
+    type: BATES
+  - properties:
+      coreDiameter: 0.017462534925069852
+      diameter: 0.03284226568453137
+      inhibitedEnds: Neither
+      length: 0.05588011176022353
     type: BATES
   nozzle:
     convAngle: 45.0
@@ -24,11 +30,11 @@ data:
     erosionCoeff: 0.0
     exit: 0.012700025400050802
     slagCoeff: 0.0
-    throat: 0.006350012700025401
+    throat: 0.007620015240030481
     throatLength: 0.0031750063500127004
   propellant:
     density: 1743.8336105936507
-    name: Alex - HairlessAndBalless
+    name: '"superthunder"'
     tabs:
     - a: 4.217180980234135e-05
       k: 1.213

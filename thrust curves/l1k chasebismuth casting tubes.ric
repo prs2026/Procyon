@@ -14,29 +14,29 @@ data:
   - properties:
       coreDiameter: 0.019050038100076203
       diameter: 0.04572009144018289
-      inhibitedEnds: Neither
+      inhibitedEnds: Bottom
       length: 0.1333502667005334
     type: BATES
   - properties:
       coreDiameter: 0.019050038100076203
       diameter: 0.04572009144018289
-      inhibitedEnds: Neither
+      inhibitedEnds: Both
       length: 0.1333502667005334
     type: BATES
   - properties:
       coreDiameter: 0.019050038100076203
       diameter: 0.04572009144018289
-      inhibitedEnds: Neither
+      inhibitedEnds: Top
       length: 0.1333502667005334
     type: BATES
   - properties:
-      coreDiameter: 0.022225044450088903
+      coreDiameter: 0.02095504191008382
       diameter: 0.04572009144018289
       inhibitedEnds: Neither
       length: 0.1333502667005334
     type: BATES
   - properties:
-      coreDiameter: 0.025400050800101603
+      coreDiameter: 0.02095504191008382
       diameter: 0.04572009144018289
       inhibitedEnds: Neither
       length: 0.1333502667005334
@@ -54,7 +54,7 @@ data:
     density: 1951.4328499500375
     name: Chase - Bismuth
     tabs:
-    - a: 6.875951539341992e-06
+    - a: 6.649856421027072e-06
       k: 1.213
       m: 29.409
       maxPressure: 13790000.000000002
