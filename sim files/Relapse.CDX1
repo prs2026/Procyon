@@ -146,26 +146,25 @@
   <SimulationList>
     <Simulation>
       <SustainerEngine>L1083APNC  (Polaris)</SustainerEngine>
-      <SustainerLaunchWt>7.8</SustainerLaunchWt>
+      <SustainerLaunchWt>8</SustainerLaunchWt>
       <SustainerNozzleDiameter>1.905</SustainerNozzleDiameter>
-      <SustainerCG>26.1</SustainerCG>
+      <SustainerCG>26</SustainerCG>
       <SustainerIgnitionDelay>10</SustainerIgnitionDelay>
-      <Booster1Engine>K1700PFNC  (Polaris)</Booster1Engine>
       <Booster1LaunchWt>15</Booster1LaunchWt>
       <Booster1SeparationDelay>0.02</Booster1SeparationDelay>
       <Booster1IgnitionDelay>0</Booster1IgnitionDelay>
       <Booster1CG>49</Booster1CG>
       <Booster1NozzleDiameter>1.25</Booster1NozzleDiameter>
-      <IncludeBooster1>True</IncludeBooster1>
+      <IncludeBooster1>False</IncludeBooster1>
       <Booster2LaunchWt>0</Booster2LaunchWt>
       <Booster2Delay>0</Booster2Delay>
       <Booster2CG>0</Booster2CG>
       <Booster2NozzleDiameter>0</Booster2NozzleDiameter>
       <IncludeBooster2>False</IncludeBooster2>
       <FlightTime>0</FlightTime>
-      <TimetoApogee>50.39773</TimetoApogee>
-      <MaxAltitude>43398.64</MaxAltitude>
-      <MaxVelocity>3391.05</MaxVelocity>
+      <TimetoApogee>32.66053</TimetoApogee>
+      <MaxAltitude>25523.06</MaxAltitude>
+      <MaxVelocity>2847.008</MaxVelocity>
       <OptimumWt>9.862499</OptimumWt>
       <OptimumMaxAlt>9.862499</OptimumMaxAlt>
     </Simulation>
