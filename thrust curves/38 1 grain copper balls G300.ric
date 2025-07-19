@@ -34,7 +34,7 @@ data:
     throatLength: 0.0031750063500127004
   propellant:
     density: 1743.8336105936507
-    name: Alex - HairlessAndBalless
+    name: '"superthunder"'
     tabs:
     - a: 4.217180980234135e-05
       k: 1.213
