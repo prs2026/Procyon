@@ -12,41 +12,41 @@ data:
     timestep: 0.03
   grains:
   - properties:
-      coreDiameter: 0.017957835915671832
+      coreDiameter: 0.015875031750063502
       diameter: 0.047625095250190506
       inhibitedEnds: Both
-      length: 0.38100076200152405
+      length: 0.40640081280162565
     type: BATES
   - properties:
-      coreDiameter: 0.020066040132080267
+      coreDiameter: 0.016510033020066043
       diameter: 0.047625095250190506
       finLength: 0.009525019050038101
-      finWidth: 0.004762509525019051
+      finWidth: 0.0031750063500127004
       inhibitedEnds: Both
       invertedFins: false
-      length: 0.17780035560071122
+      length: 0.15240030480060962
       numFins: 4
     type: Finocyl
   nozzle:
     convAngle: 45.0
     divAngle: 15.0
     efficiency: 0.95
-    erosionCoeff: 0.0
+    erosionCoeff: 5.5259377978779794e-11
     exit: 0.048260096520193044
     slagCoeff: 0.0
-    throat: 0.01460502921005842
+    throat: 0.013335026670053342
     throatLength: 0.0031750063500127004
   propellant:
-    density: 1602.6661278313074
-    name: Alex P Motor prop Melamine Voidy
+    density: 1820.230130676801
+    name: Chase - Performance White
     tabs:
-    - a: 5.7335589536851146e-05
-      k: 1.206
-      m: 25.207
+    - a: 6.8146898486945905e-06
+      k: 1.243
+      m: 27.125
       maxPressure: 13790000.000000002
       minPressure: 0.0
-      n: 0.3
-      t: 2938.0
+      n: 0.43
+      t: 2339.0
 type: !!python/object/apply:uilib.fileIO.fileTypes
 - 3
 version: !!python/tuple
