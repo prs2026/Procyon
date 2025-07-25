@@ -154,8 +154,8 @@
       <Booster1LaunchWt>16</Booster1LaunchWt>
       <Booster1SeparationDelay>0.02</Booster1SeparationDelay>
       <Booster1IgnitionDelay>0</Booster1IgnitionDelay>
-      <Booster1CG>52</Booster1CG>
-      <Booster1NozzleDiameter>1.9</Booster1NozzleDiameter>
+      <Booster1CG>49</Booster1CG>
+      <Booster1NozzleDiameter>1.25</Booster1NozzleDiameter>
       <IncludeBooster1>True</IncludeBooster1>
       <Booster2LaunchWt>0</Booster2LaunchWt>
       <Booster2Delay>0</Booster2Delay>
