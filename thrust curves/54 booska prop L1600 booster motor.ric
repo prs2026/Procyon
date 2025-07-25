@@ -1,6 +1,6 @@
 data:
   config:
-    ambPressure: 68950.00000000001
+    ambPressure: 82740.00000000001
     burnoutThrustThres: 0.1
     burnoutWebThres: 2.5400050800101604e-05
     flowSeparationWarnPercent: 0.05
@@ -12,20 +12,20 @@ data:
     timestep: 0.01
   grains:
   - properties:
-      coreDiameter: 0.015875031750063502
+      coreDiameter: 0.010160020320040642
       diameter: 0.047625095250190506
       inhibitedEnds: Bottom
       length: 0.025400050800101603
     type: BATES
   - properties:
-      aftCoreDiameter: 0.015875031750063502
+      aftCoreDiameter: 0.019050038100076203
       diameter: 0.047625095250190506
-      forwardCoreDiameter: 0.012700025400050802
+      forwardCoreDiameter: 0.010160020320040642
       inhibitedEnds: Both
-      length: 0.5080010160020321
+      length: 0.63500127000254
     type: Conical
   - properties:
-      coreDiameter: 0.015875031750063502
+      coreDiameter: 0.019050038100076203
       diameter: 0.047625095250190506
       inhibitedEnds: Top
       length: 0.025400050800101603
@@ -37,7 +37,7 @@ data:
     erosionCoeff: 1.473583412767461e-10
     exit: 0.048260096520193044
     slagCoeff: 0.0
-    throat: 0.012700025400050802
+    throat: 0.015240030480060961
     throatLength: 0.012700025400050802
   propellant:
     density: 1674.6338641415216
