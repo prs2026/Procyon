@@ -101,15 +101,15 @@
         <Span>3.5</Span>
         <SweepDistance>2</SweepDistance>
         <TipChord>3</TipChord>
-        <Thickness>0.1875</Thickness>
-        <LERadius>0</LERadius>
+        <Thickness>0.375</Thickness>
+        <LERadius>0.02</LERadius>
         <Location>5.5</Location>
-        <AirfoilSection>Hexagonal Blunt Base</AirfoilSection>
-        <FX1>0.75</FX1>
+        <AirfoilSection>Double Wedge</AirfoilSection>
+        <FX1>1.5</FX1>
         <FX3>0</FX3>
       </Fin>
     </Booster>
-    <Surface>Rough Camouflage Paint</Surface>
+    <Surface>Smooth Paint</Surface>
     <CP>0</CP>
     <ModifiedBarrowman>True</ModifiedBarrowman>
     <Turbulence>True</Turbulence>
@@ -125,7 +125,7 @@
     <Pressure>29.92</Pressure>
     <RodAngle>2</RodAngle>
     <RodLength>10</RodLength>
-    <Temperature>80</Temperature>
+    <Temperature>75</Temperature>
     <WindSpeed>7</WindSpeed>
   </LaunchSite>
   <Recovery>
@@ -149,13 +149,13 @@
       <SustainerLaunchWt>7.7</SustainerLaunchWt>
       <SustainerNozzleDiameter>1.905</SustainerNozzleDiameter>
       <SustainerCG>26.1</SustainerCG>
-      <SustainerIgnitionDelay>12</SustainerIgnitionDelay>
-      <Booster1Engine>L1295BPNC  (Polaris)</Booster1Engine>
+      <SustainerIgnitionDelay>10</SustainerIgnitionDelay>
+      <Booster1Engine>L1053  (MYA)</Booster1Engine>
       <Booster1LaunchWt>16</Booster1LaunchWt>
       <Booster1SeparationDelay>0.02</Booster1SeparationDelay>
       <Booster1IgnitionDelay>0</Booster1IgnitionDelay>
-      <Booster1CG>49</Booster1CG>
-      <Booster1NozzleDiameter>1.25</Booster1NozzleDiameter>
+      <Booster1CG>52</Booster1CG>
+      <Booster1NozzleDiameter>1.9</Booster1NozzleDiameter>
       <IncludeBooster1>True</IncludeBooster1>
       <Booster2LaunchWt>0</Booster2LaunchWt>
       <Booster2Delay>0</Booster2Delay>
@@ -163,9 +163,9 @@
       <Booster2NozzleDiameter>0</Booster2NozzleDiameter>
       <IncludeBooster2>False</IncludeBooster2>
       <FlightTime>0</FlightTime>
-      <TimetoApogee>79.16784</TimetoApogee>
-      <MaxAltitude>96028.56</MaxAltitude>
-      <MaxVelocity>4433.377</MaxVelocity>
+      <TimetoApogee>83.36864</TimetoApogee>
+      <MaxAltitude>108132.7</MaxAltitude>
+      <MaxVelocity>4612.823</MaxVelocity>
       <OptimumWt>9.862499</OptimumWt>
       <OptimumMaxAlt>9.862499</OptimumMaxAlt>
     </Simulation>
