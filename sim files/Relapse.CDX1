@@ -130,26 +130,26 @@
   </LaunchSite>
   <Recovery>
     <Altitude1>0</Altitude1>
-    <Altitude2>0</Altitude2>
-    <DeviceType1>None</DeviceType1>
-    <DeviceType2>None</DeviceType2>
-    <Event1>False</Event1>
-    <Event2>False</Event2>
-    <Size1>0</Size1>
-    <Size2>0</Size2>
-    <EventType1>None</EventType1>
-    <EventType2>None</EventType2>
-    <CD1>0</CD1>
-    <CD2>0</CD2>
+    <Altitude2>3000</Altitude2>
+    <DeviceType1>Parachute</DeviceType1>
+    <DeviceType2>Parachute</DeviceType2>
+    <Event1>True</Event1>
+    <Event2>True</Event2>
+    <Size1>7</Size1>
+    <Size2>28</Size2>
+    <EventType1>Apogee</EventType1>
+    <EventType2>Altitude</EventType2>
+    <CD1>0.8</CD1>
+    <CD2>1.8</CD2>
   </Recovery>
   <MachAlt />
   <SimulationList>
     <Simulation>
-      <SustainerEngine>K823ChaseALNC  (Polaris)</SustainerEngine>
+      <SustainerEngine>K836ChaseALNC  (Polaris)</SustainerEngine>
       <SustainerLaunchWt>6.6</SustainerLaunchWt>
       <SustainerNozzleDiameter>1.905</SustainerNozzleDiameter>
       <SustainerCG>26.1</SustainerCG>
-      <SustainerIgnitionDelay>9</SustainerIgnitionDelay>
+      <SustainerIgnitionDelay>8</SustainerIgnitionDelay>
       <Booster1Engine>L1553ChBNC  (Polaris)</Booster1Engine>
       <Booster1LaunchWt>14.7</Booster1LaunchWt>
       <Booster1SeparationDelay>0.02</Booster1SeparationDelay>
@@ -163,9 +163,9 @@
       <Booster2NozzleDiameter>0</Booster2NozzleDiameter>
       <IncludeBooster2>False</IncludeBooster2>
       <FlightTime>0</FlightTime>
-      <TimetoApogee>51.61769</TimetoApogee>
-      <MaxAltitude>49470.68</MaxAltitude>
-      <MaxVelocity>3380.431</MaxVelocity>
+      <TimetoApogee>49.29808</TimetoApogee>
+      <MaxAltitude>46458.32</MaxAltitude>
+      <MaxVelocity>3249.145</MaxVelocity>
       <OptimumWt>9.862499</OptimumWt>
       <OptimumMaxAlt>9.862499</OptimumMaxAlt>
     </Simulation>
