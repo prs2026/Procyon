@@ -48,7 +48,7 @@ data:
     erosionCoeff: 1.1051875595755959e-10
     exit: 0.048260096520193044
     slagCoeff: 0.0
-    throat: 0.019050038100076203
+    throat: 0.015875031750063502
     throatLength: 0.0031750063500127004
   propellant:
     density: 1674.6338641415216

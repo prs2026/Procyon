@@ -1,0 +1,69 @@
+data:
+  config:
+    ambPressure: 82740.00000000001
+    burnoutThrustThres: 0.1
+    burnoutWebThres: 2.5400050800101604e-05
+    flowSeparationWarnPercent: 0.05
+    mapDim: 750
+    maxMassFlux: 1406.4697609001405
+    maxPressure: 10342500.000000002
+    minPortThroat: 2.0
+    sepPressureRatio: 0.4
+    timestep: 0.01
+  grains:
+  - properties:
+      coreDiameter: 0.016510033020066043
+      diameter: 0.047625095250190506
+      finLength: 0.00889001778003556
+      finWidth: 0.005080010160020321
+      inhibitedEnds: Both
+      invertedFins: false
+      length: 0.35560071120142245
+      numFins: 6
+    type: Finocyl
+  - properties:
+      coreDiameter: 0.019050038100076203
+      diameter: 0.047625095250190506
+      finLength: 0.00889001778003556
+      finWidth: 0.005080010160020321
+      inhibitedEnds: Both
+      invertedFins: false
+      length: 0.17780035560071122
+      numFins: 6
+    type: Finocyl
+  - properties:
+      coreDiameter: 0.020320040640081284
+      diameter: 0.047625095250190506
+      finLength: 0.00889001778003556
+      finWidth: 0.0058420116840233694
+      inhibitedEnds: Both
+      invertedFins: false
+      length: 0.15240030480060962
+      numFins: 6
+    type: Finocyl
+  nozzle:
+    convAngle: 45.0
+    divAngle: 15.0
+    efficiency: 0.95
+    erosionCoeff: 1.473583412767461e-10
+    exit: 0.048260096520193044
+    slagCoeff: 0.0
+    throat: 0.017018034036068077
+    throatLength: 0.012700025400050802
+  propellant:
+    density: 1660.7939148510957
+    name: Ivan Bond bug
+    tabs:
+    - a: 3.387294081411929e-05
+      k: 1.21
+      m: 23.408
+      maxPressure: 13790000.000000002
+      minPressure: 0.0
+      n: 0.3156
+      t: 2727.72
+type: !!python/object/apply:uilib.fileIO.fileTypes
+- 3
+version: !!python/tuple
+- 0
+- 6
+- 0
