@@ -1,0 +1,52 @@
+data:
+  config:
+    ambPressure: 51712.50000000001
+    burnoutThrustThres: 0.1
+    burnoutWebThres: 2.5400050800101604e-05
+    flowSeparationWarnPercent: 0.05
+    mapDim: 750
+    maxMassFlux: 1406.4697609001405
+    maxPressure: 10342500.000000002
+    minPortThroat: 2.0
+    sepPressureRatio: 0.4
+    timestep: 0.03
+  grains:
+  - properties:
+      coreDiameter: 0.028575057150114304
+      diameter: 0.06507493014986031
+      inhibitedEnds: Both
+      length: 0.27940055880111764
+    type: BATES
+  - properties:
+      aftCoreDiameter: 0.038100076200152405
+      diameter: 0.06507493014986031
+      forwardCoreDiameter: 0.028575057150114304
+      inhibitedEnds: Both
+      length: 0.9144018288036577
+    type: Conical
+  nozzle:
+    convAngle: 60.0
+    divAngle: 15.0
+    efficiency: 0.95
+    erosionCoeff: 1.473583412767461e-10
+    exit: 0.06858013716027433
+    slagCoeff: 0.0
+    throat: 0.028575057150114304
+    throatLength: 0.012700025400050802
+  propellant:
+    density: 1674.6338641415216
+    name: Booska - Fast
+    tabs:
+    - a: 1.1152476321943208e-05
+      k: 1.2
+      m: 24.47
+      maxPressure: 10894100.000000002
+      minPressure: 0.0
+      n: 0.415
+      t: 2955.0
+type: !!python/object/apply:uilib.fileIO.fileTypes
+- 3
+version: !!python/tuple
+- 0
+- 6
+- 0

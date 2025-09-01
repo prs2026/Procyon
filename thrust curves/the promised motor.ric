@@ -1,0 +1,52 @@
+data:
+  config:
+    ambPressure: 51712.50000000001
+    burnoutThrustThres: 0.1
+    burnoutWebThres: 2.5400050800101604e-05
+    flowSeparationWarnPercent: 0.05
+    mapDim: 750
+    maxMassFlux: 1406.4697609001405
+    maxPressure: 10342500.000000002
+    minPortThroat: 2.0
+    sepPressureRatio: 0.4
+    timestep: 0.03
+  grains:
+  - properties:
+      coreDiameter: 0.038100076200152405
+      diameter: 0.17780035560071122
+      inhibitedEnds: Both
+      length: 1.27000254000508
+    type: BATES
+  - properties:
+      aftCoreDiameter: 0.06350012700025401
+      diameter: 0.17780035560071122
+      forwardCoreDiameter: 0.038100076200152405
+      inhibitedEnds: Both
+      length: 0.7620015240030481
+    type: Conical
+  nozzle:
+    convAngle: 60.0
+    divAngle: 15.0
+    efficiency: 0.95
+    erosionCoeff: 1.8419792659593266e-10
+    exit: 0.17780035560071122
+    slagCoeff: 0.0
+    throat: 0.031750063500127004
+    throatLength: 0.025400050800101603
+  propellant:
+    density: 1729.9936613032248
+    name: 'Chase - UPET '
+    tabs:
+    - a: 8.988603722431091e-06
+      k: 1.198
+      m: 24.98
+      maxPressure: 13790000.000000002
+      minPressure: 0.0
+      n: 0.412
+      t: 2977.0
+type: !!python/object/apply:uilib.fileIO.fileTypes
+- 3
+version: !!python/tuple
+- 0
+- 6
+- 0
