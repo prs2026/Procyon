@@ -150,12 +150,12 @@
       <SustainerNozzleDiameter>1.9</SustainerNozzleDiameter>
       <SustainerCG>29.3</SustainerCG>
       <SustainerIgnitionDelay>14</SustainerIgnitionDelay>
-      <Booster1Engine>N3262BPF  (Polaris)</Booster1Engine>
-      <Booster1LaunchWt>34</Booster1LaunchWt>
+      <Booster1Engine>N2411ChaseEnergyEthan  (Ethan)</Booster1Engine>
+      <Booster1LaunchWt>32</Booster1LaunchWt>
       <Booster1SeparationDelay>0</Booster1SeparationDelay>
       <Booster1IgnitionDelay>0</Booster1IgnitionDelay>
       <Booster1CG>60.9</Booster1CG>
-      <Booster1NozzleDiameter>2.5</Booster1NozzleDiameter>
+      <Booster1NozzleDiameter>3</Booster1NozzleDiameter>
       <IncludeBooster1>True</IncludeBooster1>
       <Booster2LaunchWt>0</Booster2LaunchWt>
       <Booster2Delay>0</Booster2Delay>
@@ -163,9 +163,9 @@
       <Booster2NozzleDiameter>0</Booster2NozzleDiameter>
       <IncludeBooster2>False</IncludeBooster2>
       <FlightTime>0</FlightTime>
-      <TimetoApogee>148.3096</TimetoApogee>
-      <MaxAltitude>304621.3</MaxAltitude>
-      <MaxVelocity>5425.276</MaxVelocity>
+      <TimetoApogee>159.2344</TimetoApogee>
+      <MaxAltitude>348108.1</MaxAltitude>
+      <MaxVelocity>5548.137</MaxVelocity>
       <OptimumWt>0</OptimumWt>
       <OptimumMaxAlt>0</OptimumMaxAlt>
     </Simulation>
