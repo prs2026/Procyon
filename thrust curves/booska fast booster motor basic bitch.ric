@@ -12,28 +12,39 @@ data:
     timestep: 0.01
   grains:
   - properties:
-      coreDiameter: 0.022860045720091444
+      coreDiameter: 0.01778003556007112
+      diameter: 0.047625095250190506
+      finLength: 0.007620015240030481
+      finWidth: 0.005080010160020321
+      inhibitedEnds: Both
+      invertedFins: false
+      length: 0.10160020320040641
+      numFins: 6
+    type: Finocyl
+  - properties:
+      coreDiameter: 0.01778003556007112
       diameter: 0.047625095250190506
       inhibitedEnds: Bottom
       length: 0.35560071120142245
     type: BATES
   - properties:
-      coreDiameter: 0.025400050800101603
+      aftCoreDiameter: 0.022860045720091444
       diameter: 0.047625095250190506
-      inhibitedEnds: Bottom
-      length: 0.17780035560071122
-    type: BATES
+      forwardCoreDiameter: 0.01778003556007112
+      inhibitedEnds: Both
+      length: 0.22860045720091443
+    type: Conical
   - properties:
-      coreDiameter: 0.028575057150114304
+      coreDiameter: 0.022860045720091444
       diameter: 0.047625095250190506
-      inhibitedEnds: Bottom
-      length: 0.15240030480060962
+      inhibitedEnds: Both
+      length: 0.006350012700025401
     type: BATES
   nozzle:
     convAngle: 45.0
     divAngle: 15.0
     efficiency: 0.95
-    erosionCoeff: 1.473583412767461e-10
+    erosionCoeff: 2.2103751191511918e-10
     exit: 0.048260096520193044
     slagCoeff: 0.0
     throat: 0.016510033020066043
