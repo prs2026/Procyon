@@ -100,7 +100,7 @@
         <FX3>1.5</FX3>
       </Fin>
     </Booster>
-    <Surface>Rough Camouflage Paint</Surface>
+    <Surface>Smooth Paint</Surface>
     <CP>0</CP>
     <ModifiedBarrowman>True</ModifiedBarrowman>
     <Turbulence>True</Turbulence>
@@ -154,9 +154,9 @@
       <Booster2NozzleDiameter>0</Booster2NozzleDiameter>
       <IncludeBooster2>False</IncludeBooster2>
       <FlightTime>0</FlightTime>
-      <TimetoApogee>61.65601</TimetoApogee>
-      <MaxAltitude>70323.51</MaxAltitude>
-      <MaxVelocity>4629.911</MaxVelocity>
+      <TimetoApogee>69.91608</TimetoApogee>
+      <MaxAltitude>86912.03</MaxAltitude>
+      <MaxVelocity>4833.323</MaxVelocity>
       <OptimumWt>0</OptimumWt>
       <OptimumMaxAlt>0</OptimumMaxAlt>
     </Simulation>
