@@ -45,7 +45,7 @@
     <FinCan>
       <PartType>FinCan</PartType>
       <Length>8</Length>
-      <Diameter>2.205</Diameter>
+      <Diameter>2.25</Diameter>
       <InsideDiameter>2.125</InsideDiameter>
       <LaunchLugDiameter>0</LaunchLugDiameter>
       <LaunchLugLength>0</LaunchLugLength>
@@ -59,22 +59,22 @@
       <Fin>
         <Count>4</Count>
         <Chord>8</Chord>
-        <Span>2.35</Span>
+        <Span>2.45</Span>
         <SweepDistance>5</SweepDistance>
-        <TipChord>3</TipChord>
-        <Thickness>0.1875</Thickness>
+        <TipChord>4</TipChord>
+        <Thickness>0.125</Thickness>
         <LERadius>0.02</LERadius>
         <Location>8</Location>
-        <AirfoilSection>Double Wedge</AirfoilSection>
-        <FX1>1.5</FX1>
-        <FX3>1.5</FX3>
+        <AirfoilSection>Hexagonal</AirfoilSection>
+        <FX1>1</FX1>
+        <FX3>0.5</FX3>
       </Fin>
     </FinCan>
     <Booster>
       <PartType>Booster</PartType>
       <Length>35.125</Length>
-      <Diameter>2.205</Diameter>
-      <InsideDiameter>2.205</InsideDiameter>
+      <Diameter>2.25</Diameter>
+      <InsideDiameter>2.25</InsideDiameter>
       <LaunchLugDiameter>0</LaunchLugDiameter>
       <LaunchLugLength>0</LaunchLugLength>
       <RailGuideDiameter>0</RailGuideDiameter>
@@ -100,7 +100,7 @@
         <FX3>1.5</FX3>
       </Fin>
     </Booster>
-    <Surface>Smooth Paint</Surface>
+    <Surface>Camouflage Paint</Surface>
     <CP>0</CP>
     <ModifiedBarrowman>True</ModifiedBarrowman>
     <Turbulence>True</Turbulence>
@@ -112,7 +112,7 @@
     <Comments />
   </RocketDesign>
   <LaunchSite>
-    <Altitude>4000</Altitude>
+    <Altitude>-200</Altitude>
     <Pressure>29.92</Pressure>
     <RodAngle>2</RodAngle>
     <RodLength>10</RodLength>
@@ -137,7 +137,7 @@
   <SimulationList>
     <Simulation>
       <SustainerEngine>L1081  (boostkareilley)</SustainerEngine>
-      <SustainerLaunchWt>7.05</SustainerLaunchWt>
+      <SustainerLaunchWt>7.71</SustainerLaunchWt>
       <SustainerNozzleDiameter>1.9</SustainerNozzleDiameter>
       <SustainerCG>27.67</SustainerCG>
       <SustainerIgnitionDelay>8</SustainerIgnitionDelay>
@@ -154,9 +154,9 @@
       <Booster2NozzleDiameter>0</Booster2NozzleDiameter>
       <IncludeBooster2>False</IncludeBooster2>
       <FlightTime>0</FlightTime>
-      <TimetoApogee>69.91608</TimetoApogee>
-      <MaxAltitude>86912.03</MaxAltitude>
-      <MaxVelocity>4833.323</MaxVelocity>
+      <TimetoApogee>53.79733</TimetoApogee>
+      <MaxAltitude>55748.62</MaxAltitude>
+      <MaxVelocity>4091.104</MaxVelocity>
       <OptimumWt>0</OptimumWt>
       <OptimumMaxAlt>0</OptimumMaxAlt>
     </Simulation>
