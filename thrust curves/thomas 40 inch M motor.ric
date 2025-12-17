@@ -1,0 +1,55 @@
+data:
+  config:
+    ambPressure: 51712.50000000001
+    burnoutThrustThres: 0.1
+    burnoutWebThres: 2.5400050800101604e-05
+    flowSeparationWarnPercent: 0.05
+    mapDim: 750
+    maxMassFlux: 1406.4697609001405
+    maxPressure: 10342500.000000002
+    minPortThroat: 2.0
+    sepPressureRatio: 0.4
+    timestep: 0.03
+  grains:
+  - properties:
+      coreDiameter: 0.025400050800101603
+      diameter: 0.06507493014986031
+      inhibitedEnds: Both
+      length: 0.7620015240030481
+    type: BATES
+  - properties:
+      coreDiameter: 0.027940055880111767
+      diameter: 0.06507493014986031
+      finLength: 0.009525019050038101
+      finWidth: 0.005080010160020321
+      inhibitedEnds: Both
+      invertedFins: false
+      length: 0.24130048260096523
+      numFins: 4
+    type: Finocyl
+  nozzle:
+    convAngle: 60.0
+    divAngle: 15.0
+    efficiency: 0.95
+    erosionCoeff: 1.8419792659593266e-10
+    exit: 0.07366014732029465
+    slagCoeff: 0.0
+    throat: 0.019050038100076203
+    throatLength: 0.012700025400050802
+  propellant:
+    density: 1644.185975702585
+    name: Boostka Slow
+    tabs:
+    - a: 6.429358229107386e-06
+      k: 1.22
+      m: 23.55
+      maxPressure: 13790000.000000002
+      minPressure: 0.0
+      n: 0.443
+      t: 2665.0
+type: !!python/object/apply:uilib.fileIO.fileTypes
+- 3
+version: !!python/tuple
+- 0
+- 6
+- 0

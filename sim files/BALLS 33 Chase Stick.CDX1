@@ -122,7 +122,7 @@
   </RocketDesign>
   <LaunchSite>
     <Altitude>3900</Altitude>
-    <Pressure>25.75</Pressure>
+    <Pressure>0</Pressure>
     <RodAngle>1</RodAngle>
     <RodLength>10</RodLength>
     <Temperature>80</Temperature>
@@ -146,11 +146,11 @@
   <SimulationList>
     <Simulation>
       <SustainerEngine>L1081  (boostkareilley)</SustainerEngine>
-      <SustainerLaunchWt>7.2</SustainerLaunchWt>
+      <SustainerLaunchWt>8</SustainerLaunchWt>
       <SustainerNozzleDiameter>1.9</SustainerNozzleDiameter>
       <SustainerCG>29.3</SustainerCG>
       <SustainerIgnitionDelay>14</SustainerIgnitionDelay>
-      <Booster1Engine>N2411ChaseEnergyEthan  (Ethan)</Booster1Engine>
+      <Booster1Engine>N3262BPF  (Polaris)</Booster1Engine>
       <Booster1LaunchWt>32</Booster1LaunchWt>
       <Booster1SeparationDelay>0</Booster1SeparationDelay>
       <Booster1IgnitionDelay>0</Booster1IgnitionDelay>
@@ -163,9 +163,9 @@
       <Booster2NozzleDiameter>0</Booster2NozzleDiameter>
       <IncludeBooster2>False</IncludeBooster2>
       <FlightTime>0</FlightTime>
-      <TimetoApogee>159.2344</TimetoApogee>
-      <MaxAltitude>348108.1</MaxAltitude>
-      <MaxVelocity>5548.137</MaxVelocity>
+      <TimetoApogee>117.2259</TimetoApogee>
+      <MaxAltitude>192527.3</MaxAltitude>
+      <MaxVelocity>4613.965</MaxVelocity>
       <OptimumWt>0</OptimumWt>
       <OptimumMaxAlt>0</OptimumMaxAlt>
     </Simulation>
