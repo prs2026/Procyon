@@ -1,0 +1,87 @@
+data:
+  config:
+    ambPressure: 101324.99674500001
+    burnoutThrustThres: 0.1
+    burnoutWebThres: 2.5400050800101604e-05
+    flowSeparationWarnPercent: 0.05
+    mapDim: 750
+    maxMassFlux: 1406.4697609001405
+    maxPressure: 10342500.000000002
+    minPortThroat: 2.0
+    sepPressureRatio: 0.4
+    timestep: 0.005
+  grains:
+  - properties:
+      coreDiameter: 0.013487426974853951
+      diameter: 0.032359664719329446
+      inhibitedEnds: Neither
+      length: 0.05186690373380747
+    type: BATES
+  - properties:
+      coreDiameter: 0.013487426974853951
+      diameter: 0.032359664719329446
+      inhibitedEnds: Neither
+      length: 0.05186690373380747
+    type: BATES
+  - properties:
+      coreDiameter: 0.013487426974853951
+      diameter: 0.032359664719329446
+      inhibitedEnds: Neither
+      length: 0.05186690373380747
+    type: BATES
+  - properties:
+      coreDiameter: 0.013487426974853951
+      diameter: 0.032359664719329446
+      inhibitedEnds: Neither
+      length: 0.05186690373380747
+    type: BATES
+  - properties:
+      coreDiameter: 0.013487426974853951
+      diameter: 0.032359664719329446
+      inhibitedEnds: Neither
+      length: 0.05186690373380747
+    type: BATES
+  - properties:
+      coreDiameter: 0.013487426974853951
+      diameter: 0.032359664719329446
+      inhibitedEnds: Neither
+      length: 0.05186690373380747
+    type: BATES
+  - properties:
+      coreDiameter: 0.013487426974853951
+      diameter: 0.032359664719329446
+      inhibitedEnds: Neither
+      length: 0.05186690373380747
+    type: BATES
+  - properties:
+      coreDiameter: 0.013487426974853951
+      diameter: 0.032359664719329446
+      inhibitedEnds: Neither
+      length: 0.05186690373380747
+    type: BATES
+  nozzle:
+    convAngle: 60.0
+    divAngle: 15.0
+    efficiency: 0.95
+    erosionCoeff: 7.367917063837305e-11
+    exit: 0.029614826771653547
+    slagCoeff: 0.0
+    throat: 0.009118618237236475
+    throatLength: 0.009525019050038101
+  propellant:
+    density: 1729.9936613032248
+    name: RCS - Redline
+    tabs:
+    - a: 2.969528457282737e-05
+      k: 1.225
+      m: 26.792
+      maxPressure: 13790000.000000002
+      minPressure: 0.0
+      n: 0.366
+      t: 2238.0
+type: !!python/object/apply:uilib.fileIO.fileTypes
+- 3
+version: !!python/tuple
+- 0
+- 6
+- 0
