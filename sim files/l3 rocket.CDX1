@@ -54,10 +54,10 @@
         <FX3>0.75</FX3>
       </Fin>
     </FinCan>
-    <Surface>Smooth (Zero Roughness)</Surface>
+    <Surface>Camouflage Paint</Surface>
     <CP>0</CP>
-    <ModifiedBarrowman>False</ModifiedBarrowman>
-    <Turbulence>False</Turbulence>
+    <ModifiedBarrowman>True</ModifiedBarrowman>
+    <Turbulence>True</Turbulence>
     <SustainerNozzle>0</SustainerNozzle>
     <Booster1Nozzle>0</Booster1Nozzle>
     <Booster2Nozzle>0</Booster2Nozzle>
@@ -66,11 +66,11 @@
     <Comments />
   </RocketDesign>
   <LaunchSite>
-    <Altitude>4000</Altitude>
+    <Altitude>2000</Altitude>
     <Pressure>0</Pressure>
     <RodAngle>2</RodAngle>
-    <RodLength>20</RodLength>
-    <Temperature>85</Temperature>
+    <RodLength>10</RodLength>
+    <Temperature>75</Temperature>
     <WindSpeed>7</WindSpeed>
   </LaunchSite>
   <Recovery>
@@ -88,5 +88,30 @@
     <CD2>1.33</CD2>
   </Recovery>
   <MachAlt />
-  <SimulationList />
+  <SimulationList>
+    <Simulation>
+      <SustainerEngine>M2050  (AT)</SustainerEngine>
+      <SustainerLaunchWt>12.2</SustainerLaunchWt>
+      <SustainerNozzleDiameter>1.875</SustainerNozzleDiameter>
+      <SustainerCG>30.3</SustainerCG>
+      <SustainerIgnitionDelay>0</SustainerIgnitionDelay>
+      <Booster1LaunchWt>0</Booster1LaunchWt>
+      <Booster1SeparationDelay>0</Booster1SeparationDelay>
+      <Booster1IgnitionDelay>0</Booster1IgnitionDelay>
+      <Booster1CG>0</Booster1CG>
+      <Booster1NozzleDiameter>0</Booster1NozzleDiameter>
+      <IncludeBooster1>False</IncludeBooster1>
+      <Booster2LaunchWt>0</Booster2LaunchWt>
+      <Booster2Delay>0</Booster2Delay>
+      <Booster2CG>0</Booster2CG>
+      <Booster2NozzleDiameter>0</Booster2NozzleDiameter>
+      <IncludeBooster2>False</IncludeBooster2>
+      <FlightTime>0</FlightTime>
+      <TimetoApogee>34.14028</TimetoApogee>
+      <MaxAltitude>29513.17</MaxAltitude>
+      <MaxVelocity>3405.361</MaxVelocity>
+      <OptimumWt>0</OptimumWt>
+      <OptimumMaxAlt>0</OptimumMaxAlt>
+    </Simulation>
+  </SimulationList>
 </RASAeroDocument>

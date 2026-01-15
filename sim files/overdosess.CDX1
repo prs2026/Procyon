@@ -88,16 +88,16 @@
       <BoattailRearDiameter>0</BoattailRearDiameter>
       <Fin>
         <Count>4</Count>
-        <Chord>10</Chord>
+        <Chord>8</Chord>
         <Span>4</Span>
-        <SweepDistance>8</SweepDistance>
-        <TipChord>3</TipChord>
-        <Thickness>0.1875</Thickness>
-        <LERadius>0.01</LERadius>
-        <Location>11.625</Location>
-        <AirfoilSection>Hexagonal</AirfoilSection>
+        <SweepDistance>5</SweepDistance>
+        <TipChord>2</TipChord>
+        <Thickness>0.125</Thickness>
+        <LERadius>0.005</LERadius>
+        <Location>9.625</Location>
+        <AirfoilSection>Hexagonal Blunt Base</AirfoilSection>
         <FX1>0.75</FX1>
-        <FX3>0.25</FX3>
+        <FX3>0</FX3>
       </Fin>
     </Booster>
     <Surface>Camouflage Paint</Surface>
@@ -141,7 +141,7 @@
       <SustainerNozzleDiameter>1.9</SustainerNozzleDiameter>
       <SustainerCG>27.67</SustainerCG>
       <SustainerIgnitionDelay>10</SustainerIgnitionDelay>
-      <Booster1Engine>M2948NCBP  (Polaris/Thomas)</Booster1Engine>
+      <Booster1Engine>N2651  (bps)</Booster1Engine>
       <Booster1LaunchWt>28.3</Booster1LaunchWt>
       <Booster1SeparationDelay>0</Booster1SeparationDelay>
       <Booster1IgnitionDelay>0</Booster1IgnitionDelay>
