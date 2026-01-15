@@ -112,7 +112,7 @@
     <Comments />
   </RocketDesign>
   <LaunchSite>
-    <Altitude>4000</Altitude>
+    <Altitude>2000</Altitude>
     <Pressure>0</Pressure>
     <RodAngle>2</RodAngle>
     <RodLength>10</RodLength>
@@ -147,16 +147,16 @@
       <Booster1IgnitionDelay>0</Booster1IgnitionDelay>
       <Booster1CG>44.95</Booster1CG>
       <Booster1NozzleDiameter>1.9</Booster1NozzleDiameter>
-      <IncludeBooster1>True</IncludeBooster1>
+      <IncludeBooster1>False</IncludeBooster1>
       <Booster2LaunchWt>0</Booster2LaunchWt>
       <Booster2Delay>0</Booster2Delay>
       <Booster2CG>0</Booster2CG>
       <Booster2NozzleDiameter>0</Booster2NozzleDiameter>
       <IncludeBooster2>False</IncludeBooster2>
       <FlightTime>0</FlightTime>
-      <TimetoApogee>68.24573</TimetoApogee>
-      <MaxAltitude>77460.88</MaxAltitude>
-      <MaxVelocity>4151.653</MaxVelocity>
+      <TimetoApogee>33.01047</TimetoApogee>
+      <MaxAltitude>27343.41</MaxAltitude>
+      <MaxVelocity>3243.95</MaxVelocity>
       <OptimumWt>0</OptimumWt>
       <OptimumMaxAlt>0</OptimumMaxAlt>
     </Simulation>
