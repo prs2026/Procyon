@@ -121,17 +121,17 @@
   </LaunchSite>
   <Recovery>
     <Altitude1>1000</Altitude1>
-    <Altitude2>1000</Altitude2>
-    <DeviceType1>None</DeviceType1>
-    <DeviceType2>None</DeviceType2>
+    <Altitude2>3000</Altitude2>
+    <DeviceType1>Parachute</DeviceType1>
+    <DeviceType2>Parachute</DeviceType2>
     <Event1>False</Event1>
     <Event2>False</Event2>
-    <Size1>1</Size1>
-    <Size2>1</Size2>
-    <EventType1>None</EventType1>
-    <EventType2>None</EventType2>
-    <CD1>1.33</CD1>
-    <CD2>1.33</CD2>
+    <Size1>6</Size1>
+    <Size2>24</Size2>
+    <EventType1>Apogee</EventType1>
+    <EventType2>Altitude</EventType2>
+    <CD1>0.75</CD1>
+    <CD2>1.8</CD2>
   </Recovery>
   <MachAlt />
   <SimulationList>
