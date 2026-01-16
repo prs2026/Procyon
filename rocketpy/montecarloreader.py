@@ -84,9 +84,9 @@ for x in results:
         #print(str(apogee) + " at " + str(apogee_index))
 
 
+#MATPLOTLIB PLOTS------------------------------------------------------------------
 
-
-fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(16, 14))
+fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(10, 6))
 
 ax1.hist(z_apogee)
 ax1.set_xlabel('Apogee(m)', fontsize=12)
@@ -109,12 +109,9 @@ ax4.set_xlabel('Ignition Velocity (m/s)', fontsize=12)
 ax4.set_ylabel('Frequency', fontsize=12)
 ax4.set_title('Ignition Velcoties', fontsize=14)
 
-plt.show()
+plt.tight_layout()
 
-#comparison = CompareFlights(results)
-# #SustainerFlight2.info()
-#comparison.trajectories_3d()
-# comparison.trajectories_2d()
+plt.show()
 
 origin_lat = 35.3466  # Replace with your launch site
 origin_lon = -117.809
@@ -157,6 +154,8 @@ def create_circle(center_lon, center_lat, radius_x, radius_y, num_points=100):
     lats = center_lat + (radius_y / meters_per_degree_lat) * np.sin(angles)
     return lons, lats
 
+
+
 # Create KML file
 kml_content = f"""<?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2">
@@ -177,13 +176,17 @@ kml_content = f"""<?xml version="1.0" encoding="UTF-8"?>
     
     <!-- Style for landing points -->
     <Style id="landingStyle">
-    <IconStyle>
+      <IconStyle>
         <color>ff0000ff</color>
         <scale>1.0</scale>
         <Icon>
-        <href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href>
+          <href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href>
         </Icon>
-    </IconStyle>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0.3</scale>
+        <color>ffffffff</color>
+      </LabelStyle>
     </Style>
     
     <!-- Style for apogee points -->
@@ -195,6 +198,10 @@ kml_content = f"""<?xml version="1.0" encoding="UTF-8"?>
         <href>http://maps.google.com/mapfiles/kml/shapes/triangle.png</href>
         </Icon>
     </IconStyle>
+    <LabelStyle>
+        <scale>0.3</scale>
+        <color>ffffffff</color>
+      </LabelStyle>
     </Style>
     
     <!-- Style for mean landing -->
