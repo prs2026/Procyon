@@ -84,34 +84,6 @@ for x in results:
         #print(str(apogee) + " at " + str(apogee_index))
 
 
-#MATPLOTLIB PLOTS------------------------------------------------------------------
-
-fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(10, 6))
-
-ax1.hist(z_apogee)
-ax1.set_xlabel('Apogee(m)', fontsize=12)
-ax1.set_ylabel('Frequency', fontsize=12)
-ax1.set_title('Apogees', fontsize=14)
-
-
-ax2.hist(ignitionangles)
-ax2.set_xlabel('Ignition angles (deg)', fontsize=12)
-ax2.set_ylabel('Frequency', fontsize=12)
-ax2.set_title('Ignition angles', fontsize=14)
-
-ax3.hist(ignitiontimings)
-ax3.set_xlabel('Ignition Timings (s)', fontsize=12)
-ax3.set_ylabel('Frequency', fontsize=12)
-ax3.set_title('Ignition Timings', fontsize=14)
-
-ax4.hist(ignitionvelocites)
-ax4.set_xlabel('Ignition Velocity (m/s)', fontsize=12)
-ax4.set_ylabel('Frequency', fontsize=12)
-ax4.set_title('Ignition Velcoties', fontsize=14)
-
-plt.tight_layout()
-
-plt.show()
 
 origin_lat = 35.3466  # Replace with your launch site
 origin_lon = -117.809
@@ -428,3 +400,36 @@ print(f"  Mean: {mean_lat_apogee:.6f}, {mean_lon_apogee:.6f} ({mean_x_apogee:.1f
 print(f"  Mean Altitude: {mean_z_apogee:.1f}m ± {std_z_apogee:.1f}m")
 print(f"  Horizontal Std Dev: {std_x_apogee:.1f}m (E-W) x {std_y_apogee:.1f}m (N-S)")
 print(f"\nTotal flights: {len(lat_landing)}")
+
+
+
+
+
+#MATPLOTLIB PLOTS------------------------------------------------------------------
+
+fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(10, 6))
+
+ax1.hist(z_apogee)
+ax1.set_xlabel('Apogee(m)', fontsize=12)
+ax1.set_ylabel('Frequency', fontsize=12)
+ax1.set_title('Apogees', fontsize=14)
+
+
+ax2.hist(ignitionangles)
+ax2.set_xlabel('Ignition angles (deg)', fontsize=12)
+ax2.set_ylabel('Frequency', fontsize=12)
+ax2.set_title('Ignition angles', fontsize=14)
+
+ax3.hist(ignitiontimings)
+ax3.set_xlabel('Ignition Timings (s)', fontsize=12)
+ax3.set_ylabel('Frequency', fontsize=12)
+ax3.set_title('Ignition Timings', fontsize=14)
+
+ax4.hist(ignitionvelocites)
+ax4.set_xlabel('Ignition Velocity (m/s)', fontsize=12)
+ax4.set_ylabel('Frequency', fontsize=12)
+ax4.set_title('Ignition Velcoties', fontsize=14)
+
+plt.tight_layout()
+
+plt.show()

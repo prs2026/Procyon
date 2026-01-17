@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Ellipse
 import multiprocessing
 import pickle
+import datetime
 
 from rocketpy import Environment, SolidMotor, Rocket, Flight
 
@@ -36,7 +37,9 @@ if __name__ == '__main__':
     numworkers = int(input("How many workers?"))
 
     if input("Use GFS?") == "yes":
-        env.set_atmospheric_model(type="Forecast", file="GFS")
+        env.set_atmospheric_model(type="Forecast", file="HIRESW")
+    #GFS - avalible a lot in advance, 18x18km grid
+    #HIRESW - 48h prior, 3kmx3km grid
 
 
 #env.info()
@@ -245,7 +248,7 @@ boosterfin_set = RelapseStack.add_trapezoidal_fins(
 #monte carlo attempts
 #just gonna vary launch angle for now
 
-railinclination = [90,10]
+railinclination = [90,2]
 railheading = [270,90]
 
 
@@ -406,6 +409,8 @@ if __name__ == '__main__':
         results = (pool.map(runsim, numbers))
 
     print("done with sims")
+
+    #filename = "simdata.pkl" + datetime.today().strftime('%Y-%m-%d %H:%M:%S')
 
     with open('flight_data.pkl', 'wb') as f:
         pickle.dump(results, f)
