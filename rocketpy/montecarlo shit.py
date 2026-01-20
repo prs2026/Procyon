@@ -36,7 +36,7 @@ if __name__ == '__main__':
     numworkers = int(input("How many workers?"))
 
     if input("Use GFS?") == "yes":
-        env.set_atmospheric_model(type="Forecast", file="GFS")
+        env.set_atmospheric_model(type="Forecast", file="HIRESW")
 
 
 #env.info()
@@ -245,7 +245,7 @@ boosterfin_set = RelapseStack.add_trapezoidal_fins(
 #monte carlo attempts
 #just gonna vary launch angle for now
 
-railinclination = [90,10]
+railinclination = [90,5]
 railheading = [270,90]
 
 

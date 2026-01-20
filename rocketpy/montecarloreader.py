@@ -81,37 +81,11 @@ for x in results:
         x_apogee.append(x[apogee_index][1])
         y_apogee.append(x[apogee_index][2])
         z_apogee.append(apogee)
+
+        
         #print(str(apogee) + " at " + str(apogee_index))
 
 
-#MATPLOTLIB PLOTS------------------------------------------------------------------
-
-fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(10, 6))
-
-ax1.hist(z_apogee)
-ax1.set_xlabel('Apogee(m)', fontsize=12)
-ax1.set_ylabel('Frequency', fontsize=12)
-ax1.set_title('Apogees', fontsize=14)
-
-
-ax2.hist(ignitionangles)
-ax2.set_xlabel('Ignition angles (deg)', fontsize=12)
-ax2.set_ylabel('Frequency', fontsize=12)
-ax2.set_title('Ignition angles', fontsize=14)
-
-ax3.hist(ignitiontimings)
-ax3.set_xlabel('Ignition Timings (s)', fontsize=12)
-ax3.set_ylabel('Frequency', fontsize=12)
-ax3.set_title('Ignition Timings', fontsize=14)
-
-ax4.hist(ignitionvelocites)
-ax4.set_xlabel('Ignition Velocity (m/s)', fontsize=12)
-ax4.set_ylabel('Frequency', fontsize=12)
-ax4.set_title('Ignition Velcoties', fontsize=14)
-
-plt.tight_layout()
-
-plt.show()
 
 origin_lat = 35.3466  # Replace with your launch site
 origin_lon = -117.809
@@ -356,30 +330,30 @@ for sigma, style, name in [(1, 'landingSigma1', 'Landing 1 Std Dev'),
     </Placemark>
 """
 
-# Add apogee standard deviation ellipses
-for sigma, style, name in [(1, 'apogeeSigma1', 'Apogee 1 Std Dev'), 
-                            (2, 'apogeeSigma2', 'Apogee 2 Std Dev'), 
-                            (3, 'apogeeSigma3', 'Apogee 3 Std Dev')]:
-    lons, lats = create_circle(mean_lon_apogee, mean_lat_apogee, sigma * std_x_apogee, sigma * std_y_apogee)
-    coords = ' '.join([f"{lon},{lat},{mean_z_apogee}" for lon, lat in zip(lons, lats)])
+# # Add apogee standard deviation ellipses
+# for sigma, style, name in [(1, 'apogeeSigma1', 'Apogee 1 Std Dev'), 
+#                             (2, 'apogeeSigma2', 'Apogee 2 Std Dev'), 
+#                             (3, 'apogeeSigma3', 'Apogee 3 Std Dev')]:
+#     lons, lats = create_circle(mean_lon_apogee, mean_lat_apogee, sigma * std_x_apogee, sigma * std_y_apogee)
+#     coords = ' '.join([f"{lon},{lat},{mean_z_apogee}" for lon, lat in zip(lons, lats)])
     
-    kml_content += f"""
-    <Placemark>
-    <name>{name} Ellipse</name>
-    <description>{name}: {sigma * std_x_apogee:.1f}m x {sigma * std_y_apogee:.1f}m at ~{mean_z_apogee:.1f}m altitude</description>
-    <styleUrl>#{style}</styleUrl>
-    <Polygon>
-        <altitudeMode>absolute</altitudeMode>
-        <outerBoundaryIs>
-        <LinearRing>
-            <coordinates>
-            {coords}
-            </coordinates>
-        </LinearRing>
-        </outerBoundaryIs>
-    </Polygon>
-    </Placemark>
-"""
+#     kml_content += f"""
+#     <Placemark>
+#     <name>{name} Ellipse</name>
+#     <description>{name}: {sigma * std_x_apogee:.1f}m x {sigma * std_y_apogee:.1f}m at ~{mean_z_apogee:.1f}m altitude</description>
+#     <styleUrl>#{style}</styleUrl>
+#     <Polygon>
+#         <altitudeMode>absolute</altitudeMode>
+#         <outerBoundaryIs>
+#         <LinearRing>
+#             <coordinates>
+#             {coords}
+#             </coordinates>
+#         </LinearRing>
+#         </outerBoundaryIs>
+#     </Polygon>
+#     </Placemark>
+# """
 
 # Add all landing points
 for i, (lon, lat, x, y) in enumerate(zip(lon_landing, lat_landing, x_data, y_data), 1):
@@ -394,19 +368,19 @@ for i, (lon, lat, x, y) in enumerate(zip(lon_landing, lat_landing, x_data, y_dat
     </Placemark>
 """
 
-# Add all apogee points
-for i, (lon, lat, x, y, z) in enumerate(zip(lon_apogee, lat_apogee, x_apogee, y_apogee, z_apogee), 1):
-    kml_content += f"""
-    <Placemark>
-    <name>Apogee {i}</name>
-    <description>Position: {x:.1f}m East, {y:.1f}m North&lt;br/&gt;Altitude: {z:.1f}m</description>
-    <styleUrl>#apogeeStyle</styleUrl>
-    <Point>
-        <altitudeMode>absolute</altitudeMode>
-        <coordinates>{lon},{lat},{z}</coordinates>
-    </Point>
-    </Placemark>
-"""
+# # Add all apogee points
+# for i, (lon, lat, x, y, z) in enumerate(zip(lon_apogee, lat_apogee, x_apogee, y_apogee, z_apogee), 1):
+#     kml_content += f"""
+#     <Placemark>
+#     <name>Apogee {i}</name>
+#     <description>Position: {x:.1f}m East, {y:.1f}m North&lt;br/&gt;Altitude: {z:.1f}m</description>
+#     <styleUrl>#apogeeStyle</styleUrl>
+#     <Point>
+#         <altitudeMode>absolute</altitudeMode>
+#         <coordinates>{lon},{lat},{z}</coordinates>
+#     </Point>
+#     </Placemark>
+# """
 
 kml_content += """
 </Document>
@@ -428,3 +402,33 @@ print(f"  Mean: {mean_lat_apogee:.6f}, {mean_lon_apogee:.6f} ({mean_x_apogee:.1f
 print(f"  Mean Altitude: {mean_z_apogee:.1f}m ± {std_z_apogee:.1f}m")
 print(f"  Horizontal Std Dev: {std_x_apogee:.1f}m (E-W) x {std_y_apogee:.1f}m (N-S)")
 print(f"\nTotal flights: {len(lat_landing)}")
+
+
+#MATPLOTLIB PLOTS------------------------------------------------------------------
+
+fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(10, 6))
+
+ax1.hist(z_apogee)
+ax1.set_xlabel('Apogee(m)', fontsize=12)
+ax1.set_ylabel('Frequency', fontsize=12)
+ax1.set_title('Apogees', fontsize=14)
+
+
+ax2.hist(ignitionangles)
+ax2.set_xlabel('Ignition angles (deg)', fontsize=12)
+ax2.set_ylabel('Frequency', fontsize=12)
+ax2.set_title('Ignition angles', fontsize=14)
+
+ax3.hist(ignitiontimings)
+ax3.set_xlabel('Ignition Timings (s)', fontsize=12)
+ax3.set_ylabel('Frequency', fontsize=12)
+ax3.set_title('Ignition Timings', fontsize=14)
+
+ax4.hist(ignitionvelocites)
+ax4.set_xlabel('Ignition Velocity (m/s)', fontsize=12)
+ax4.set_ylabel('Frequency', fontsize=12)
+ax4.set_title('Ignition Velcoties', fontsize=14)
+
+plt.tight_layout()
+
+plt.show()

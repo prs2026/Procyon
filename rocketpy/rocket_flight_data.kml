@@ -1,0 +1,1067 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document>
+    <name>Rocket Flight Data</name>
+    <description>Landing points and apogee locations with standard deviation ellipses</description>
+
+    <!-- Style for launch site -->
+    <Style id="launchStyle">
+    <IconStyle>
+        <color>ff00ff00</color>
+        <scale>1.5</scale>
+        <Icon>
+        <href>http://maps.google.com/mapfiles/kml/shapes/star.png</href>
+        </Icon>
+    </IconStyle>
+    </Style>
+
+    <!-- Style for landing points -->
+    <Style id="landingStyle">
+      <IconStyle>
+        <color>ff0000ff</color>
+        <scale>1.0</scale>
+        <Icon>
+          <href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0.3</scale>
+        <color>ffffffff</color>
+      </LabelStyle>
+    </Style>
+
+    <!-- Style for apogee points -->
+    <Style id="apogeeStyle">
+    <IconStyle>
+        <color>ffff00ff</color>
+        <scale>1.0</scale>
+        <Icon>
+        <href>http://maps.google.com/mapfiles/kml/shapes/triangle.png</href>
+        </Icon>
+    </IconStyle>
+    <LabelStyle>
+        <scale>0.3</scale>
+        <color>ffffffff</color>
+      </LabelStyle>
+    </Style>
+
+    <!-- Style for mean landing -->
+    <Style id="meanLandingStyle">
+    <IconStyle>
+        <color>ff00ffff</color>
+        <scale>1.3</scale>
+        <Icon>
+        <href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+        </Icon>
+    </IconStyle>
+    </Style>
+
+    <!-- Style for mean apogee -->
+    <Style id="meanApogeeStyle">
+    <IconStyle>
+        <color>ffff00aa</color>
+        <scale>1.3</scale>
+        <Icon>
+        <href>http://maps.google.com/mapfiles/kml/shapes/square.png</href>
+        </Icon>
+    </IconStyle>
+    </Style>
+
+    <!-- Style for landing std dev circles -->
+    <Style id="landingSigma1">
+    <LineStyle>
+        <color>ff0000ff</color>
+        <width>3</width>
+    </LineStyle>
+    <PolyStyle>
+        <color>220000ff</color>
+        <fill>1</fill>
+        <outline>1</outline>
+    </PolyStyle>
+    </Style>
+
+    <Style id="landingSigma2">
+    <LineStyle>
+        <color>ff0099ff</color>
+        <width>3</width>
+    </LineStyle>
+    <PolyStyle>
+        <color>110099ff</color>
+        <fill>1</fill>
+        <outline>1</outline>
+    </PolyStyle>
+    </Style>
+
+    <Style id="landingSigma3">
+    <LineStyle>
+        <color>ff00ffff</color>
+        <width>3</width>
+    </LineStyle>
+    <PolyStyle>
+        <color>0800ffff</color>
+        <fill>1</fill>
+        <outline>1</outline>
+    </PolyStyle>
+    </Style>
+
+    <!-- Style for apogee std dev circles -->
+    <Style id="apogeeSigma1">
+    <LineStyle>
+        <color>ffff00ff</color>
+        <width>3</width>
+    </LineStyle>
+    <PolyStyle>
+        <color>22ff00ff</color>
+        <fill>1</fill>
+        <outline>1</outline>
+    </PolyStyle>
+    </Style>
+
+    <Style id="apogeeSigma2">
+    <LineStyle>
+        <color>ffff99ff</color>
+        <width>3</width>
+    </LineStyle>
+    <PolyStyle>
+        <color>11ff99ff</color>
+        <fill>1</fill>
+        <outline>1</outline>
+    </PolyStyle>
+    </Style>
+
+    <Style id="apogeeSigma3">
+    <LineStyle>
+        <color>ffffff00</color>
+        <width>3</width>
+    </LineStyle>
+    <PolyStyle>
+        <color>08ffff00</color>
+        <fill>1</fill>
+        <outline>1</outline>
+    </PolyStyle>
+    </Style>
+
+    <!-- Launch site -->
+    <Placemark>
+    <name>Launch Site</name>
+    <description>Origin point (0,0)</description>
+    <styleUrl>#launchStyle</styleUrl>
+    <Point>
+        <coordinates>-117.809,35.3466,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <!-- Mean landing point -->
+    <Placemark>
+    <name>Mean Landing Point</name>
+    <description>Average: 205.3m East, 413.8m North&lt;br/&gt;Std Dev: 4041.6m x 3371.3m</description>
+    <styleUrl>#meanLandingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.80673846537636,35.35031714572859,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <!-- Mean apogee point -->
+    <Placemark>
+    <name>Mean Apogee Point</name>
+    <description>Average: 141.2m East, 307.8m North, 18420.0m altitude&lt;br/&gt;Std Dev: 2997.6m x 2497.1m (horizontal), 1816.0m (vertical)</description>
+    <styleUrl>#meanApogeeStyle</styleUrl>
+    <Point>
+        <altitudeMode>absolute</altitudeMode>
+        <coordinates>-117.8074445391417,35.34936493637699,18420.049483212777</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 1 Std Dev Ellipse</name>
+    <description>Landing 1 Std Dev: 4041.6m x 3371.3m</description>
+    <styleUrl>#landingSigma1</styleUrl>
+    <Polygon>
+        <outerBoundaryIs>
+        <LinearRing>
+            <coordinates>
+            -117.76222718185561,35.35031714572859,0 -117.76231679746998,35.352237936629024,0 -117.76258528346267,35.35415099318243,0 -117.76303155873534,35.356048612185276,0 -117.76365382629496,35.35792315259558,0 -117.76444958048971,35.35976706630073,0 -117.7654156170983,35.36157292851103,0 -117.76654804623227,35.363333467656716,0 -117.76784230799917,35.36504159466803,0 -117.76929319086368,35.36669043152037,0 -117.77089485263257,35.36827333892967,0 -117.77264084397919,35.369783943086475,0 -117.77452413441264,35.37121616132101,0 -117.77653714058704,35.37256422659593,0 -117.77867175683699,35.37382271072816,0 -117.78091938781625,35.37498654624629,0 -117.78327098310818,35.37605104679544,0 -117.7857170736685,35.37701192600761,0 -117.78824780995384,35.377865314761365,0 -117.79085300158243,35.37860777676137,0 -117.79352215836703,35.379236322375206,0 -117.79624453255535,35.37974842067154,0 -117.79900916210737,35.380142009611255,0 -117.80180491483563,35.380415504350616,0 -117.80462053323066,35.38056780362283,0 -117.80744467979093,35.38059829417249,0 -117.81026598267502,35.380506853224915,0 -117.81307308149195,35.380293848980514,0 -117.81585467304555,35.37996013913221,0 -117.81859955684837,35.37950706741178,0 -117.82129668022213,35.37893645817913,0 -117.82393518280294,35.378250609076254,0 -117.82650444027215,35.37745228177541,0 -117.82899410713674,35.37654469085889,0 -117.83139415838693,35.375531490874984,0 -117.83369492986346,35.37441676162241,0 -117.8358871571716,35.373204991722446,0 -117.83796201298574,35.371901060544786,0 -117.8399111425938,35.370510218560064,0 -117.84172669753882,35.36903806619807,0 -117.84340136722179,35.36749053129679,0 -117.84492840833896,35.365873845233054,0 -117.84630167203473,35.36419451783106,0 -117.84751562866087,35.362459311149536,0 -117.84856539004252,35.36067521225337,0 -117.84944672916109,35.35884940507912,0 -117.850156097175,35.35698924150787,0 -117.85069063770965,35.355102211761796,0 -117.85104819835895,35.35319591424366,0 -117.85122733935239,35.35127802494076,0 -117.85122733935239,35.349356266516416,0 -117.85104819835895,35.347438377213514,0 -117.85069063770965,35.34553207969538,0 -117.850156097175,35.34364504994931,0 -117.84944672916109,35.34178488637806,0 -117.84856539004252,35.33995907920381,0 -117.84751562866087,35.33817498030764,0 -117.84630167203473,35.33643977362612,0 -117.84492840833896,35.334760446224124,0 -117.84340136722179,35.33314376016039,0 -117.84172669753882,35.331596225259105,0 -117.8399111425938,35.330124072897114,0 -117.83796201298574,35.32873323091239,0 -117.8358871571716,35.32742929973473,0 -117.83369492986346,35.326217529834764,0 -117.83139415838693,35.325102800582194,0 -117.82899410713674,35.324089600598285,0 -117.82650444027215,35.323182009681766,0 -117.82393518280294,35.322383682380924,0 -117.82129668022213,35.321697833278044,0 -117.81859955684837,35.3211272240454,0 -117.81585467304555,35.32067415232497,0 -117.81307308149195,35.32034044247666,0 -117.81026598267502,35.32012743823226,0 -117.80744467979093,35.320035997284684,0 -117.80462053323066,35.320066487834346,0 -117.80180491483563,35.32021878710656,0 -117.79900916210737,35.32049228184592,0 -117.79624453255535,35.32088587078564,0 -117.79352215836703,35.32139796908197,0 -117.79085300158243,35.32202651469581,0 -117.78824780995384,35.32276897669581,0 -117.7857170736685,35.323622365449566,0 -117.78327098310818,35.32458324466174,0 -117.78091938781625,35.32564774521089,0 -117.77867175683699,35.326811580729014,0 -117.77653714058704,35.32807006486125,0 -117.77452413441264,35.32941813013617,0 -117.77264084397919,35.3308503483707,0 -117.77089485263257,35.33236095252751,0 -117.76929319086368,35.33394385993681,0 -117.76784230799917,35.33559269678915,0 -117.76654804623227,35.33730082380046,0 -117.7654156170983,35.339061362946154,0 -117.76444958048971,35.340867225156444,0 -117.76365382629496,35.342711138861596,0 -117.76303155873534,35.3445856792719,0 -117.76258528346267,35.34648329827475,0 -117.76231679746998,35.348396354828154,0 -117.76222718185561,35.35031714572859,0
+            </coordinates>
+        </LinearRing>
+        </outerBoundaryIs>
+    </Polygon>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 2 Std Dev Ellipse</name>
+    <description>Landing 2 Std Dev: 8083.3m x 6742.6m</description>
+    <styleUrl>#landingSigma2</styleUrl>
+    <Polygon>
+        <outerBoundaryIs>
+        <LinearRing>
+            <coordinates>
+            -117.71771589833484,35.35031714572859,0 -117.7178951295636,35.35415872752946,0 -117.71843210154898,35.35798484063627,0 -117.7193246520943,35.361780078641964,0 -117.72056918721356,35.36552915946258,0 -117.72216069560307,35.36921698687288,0 -117.72409276882024,35.372828711293465,0 -117.72635762708818,35.37634978958484,0 -117.72894615062198,35.37976604360747,0 -117.73184791635099,35.38306371731214,0 -117.73505123988876,35.38622953213075,0 -117.73854322258202,35.38925074044436,0 -117.74230980344893,35.39211517691343,0 -117.74633581579772,35.39481130746327,0 -117.75060504829763,35.39732827572774,0 -117.75510031025617,35.399655946763986,0 -117.75980350084001,35.40178494786229,0 -117.76469568196065,35.40370670628664,0 -117.76975715453135,35.405413483794135,0 -117.7749675377885,35.40689840779415,0 -117.78030585135771,35.40815549902183,0 -117.78575059973433,35.40917969561448,0 -117.79127985883837,35.40996687349392,0 -117.7968713642949,35.41051386297264,0 -117.80250260108497,35.41081846151708,0 -117.80815089420551,35.4108794426164,0 -117.81379349997367,35.41069656072124,0 -117.81940769760755,35.41027055223244,0 -117.82497088071473,35.40960313253583,0 -117.83046064832038,35.40869698909497,0 -117.83585489506791,35.40755577062967,0 -117.84113190022953,35.40618407242391,0 -117.84627041516795,35.40458741782224,0 -117.8512497488971,35.4027722359892,0 -117.85604985139751,35.40074583602137,0 -117.86065139435055,35.39851637751623,0 -117.86503584896685,35.3960928377163,0 -117.86918556059513,35.39348497536098,0 -117.87308381981127,35.390703291391546,0 -117.87671492970128,35.38775898666756,0 -117.88006426906722,35.38466391686499,0 -117.88311835130156,35.38143054473752,0 -117.88586487869311,35.37807188993353,0 -117.88829279194539,35.37460147657048,0 -117.89039231470868,35.37103327877814,0 -117.8921549929458,35.367381664429644,0 -117.89357372897365,35.36366133728715,0 -117.89464281004294,35.359887277795,0 -117.89535793134155,35.35607468275874,0 -117.89571621332841,35.35223890415294,0 -117.89571621332841,35.34839538730424,0 -117.89535793134155,35.34455960869844,0 -117.89464281004294,35.340747013662174,0 -117.89357372897365,35.33697295417003,0 -117.8921549929458,35.333252627027534,0 -117.89039231470868,35.329601012679035,0 -117.88829279194539,35.326032814886695,0 -117.88586487869311,35.32256240152365,0 -117.88311835130156,35.31920374671966,0 -117.88006426906722,35.31597037459219,0 -117.87671492970128,35.312875304789614,0 -117.87308381981127,35.30993100006563,0 -117.86918556059513,35.3071493160962,0 -117.86503584896685,35.304541453740875,0 -117.86065139435055,35.30211791394095,0 -117.85604985139751,35.299888455435806,0 -117.8512497488971,35.29786205546798,0 -117.84627041516795,35.296046873634936,0 -117.84113190022953,35.294450219033266,0 -117.83585489506791,35.29307852082751,0 -117.83046064832038,35.29193730236221,0 -117.82497088071473,35.29103115892135,0 -117.81940769760755,35.29036373922474,0 -117.81379349997367,35.289937730735936,0 -117.80815089420551,35.28975484884078,0 -117.80250260108497,35.289815829940096,0 -117.7968713642949,35.290120428484535,0 -117.79127985883837,35.290667417963256,0 -117.78575059973433,35.291454595842694,0 -117.78030585135771,35.29247879243535,0 -117.7749675377885,35.293735883663025,0 -117.76975715453135,35.29522080766304,0 -117.76469568196065,35.296927585170536,0 -117.75980350084001,35.29884934359489,0 -117.75510031025617,35.30097834469319,0 -117.75060504829763,35.30330601572944,0 -117.74633581579772,35.305822983993906,0 -117.74230980344893,35.30851911454375,0 -117.73854322258202,35.31138355101282,0 -117.73505123988876,35.31440475932643,0 -117.73184791635099,35.31757057414504,0 -117.72894615062198,35.32086824784971,0 -117.72635762708818,35.324284501872334,0 -117.72409276882024,35.32780558016371,0 -117.72216069560307,35.3314173045843,0 -117.72056918721356,35.335105131994595,0 -117.7193246520943,35.338854212815214,0 -117.71843210154898,35.34264945082091,0 -117.7178951295636,35.34647556392772,0 -117.71771589833484,35.35031714572859,0
+            </coordinates>
+        </LinearRing>
+        </outerBoundaryIs>
+    </Polygon>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 3 Std Dev Ellipse</name>
+    <description>Landing 3 Std Dev: 12124.9m x 10114.0m</description>
+    <styleUrl>#landingSigma3</styleUrl>
+    <Polygon>
+        <outerBoundaryIs>
+        <LinearRing>
+            <coordinates>
+            -117.6732046148141,35.35031714572859,0 -117.67347346165724,35.35607951842989,0 -117.6742789196353,35.36181868809012,0 -117.67561774545328,35.36751154509865,0 -117.67748454813216,35.373135166329575,0 -117.67987181071642,35.378666907445016,0 -117.68276992054219,35.38408449407591,0 -117.6861672079441,35.38936611151297,0 -117.6900499932448,35.39449049254691,0 -117.69440264183831,35.39943700310392,0 -117.69920762714497,35.40418572533183,0 -117.70444560118486,35.408717537802254,0 -117.71009547248521,35.41301419250585,0 -117.7161344910084,35.41705838833061,0 -117.72253833975826,35.42083384072731,0 -117.72928123269607,35.42432534728169,0 -117.73633601857183,35.42751884892914,0 -117.74367429025278,35.430401486565664,0 -117.75126649910884,35.43296165282691,0 -117.75908207399458,35.435189038826934,0 -117.76708954434838,35.43707467566845,0 -117.77525666691332,35.438610970557434,0 -117.78355055556938,35.43979173737659,0 -117.79193781375419,35.44061222159467,0 -117.80038466893929,35.441069119411324,0 -117.8088571086201,35.44116059106031,0 -117.81732101727233,35.44088626821756,0 -117.82574231372313,35.440247255484365,0 -117.83408708838392,35.439246125939455,0 -117.8423217397924,35.43788691077816,0 -117.85041310991369,35.436175083080215,0 -117.85832861765611,35.43411753577158,0 -117.86603639006374,35.431722553869065,0 -117.87350539065748,35.4289997811195,0 -117.88070554440809,35.42596018116777,0 -117.88760785883765,35.422615993410055,0 -117.8941845407621,35.41898068371015,0 -117.90040910820451,35.415068890177174,0 -117.90625649702872,35.41089636422302,0 -117.91170316186374,35.40647990713705,0 -117.91672717091264,35.40183730243319,0 -117.92130829426418,35.396987244241984,0 -117.92542808535148,35.391949262036,0 -117.9290699552299,35.38674364199143,0 -117.93221923937485,35.38139134530292,0 -117.93486325673054,35.375913923780175,0 -117.9369913607723,35.370333433066435,0 -117.93859498237623,35.364672343828204,0 -117.93966766432416,35.35895345127381,0 -117.94020508730445,35.35319978336511,0 -117.94020508730445,35.347434508092064,0 -117.93966766432416,35.341680840183365,0 -117.93859498237623,35.335961947628974,0 -117.9369913607723,35.33030085839074,0 -117.93486325673054,35.324720367677,0 -117.93221923937485,35.319242946154255,0 -117.9290699552299,35.31389064946575,0 -117.92542808535148,35.30868502942118,0 -117.92130829426418,35.30364704721519,0 -117.91672717091264,35.29879698902399,0 -117.91170316186374,35.29415438432013,0 -117.90625649702872,35.28973792723416,0 -117.90040910820451,35.28556540128,0 -117.8941845407621,35.281653607747025,0 -117.88760785883765,35.27801829804712,0 -117.88070554440809,35.27467411028941,0 -117.87350539065748,35.27163451033768,0 -117.86603639006374,35.26891173758811,0 -117.85832861765611,35.2665167556856,0 -117.85041310991369,35.26445920837696,0 -117.8423217397924,35.262747380679016,0 -117.83408708838392,35.26138816551772,0 -117.82574231372313,35.26038703597281,0 -117.81732101727233,35.25974802323962,0 -117.8088571086201,35.25947370039687,0 -117.80038466893929,35.25956517204585,0 -117.79193781375419,35.26002206986251,0 -117.78355055556938,35.26084255408059,0 -117.77525666691332,35.26202332089974,0 -117.76708954434838,35.26355961578873,0 -117.75908207399458,35.26544525263024,0 -117.75126649910884,35.267672638630266,0 -117.74367429025278,35.27023280489151,0 -117.73633601857183,35.27311544252804,0 -117.72928123269607,35.27630894417549,0 -117.72253833975826,35.279800450729866,0 -117.7161344910084,35.28357590312657,0 -117.71009547248521,35.28762009895133,0 -117.70444560118486,35.291916753654924,0 -117.69920762714497,35.29644856612535,0 -117.69440264183831,35.30119728835326,0 -117.6900499932448,35.30614379891027,0 -117.6861672079441,35.31126817994421,0 -117.68276992054219,35.31654979738128,0 -117.67987181071642,35.32196738401216,0 -117.67748454813216,35.3274991251276,0 -117.67561774545328,35.33312274635853,0 -117.6742789196353,35.33881560336706,0 -117.67347346165724,35.34455477302729,0 -117.6732046148141,35.35031714572859,0
+            </coordinates>
+        </LinearRing>
+        </outerBoundaryIs>
+    </Polygon>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 1</name>
+    <description>Offset: 3642.5m East, -3224.4m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.7688839814765,35.31763526766053,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 2</name>
+    <description>Offset: 2512.6m East, -5426.7m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.78132841829007,35.29785120930465,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 3</name>
+    <description>Offset: -771.9m East, -1929.8m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.81750104555931,35.32926399873385,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 4</name>
+    <description>Offset: 2889.4m East, 6647.3m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.77717791244574,35.40631348521408,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 5</name>
+    <description>Offset: -2869.5m East, 4200.8m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.84060268118657,35.384336025547576,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 6</name>
+    <description>Offset: -3427.1m East, -6618.6m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.8467438173022,35.28714482022427,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 7</name>
+    <description>Offset: -2167.7m East, 2163.3m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.832873272292,35.36603309638793,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 8</name>
+    <description>Offset: -1883.0m East, 3149.9m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.82973787427362,35.3748961476649,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 9</name>
+    <description>Offset: 7228.9m East, 823.9m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.72938642361527,35.35400152938602,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 10</name>
+    <description>Offset: -121.1m East, -145.1m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.81033418235702,35.34529692054113,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 11</name>
+    <description>Offset: 329.9m East, 560.2m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.80536649588403,35.351632686655016,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 12</name>
+    <description>Offset: 6104.8m East, 4993.8m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.74176672612874,35.39145945255856,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 13</name>
+    <description>Offset: -6952.0m East, 3554.6m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.88556402807257,35.37853132070206,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 14</name>
+    <description>Offset: 4833.1m East, -204.9m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.755771792205,35.34475900291254,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 15</name>
+    <description>Offset: 4297.7m East, 1884.7m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.76166842637805,35.363530620326415,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 16</name>
+    <description>Offset: -445.9m East, 1654.7m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.81391029575879,35.361464351337645,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 17</name>
+    <description>Offset: -1505.6m East, 6499.5m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.82558191153272,35.40498575389525,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 18</name>
+    <description>Offset: 5075.8m East, 5566.6m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.75309924362989,35.396605094703794,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 19</name>
+    <description>Offset: 4957.9m East, 3750.1m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.75439784841163,35.38028713127705,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 20</name>
+    <description>Offset: -5475.9m East, 255.0m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.86930675540668,35.348890536827284,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 21</name>
+    <description>Offset: -3320.9m East, 1227.5m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.84557410516243,35.35762680854587,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 22</name>
+    <description>Offset: -3614.3m East, -2044.8m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.8488046068427,35.32823106231057,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 23</name>
+    <description>Offset: 119.7m East, 2615.9m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.80768149623026,35.370098872421465,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 24</name>
+    <description>Offset: -3313.3m East, 5543.3m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.84548994973004,35.396396501805675,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 25</name>
+    <description>Offset: 5511.9m East, -5298.9m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.74829634838413,35.298999140215045,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 26</name>
+    <description>Offset: -7567.4m East, -2388.1m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.89234119519178,35.3251473444778,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 27</name>
+    <description>Offset: 2619.0m East, -2722.2m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.78015669841048,35.32214654430981,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 28</name>
+    <description>Offset: 5954.7m East, -4122.5m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.74341986310401,35.309567404843634,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 29</name>
+    <description>Offset: -607.1m East, -584.8m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.81568597999978,35.34134684299539,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 30</name>
+    <description>Offset: 6129.4m East, 4232.6m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.74149602564118,35.38462160707164,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 31</name>
+    <description>Offset: 2915.5m East, 2928.6m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.77689109582242,35.372908016744525,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 32</name>
+    <description>Offset: -446.0m East, 267.8m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.81391241941004,35.34900547929494,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 33</name>
+    <description>Offset: -3708.0m East, -2215.2m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.8498370722977,35.326700334459815,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 34</name>
+    <description>Offset: -636.5m East, -553.1m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.81601002837573,35.34163161903738,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 35</name>
+    <description>Offset: 7051.8m East, 2389.8m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.73133718938641,35.368068201310614,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 36</name>
+    <description>Offset: -36.0m East, -464.1m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.80939648293656,35.3424305815721,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 37</name>
+    <description>Offset: 32.9m East, 3726.6m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.80863777934995,35.38007644910033,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 38</name>
+    <description>Offset: 5478.6m East, 278.9m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.74866251723604,35.34910529067077,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 39</name>
+    <description>Offset: -396.5m East, -1157.4m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.81336642098303,35.33620277478684,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 40</name>
+    <description>Offset: 1958.9m East, 4072.3m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.78742670930318,35.38318205230042,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 41</name>
+    <description>Offset: -525.7m East, -1549.9m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.81478952247836,35.33267713273017,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 42</name>
+    <description>Offset: -352.9m East, 793.1m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.81288668091423,35.353724255772796,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 43</name>
+    <description>Offset: -6854.8m East, -3765.5m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.88449350954676,35.31277445616449,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 44</name>
+    <description>Offset: 3142.4m East, -31.4m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.77439237688569,35.34631823682847,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 45</name>
+    <description>Offset: -4417.4m East, 4790.2m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.85764956019554,35.38963077688817,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 46</name>
+    <description>Offset: -784.9m East, 2431.0m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.81764479418314,35.36843815273017,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 47</name>
+    <description>Offset: -4440.7m East, 3131.2m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.85790600148808,35.37472750595601,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 48</name>
+    <description>Offset: 4315.3m East, 4900.7m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.76147454164229,35.390623286782805,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 49</name>
+    <description>Offset: 5334.7m East, -3436.6m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.75024825644321,35.315728863988525,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 50</name>
+    <description>Offset: 2993.3m East, 5419.9m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.77603364106628,35.39528770329888,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 51</name>
+    <description>Offset: 5522.3m East, 5995.9m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.7481813546274,35.400461933401985,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 52</name>
+    <description>Offset: -151.8m East, -38.7m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.81067155586291,35.34625262336406,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 53</name>
+    <description>Offset: -4566.7m East, 5002.7m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.85929434191381,35.39154008715594,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 54</name>
+    <description>Offset: 7204.1m East, 231.2m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.72965959126752,35.348676928265185,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 55</name>
+    <description>Offset: -1499.4m East, 986.7m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.82551320222848,35.35546398219395,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 56</name>
+    <description>Offset: 8182.0m East, -719.3m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.7188896998456,35.34013817308862,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 57</name>
+    <description>Offset: -6188.5m East, -3120.0m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.87715530238293,35.31857256544229,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 58</name>
+    <description>Offset: 4379.0m East, -3531.9m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.76077314454724,35.31487223433218,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 59</name>
+    <description>Offset: -1908.2m East, -3803.1m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.8300157864348,35.312435929672034,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 60</name>
+    <description>Offset: -651.8m East, -667.4m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.81617859892448,35.34060467485851,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 61</name>
+    <description>Offset: -7629.9m East, -1758.7m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.89302975244058,35.33080139122777,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 62</name>
+    <description>Offset: -1535.0m East, -859.3m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.82590503249222,35.338880523673964,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 63</name>
+    <description>Offset: -1091.8m East, -531.3m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.82102393617316,35.341826953369576,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 64</name>
+    <description>Offset: -993.0m East, 5046.4m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.81993579280318,35.39193248942045,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 65</name>
+    <description>Offset: 4137.2m East, 5481.2m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.76343615516343,35.39583789308461,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 66</name>
+    <description>Offset: 1720.6m East, -700.9m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.79005085681894,35.34030364831082,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 67</name>
+    <description>Offset: -494.0m East, 125.6m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.8144403057593,35.347728431426546,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 68</name>
+    <description>Offset: 4993.5m East, 686.4m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.7540057056586,35.35276623081362,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 69</name>
+    <description>Offset: -5750.0m East, -331.5m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.87232641882348,35.34362193500677,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 70</name>
+    <description>Offset: -6053.4m East, -4009.9m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.87566702816648,35.31057831724654,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 71</name>
+    <description>Offset: -4397.4m East, -4555.0m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.8574291854802,35.30568202083394,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 72</name>
+    <description>Offset: 996.0m East, -182.3m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.79803032932946,35.34496229996361,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 73</name>
+    <description>Offset: 6709.3m East, 3536.1m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.73510937508652,35.37836530672687,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 74</name>
+    <description>Offset: 816.7m East, 711.2m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.80000599755672,35.35298845386501,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 75</name>
+    <description>Offset: 363.8m East, 114.9m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.80499365288051,35.34763204594257,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 76</name>
+    <description>Offset: 1524.2m East, -6148.2m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.79221409697921,35.29137018149945,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 77</name>
+    <description>Offset: -871.4m East, -4707.5m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.81859695641398,35.30431199838059,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 78</name>
+    <description>Offset: 5735.9m East, 1017.6m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.74582989738884,35.35574084169608,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 79</name>
+    <description>Offset: 1594.3m East, -3776.5m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.79144203456802,35.31267554141143,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 80</name>
+    <description>Offset: 2166.0m East, -6952.3m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.78514551237517,35.28414697450224,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 81</name>
+    <description>Offset: 1858.8m East, 4184.7m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.7885286870674,35.384191893908486,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 82</name>
+    <description>Offset: -6410.3m East, -2068.5m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.8795975692484,35.328018077524916,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 83</name>
+    <description>Offset: -2590.2m East, 1766.3m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.83752592726869,35.36246727545679,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 84</name>
+    <description>Offset: -74.5m East, -0.6m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.80981999671775,35.346594659268895,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 85</name>
+    <description>Offset: -145.6m East, -67.9m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.81060326201133,35.345989610906635,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 86</name>
+    <description>Offset: 3045.4m East, 1840.9m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.77545998618835,35.36313698268196,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 87</name>
+    <description>Offset: -6162.5m East, 4203.5m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.87686907680856,35.38436073928134,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 88</name>
+    <description>Offset: 1592.2m East, 4210.1m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.79146482019135,35.38441949623157,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 89</name>
+    <description>Offset: 73.4m East, 5477.8m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.80819128442609,35.39580725859388,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 90</name>
+    <description>Offset: -5355.0m East, -561.4m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.86797519932695,35.34155716615034,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 91</name>
+    <description>Offset: -3129.7m East, -6820.5m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.84346856378268,35.285330257782924,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 92</name>
+    <description>Offset: -6204.3m East, -1617.2m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.87732925505065,35.33207243492652,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 93</name>
+    <description>Offset: -4447.2m East, -3436.2m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.85797808684325,35.3157320498101,0</coordinates>
+    </Point>
+    </Placemark>
+
+    <Placemark>
+    <name>Landing 94</name>
+    <description>Offset: 6201.0m East, 2673.8m North</description>
+    <styleUrl>#landingStyle</styleUrl>
+    <Point>
+        <coordinates>-117.74070742920331,35.370619434510076,0</coordinates>
+    </Point>
+    </Placemark>
+
+</Document>
+</kml>
