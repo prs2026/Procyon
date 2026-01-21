@@ -24,11 +24,28 @@ site_lat = 35.3466
 site_lon = -117.809 
 site_alt = 2000/3.281 #ft
 
-launch_date = [2026,1,18,7,0,0]
+env = Environment()
 
-env = Environment(latitude=site_lat, longitude=site_lon, elevation=site_alt,date=(2026, 1, 18, 14), # year, month, day, hour
-timezone="US/Pacific")
+# Load the .csv file into the environment
+df = pd.read_csv('vertical_profile_2026-01-15_14PST copy.csv')
 
+print(df)
+
+# Create Function objects to represent the profiles
+pressure_func = Function(np.column_stack([df['height'], df['pressure']]))
+temperature_func = Function(np.column_stack([df['height'], df['temperature']]))
+wind_u_func = Function(np.column_stack([df['height'], df['wind_u']]))
+wind_v_func = Function(np.column_stack([df['height'], df['wind_v']]))
+
+# Set up the environment
+
+env.set_atmospheric_model(
+    type="custom_atmosphere",
+    pressure=pressure_func,
+    temperature=temperature_func,
+    wind_u=wind_u_func,
+    wind_v=wind_v_func,
+)
 
 if __name__ == '__main__':
     numsims = 5
@@ -39,30 +56,13 @@ if __name__ == '__main__':
 
     weathermodel = input("What weather model?")
 
-    # if  weathermodel == "GFS":
-    #     env.set_atmospheric_model(type="Forecast", file="HIRESW")
-    # elif weathermodel == "CUSTOM":
+    if  weathermodel == "GFS":
+        env = Environment(latitude=site_lat, longitude=site_lon, elevation=site_alt,date=(2026, 1, 22, 14), # year, month, day, hour
+        timezone="US/Pacific")
 
-    # Load the .csv file into the environment
-    df = pd.read_csv('vertical_profile_2026-01-15_14PST.csv')
+        env.set_atmospheric_model(type="Forecast", file="HIRESW")
 
-    print(df)
-
-    # Create Function objects to represent the profiles
-    pressure_func = Function(np.column_stack([df['height'], df['pressure']]))
-    temperature_func = Function(np.column_stack([df['height'], df['temperature']]))
-    wind_u_func = Function(np.column_stack([df['height'], df['wind_u']]))
-    wind_v_func = Function(np.column_stack([df['height'], df['wind_v']]))
-
-    # Set up the environment
-    env_csv = Environment()
-    env_csv.set_atmospheric_model(
-        type="custom_atmosphere",
-        pressure=pressure_func,
-        temperature=temperature_func,
-        wind_u=wind_u_func,
-        wind_v=wind_v_func,
-    )
+        
 
     # Plot the atmospheric model
     #env_csv.plots.atmospheric_model()
@@ -166,7 +166,7 @@ sustainerfin_set = RelapseSustainer.add_trapezoidal_fins(
 cd = 1.8
 diameter = 0.6096
 
-area = (diameter/2)*(diameter/2)*3.14
+area = (diameter/2)*(diameter/2)*3.14*cd
 #print(area)
 
 main = RelapseSustainer.add_parachute(
@@ -182,9 +182,9 @@ main = RelapseSustainer.add_parachute(
 )
 
 cd = 0.7
-diameter = 0.1524
+diameter = 0.304
 
-area = (diameter/2)*(diameter/2)*3.14
+area = (diameter/2)*(diameter/2)*3.14*cd
 #print(area)
 
 drogue = RelapseSustainer.add_parachute(
@@ -192,7 +192,7 @@ drogue = RelapseSustainer.add_parachute(
     cd_s=area,
     trigger="apogee",  # ejection at apogee
     sampling_rate=105,
-    lag=1.5,
+    lag=0,
     noise=(0, 8.3, 0.5),
     radius=1.5,
     height=1.5,
@@ -274,11 +274,39 @@ boosterfin_set = RelapseStack.add_trapezoidal_fins(
 #RelapseStack.plots.static_margin()
 #RelapseStack.all_info()
 
+
+
+RelapseBooster = Rocket(
+    radius=54 / 2000,
+    mass= 1.63,
+    inertia=(6.321, 6.321, 0.034),
+    power_off_drag="boosterdrag.csv",
+    power_on_drag="./CD Power ON Sustainer only.csv",
+    center_of_mass_without_motor=-0.66675,
+    coordinate_system_orientation="tail_to_nose"
+)
+
+boosternose_cone = RelapseBooster.add_nose(
+    length=0.08, kind="conical", position=0
+)
+
+boosteronlyfin_set = RelapseBooster.add_trapezoidal_fins(
+    n=4,
+    root_chord=0.127,
+    tip_chord=0.0762,
+    span=0.08636,
+    position=-0.8382,
+    cant_angle=0.05,
+    #airfoil=("../data/airfoils/NACA0012-radians.txt","radians"),
+)
+
+#RelapseBooster.draw()
+
 #monte carlo attempts
 #just gonna vary launch angle for now
 
-railinclination = [85,1]
-railheading = [163,0.5]
+railinclination = [84,1]
+railheading = [143,0.5]
 
 
 flights = []
@@ -341,10 +369,10 @@ def runsim(val):
     if boosterburnoutangle > 19:
         return StackFlight2.solution
 
-    maxstagingdelay = 1.5
+    maxstagingdelay = 2.5
 
     SustainerNOMOTORFlight2 = Flight(
-        rocket=RelapseSustainerNOMOTOR, 
+        rocket=RelapseBooster, 
         environment=env, 
         initial_solution=StackFlight2,
         rail_length=0.01, 
@@ -361,7 +389,7 @@ def runsim(val):
 
     stagingtime = 0
 
-    stagingdelay = 1.5
+    stagingdelay = 0.25
 
     # stagingindex = 0
     
@@ -386,7 +414,7 @@ def runsim(val):
     sustainerstartcondition[0] = 0
 
     SustainerFlight2 = Flight(
-        rocket=RelapseSustainer, 
+        rocket=RelapseBooster, 
         environment=env, 
         initial_solution=sustainerstartcondition,
         rail_length=0.01, 
