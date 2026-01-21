@@ -9,9 +9,10 @@ import multiprocessing
 import pickle
 import datetime
 
-from rocketpy import Environment, SolidMotor, Rocket, Flight
+from rocketpy import Environment, SolidMotor, Rocket, Flight, Function
 
 import csv
+import pandas as pd
 
 # Launch site
 # FAR
@@ -25,7 +26,7 @@ site_alt = 2000/3.281 #ft
 
 launch_date = [2026,1,18,7,0,0]
 
-env = Environment(latitude=site_lat, longitude=site_lon, elevation=site_alt,date=(2026, 1, 18, 8), # year, month, day, hour
+env = Environment(latitude=site_lat, longitude=site_lon, elevation=site_alt,date=(2026, 1, 18, 14), # year, month, day, hour
 timezone="US/Pacific")
 
 
@@ -36,8 +37,36 @@ if __name__ == '__main__':
     numsims = int(input("How many runs? "))
     numworkers = int(input("How many workers?"))
 
-    if input("Use GFS?") == "yes":
-        env.set_atmospheric_model(type="Forecast", file="HIRESW")
+    weathermodel = input("What weather model?")
+
+    # if  weathermodel == "GFS":
+    #     env.set_atmospheric_model(type="Forecast", file="HIRESW")
+    # elif weathermodel == "CUSTOM":
+
+    # Load the .csv file into the environment
+    df = pd.read_csv('vertical_profile_2026-01-15_14PST.csv')
+
+    print(df)
+
+    # Create Function objects to represent the profiles
+    pressure_func = Function(np.column_stack([df['height'], df['pressure']]))
+    temperature_func = Function(np.column_stack([df['height'], df['temperature']]))
+    wind_u_func = Function(np.column_stack([df['height'], df['wind_u']]))
+    wind_v_func = Function(np.column_stack([df['height'], df['wind_v']]))
+
+    # Set up the environment
+    env_csv = Environment()
+    env_csv.set_atmospheric_model(
+        type="custom_atmosphere",
+        pressure=pressure_func,
+        temperature=temperature_func,
+        wind_u=wind_u_func,
+        wind_v=wind_v_func,
+    )
+
+    # Plot the atmospheric model
+    #env_csv.plots.atmospheric_model()
+
     #GFS - avalible a lot in advance, 18x18km grid
     #HIRESW - 48h prior, 3kmx3km grid
 
@@ -248,8 +277,8 @@ boosterfin_set = RelapseStack.add_trapezoidal_fins(
 #monte carlo attempts
 #just gonna vary launch angle for now
 
-railinclination = [90,2]
-railheading = [270,90]
+railinclination = [85,1]
+railheading = [163,0.5]
 
 
 flights = []
@@ -312,7 +341,7 @@ def runsim(val):
     if boosterburnoutangle > 19:
         return StackFlight2.solution
 
-    maxstagingdelay = 18
+    maxstagingdelay = 1.5
 
     SustainerNOMOTORFlight2 = Flight(
         rocket=RelapseSustainerNOMOTOR, 
@@ -332,28 +361,28 @@ def runsim(val):
 
     stagingtime = 0
 
-    stagingdelay = 12
+    stagingdelay = 1.5
 
-    stagingindex = 0
+    # stagingindex = 0
     
-    for point in SustainerNOMOTORFlight2.solution:
-        #print("running staging checker at time " + str(point[0]) + " at velocity " + str(point[6]))
-        currentangle = quaternion_to_angle_from_vertical(point[7],point[8],point[9],point[10])
-        if point[6] < 700/3.281 or currentangle > 13:
-            stagingdelay = point[0]
+    # for point in SustainerNOMOTORFlight2.solution:
+    #     #print("running staging checker at time " + str(point[0]) + " at velocity " + str(point[6]))
+    #     currentangle = quaternion_to_angle_from_vertical(point[7],point[8],point[9],point[10])
+    #     if point[6] < 700/3.281 or currentangle > 13:
+    #         stagingdelay = point[0]
             
-            #print("found staging point at " + str(stagingdelay) + "s, " + str(point[6]) + " m/s and " + str(currentangle) + " deg; on sim " + str(simid))
-            break
-        elif point[6] < 300/3.281 or currentangle > 20:
-            return SustainerNOMOTORFlight2.solution
+    #         #print("found staging point at " + str(stagingdelay) + "s, " + str(point[6]) + " m/s and " + str(currentangle) + " deg; on sim " + str(simid))
+    #         break
+    #     elif point[6] < 300/3.281 or currentangle > 20:
+    #         return SustainerNOMOTORFlight2.solution
     
-        stagingindex = stagingindex+1
+    #     stagingindex = stagingindex+1
 
     #print("sustainer ignition at: " + str(stagingdelay) + " seconds on sim " + str(simid))
 
+    
 
-
-    sustainerstartcondition = SustainerNOMOTORFlight2.solution[stagingindex][:]
+    sustainerstartcondition = SustainerNOMOTORFlight2.solution[-2][:]
     sustainerstartcondition[0] = 0
 
     SustainerFlight2 = Flight(
