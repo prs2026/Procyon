@@ -1,0 +1,69 @@
+data:
+  config:
+    ambPressure: 101324.99674500001
+    burnoutThrustThres: 0.1
+    burnoutWebThres: 2.5400050800101604e-05
+    flowSeparationWarnPercent: 0.05
+    mapDim: 750
+    maxMassFlux: 1406.4697609001405
+    maxPressure: 10342500.000000002
+    minPortThroat: 2.0
+    sepPressureRatio: 0.4
+    timestep: 0.001
+  grains:
+  - properties:
+      coreDiameter: 0.019050038100076203
+      diameter: 0.04572009144018289
+      inhibitedEnds: Neither
+      length: 0.13843027686055373
+    type: BATES
+  - properties:
+      coreDiameter: 0.019050038100076203
+      diameter: 0.04572009144018289
+      inhibitedEnds: Neither
+      length: 0.13716027432054867
+    type: BATES
+  - properties:
+      coreDiameter: 0.019050038100076203
+      diameter: 0.04572009144018289
+      inhibitedEnds: Neither
+      length: 0.13716027432054867
+    type: BATES
+  - properties:
+      coreDiameter: 0.022225044450088903
+      diameter: 0.04572009144018289
+      inhibitedEnds: Neither
+      length: 0.13716027432054867
+    type: BATES
+  - properties:
+      coreDiameter: 0.022225044450088903
+      diameter: 0.04572009144018289
+      inhibitedEnds: Neither
+      length: 0.13716027432054867
+    type: BATES
+  nozzle:
+    convAngle: 45.0
+    divAngle: 15.0
+    efficiency: 0.95
+    erosionCoeff: 7.367917063837305e-11
+    exit: 0.05080010160020321
+    slagCoeff: 0.0
+    throat: 0.019050038100076203
+    throatLength: 0.015240030480060961
+  propellant:
+    density: 1951.4328499500375
+    name: Chase Fatboy
+    tabs:
+    - a: 6.875951539341992e-06
+      k: 1.213
+      m: 29.409
+      maxPressure: 13790000.000000002
+      minPressure: 0.0
+      n: 0.450211
+      t: 2682.0
+type: !!python/object/apply:uilib.fileIO.fileTypes
+- 3
+version: !!python/tuple
+- 0
+- 6
+- 0
