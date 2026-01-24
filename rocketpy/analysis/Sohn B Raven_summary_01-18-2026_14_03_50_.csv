@@ -1,0 +1,48 @@
+Rocket Name,Sohn B Raven
+Firmware,25a237f 10/12/2025 15:57:13
+Serial number,SN119 Sohn B Raven
+Max Altitude,47550.16 feet
+Max velocity,3634.25 feet/sec
+Pad altitude ASL,1808.24 feet
+Launch date,18-Jan-26
+Launch time,14:03:50.463
+Time to first burnout,2.4 sec
+Time to Apo channel fire,50.2 sec
+Time to gyro overload,206.1 sec
+Time to third channel fire,2.4 sec
+Time to main channel fire,421.0 sec
+Time to fourth channel fire,0.0 sec
+Launch rod angle,2.1 deg
+Tilt angle at burnout,12.8 deg
+Roll rate at burnout,1042.8 deg/sec
+Thrust tilt efficiency,97.41%
+Number of ascent rolls,101.449
+Horiz. velocity at apogee,339.2 feet/sec
+Inertial navigation max alt,49511.0 feet
+Max motor burn acceleration,115.4 Gs
+Peak drag deceleration,15.7 Gs
+Apo channel max accel,1.7 Gs
+Main channel max accel,112.9 Gs
+3rd channel max accel,13.9 Gs
+4th channel max accel,0.0 Gs
+Max landing accel,24.9 Gs
+Drogue descent rate,-93.5 feet/sec
+Main chute deploy altitude,2990.5 feet
+Main chute descent rate,-39.5 feet
+Landing Time,14:11:42.323
+Temperature on pad,77.0 F
+Max Temperature,91.1 F
+Min Temperature,65.27 F
+Battery voltage on pad,4.03 V
+Min Battery voltage,3.87 V
+Battery voltage at landing,4.0 V
+Build date,12-Oct-25
+Build time,15:57:13.000
+Flight number,43
+Direction of 1st motion,-0.0320,0.9983,0.0482
+Gravity direction on pad,-0.0183,0.9997,0.0135
+Low-G accel pad offset,0.0000,-0.0018,-0.0000
+Hi-G accel pad offset,0.52,5.21,-1.65
+Pad gyro rates (deg/sec),-0.48,-1.74,0.75
+Pad Hi-G accel,0.50,6.21,-1.64
+Pad Low-G Accel,-0.02,1.00,0.01
