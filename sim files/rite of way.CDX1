@@ -62,9 +62,9 @@
       <InsideDiameter>2.125</InsideDiameter>
       <LaunchLugDiameter>0</LaunchLugDiameter>
       <LaunchLugLength>0</LaunchLugLength>
-      <RailGuideDiameter>0</RailGuideDiameter>
-      <RailGuideHeight>0</RailGuideHeight>
-      <LaunchShoeArea>0.625</LaunchShoeArea>
+      <RailGuideDiameter>0.625</RailGuideDiameter>
+      <RailGuideHeight>0.3</RailGuideHeight>
+      <LaunchShoeArea>0</LaunchShoeArea>
       <Location>48.8</Location>
       <ShoulderLength>0.75</ShoulderLength>
       <Color>Black</Color>
@@ -126,7 +126,7 @@
       <SustainerNozzleDiameter>2</SustainerNozzleDiameter>
       <SustainerCG>30</SustainerCG>
       <SustainerIgnitionDelay>8</SustainerIgnitionDelay>
-      <Booster1Engine>M2721  (asu)</Booster1Engine>
+      <Booster1Engine>N2651  (bps)</Booster1Engine>
       <Booster1LaunchWt>28.6</Booster1LaunchWt>
       <Booster1SeparationDelay>0</Booster1SeparationDelay>
       <Booster1IgnitionDelay>0</Booster1IgnitionDelay>
@@ -139,9 +139,9 @@
       <Booster2NozzleDiameter>0</Booster2NozzleDiameter>
       <IncludeBooster2>False</IncludeBooster2>
       <FlightTime>0</FlightTime>
-      <TimetoApogee>68.03559</TimetoApogee>
-      <MaxAltitude>75647.27</MaxAltitude>
-      <MaxVelocity>3263.229</MaxVelocity>
+      <TimetoApogee>104.7031</TimetoApogee>
+      <MaxAltitude>167340.8</MaxAltitude>
+      <MaxVelocity>4037.34</MaxVelocity>
       <OptimumWt>0</OptimumWt>
       <OptimumMaxAlt>0</OptimumMaxAlt>
     </Simulation>
