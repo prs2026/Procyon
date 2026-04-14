@@ -115,9 +115,9 @@
   <MachAlt />
   <SimulationList>
     <Simulation>
-      <SustainerEngine>M2948NCBP  (Polaris/Thomas)</SustainerEngine>
-      <SustainerLaunchWt>23.1</SustainerLaunchWt>
-      <SustainerNozzleDiameter>2.9</SustainerNozzleDiameter>
+      <SustainerEngine>M2459  (boostka)</SustainerEngine>
+      <SustainerLaunchWt>19</SustainerLaunchWt>
+      <SustainerNozzleDiameter>1.875</SustainerNozzleDiameter>
       <SustainerCG>41.99</SustainerCG>
       <SustainerIgnitionDelay>0</SustainerIgnitionDelay>
       <Booster1LaunchWt>0</Booster1LaunchWt>
@@ -132,9 +132,9 @@
       <Booster2NozzleDiameter>0</Booster2NozzleDiameter>
       <IncludeBooster2>False</IncludeBooster2>
       <FlightTime>0</FlightTime>
-      <TimetoApogee>46.30824</TimetoApogee>
-      <MaxAltitude>47182.01</MaxAltitude>
-      <MaxVelocity>3564.573</MaxVelocity>
+      <TimetoApogee>37.12978</TimetoApogee>
+      <MaxAltitude>30101.53</MaxAltitude>
+      <MaxVelocity>2722.242</MaxVelocity>
       <OptimumWt>0</OptimumWt>
       <OptimumMaxAlt>0</OptimumMaxAlt>
     </Simulation>
