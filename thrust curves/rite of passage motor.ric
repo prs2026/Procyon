@@ -12,40 +12,23 @@ data:
     timestep: 0.03
   grains:
   - properties:
-      coreDiameter: 0.019050038100076203
-      diameter: 0.05397510795021591
-      inhibitedEnds: Both
-      length: 0.15240030480060962
-    type: BATES
-  - properties:
-      coreDiameter: 0.019050038100076203
-      diameter: 0.05397510795021591
-      inhibitedEnds: Both
-      length: 0.15240030480060962
-    type: BATES
-  - properties:
-      coreDiameter: 0.019050038100076203
-      diameter: 0.05397510795021591
-      inhibitedEnds: Both
-      length: 0.15240030480060962
-    type: BATES
-  - properties:
-      coreDiameter: 0.020320040640081284
-      diameter: 0.05397510795021591
-      inhibitedEnds: Both
-      length: 0.15240030480060962
-    type: BATES
-  - properties:
       coreDiameter: 0.022860045720091444
       diameter: 0.05397510795021591
       inhibitedEnds: Both
-      length: 0.15240030480060962
+      length: 0.025400050800101603
     type: BATES
+  - properties:
+      aftCoreDiameter: 0.025400050800101603
+      diameter: 0.05397510795021591
+      forwardCoreDiameter: 0.019050038100076203
+      inhibitedEnds: Both
+      length: 0.8636017272034545
+    type: Conical
   - properties:
       coreDiameter: 0.025400050800101603
       diameter: 0.05397510795021591
       inhibitedEnds: Both
-      length: 0.12700025400050802
+      length: 0.025400050800101603
     type: BATES
   nozzle:
     convAngle: 45.0
@@ -54,19 +37,19 @@ data:
     erosionCoeff: 1.8419792659593266e-10
     exit: 0.060960121920243845
     slagCoeff: 0.0
-    throat: 0.019050038100076203
+    throat: 0.015240030480060961
     throatLength: 0.006350012700025401
   propellant:
-    density: 1699.5457728642882
-    name: Booska No Suppressy
+    density: 1799.193407755354
+    name: Chase UP
     tabs:
-    - a: 1.5694834407944363e-05
-      k: 1.19
+    - a: 8.755565848145842e-06
+      k: 1.198
       m: 24.98
-      maxPressure: 13790000.000000002
+      maxPressure: 10342500.000000002
       minPressure: 0.0
-      n: 0.4
-      t: 3105.0
+      n: 0.412
+      t: 2977.0
 type: !!python/object/apply:uilib.fileIO.fileTypes
 - 3
 version: !!python/tuple

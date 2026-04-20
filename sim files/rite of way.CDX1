@@ -12,7 +12,7 @@
     </NoseCone>
     <BodyTube>
       <PartType>BodyTube</PartType>
-      <Length>7.69</Length>
+      <Length>12.2</Length>
       <Diameter>2.125</Diameter>
       <LaunchLugDiameter>0</LaunchLugDiameter>
       <LaunchLugLength>0</LaunchLugLength>
@@ -28,14 +28,14 @@
     </BodyTube>
     <BodyTube>
       <PartType>BodyTube</PartType>
-      <Length>39</Length>
+      <Length>36</Length>
       <Diameter>2.125</Diameter>
       <LaunchLugDiameter>0</LaunchLugDiameter>
       <LaunchLugLength>0</LaunchLugLength>
       <RailGuideDiameter>0</RailGuideDiameter>
       <RailGuideHeight>0</RailGuideHeight>
       <LaunchShoeArea>0</LaunchShoeArea>
-      <Location>18.49</Location>
+      <Location>23</Location>
       <Color>Black</Color>
       <BoattailLength>0</BoattailLength>
       <BoattailRearDiameter>0</BoattailRearDiameter>
@@ -57,7 +57,7 @@
     </BodyTube>
     <Booster>
       <PartType>Booster</PartType>
-      <Length>44.2</Length>
+      <Length>44.45</Length>
       <Diameter>2.5</Diameter>
       <InsideDiameter>2.125</InsideDiameter>
       <LaunchLugDiameter>0</LaunchLugDiameter>
@@ -65,8 +65,8 @@
       <RailGuideDiameter>0.625</RailGuideDiameter>
       <RailGuideHeight>0.4</RailGuideHeight>
       <LaunchShoeArea>0</LaunchShoeArea>
-      <Location>57.49</Location>
-      <ShoulderLength>0.75</ShoulderLength>
+      <Location>59</Location>
+      <ShoulderLength>0.775</ShoulderLength>
       <Color>Black</Color>
       <NozzleExitDiameter>0</NozzleExitDiameter>
       <BoattailLength>0</BoattailLength>
