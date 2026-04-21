@@ -139,9 +139,9 @@
       <Booster2NozzleDiameter>0</Booster2NozzleDiameter>
       <IncludeBooster2>False</IncludeBooster2>
       <FlightTime>0</FlightTime>
-      <TimetoApogee>102.1229</TimetoApogee>
-      <MaxAltitude>167021.6</MaxAltitude>
-      <MaxVelocity>5802.87</MaxVelocity>
+      <TimetoApogee>100.3625</TimetoApogee>
+      <MaxAltitude>162328.6</MaxAltitude>
+      <MaxVelocity>5789.655</MaxVelocity>
       <OptimumWt>0</OptimumWt>
       <OptimumMaxAlt>0</OptimumMaxAlt>
     </Simulation>
