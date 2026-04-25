@@ -1,52 +1,47 @@
 data:
   config:
-    ambPressure: 51712.50000000001
+    ambPressure: 101324.99674500001
     burnoutThrustThres: 0.1
     burnoutWebThres: 2.5400050800101604e-05
     flowSeparationWarnPercent: 0.05
     mapDim: 750
+    maxMachNumber: 0.7
     maxMassFlux: 1406.4697609001405
     maxPressure: 10342500.000000002
     minPortThroat: 2.0
     sepPressureRatio: 0.4
-    timestep: 0.03
+    timestep: 0.006666
   grains:
   - properties:
-      coreDiameter: 0.015875031750063502
+      coreDiameter: 0.012700025400050802
       diameter: 0.05397510795021591
       inhibitedEnds: Both
-      length: 0.025400050800101603
+      length: 0.35560071120142245
     type: BATES
   - properties:
-      aftCoreDiameter: 0.025400050800101603
+      aftCoreDiameter: 0.022860045720091444
       diameter: 0.05397510795021591
-      forwardCoreDiameter: 0.015875031750063502
+      forwardCoreDiameter: 0.014224028448056899
       inhibitedEnds: Both
-      length: 0.9398018796037593
+      length: 0.8382016764033529
     type: Conical
-  - properties:
-      coreDiameter: 0.025400050800101603
-      diameter: 0.05397510795021591
-      inhibitedEnds: Both
-      length: 0.025400050800101603
-    type: BATES
   nozzle:
-    convAngle: 45.0
+    convAngle: 60.0
     divAngle: 15.0
-    efficiency: 0.95
-    erosionCoeff: 1.1051875595755959e-10
-    exit: 0.060960121920243845
+    efficiency: 0.98
+    erosionCoeff: 2.2103751191511918e-10
+    exit: 0.05080010160020321
     slagCoeff: 0.0
-    throat: 0.016510033020066043
-    throatLength: 0.006350012700025401
+    throat: 0.016256032512065026
+    throatLength: 0.005080010160020321
   propellant:
-    density: 1799.193407755354
-    name: Chase UP
+    density: 1854.5532049170572
+    name: Chase
     tabs:
     - a: 8.755565848145842e-06
       k: 1.198
       m: 24.98
-      maxPressure: 10342500.000000002
+      maxPressure: 13790000.000000002
       minPressure: 0.0
       n: 0.412
       t: 2977.0
@@ -55,4 +50,4 @@ type: !!python/object/apply:uilib.fileIO.fileTypes
 version: !!python/tuple
 - 0
 - 6
-- 0
+- 1
