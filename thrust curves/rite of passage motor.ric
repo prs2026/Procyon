@@ -12,7 +12,7 @@ data:
     timestep: 0.03
   grains:
   - properties:
-      coreDiameter: 0.022860045720091444
+      coreDiameter: 0.015875031750063502
       diameter: 0.05397510795021591
       inhibitedEnds: Both
       length: 0.025400050800101603
@@ -20,9 +20,9 @@ data:
   - properties:
       aftCoreDiameter: 0.025400050800101603
       diameter: 0.05397510795021591
-      forwardCoreDiameter: 0.019050038100076203
+      forwardCoreDiameter: 0.015875031750063502
       inhibitedEnds: Both
-      length: 0.8636017272034545
+      length: 0.9398018796037593
     type: Conical
   - properties:
       coreDiameter: 0.025400050800101603
@@ -34,10 +34,10 @@ data:
     convAngle: 45.0
     divAngle: 15.0
     efficiency: 0.95
-    erosionCoeff: 1.8419792659593266e-10
+    erosionCoeff: 1.1051875595755959e-10
     exit: 0.060960121920243845
     slagCoeff: 0.0
-    throat: 0.015240030480060961
+    throat: 0.016510033020066043
     throatLength: 0.006350012700025401
   propellant:
     density: 1799.193407755354
