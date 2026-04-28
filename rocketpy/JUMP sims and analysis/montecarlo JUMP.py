@@ -24,28 +24,8 @@ site_lat = 35.3466
 site_lon = -117.809 
 site_alt = 2000/3.281 #ft
 
-env = Environment()
+env = Environment(elevation=site_alt)
 
-# # Load the .csv file into the environment
-df = pd.read_csv('vertical_profile_2026-01-15_14PST copy.csv')
-
-#print(df)
-
-# Create Function objects to represent the profiles
-pressure_func = Function(np.column_stack([df['height'], df['pressure']]))
-temperature_func = Function(np.column_stack([df['height'], df['temperature']]))
-wind_u_func = Function(np.column_stack([df['height'], df['wind_u']]))
-wind_v_func = Function(np.column_stack([df['height'], df['wind_v']]))
-
-# Set up the environment
-
-env.set_atmospheric_model(
-    type="custom_atmosphere",
-    pressure=pressure_func,
-    temperature=temperature_func,
-    wind_u=wind_u_func,
-    wind_v=wind_v_func,
-)
 
 if __name__ == '__main__':
     numsims = 5
@@ -62,7 +42,27 @@ if __name__ == '__main__':
 
     # env.set_atmospheric_model(type="Forecast", file="HIRESW")
 
-        
+    # # Load the .csv file into the environment
+    df = pd.read_csv('vertical_profile_2026-01-15_14PST copy.csv')
+
+    #print(df)
+
+    # Create Function objects to represent the profiles
+    pressure_func = Function(np.column_stack([df['height'], df['pressure']]))
+    temperature_func = Function(np.column_stack([df['height'], df['temperature']]))
+    wind_u_func = Function(np.column_stack([df['height'], df['wind_u']]))
+    wind_v_func = Function(np.column_stack([df['height'], df['wind_v']]))
+
+    # Set up the environment
+
+    env.set_atmospheric_model(
+        type="custom_atmosphere",
+        pressure=pressure_func,
+        temperature=temperature_func,
+        wind_u=wind_u_func,
+        wind_v=wind_v_func,
+    )
+
 
     # Plot the atmospheric model
     #env_csv.plots.atmospheric_model()
@@ -94,20 +94,20 @@ if __name__ == '__main__':
 #------------------------------------------------------------------------------------MOTORSMOTORSMOTORSMOTORS
 
 BoosterMotor = SolidMotor(
-thrust_source="./boostermotor.eng",
+thrust_source="./fuckyourfins.eng",
 dry_mass=0, #kg
 dry_inertia=(0.125, 0.125, 0.002), #moi ,kg/m^2
 nozzle_radius=25 / 1000, #m
 grain_number=1, #m
 grain_density=1815, #kg/m^3
 grain_outer_radius=27 / 1000, #m
-grain_initial_inner_radius= 10.31 / 1000, #m
-grain_initial_height=990 / 1000, #m
+grain_initial_inner_radius= 8 / 1000, #m
+grain_initial_height=1193 / 1000, #m
 grain_separation=1 / 1000, #m 
 grains_center_of_mass_position=0.45, #m
 center_of_dry_mass_position=0.317, #m
-nozzle_position=-0.09, #m
-burn_time=4, #s
+nozzle_position=-0.19, #m
+#burn_time=2.1, #s
 throat_radius=16.5 / 1000,#m
 coordinate_system_orientation="nozzle_to_combustion_chamber"
 )
@@ -120,7 +120,7 @@ dry_mass=0, #kg
 dry_inertia=(0.125, 0.125, 0.002), #moi ,kg/m^2
 nozzle_radius=25 / 1000, #m
 grain_number=1, #m
-grain_density=1700, #kg/m^3
+grain_density=1815, #kg/m^3
 grain_outer_radius=23.8 / 1000, #m
 grain_initial_inner_radius= 9.5 / 1000, #m
 grain_initial_height=787 / 1000, #m
@@ -169,7 +169,7 @@ cd = 1.8
 diameter = 0.6096
 
 area = (diameter/2)*(diameter/2)*3.14
-print(area)
+#print(area)
 
 main = JUMPSustainer.add_parachute(
     name="main",
@@ -183,8 +183,8 @@ main = JUMPSustainer.add_parachute(
     porosity=0.0432,
 )
 
-cd = 0.7
-diameter = 0.1524
+cd = 0.6
+diameter = 0.1016
 
 area = (diameter/2)*(diameter/2)*3.14
 #print(area)
@@ -196,8 +196,8 @@ drogue = JUMPSustainer.add_parachute(
     sampling_rate=105,
     lag=1.5,
     noise=(0, 8.3, 0.5),
-    radius=1.5,
-    height=1.5,
+    radius=0.1016,
+    height=0.0762,
     porosity=0.0432,
 )
 
@@ -242,14 +242,14 @@ sustainernomotorfinset = JUMPSustainerNOMOTOR.add_trapezoidal_fins(
 
 JUMPStack = Rocket(
     radius=54 / 2000,
-    mass=5.162,
+    mass=8.223,
     inertia=(4.04, 4.04, 0.006),
     power_off_drag="./SustainerAndBoosterCDPowerOFF.csv",
     power_on_drag="./SustainerAndBoosterCDPowerON.csv",
-    center_of_mass_without_motor=-1.435,
+    center_of_mass_without_motor=-1.5635224,
     coordinate_system_orientation="tail_to_nose"
     )
-JUMPStack.add_motor(BoosterMotor, position=(-2.732+0.09))
+JUMPStack.add_motor(BoosterMotor, position=(-3.048+0.19))
 
 stacknose_cone = JUMPStack.add_nose(
     length=0.27432, kind="conical", position=0
@@ -277,59 +277,12 @@ boosterfin_set = JUMPStack.add_trapezoidal_fins(
     root_chord=0.127,
     tip_chord=0.0762,
     span=0.08255,
-    position=-2.6162,
-    cant_angle=0.001,
-    #airfoil=("../data/airfoils/NACA0012-radians.txt","radians"),
-)
-#RelapseStack.draw()
-#RelapseStack.plots.static_margin()
-#RelapseStack.all_info()
-
-
-
-JUMPBooster = Rocket(
-    radius=54 / 2000,
-    mass= 1.63,
-    inertia=(6.321, 6.321, 0.034),
-    power_off_drag="BoosterCd.csv",
-    power_on_drag="./SustainerAndBoosterCDPowerON.csv",
-    center_of_mass_without_motor=-0.7366,
-    coordinate_system_orientation="tail_to_nose"
-)
-
-boosternose_cone = JUMPBooster.add_nose(
-    length=0.1143, kind="conical", position=0
-)
-
-boosteronlyfin_set = JUMPBooster.add_trapezoidal_fins(
-    n=4,
-    root_chord=0.127,
-    tip_chord=0.0762,
-    span=0.08255,
-    position=-2.6162,
+    position=-2.9192,
     cant_angle=0.001,
     #airfoil=("../data/airfoils/NACA0012-radians.txt","radians"),
 )
 
-cd = 0.9
-diameter = 0.508
-
-area = (diameter/2)*(diameter/2)*3.14*cd
-#print(area)
-
-boostermain = JUMPBooster.add_parachute(
-    name="boostermain",
-    cd_s=area,
-    trigger="apogee",  # ejection at apogee
-    sampling_rate=105,
-    lag=0,
-    noise=(0, 8.3, 0.5),
-    radius=0.5,
-    height=0.15,
-    porosity=0.0432,
-)
-
-#JUMPBooster.draw()
+#JUMPStack.draw()
 
 #monte carlo attempts
 #just gonna vary launch angle for now
@@ -384,7 +337,10 @@ def runfullstacksim(val):
         rail_length=3.048, 
         inclination=np.random.normal(railinclination[0],railinclination[1],1)[0],#np.random.normal(railinclination,inclinationstd,1), 
         heading=np.random.normal(railheading[0],railheading[1],1)[0],
-        max_time = BoosterMotor.burn_out_time
+        max_time = BoosterMotor.burn_out_time,
+        rtol=1e-4,   # default is ~1e-6
+        atol=1e-6,   # default is ~1e-9
+        time_overshoot=True,
         )
     #print(BoosterMotor.burn_out_time)
 
@@ -408,7 +364,10 @@ def runfullstacksim(val):
         rail_length=0.01, 
         inclination=StackFlight2.attitude_angle(BoosterMotor.burn_out_time-0.01), 
         heading=StackFlight2.path_angle(BoosterMotor.burn_out_time-0.01),
-        max_time = maxstagingdelay+BoosterMotor.burn_out_time
+        max_time = maxstagingdelay+BoosterMotor.burn_out_time,
+        rtol=1e-4,   # default is ~1e-6
+        atol=1e-6,   # default is ~1e-9
+        time_overshoot=True
     )
 
     flights.append(SustainerNOMOTORFlight2)
@@ -450,6 +409,9 @@ def runfullstacksim(val):
         rail_length=0.01, 
         inclination=SustainerNOMOTORFlight2.attitude_angle(stagingdelay+BoosterMotor.burn_out_time-0.01), 
         heading=SustainerNOMOTORFlight2.path_angle(stagingdelay+BoosterMotor.burn_out_time-0.01),
+        rtol=1e-4,   # default is ~1e-6
+        atol=1e-6,   # default is ~1e-9
+        time_overshoot=True
         #max_time = 15
     )
     for entry in SustainerFlight2.solution:
