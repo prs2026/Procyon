@@ -26,6 +26,27 @@ site_alt = 2000/3.281 #ft
 
 env = Environment(elevation=site_alt)
 
+# # Load the .csv file into the environment
+df = pd.read_csv('vertical_profile_2026-01-15_14PST copy.csv')
+
+#print(df)
+
+# Create Function objects to represent the profiles
+pressure_func = Function(np.column_stack([df['height'], df['pressure']]))
+temperature_func = Function(np.column_stack([df['height'], df['temperature']]))
+wind_u_func = Function(np.column_stack([df['height'], df['wind_u']]))
+wind_v_func = Function(np.column_stack([df['height'], df['wind_v']]))
+
+# Set up the environment
+
+env.set_atmospheric_model(
+    type="custom_atmosphere",
+    pressure=pressure_func,
+    temperature=temperature_func,
+    wind_u=wind_u_func,
+    wind_v=wind_v_func,
+)
+
 
 if __name__ == '__main__':
     numsims = 5
@@ -42,26 +63,7 @@ if __name__ == '__main__':
 
     # env.set_atmospheric_model(type="Forecast", file="HIRESW")
 
-    # # Load the .csv file into the environment
-    df = pd.read_csv('vertical_profile_2026-01-15_14PST copy.csv')
-
-    #print(df)
-
-    # Create Function objects to represent the profiles
-    pressure_func = Function(np.column_stack([df['height'], df['pressure']]))
-    temperature_func = Function(np.column_stack([df['height'], df['temperature']]))
-    wind_u_func = Function(np.column_stack([df['height'], df['wind_u']]))
-    wind_v_func = Function(np.column_stack([df['height'], df['wind_v']]))
-
-    # Set up the environment
-
-    env.set_atmospheric_model(
-        type="custom_atmosphere",
-        pressure=pressure_func,
-        temperature=temperature_func,
-        wind_u=wind_u_func,
-        wind_v=wind_v_func,
-    )
+    
 
 
     # Plot the atmospheric model
@@ -287,7 +289,7 @@ boosterfin_set = JUMPStack.add_trapezoidal_fins(
 #monte carlo attempts
 #just gonna vary launch angle for now
 
-railinclination = [85,5]
+railinclination = [88,5]
 railheading = [143,180]
 
 
@@ -435,7 +437,10 @@ if __name__ == '__main__':
     #------------------------------------------------------------------------------------
     #------------------------------------------------------------------------------------
     
-
+    # Verify parachutes are configured
+    print("Parachutes on rocket:")
+    for chute in JUMPSustainer.parachutes:
+        print(chute)
 
     numbers = list(range(1,numsims))
 
