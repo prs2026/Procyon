@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "rocketry computers")(type "KiCad")(uri "${KIPRJMOD}/rocketry computers.kicad_sym")(options "")(descr ""))
+)

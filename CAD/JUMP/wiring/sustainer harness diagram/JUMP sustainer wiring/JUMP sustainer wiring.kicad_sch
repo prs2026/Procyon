@@ -1,0 +1,5476 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "71c6c27f-14e2-4ceb-b23e-3891ee998cd1")
+	(paper "A4")
+	(lib_symbols
+		(symbol "Device:Battery_Cell"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "BT"
+				(at 2.54 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "Battery_Cell"
+				(at 2.54 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 1.524 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 1.524 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Single-cell battery"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "battery cell"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Battery_Cell_0_1"
+				(rectangle
+					(start -2.286 1.778)
+					(end 2.286 1.524)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start -1.524 1.016)
+					(end 1.524 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 1.778) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0.762) (xy 0 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.762 3.048) (xy 1.778 3.048)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 3.556) (xy 1.27 2.54)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Battery_Cell_1_1"
+				(pin passive line
+					(at 0 5.08 270)
+					(length 2.54)
+					(name "+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -2.54 90)
+					(length 2.54)
+					(name "-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Runcam_Split_4_1"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "MAG"
+				(at 0 7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Runcam_Split_4_1_0_1"
+				(rectangle
+					(start -7.4295 6.1277)
+					(end 7.4295 -6.1278)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Runcam_Split_4_1_1_1"
+				(pin input line
+					(at -10.16 3.81 0)
+					(length 2.54)
+					(name "IN+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -10.16 1.27 0)
+					(length 2.54)
+					(name "IN-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 10.1458 -2.54 180)
+					(length 2.54)
+					(name "OUT+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 10.1458 -5.08 180)
+					(length 2.54)
+					(name "OUT-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Switch:SW_SPDT"
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "SW"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "SW_SPDT"
+				(at 0 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 -7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Switch, single pole double throw"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "switch single-pole double-throw spdt ON-ON"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "SW_SPDT_0_1"
+				(circle
+					(center -2.032 0)
+					(radius 0.4572)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.651 0.254) (xy 1.651 2.286)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.032 2.54)
+					(radius 0.4572)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.032 -2.54)
+					(radius 0.4572)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "SW_SPDT_1_1"
+				(rectangle
+					(start -3.175 3.81)
+					(end 3.175 -3.81)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "B"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 2.54 180)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 -2.54 180)
+					(length 2.54)
+					(name "C"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Switch:SW_SPST"
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "SW"
+				(at 0 3.175 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "SW_SPST"
+				(at 0 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Single Pole Single Throw (SPST) switch"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "switch lever"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "SW_SPST_0_0"
+				(circle
+					(center -2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.524 0.254) (xy 1.524 1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "SW_SPST_1_1"
+				(pin passive line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "B"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "rocketry computers:B_RAVEN"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "BR"
+				(at 0 9.398 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "B_RAVEN_0_1"
+				(rectangle
+					(start -15.24 8.382)
+					(end 15.367 -8.382)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -8.128 1.778)
+					(end 2.794 -6.604)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 3.81 6.35)
+					(end 9.398 9.398)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 8.382 -1.778)
+					(end 13.208 -6.35)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "B_RAVEN_1_1"
+				(pin input line
+					(at -17.78 6.35 0)
+					(length 2.54)
+					(name "4th"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -17.78 3.81 0)
+					(length 2.54)
+					(name "3rd"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -17.78 1.27 0)
+					(length 2.54)
+					(name "Main"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -17.78 -1.27 0)
+					(length 2.54)
+					(name "Apo"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -17.78 -3.81 0)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -17.78 -6.35 0)
+					(length 2.54)
+					(name "In+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "rocketry computers:Beacon"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "BCN"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Beacon_0_1"
+				(rectangle
+					(start -7.62 3.81)
+					(end 7.239 -3.81)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 7.112 0) (xy 21.336 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Beacon_1_1"
+				(pin input line
+					(at -10.16 1.27 0)
+					(length 2.54)
+					(name "BATT+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -10.16 -1.27 0)
+					(length 2.54)
+					(name "BATT-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "rocketry computers:EMATCH"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "EMATCH"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "EMATCH_0_1"
+				(rectangle
+					(start -5.08 2.286)
+					(end 1.778 -2.032)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 4.318 0.254)
+					(radius 3.8185)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "EMATCH_1_1"
+				(pin input line
+					(at -7.62 1.27 0)
+					(length 2.54)
+					(name "+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 -1.27 0)
+					(length 2.54)
+					(name "-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "rocketry computers:Featherweight_GPS"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "FWGPS"
+				(at 0 9.398 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Featherweight_GPS_0_1"
+				(rectangle
+					(start -15.24 8.382)
+					(end 16.129 -8.382)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -1.27 5.715)
+					(end 10.414 -6.223)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 14.351 6.096)
+					(end 29.21 1.524)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Featherweight_GPS_1_1"
+				(pin input line
+					(at -17.78 5.08 0)
+					(length 2.54)
+					(name "BATT+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -17.78 2.54 0)
+					(length 2.54)
+					(name "BATT-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "rocketry computers:LEO"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "LEO"
+				(at 0 9.398 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "LEO_0_1"
+				(rectangle
+					(start -15.748 7.62)
+					(end 15.367 -7.62)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -0.762 4.064)
+					(end 7.62 -3.556)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 4.826 9.398)
+					(end 10.414 6.35)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "LEO_1_1"
+				(pin input line
+					(at -12.7 -10.16 90)
+					(length 2.54)
+					(name "P+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -11.43 10.16 270)
+					(length 2.54)
+					(name "SW+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -10.16 -10.16 90)
+					(length 2.54)
+					(name "4th"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -8.89 10.16 270)
+					(length 2.54)
+					(name "SW-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 -10.16 90)
+					(length 2.54)
+					(name "3rd"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -6.35 10.16 270)
+					(length 2.54)
+					(name "BATT+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -5.08 -10.16 90)
+					(length 2.54)
+					(name "Main"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -3.81 10.16 270)
+					(length 2.54)
+					(name "BATT-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -2.54 -10.16 90)
+					(length 2.54)
+					(name "Apo"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "rocketry computers:Mag_Switch"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "SPLIT"
+				(at 0 9.398 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Mag_Switch_0_1"
+				(rectangle
+					(start -9.906 8.509)
+					(end 9.906 -8.509)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 0.254 4.826)
+					(end 9.398 -3.81)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Mag_Switch_1_1"
+				(pin input line
+					(at -12.7 5.08 0)
+					(length 2.54)
+					(name "BATT+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -12.7 2.54 0)
+					(length 2.54)
+					(name "BATT-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "rocketry computers:RTD_board"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "RTD"
+				(at 0 9.398 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "RTD_board_0_1"
+				(rectangle
+					(start -16.256 3.81)
+					(end 16.129 -3.81)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 4.318 3.302)
+					(end 9.144 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 10.16 3.302)
+					(end 14.986 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "RTD_board_1_1"
+				(pin input line
+					(at -19.05 1.27 0)
+					(length 2.54)
+					(name "BATT+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -19.05 -1.27 0)
+					(length 2.54)
+					(name "BATT-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "rocketry computers:Runcam_Split_4"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "MAG"
+				(at 0 7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Runcam_Split_4_0_1"
+				(rectangle
+					(start -7.4295 6.1277)
+					(end 5.0799 -6.1278)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Runcam_Split_4_1_1"
+				(pin input line
+					(at -10.16 3.81 0)
+					(length 2.54)
+					(name "IN+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -10.16 1.27 0)
+					(length 2.54)
+					(name "IN-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 7.62 -2.54 180)
+					(length 2.54)
+					(name "OUT+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 7.62 -5.08 180)
+					(length 2.54)
+					(name "OUT-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "rocketry computers:Telemetrum"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "TM"
+				(at 0 9.398 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Telemetrum_0_1"
+				(rectangle
+					(start -16.51 8.382)
+					(end 31.75 -8.382)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 6.858 5.969)
+					(end 18.542 -5.969)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 30.099 2.54)
+					(end 44.958 -2.032)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Telemetrum_1_1"
+				(pin input line
+					(at -19.05 6.35 0)
+					(length 2.54)
+					(name "SW-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -19.05 3.81 0)
+					(length 2.54)
+					(name "SW+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -19.05 1.27 0)
+					(length 2.54)
+					(name "Main+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -19.05 -1.27 0)
+					(length 2.54)
+					(name "Main-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -19.05 -3.81 0)
+					(length 2.54)
+					(name "Apo+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -19.05 -6.35 0)
+					(length 2.54)
+					(name "Apo-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 6.35 0)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 1.27 1.27 180)
+					(length 2.54)
+					(name "BATT+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 1.27 -1.27 180)
+					(length 2.54)
+					(name "BATT-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	)
+	(rectangle
+		(start 134.62 73.66)
+		(end 146.05 87.63)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid 0a73b952-d1ec-489c-84dc-631ce5736a53)
+	)
+	(rectangle
+		(start 57.15 98.425)
+		(end 66.675 105.41)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid 23d79020-c77e-4e1f-8b6d-f20b14734971)
+	)
+	(rectangle
+		(start 124.46 40.005)
+		(end 135.89 53.975)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid 5d288028-ec28-438e-b353-efc14c9f53dc)
+	)
+	(rectangle
+		(start 15.24 13.335)
+		(end 74.295 193.675)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid b504fcf5-1a45-42e4-97c8-d6a0651cc3fa)
+	)
+	(rectangle
+		(start 74.295 13.335)
+		(end 109.855 193.675)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid fbaa580e-7280-4fbe-8ac7-a7dbfe1342ce)
+	)
+	(text "Using internal switch"
+		(exclude_from_sim no)
+		(at 243.205 76.2 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "173bd9d6-dbf1-468a-bff8-df3b2d8191ea")
+	)
+	(text "2P VH"
+		(exclude_from_sim no)
+		(at 61.595 99.695 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "455e085d-bcea-4f77-b894-01b8ff24b608")
+	)
+	(text "Bulkhead"
+		(exclude_from_sim no)
+		(at 80.01 68.58 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "624f7ed5-9251-4d0c-843e-615c4bc2242a")
+	)
+	(text "4P PH"
+		(exclude_from_sim no)
+		(at 140.335 85.09 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "ad645b5d-dd42-49bd-b2a7-bb00998ff500")
+	)
+	(text "Recovery Bay"
+		(exclude_from_sim no)
+		(at 25.4 18.415 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "ba6321f4-0895-4d87-abc2-e490c3ce196e")
+	)
+	(text "4P PH"
+		(exclude_from_sim no)
+		(at 130.175 51.435 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "fa49f493-889c-4d93-b069-1da9803f52ea")
+	)
+	(junction
+		(at 166.37 74.295)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "7092c260-6f70-4ca2-a27c-9155df59ca08")
+	)
+	(junction
+		(at 121.92 83.185)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "8b1849f6-32db-4a56-be9e-68e0a47b01a9")
+	)
+	(junction
+		(at 83.185 81.915)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b2d4600d-55ec-4531-9532-552a3c90c518")
+	)
+	(junction
+		(at 83.185 83.185)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "ce0ecff5-c8b5-43d1-841f-074dbc45a32e")
+	)
+	(no_connect
+		(at 198.12 129.54)
+		(uuid "48c863e8-5ad9-4027-b1bc-167de88d819d")
+	)
+	(no_connect
+		(at 198.12 121.92)
+		(uuid "7e70a3fd-952e-47ef-949a-218c31729508")
+	)
+	(no_connect
+		(at 198.12 132.08)
+		(uuid "94780671-e6f5-4ebb-9ba5-9b55792ec1b1")
+	)
+	(no_connect
+		(at 198.12 124.46)
+		(uuid "a31e3256-eb77-44d4-b457-16015d65a74e")
+	)
+	(no_connect
+		(at 198.12 127)
+		(uuid "bc7cfad0-5afe-4fcb-bed8-2456858a15e0")
+	)
+	(no_connect
+		(at 168.275 61.595)
+		(uuid "fe407eae-bb58-4644-be37-3933721987e3")
+	)
+	(wire
+		(pts
+			(xy 114.3 116.205) (xy 127.635 116.205)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "008168b1-8edc-4fe9-af1f-806727a1b94b")
+	)
+	(wire
+		(pts
+			(xy 207.01 78.74) (xy 207.01 80.645)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "07cf859f-b1ba-4a70-8963-f3e32bfac561")
+	)
+	(wire
+		(pts
+			(xy 66.675 78.105) (xy 66.675 86.995)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0966aaff-8ee0-4b9c-bf4e-a20bd163f01f")
+	)
+	(wire
+		(pts
+			(xy 115.57 167.64) (xy 132.08 167.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0b43b9a5-056c-49cb-9fb8-3e91e8e7b98e")
+	)
+	(wire
+		(pts
+			(xy 55.88 43.18) (xy 158.115 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0bcc6eee-ce9a-4d20-b788-d8420917b67b")
+	)
+	(wire
+		(pts
+			(xy 132.08 58.42) (xy 132.08 60.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0c41b290-133c-4869-86f3-5216934f2a85")
+	)
+	(wire
+		(pts
+			(xy 177.8 125.73) (xy 169.545 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0da8f7a1-d636-41c3-8e5c-5b39eb9945f2")
+	)
+	(wire
+		(pts
+			(xy 83.185 73.025) (xy 83.185 81.915)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0fa329df-d158-4768-ac2c-da6e6b721000")
+	)
+	(wire
+		(pts
+			(xy 57.785 52.07) (xy 163.83 52.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0fefd141-1629-4515-b7e8-56fb02561a4a")
+	)
+	(wire
+		(pts
+			(xy 149.86 67.31) (xy 153.035 67.31)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1035641f-3228-4cd6-a1b9-2a0bbad0ed86")
+	)
+	(wire
+		(pts
+			(xy 71.12 81.915) (xy 83.185 81.915)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "153615fb-fa12-41e3-986b-f58a14e45cc7")
+	)
+	(wire
+		(pts
+			(xy 139.7 175.26) (xy 139.7 184.785)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "185169dd-7d72-4503-8ca6-d8c65ab04ea3")
+	)
+	(wire
+		(pts
+			(xy 102.235 130.81) (xy 177.8 130.81)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "19437b1f-d359-4b00-9386-a86807aa117c")
+	)
+	(wire
+		(pts
+			(xy 111.76 128.27) (xy 111.76 122.555)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1973ba5d-c8b3-4990-8f5d-0dba03dfd1f6")
+	)
+	(wire
+		(pts
+			(xy 154.94 33.02) (xy 167.005 33.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1df1c3be-77b6-4ab4-855b-df0cdcdfdf01")
+	)
+	(wire
+		(pts
+			(xy 79.375 90.17) (xy 79.375 100.965)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1fd009e8-9d67-4bc0-bd36-03a7bc4f386b")
+	)
+	(wire
+		(pts
+			(xy 160.655 69.215) (xy 168.275 69.215)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "20332517-47f4-48f8-afa5-1f45905912b9")
+	)
+	(wire
+		(pts
+			(xy 57.785 57.15) (xy 57.785 52.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "230acdbb-2bff-44f0-9ab4-a6e1f94a3ecd")
+	)
+	(wire
+		(pts
+			(xy 101.6 163.195) (xy 107.95 163.195)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "25155e70-f382-46af-9a84-008c01f20dfa")
+	)
+	(wire
+		(pts
+			(xy 55.88 43.18) (xy 55.88 38.735)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2babe12c-19dc-4b12-b909-995b45e71091")
+	)
+	(wire
+		(pts
+			(xy 159.385 40.64) (xy 167.005 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2efe5c3c-7e04-4d67-a586-261c1b15a13d")
+	)
+	(wire
+		(pts
+			(xy 139.7 191.135) (xy 139.7 187.325)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "31661023-8c9d-4a52-ba65-8e1e580ac679")
+	)
+	(wire
+		(pts
+			(xy 154.94 38.1) (xy 154.94 33.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "33141155-d48d-49af-8fa4-7ff7c4f1c03f")
+	)
+	(wire
+		(pts
+			(xy 115.57 149.86) (xy 92.075 149.86)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "33cf1e17-3ee1-4b64-876f-e9636aa6a251")
+	)
+	(wire
+		(pts
+			(xy 88.265 163.195) (xy 91.44 163.195)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "35191801-0119-4b1c-b2a3-7cd6fc228807")
+	)
+	(wire
+		(pts
+			(xy 153.035 74.295) (xy 166.37 74.295)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "386e8650-6096-4968-b50c-eb5489b08b32")
+	)
+	(wire
+		(pts
+			(xy 133.985 27.94) (xy 128.27 27.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "42675c65-eb9f-47e1-b69c-63b99e1b7a03")
+	)
+	(wire
+		(pts
+			(xy 101.6 87.63) (xy 120.015 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "43700a8f-3d8c-4243-80c5-df09e828fca4")
+	)
+	(wire
+		(pts
+			(xy 178.435 24.13) (xy 178.435 33.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "443bf240-ba8e-40a7-a522-a6ab8c7a9dcf")
+	)
+	(wire
+		(pts
+			(xy 163.83 52.07) (xy 163.83 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4b055502-b4fb-43ec-84fa-0c3af62477ad")
+	)
+	(wire
+		(pts
+			(xy 221.615 85.09) (xy 223.52 85.09)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "535ee471-fa4e-456c-95b8-d143b643c06c")
+	)
+	(wire
+		(pts
+			(xy 128.27 38.1) (xy 154.94 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "54b96c63-8d65-4722-8075-23198ab7c971")
+	)
+	(wire
+		(pts
+			(xy 187.325 17.145) (xy 194.945 17.145)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5592eb6b-8580-4c1c-9b56-72dd47fb9272")
+	)
+	(wire
+		(pts
+			(xy 166.37 74.295) (xy 168.275 74.295)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5dd74ab0-da3d-4ff4-af6c-a536bdb3148e")
+	)
+	(wire
+		(pts
+			(xy 150.495 71.755) (xy 168.275 71.755)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5e0c790f-2de3-4a9c-886a-6d33071f1885")
+	)
+	(wire
+		(pts
+			(xy 107.95 163.195) (xy 107.95 175.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5ed685f6-a3db-415e-b599-0f992f67efdf")
+	)
+	(wire
+		(pts
+			(xy 132.08 156.21) (xy 141.605 156.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5f63f9c4-ecf4-4b4b-a0a2-cf5d91bee1d9")
+	)
+	(wire
+		(pts
+			(xy 177.8 123.19) (xy 177.8 115.57)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "64d6937b-e971-4f64-b45c-630c7a3a2396")
+	)
+	(wire
+		(pts
+			(xy 53.975 73.025) (xy 83.185 73.025)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6590a54c-8b2d-494b-80ad-bf48dee10f79")
+	)
+	(wire
+		(pts
+			(xy 158.115 38.1) (xy 167.005 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6753a42b-d4fb-4e31-8c61-ac6fe9d82965")
+	)
+	(wire
+		(pts
+			(xy 141.605 141.605) (xy 141.605 153.67)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6c18916d-d714-4f15-b41b-c37c9834c526")
+	)
+	(wire
+		(pts
+			(xy 163.83 80.645) (xy 120.015 80.645)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6db63896-4a2f-442a-b5bd-d04de32e6b07")
+	)
+	(wire
+		(pts
+			(xy 207.01 89.535) (xy 207.01 88.265)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6df370f5-877b-46bc-804f-d544b5aa7e6f")
+	)
+	(wire
+		(pts
+			(xy 121.92 83.185) (xy 121.92 92.71)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6e168320-98d8-4ba7-8ce2-908d2f1d222b")
+	)
+	(wire
+		(pts
+			(xy 54.61 100.965) (xy 79.375 100.965)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6e6272c8-f965-46fe-8e57-2d6c63a49fcd")
+	)
+	(wire
+		(pts
+			(xy 71.12 81.915) (xy 71.12 84.455)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "709c29bb-c1e9-49f6-96b6-5ed8edcb4214")
+	)
+	(wire
+		(pts
+			(xy 168.275 64.135) (xy 163.83 64.135)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "730df643-fe77-4f9c-bace-530c8540c2fa")
+	)
+	(wire
+		(pts
+			(xy 120.015 80.645) (xy 120.015 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "73aed3d9-64f8-4578-90ba-8e81009bc53f")
+	)
+	(wire
+		(pts
+			(xy 88.265 163.195) (xy 88.265 183.515)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "75a6dfa3-5702-426e-bf5f-e959f0400ff0")
+	)
+	(wire
+		(pts
+			(xy 161.925 35.56) (xy 167.005 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "76c4fe0f-9844-4cfb-a9c1-c2fddc584f16")
+	)
+	(wire
+		(pts
+			(xy 161.925 43.18) (xy 167.005 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7758b1b2-ad5c-4542-b2d5-2ede17bc220e")
+	)
+	(wire
+		(pts
+			(xy 83.185 83.185) (xy 121.92 83.185)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "79969d94-5906-4ef4-b6d3-2dc586ed328d")
+	)
+	(wire
+		(pts
+			(xy 53.975 49.53) (xy 53.975 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7b5ea46f-29d6-4d92-98c6-916669c6ffc8")
+	)
+	(wire
+		(pts
+			(xy 126.365 58.42) (xy 132.08 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7be55136-4e93-468a-9a6f-9080a7b064aa")
+	)
+	(wire
+		(pts
+			(xy 158.115 43.18) (xy 158.115 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7e660d8a-a086-4cc0-ac9a-6be826932ab3")
+	)
+	(wire
+		(pts
+			(xy 83.185 83.185) (xy 83.185 103.505)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7eb61d10-f0e6-44f4-907d-2833764bf0cc")
+	)
+	(wire
+		(pts
+			(xy 115.57 160.02) (xy 115.57 149.86)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "86df116d-0dbe-42c7-b2ab-b97369cbd94d")
+	)
+	(wire
+		(pts
+			(xy 194.945 19.05) (xy 194.945 17.145)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "886f6950-9491-4484-b381-badf64ccfac3")
+	)
+	(wire
+		(pts
+			(xy 154.305 24.13) (xy 178.435 24.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "88e6edc5-fbc0-43a2-82ee-60f00fa0a3e9")
+	)
+	(wire
+		(pts
+			(xy 190.5 40.64) (xy 187.325 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8a8b12db-80b0-4f86-bf61-e6cf86634b41")
+	)
+	(wire
+		(pts
+			(xy 132.08 63.5) (xy 132.08 69.215)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8c001287-ac15-4640-9371-8a3a2fff3758")
+	)
+	(wire
+		(pts
+			(xy 207.01 89.535) (xy 221.615 89.535)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8e76f140-9d55-4739-910b-99bee2c3c2e0")
+	)
+	(wire
+		(pts
+			(xy 177.8 128.27) (xy 111.76 128.27)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9244e893-a9b8-4ea3-b2bf-6215a0de2cc4")
+	)
+	(wire
+		(pts
+			(xy 51.435 41.275) (xy 51.435 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "929283e6-4480-40ab-925d-2169fca30fdc")
+	)
+	(wire
+		(pts
+			(xy 157.48 75.565) (xy 157.48 66.675)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "95bca084-fefa-4e48-a81f-7daa7fade02c")
+	)
+	(wire
+		(pts
+			(xy 149.86 69.85) (xy 150.495 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9cbb14c2-469d-4237-97bf-1b7d23e7a10f")
+	)
+	(wire
+		(pts
+			(xy 161.925 21.59) (xy 161.925 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9fa75e3f-e2fa-4692-846a-22fe0c297f67")
+	)
+	(wire
+		(pts
+			(xy 177.8 115.57) (xy 169.545 115.57)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9ff276a7-3c2e-4a0f-9bcc-d698f4ee57ed")
+	)
+	(wire
+		(pts
+			(xy 107.95 175.26) (xy 139.7 175.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a072e9cd-1cbf-4192-97b9-116d8eee2166")
+	)
+	(wire
+		(pts
+			(xy 153.035 67.31) (xy 153.035 74.295)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a106297e-e4c6-4ec1-81f4-96bdb832f71f")
+	)
+	(wire
+		(pts
+			(xy 55.88 38.735) (xy 51.435 38.735)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a2473609-c540-47f5-a855-b23cdb1f28aa")
+	)
+	(wire
+		(pts
+			(xy 194.945 26.67) (xy 190.5 26.67)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a2bd560e-d008-4387-b2ee-56a7f3562e89")
+	)
+	(wire
+		(pts
+			(xy 79.375 90.17) (xy 91.44 90.17)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a8114361-b881-4810-b6c4-285e60c8673b")
+	)
+	(wire
+		(pts
+			(xy 128.27 27.94) (xy 128.27 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a86e3d97-ae48-4594-930b-de4c82cd9acb")
+	)
+	(wire
+		(pts
+			(xy 113.665 191.135) (xy 139.7 191.135)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a86e4ebd-60f8-4c50-bf68-2283c5321b01")
+	)
+	(wire
+		(pts
+			(xy 163.83 45.72) (xy 167.005 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a9838f88-7879-4549-a6c0-c3df16174943")
+	)
+	(wire
+		(pts
+			(xy 126.365 69.215) (xy 132.08 69.215)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "aa1c3277-4a83-4add-9664-8eeaad94f6b8")
+	)
+	(polyline
+		(pts
+			(xy 140.335 73.66) (xy 140.335 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "aaf5197e-c812-4f61-9bd0-5f39ef981535")
+	)
+	(wire
+		(pts
+			(xy 221.615 89.535) (xy 221.615 85.09)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ab1d054e-fbe9-43d8-aec3-ba63b4792586")
+	)
+	(wire
+		(pts
+			(xy 160.655 78.105) (xy 160.655 69.215)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ab5e4bac-152e-44bc-bd8f-2c7afabc7f77")
+	)
+	(wire
+		(pts
+			(xy 66.675 78.105) (xy 160.655 78.105)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "acc2d667-f094-4174-bbd7-cae7b6da89da")
+	)
+	(wire
+		(pts
+			(xy 127.635 116.205) (xy 127.635 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ad021215-7d7a-4135-81ff-f2a3b92238ac")
+	)
+	(wire
+		(pts
+			(xy 88.265 183.515) (xy 113.665 183.515)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ad0c1ff9-b364-40aa-9d9b-8aebfb29486b")
+	)
+	(wire
+		(pts
+			(xy 83.185 81.915) (xy 83.185 83.185)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ad7dbe88-b2fb-4ddb-a0fa-7989070bd4a2")
+	)
+	(wire
+		(pts
+			(xy 54.61 103.505) (xy 83.185 103.505)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b26fa2ff-47a6-40ca-9176-2b9f1c9a2aae")
+	)
+	(wire
+		(pts
+			(xy 132.08 156.21) (xy 132.08 167.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b2cc8183-566e-4f5e-a101-2923a7d4020b")
+	)
+	(wire
+		(pts
+			(xy 51.435 45.72) (xy 159.385 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b57ced57-def8-40c1-a8a5-81a3e35cf034")
+	)
+	(wire
+		(pts
+			(xy 161.925 21.59) (xy 154.305 21.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b6cde8fe-db99-41e8-801a-7e0fc8622ee2")
+	)
+	(wire
+		(pts
+			(xy 90.805 108.585) (xy 114.3 108.585)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b793ee68-677c-4a23-81d9-27644d19f116")
+	)
+	(wire
+		(pts
+			(xy 126.365 59.69) (xy 126.365 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "baab5863-469f-4050-b933-11380ceaab10")
+	)
+	(wire
+		(pts
+			(xy 161.925 49.53) (xy 161.925 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bb16d8be-7527-4a30-bf01-4bf892eacf54")
+	)
+	(wire
+		(pts
+			(xy 53.975 49.53) (xy 161.925 49.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "be8c360a-a167-4503-a216-27979460c9b7")
+	)
+	(wire
+		(pts
+			(xy 100.965 100.33) (xy 132.08 100.33)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c2419674-9f51-4ed1-abd5-70ee8fb187c6")
+	)
+	(wire
+		(pts
+			(xy 221.615 82.55) (xy 221.615 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c5c5fc19-72b1-4476-aafa-23292e4d18d4")
+	)
+	(wire
+		(pts
+			(xy 101.6 92.71) (xy 121.92 92.71)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ccf13f41-9906-47b3-a687-fc037263494e")
+	)
+	(wire
+		(pts
+			(xy 169.545 125.73) (xy 169.545 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cd1a22d2-8270-4845-85c6-791c1eed3214")
+	)
+	(wire
+		(pts
+			(xy 187.325 38.1) (xy 187.325 17.145)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cdc022ac-0a20-4a54-9f3e-e34fc87b80c4")
+	)
+	(wire
+		(pts
+			(xy 126.365 67.31) (xy 126.365 69.215)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cef626f8-cbab-4076-bcf4-ca9fe6f2921b")
+	)
+	(wire
+		(pts
+			(xy 163.83 64.135) (xy 163.83 80.645)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d05e42bf-4873-4b84-983e-95344d62bf44")
+	)
+	(wire
+		(pts
+			(xy 121.92 83.185) (xy 166.37 83.185)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d208d60c-2be3-4fdb-93d4-cc70c3da5983")
+	)
+	(wire
+		(pts
+			(xy 127.635 102.87) (xy 132.08 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d29a6b3c-df7e-428f-ad45-efb67af8e43f")
+	)
+	(wire
+		(pts
+			(xy 221.615 78.74) (xy 207.01 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "db8900ba-fbf7-4b5f-820b-c8aea0938952")
+	)
+	(wire
+		(pts
+			(xy 150.495 69.85) (xy 150.495 71.755)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dcf5734f-9433-4739-aeb3-387b424d0105")
+	)
+	(wire
+		(pts
+			(xy 92.075 128.27) (xy 92.075 122.555)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dd4d8b57-3de5-4f1d-9b5e-81121a4cb466")
+	)
+	(wire
+		(pts
+			(xy 111.76 122.555) (xy 92.075 122.555)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dd4f81c7-816f-4142-a99a-706786a415b0")
+	)
+	(wire
+		(pts
+			(xy 159.385 45.72) (xy 159.385 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "df1a71df-4907-4da7-8911-45f279abf268")
+	)
+	(wire
+		(pts
+			(xy 92.075 149.86) (xy 92.075 144.145)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e05b86d5-b986-4184-99ab-ecfead1f26d7")
+	)
+	(wire
+		(pts
+			(xy 157.48 66.675) (xy 168.275 66.675)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e2561796-cef3-4e97-9ab6-5d6977e5de7e")
+	)
+	(wire
+		(pts
+			(xy 102.235 141.605) (xy 141.605 141.605)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e4623e90-f1e6-41e2-b302-20a3b9a10ba3")
+	)
+	(wire
+		(pts
+			(xy 90.805 108.585) (xy 90.805 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e5cf3f05-f2a8-42c4-82d3-7c704087e622")
+	)
+	(wire
+		(pts
+			(xy 166.37 74.295) (xy 166.37 83.185)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e6b3b03d-a0c9-44b7-860d-cc5a7eccb8dc")
+	)
+	(polyline
+		(pts
+			(xy 130.175 40.005) (xy 130.175 53.975)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e6dd24a6-dd9c-418a-8008-1fbb3a04df78")
+	)
+	(wire
+		(pts
+			(xy 53.975 75.565) (xy 157.48 75.565)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e94deb67-bb78-4496-bf40-48a343383584")
+	)
+	(wire
+		(pts
+			(xy 55.245 84.455) (xy 71.12 84.455)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ea9293e1-227e-4d7a-9390-66e3bca5d6ea")
+	)
+	(wire
+		(pts
+			(xy 53.975 54.61) (xy 51.435 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ecd409c0-1526-4bc7-9a4a-148f5de4d296")
+	)
+	(wire
+		(pts
+			(xy 190.5 26.67) (xy 190.5 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ed1402cc-a862-4fe4-bb22-96242c975456")
+	)
+	(wire
+		(pts
+			(xy 51.435 57.15) (xy 57.785 57.15)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f599af25-a756-4711-8235-4ce7424522ea")
+	)
+	(wire
+		(pts
+			(xy 66.675 86.995) (xy 55.245 86.995)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f8b1be26-8a51-42b8-b858-e4d44f4191f7")
+	)
+	(wire
+		(pts
+			(xy 223.52 82.55) (xy 221.615 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fadea7ff-70f5-43ca-91d8-78b107c2c5be")
+	)
+	(label "BR MAIN"
+		(at 99.06 75.565 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "01d6ea9e-49d2-471a-ba1a-4e9f2105b592")
+	)
+	(label "Arm+"
+		(at 58.42 73.025 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "10eee735-47eb-4cc2-9e57-316455e22225")
+	)
+	(label "TM MAIN+"
+		(at 60.325 43.18 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "1a49f3bf-aecf-4fd6-9860-6906ff356405")
+	)
+	(label "Arm+"
+		(at 59.055 84.455 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "1ac8738b-55be-4a98-bc8d-ba4a7186a1e2")
+	)
+	(label "TM MAIN+"
+		(at 146.05 43.18 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "22f838e6-92b4-4692-bd59-ec4dd07493d4")
+	)
+	(label "TM APO -"
+		(at 60.325 52.07 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "2421e24a-50cc-4542-bba6-61f624be6164")
+	)
+	(label "TM MAIN -"
+		(at 146.05 45.72 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "4b184b9d-eaeb-40fa-aaf9-eda1d91b822c")
+	)
+	(label "TM MAIN -"
+		(at 60.325 45.72 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "4d2d4acf-0146-4d85-acba-234aeb7de11e")
+	)
+	(label "BR 3rd"
+		(at 112.395 87.63 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "6b2ed927-6bb6-4177-be60-f46ad6cc4b2c")
+	)
+	(label "BR APO"
+		(at 99.06 78.105 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "7c9607e9-18e8-45a2-8951-21739da84fb9")
+	)
+	(label "Arm+"
+		(at 67.31 103.505 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "7d898f3a-b089-4807-b66c-bf1e8f87a1b5")
+	)
+	(label "TM APO +"
+		(at 60.325 49.53 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "85a700b4-4145-4ff5-b545-b9770708beba")
+	)
+	(label "TM APO -"
+		(at 146.05 52.07 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "9b94e1e5-a247-4259-a56e-4c451836762f")
+	)
+	(label "BR MAIN"
+		(at 58.6072 75.565 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "9df2e36e-fb71-4347-b6b0-f542e4e4e287")
+	)
+	(label "BR 3rd"
+		(at 67.31 100.965 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "a0e689d0-7a21-4496-b0c3-bebf7d1a5dd1")
+	)
+	(label "TM APO +"
+		(at 146.05 49.53 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "bea68bd7-3dd5-4257-9e7a-1aee9a438b31")
+	)
+	(label "Arm+"
+		(at 98.425 83.185 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "decefd55-f175-4550-84dc-323627a157db")
+	)
+	(label "Arm+"
+		(at 111.76 92.71 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "e8258564-1f46-4ab5-9f61-e4de02737793")
+	)
+	(label "BR APO"
+		(at 57.785 86.995 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "f8a6d5e2-cdf7-44ef-a4d3-dea784d33b13")
+	)
+	(symbol
+		(lib_id "Device:Battery_Cell")
+		(at 115.57 165.1 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "0db46c05-2805-4652-bd05-676ec278a002")
+		(property "Reference" "BT2"
+			(at 119.38 161.9884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "280mAh 1S"
+			(at 119.38 164.5284 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 115.57 163.576 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 115.57 163.576 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Single-cell battery"
+			(at 115.57 165.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "4334b9de-90e8-43e7-ae50-40c4c5e6bf03")
+		)
+		(pin "1"
+			(uuid "9be3bda9-9e79-40f2-8325-410fce270bf9")
+		)
+		(instances
+			(project "JUMP sustainer wiring"
+				(path "/71c6c27f-14e2-4ceb-b23e-3891ee998cd1"
+					(reference "BT2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:Battery_Cell")
+		(at 207.01 85.725 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "0e1a4bbf-4871-46f3-aaf9-47e160d333e7")
+		(property "Reference" "BT6"
+			(at 210.82 82.6134 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1.2Ah 1S"
+			(at 210.82 85.1534 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 207.01 84.201 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 207.01 84.201 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Single-cell battery"
+			(at 207.01 85.725 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "d798e453-99c9-4bda-8bf4-ef9a64d9627a")
+		)
+		(pin "1"
+			(uuid "a4d10a9f-010d-4b76-b21c-418ba2763426")
+		)
+		(instances
+			(project "JUMP sustainer wiring"
+				(path "/71c6c27f-14e2-4ceb-b23e-3891ee998cd1"
+					(reference "BT6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:Battery_Cell")
+		(at 126.365 64.77 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "12c2d0b6-b1f5-4b80-b3e8-8c37d4e29d29")
+		(property "Reference" "BT5"
+			(at 122.555 61.6584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "400mah 1S"
+			(at 122.555 64.1984 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 126.365 63.246 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 126.365 63.246 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Single-cell battery"
+			(at 126.365 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "7e4745e0-13bf-44b6-a5d4-338603894f1d")
+		)
+		(pin "1"
+			(uuid "94ddae38-0c65-4085-96d6-75cc32ba5a9e")
+		)
+		(instances
+			(project "JUMP sustainer wiring"
+				(path "/71c6c27f-14e2-4ceb-b23e-3891ee998cd1"
+					(reference "BT5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "rocketry computers:EMATCH")
+		(at 43.815 40.005 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "2613b34f-3ab7-46d4-8de7-a7fc898201dd")
+		(property "Reference" "EMATCH2"
+			(at 34.29 38.4809 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MAIN BCKUP"
+			(at 34.29 41.0209 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 43.815 40.005 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 43.815 40.005 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 43.815 40.005 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "6"
+			(uuid "c099405c-7f88-4dd9-b2f7-d6f014f13e42")
+		)
+		(pin "5"
+			(uuid "0228d528-abd4-4478-ba3d-4fb8e2d0501e")
+		)
+		(instances
+			(project "JUMP sustainer wiring"
+				(path "/71c6c27f-14e2-4ceb-b23e-3891ee998cd1"
+					(reference "EMATCH2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:Battery_Cell")
+		(at 113.665 188.595 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "2e4a93a4-c938-44e2-9549-a9ec21efe155")
+		(property "Reference" "BT1"
+			(at 117.475 185.4834 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1s 400mAh"
+			(at 117.475 188.0234 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 113.665 187.071 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 113.665 187.071 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Single-cell battery"
+			(at 113.665 188.595 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "224bdbf9-bf66-43f6-977a-1904b3d387a9")
+		)
+		(pin "1"
+			(uuid "6fadfe97-3707-4efe-9fd5-32da30ae8dfc")
+		)
+		(instances
+			(project ""
+				(path "/71c6c27f-14e2-4ceb-b23e-3891ee998cd1"
+					(reference "BT1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:Battery_Cell")
+		(at 114.3 113.665 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "402f02f5-0b51-46a1-9a25-1a4e35762629")
+		(property "Reference" "BT3"
+			(at 118.11 110.5534 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1.2Ah 1S"
+			(at 118.11 113.0934 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 114.3 112.141 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 114.3 112.141 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Single-cell battery"
+			(at 114.3 113.665 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "e20360a4-e8f8-4d8d-a5ed-db4d2a0ab708")
+		)
+		(pin "1"
+			(uuid "a14a2156-7d37-4fd9-b1ef-87366f970449")
+		)
+		(instances
+			(project "JUMP sustainer wiring"
+				(path "/71c6c27f-14e2-4ceb-b23e-3891ee998cd1"
+					(reference "BT3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "rocketry computers:Telemetrum")
+		(at 186.055 39.37 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "50f04d74-9165-409e-8aab-8a9763266d72")
+		(property "Reference" "TM1"
+			(at 200.279 26.035 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "~"
+			(at 200.279 28.575 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 186.055 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 186.055 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 186.055 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "6"
+			(uuid "43d87a8e-54cf-4f06-a4e7-56d7f5bbafb2")
+		)
+		(pin "2"
+			(uuid "87444f14-91a3-4898-8167-ad640a3232ec")
+		)
+		(pin "6"
+			(uuid "4616bd7a-7f52-4f9b-8840-d677672b8c47")
+		)
+		(pin "5"
+			(uuid "e4d391cf-b270-4742-acb4-5ec554e0fd6f")
+		)
+		(pin "4"
+			(uuid "1ab2b913-232c-402b-b794-648e9a505f3e")
+		)
+		(pin "3"
+			(uuid "532cf1c9-132c-461f-a420-d4fd6426a7d2")
+		)
+		(pin "1"
+			(uuid "dac9ef6c-3bec-4542-9e99-77ea6d223740")
+		)
+		(pin "5"
+			(uuid "7bcd0240-dec1-445f-b584-0b0235ebf6fa")
+		)
+		(pin "6"
+			(uuid "81a7cc22-c5ec-4be2-8c77-1e82dfde6ef3")
+		)
+		(instances
+			(project ""
+				(path "/71c6c27f-14e2-4ceb-b23e-3891ee998cd1"
+					(reference "TM1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "rocketry computers:LEO")
+		(at 187.96 119.38 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5e1378d2-9fc8-4d5f-8a5e-ccff9e37ef8e")
+		(property "Reference" "LEO1"
+			(at 187.071 99.06 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "~"
+			(at 187.071 101.6 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 187.96 119.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 187.96 119.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 187.96 119.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "6"
+			(uuid "c10ed583-d40d-4e60-b1f8-f45ea48eb95e")
+		)
+		(pin "1"
+			(uuid "3c749bd2-9572-496e-8092-7bb67bc8e10c")
+		)
+		(pin "4"
+			(uuid "00687dad-653c-4a74-83b8-9faf5e0d5f02")
+		)
+		(pin "3"
+			(uuid "f38b220a-c11a-40cd-9983-2f27ab6fdf25")
+		)
+		(pin "5"
+			(uuid "619e7fd7-8718-4e41-82c1-74dc2b35673d")
+		)
+		(pin "1"
+			(uuid "b5a3cc9b-82d6-4da8-bb8f-105ea318b026")
+		)
+		(pin "2"
+			(uuid "d6777212-4d99-4e73-90cc-5e19a2e639d5")
+		)
+		(pin "6"
+			(uuid "78e82323-9855-4b9b-a512-7cfb983b7589")
+		)
+		(pin "5"
+			(uuid "d1aca958-b09d-4225-ae05-085e06b53f36")
+		)
+		(instances
+			(project ""
+				(path "/71c6c27f-14e2-4ceb-b23e-3891ee998cd1"
+					(reference "LEO1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "rocketry computers:EMATCH")
+		(at 47.625 85.725 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "63fd335b-b319-436f-a49b-779eeae052bc")
+		(property "Reference" "EMATCH4"
+			(at 38.1 84.2009 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "APO PRI"
+			(at 38.1 86.7409 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 47.625 85.725 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 47.625 85.725 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 47.625 85.725 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "6"
+			(uuid "5fccef58-44f3-4569-91a9-fe6b054da356")
+		)
+		(pin "5"
+			(uuid "f74bef0d-9cc9-404d-8deb-c1f95ee1c567")
+		)
+		(instances
+			(project "JUMP sustainer wiring"
+				(path "/71c6c27f-14e2-4ceb-b23e-3891ee998cd1"
+					(reference "EMATCH4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_SPDT")
+		(at 97.155 130.81 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "814b571e-adf4-4d4f-8b90-c4cea57b7d8a")
+		(property "Reference" "SW1"
+			(at 96.647 125.222 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SW_SPDT"
+			(at 97.155 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 97.155 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 97.155 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Switch, single pole double throw"
+			(at 97.155 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "c85e37e9-951b-4b55-afd8-943f27f20a44")
+		)
+		(pin "3"
+			(uuid "651b2f5c-ddae-4746-b77a-ad39ae309587")
+		)
+		(pin "1"
+			(uuid "597ed7ee-a5a0-4d45-a7fd-804bb610397f")
+		)
+		(instances
+			(project "JUMP sustainer wiring"
+				(path "/71c6c27f-14e2-4ceb-b23e-3891ee998cd1"
+					(reference "SW1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "rocketry computers:Runcam_Split_4")
+		(at 142.24 64.77 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "885d4c66-eab0-4d77-bcd9-79c7d68ea243")
+		(property "Reference" "MAG1"
+			(at 142.2329 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "~"
+			(at 142.2329 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 142.24 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 142.24 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 142.24 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "5"
+			(uuid "50ca1bc1-7211-456c-ab40-cefd35ad03b3")
+		)
+		(pin "6"
+			(uuid "0cd9638d-e5cd-43bd-9653-2dc6299fc3ab")
+		)
+		(pin "6"
+			(uuid "b3f090c5-d03e-4d0c-83a0-7b7b6ae5409b")
+		)
+		(pin "5"
+			(uuid "0afaad5d-dbf5-4864-a6db-34ef48f0123a")
+		)
+		(instances
+			(project ""
+				(path "/71c6c27f-14e2-4ceb-b23e-3891ee998cd1"
+					(reference "MAG1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "rocketry computers:Mag_Switch")
+		(at 144.78 105.41 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "98fae4a1-c73d-4a3e-bccf-40683500b036")
+		(property "Reference" "SPLIT1"
+			(at 156.21 104.1399 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "~"
+			(at 156.21 106.6799 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 144.78 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 144.78 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 144.78 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "6"
+			(uuid "89ff8054-6d72-44bb-ad70-a85100c1a6b6")
+		)
+		(pin "5"
+			(uuid "07bce6ef-1567-495f-8ae5-6c2bda429c60")
+		)
+		(instances
+			(project ""
+				(path "/71c6c27f-14e2-4ceb-b23e-3891ee998cd1"
+					(reference "SPLIT1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "rocketry computers:B_RAVEN")
+		(at 186.055 67.945 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a98ac015-9d6a-4dc3-a2ed-d0e0715177c3")
+		(property "Reference" "BR1"
+			(at 202.565 66.1669 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "~"
+			(at 202.565 68.7069 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 186.055 67.945 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 186.055 67.945 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 186.055 67.945 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "5"
+			(uuid "f90a14ab-70ec-4fb0-92f7-d641e11414a0")
+		)
+		(pin "3"
+			(uuid "f441eb1d-10c1-4ef6-8355-3fac844fa6da")
+		)
+		(pin "2"
+			(uuid "549c697f-f434-4583-8e04-0a1515429382")
+		)
+		(pin "1"
+			(uuid "d429089e-1072-4fad-ad9a-ccf50fa15a51")
+		)
+		(pin "4"
+			(uuid "247df90b-fff3-42ac-b449-d2f49c08173d")
+		)
+		(pin "6"
+			(uuid "24dc0094-f6a7-46be-8e5f-8437da7a4fdf")
+		)
+		(instances
+			(project ""
+				(path "/71c6c27f-14e2-4ceb-b23e-3891ee998cd1"
+					(reference "BR1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "rocketry computers:Featherweight_GPS")
+		(at 241.3 87.63 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ac092a83-50d6-4f5e-be44-0b94f57253ad")
+		(property "Reference" "FWGPS1"
+			(at 271.78 86.3599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "~"
+			(at 271.78 88.8999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 241.3 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 241.3 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 241.3 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "6"
+			(uuid "33b1151d-95c5-4c3b-8fe7-bfa586305288")
+		)
+		(pin "5"
+			(uuid "d88e1bb8-e692-4fb4-9b1d-3e2653e14ba3")
+		)
+		(instances
+			(project ""
+				(path "/71c6c27f-14e2-4ceb-b23e-3891ee998cd1"
+					(reference "FWGPS1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "rocketry computers:EMATCH")
+		(at 43.815 55.88 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b92d4ffe-2d8c-4720-964e-d39caac2bdbc")
+		(property "Reference" "EMATCH3"
+			(at 34.29 54.3559 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "APO BCKUP"
+			(at 34.29 56.8959 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 43.815 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 43.815 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 43.815 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "6"
+			(uuid "88ec6339-f732-4987-b64d-5796b1878f0c")
+		)
+		(pin "5"
+			(uuid "79e6dae9-01d5-476d-b2b9-333689ca8493")
+		)
+		(instances
+			(project "JUMP sustainer wiring"
+				(path "/71c6c27f-14e2-4ceb-b23e-3891ee998cd1"
+					(reference "EMATCH3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "rocketry computers:EMATCH")
+		(at 46.99 102.235 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "bd5b4ae5-7590-4c22-bb00-2b8ba2b4841f")
+		(property "Reference" "EMATCH1"
+			(at 37.465 100.7109 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "SUSTAINER IGNITOR"
+			(at 37.465 103.2509 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 46.99 102.235 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 46.99 102.235 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 46.99 102.235 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "6"
+			(uuid "b83c2d4e-9562-4844-9fbf-ffb6fcaa49ca")
+		)
+		(pin "5"
+			(uuid "cf85dc5d-3ccc-402e-ad00-4828890a3dc1")
+		)
+		(instances
+			(project ""
+				(path "/71c6c27f-14e2-4ceb-b23e-3891ee998cd1"
+					(reference "EMATCH1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_name "Runcam_Split_4_1")
+		(lib_id "rocketry computers:Runcam_Split_4")
+		(at 144.145 25.4 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c3be6fce-4a21-40b6-bce4-86e9cef5a26a")
+		(property "Reference" "MAG2"
+			(at 144.145 17.145 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "~"
+			(at 143.51 18.415 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 144.145 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 144.145 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 144.145 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "5"
+			(uuid "80d73b6b-e9e2-4d5b-a7cf-7c0527e463e9")
+		)
+		(pin "6"
+			(uuid "2387cad7-d759-4505-bdac-cb1d450d7407")
+		)
+		(pin "6"
+			(uuid "d7becf7e-3cab-43fc-be01-f45f007a1b74")
+		)
+		(pin "5"
+			(uuid "6d2d4a20-b6df-4fd7-92e6-e858f0658c8b")
+		)
+		(instances
+			(project "JUMP sustainer wiring"
+				(path "/71c6c27f-14e2-4ceb-b23e-3891ee998cd1"
+					(reference "MAG2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "rocketry computers:RTD_board")
+		(at 160.655 154.94 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c43407f1-ec91-4489-9cf0-97881f2d0e52")
+		(property "Reference" "RTD1"
+			(at 160.4645 146.685 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "~"
+			(at 160.4645 149.225 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 160.655 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 160.655 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 160.655 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "6"
+			(uuid "6ca8647c-db3a-4843-b96c-65b291cbdc06")
+		)
+		(pin "5"
+			(uuid "0a04b72c-4626-495a-8588-4eb25da408da")
+		)
+		(instances
+			(project ""
+				(path "/71c6c27f-14e2-4ceb-b23e-3891ee998cd1"
+					(reference "RTD1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "rocketry computers:EMATCH")
+		(at 46.355 74.295 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d261b290-8eb2-461f-bf30-1421750ebd94")
+		(property "Reference" "EMATCH5"
+			(at 36.83 72.7709 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MAIN PRI"
+			(at 36.83 75.3109 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 46.355 74.295 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 46.355 74.295 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 46.355 74.295 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "6"
+			(uuid "82ab0e25-8999-4c53-867a-043a027fbf59")
+		)
+		(pin "5"
+			(uuid "76821257-f784-45af-bf22-0f938382847e")
+		)
+		(instances
+			(project "JUMP sustainer wiring"
+				(path "/71c6c27f-14e2-4ceb-b23e-3891ee998cd1"
+					(reference "EMATCH5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_SPDT")
+		(at 96.52 90.17 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "dc43368f-fab3-4594-afc7-8416e7bf98bb")
+		(property "Reference" "SW6"
+			(at 96.52 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SW_SPDT"
+			(at 96.52 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 96.52 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 96.52 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Switch, single pole double throw"
+			(at 96.52 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "945cd975-c6cc-4fc9-b8f9-d61d454ef35e")
+		)
+		(pin "3"
+			(uuid "fc3cc224-36f6-4b16-afa6-4d180be512cf")
+		)
+		(pin "1"
+			(uuid "b842557b-1862-4515-a5bc-c804f0976621")
+		)
+		(instances
+			(project ""
+				(path "/71c6c27f-14e2-4ceb-b23e-3891ee998cd1"
+					(reference "SW6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:Battery_Cell")
+		(at 169.545 120.65 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "e2e42500-576f-4106-9af6-4d15e5cf18d7")
+		(property "Reference" "BT4"
+			(at 165.735 117.5384 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "400mah 1S"
+			(at 165.735 120.0784 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 169.545 119.126 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 169.545 119.126 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Single-cell battery"
+			(at 169.545 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "01d3c351-8310-49e1-8013-0e4ae703e5c9")
+		)
+		(pin "1"
+			(uuid "536ac66d-58b7-4d1c-9574-33e2d5d2c7a9")
+		)
+		(instances
+			(project "JUMP sustainer wiring"
+				(path "/71c6c27f-14e2-4ceb-b23e-3891ee998cd1"
+					(reference "BT4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "rocketry computers:Beacon")
+		(at 149.86 186.055 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "edbd4e6e-1727-46d7-acf4-9f944dc6eab6")
+		(property "Reference" "BCN1"
+			(at 156.718 177.165 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "~"
+			(at 156.718 179.705 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 149.86 186.055 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 149.86 186.055 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 149.86 186.055 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "6"
+			(uuid "70aa34aa-b55f-4693-a046-0b6ca355cec8")
+		)
+		(pin "5"
+			(uuid "cf034148-1e61-4cdd-a95d-6742653b5b3a")
+		)
+		(instances
+			(project ""
+				(path "/71c6c27f-14e2-4ceb-b23e-3891ee998cd1"
+					(reference "BCN1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_SPST")
+		(at 96.52 163.195 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ee5371a3-db56-49d8-8221-ccf199c1c19b")
+		(property "Reference" "SW5"
+			(at 96.52 156.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SW_SPST"
+			(at 96.52 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 96.52 163.195 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 96.52 163.195 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Single Pole Single Throw (SPST) switch"
+			(at 96.52 163.195 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "764d0b30-0446-44bf-a2c5-b476138ebc05")
+		)
+		(pin "2"
+			(uuid "a60bf210-aba6-4888-9162-1378fb3f250b")
+		)
+		(instances
+			(project ""
+				(path "/71c6c27f-14e2-4ceb-b23e-3891ee998cd1"
+					(reference "SW5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_SPDT")
+		(at 97.155 144.145 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f0ce4084-e73d-46ef-86dc-8afbd07a910a")
+		(property "Reference" "SW3"
+			(at 97.155 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SW_SPDT"
+			(at 97.155 137.795 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 97.155 144.145 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 97.155 151.765 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Switch, single pole double throw"
+			(at 97.155 144.145 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "238ca8db-92e0-41a9-bab5-619e6186bca4")
+		)
+		(pin "3"
+			(uuid "47e91cf9-705a-4b69-a5f6-591fd0e4d1c2")
+		)
+		(pin "1"
+			(uuid "0ef1efa8-acc0-491f-8a8c-525ad6f47b36")
+		)
+		(instances
+			(project "JUMP sustainer wiring"
+				(path "/71c6c27f-14e2-4ceb-b23e-3891ee998cd1"
+					(reference "SW3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:Battery_Cell")
+		(at 194.945 24.13 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f0fe1f09-ca39-4cbd-98e1-8daf13e191f5")
+		(property "Reference" "BT7"
+			(at 198.755 21.0184 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "280mAh 1S"
+			(at 198.755 23.5584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 194.945 22.606 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 194.945 22.606 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Single-cell battery"
+			(at 194.945 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "939d79cd-5ca7-4b83-bf70-9d13942b7ebc")
+		)
+		(pin "1"
+			(uuid "aaf12ac6-b240-4959-b6bb-60076a53856b")
+		)
+		(instances
+			(project "JUMP sustainer wiring"
+				(path "/71c6c27f-14e2-4ceb-b23e-3891ee998cd1"
+					(reference "BT7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_SPDT")
+		(at 95.885 102.87 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f6867221-fa68-4a2b-a49f-0f0a7dca2840")
+		(property "Reference" "SW2"
+			(at 95.885 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SW_SPDT"
+			(at 95.885 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 95.885 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 95.885 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Switch, single pole double throw"
+			(at 95.885 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "ac097024-60ee-4118-9631-dab74bd1a2c2")
+		)
+		(pin "3"
+			(uuid "da8143c3-9bbb-4b15-9c1b-6b1bbc6dc053")
+		)
+		(pin "1"
+			(uuid "6482740e-9232-43fd-a2ab-a090ccc4c2e4")
+		)
+		(instances
+			(project "JUMP sustainer wiring"
+				(path "/71c6c27f-14e2-4ceb-b23e-3891ee998cd1"
+					(reference "SW2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+	(embedded_fonts no)
+)
