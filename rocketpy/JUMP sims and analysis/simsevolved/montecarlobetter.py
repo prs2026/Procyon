@@ -14,8 +14,14 @@ site_lat = 35.3466
 site_lon = -117.809
 site_alt = 2000 / 3.281
 
-railinclination = [88, 5]
-railheading = [143, 180]
+railinclination = [89, 5]
+railheading = [90, 180]
+
+BLUE_RAVEN_LOOKAHEAD = 3
+STAGING_VELOCITY_LIMIT = 700 / 3.281
+STAGING_ANGLE_LIMIT = 9
+ABORT_VELOCITY_LIMIT = 300 / 3.281
+ABORT_ANGLE_LIMIT = 15
 
 env = None
 
@@ -26,8 +32,8 @@ def create_sim_environment():
     result = create_openmeteo_environment(
         latitude=site_lat,
         longitude=site_lon,
-        date="2026-05-24",
-        time="08:00",
+        date="2026-06-07",
+        time="12:00",
         timezone_name="US/Pacific",
         elevation_m=site_alt,
     )
@@ -96,6 +102,18 @@ def solution_angle_from_vertical(solution_row):
     )
 
 
+def future_tilt_angle(current_angle, previous_angle, current_time, previous_time):
+    if previous_angle is None or previous_time is None:
+        return current_angle
+
+    dt = current_time - previous_time
+    if dt <= 0:
+        return current_angle
+
+    tilt_rate = (current_angle - previous_angle) / dt
+    return max(0, current_angle + tilt_rate * BLUE_RAVEN_LOOKAHEAD)
+
+
 def runfullstacksim(val):
     sim_env = get_environment()
     rng = np.random.default_rng()
@@ -103,7 +121,7 @@ def runfullstacksim(val):
     StackFlight2 = Flight(
         rocket=JUMPStack,
         environment=sim_env,
-        rail_length=3.048,
+        rail_length=6,
         inclination=rng.normal(railinclination[0], railinclination[1]),
         heading=rng.normal(railheading[0], railheading[1]),
         max_time=BoosterMotor.burn_out_time,
@@ -132,18 +150,33 @@ def runfullstacksim(val):
 
     stagingindex = len(SustainerNOMOTORFlight2.solution) - 1
     stagingtime = SustainerNOMOTORFlight2.solution[stagingindex][0]
+    previousangle = None
+    previoustime = None
 
     for index, point in enumerate(SustainerNOMOTORFlight2.solution):
         currentangle = solution_angle_from_vertical(point)
+        futureangle = future_tilt_angle(
+            currentangle,
+            previousangle,
+            point[0],
+            previoustime,
+        )
 
         # Abort conditions must be checked before staging conditions.
-        if point[6] < 300 / 3.281 or currentangle > 15:
+        if point[6] < ABORT_VELOCITY_LIMIT or currentangle > ABORT_ANGLE_LIMIT:
             return SustainerNOMOTORFlight2.solution
 
-        if point[6] < 700 / 3.281 or currentangle > 9:
+        if (
+            point[6] < STAGING_VELOCITY_LIMIT
+            or currentangle > STAGING_ANGLE_LIMIT
+            or futureangle > STAGING_ANGLE_LIMIT
+        ):
             stagingindex = index
             stagingtime = point[0]
             break
+
+        previousangle = currentangle
+        previoustime = point[0]
 
     sustainerstartcondition = SustainerNOMOTORFlight2.solution[stagingindex][:]
     sustainerstartcondition[0] = 0
