@@ -66,7 +66,7 @@ def grain_initial_inner_radius_from_eng(
     return inner_radius
 
 
-BOOSTER_THRUST_SOURCE = "./M3000.eng"
+BOOSTER_THRUST_SOURCE = "./Chase_M2500.eng"
 BOOSTER_GRAIN_NUMBER = 1
 BOOSTER_GRAIN_DENSITY = 1815
 BOOSTER_GRAIN_OUTER_RADIUS = 27 / 1000
