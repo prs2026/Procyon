@@ -122,7 +122,7 @@ main = JUMPSustainer.add_parachute(
 )
 
 cd = 0.6
-diameter = 8/39.37
+diameter = 0.1016
 
 area = (diameter/2)*(diameter/2)*3.14
 #print(area)
@@ -216,7 +216,7 @@ boosterfin_set = JUMPStack.add_trapezoidal_fins(
     n=4,
     root_chord=6/39.37,
     tip_chord=3/39.37,
-    span=4.6/39.37,
+    span=4/39.37,
     position=-2.9192,
     cant_angle=0.001,
     #airfoil=("../data/airfoils/NACA0012-radians.txt","radians"),

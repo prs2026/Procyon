@@ -19,7 +19,7 @@ railheading = [90, 180]
 
 BLUE_RAVEN_LOOKAHEAD = 3
 STAGING_VELOCITY_LIMIT = 700 / 3.281
-STAGING_ANGLE_LIMIT = 12
+STAGING_ANGLE_LIMIT = 9
 ABORT_VELOCITY_LIMIT = 300 / 3.281
 ABORT_ANGLE_LIMIT = 15
 
@@ -121,7 +121,7 @@ def runfullstacksim(val):
     StackFlight2 = Flight(
         rocket=JUMPStack,
         environment=sim_env,
-        rail_length=40/3.281,
+        rail_length=6,
         inclination=rng.normal(railinclination[0], railinclination[1]),
         heading=rng.normal(railheading[0], railheading[1]),
         max_time=BoosterMotor.burn_out_time,
