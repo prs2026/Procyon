@@ -60,7 +60,7 @@
         <Location>8.25</Location>
         <AirfoilSection>Hexagonal</AirfoilSection>
         <FX1>1</FX1>
-        <FX3>1</FX3>
+        <FX3>0.5</FX3>
       </Fin>
     </BodyTube>
     <Booster>
@@ -140,16 +140,16 @@
       <Booster1IgnitionDelay>0</Booster1IgnitionDelay>
       <Booster1CG>70</Booster1CG>
       <Booster1NozzleDiameter>2</Booster1NozzleDiameter>
-      <IncludeBooster1>False</IncludeBooster1>
+      <IncludeBooster1>True</IncludeBooster1>
       <Booster2LaunchWt>0</Booster2LaunchWt>
       <Booster2Delay>0</Booster2Delay>
       <Booster2CG>0</Booster2CG>
       <Booster2NozzleDiameter>0</Booster2NozzleDiameter>
       <IncludeBooster2>False</IncludeBooster2>
       <FlightTime>0</FlightTime>
-      <TimetoApogee>110.2244</TimetoApogee>
-      <MaxAltitude>178899.3</MaxAltitude>
-      <MaxVelocity>5610.266</MaxVelocity>
+      <TimetoApogee>87.25947</TimetoApogee>
+      <MaxAltitude>120872.4</MaxAltitude>
+      <MaxVelocity>5432.803</MaxVelocity>
       <OptimumWt>0</OptimumWt>
       <OptimumMaxAlt>0</OptimumMaxAlt>
     </Simulation>

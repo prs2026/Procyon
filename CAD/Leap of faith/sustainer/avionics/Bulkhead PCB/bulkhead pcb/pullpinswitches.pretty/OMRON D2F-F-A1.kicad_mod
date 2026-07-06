@@ -1,0 +1,253 @@
+(footprint "OMRON D2F-F-A1"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "1A 30V SPDT Micro Switch rated for one million cycles, W12.7xD5.7xH6.6, https://www.helloxkb.com/public/images/pdf/DMX-XXXC-X.pdf")
+	(tags "SPDT endstop limit switch clockwise hook lever XKB DM1-16UC-1")
+	(property "Reference" "SW1"
+		(at 5.08 -7 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "113758df-3c26-44b7-a5c3-ea0a5ee8af5b")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "SW_SPDT"
+		(at 5.08 2.68 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "4c4572e7-bbb3-41ab-b0d1-9e1a5fb2c4b2")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "ab0997b9-1fca-4b37-9978-1d686b9d71b4")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" "Switch, single pole double throw"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "6e7c431f-d38d-42c2-982a-203c38ef2646")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(sheetname "/")
+	(sheetfile "bulkhead pcb.kicad_sch")
+	(attr through_hole)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -1.778 -9.1)
+		(end -1.778 -0.495)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "e20c5da4-8c05-493e-87ca-2a615d190b63")
+	)
+	(fp_line
+		(start 1.27 -0.495)
+		(end 3.81 -0.495)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "29e9217a-0f2f-4dd0-95c6-5f86a17eea37")
+	)
+	(fp_line
+		(start 8.89 -0.495)
+		(end 6.35 -0.495)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "1015626c-0a4d-4992-a097-c9643aa3f465")
+	)
+	(fp_line
+		(start 11.938 -9.1)
+		(end -1.778 -9.1)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "94bf6937-abe4-4524-a146-3764e032f5f8")
+	)
+	(fp_line
+		(start 11.938 -0.495)
+		(end 11.938 -9.1)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "80fc25cb-af39-4779-b6ca-c9898527a463")
+	)
+	(fp_rect
+		(start 3.6 -9.5)
+		(end 2.4 -8.7)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.SilkS")
+		(uuid "1d1dd8eb-589f-4f5c-be6c-977c46c3dc5a")
+	)
+	(fp_line
+		(start -0.1 -7.8)
+		(end -0.1 -9.1)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "Dwgs.User")
+		(uuid "693024f2-bc8c-4d20-ad9a-c53617620a48")
+	)
+	(fp_rect
+		(start -2 -11.5)
+		(end 12 1.5)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "79f4075b-b91a-4d67-98f9-ab4b4f119d2e")
+	)
+	(fp_rect
+		(start -1.32 -9)
+		(end 11.48 -2.4)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill no)
+		(layer "F.Fab")
+		(uuid "42f3eb47-280d-4ea1-8bdf-63495b6cd51b")
+	)
+	(fp_text user "C"
+		(at 0 -1.6 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "05273d1c-a060-42bb-9668-1d6c6423bbd9")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(fp_text user "NO"
+		(at 5.08 -1.6 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "a4e88416-d53b-4a7a-980a-c1b56b8c422b")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(fp_text user "NC"
+		(at 10.16 -1.6 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "ec367703-4afa-4ea9-a8d4-a9cf32d5720e")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(fp_text user "${REFERENCE}"
+		(at 5.08 -4.94 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "50601575-4459-48ed-9b15-ca62ed10c754")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "" np_thru_hole circle
+		(at 1.8 -4)
+		(size 0.818 0.818)
+		(drill 2.2)
+		(layers "*.Cu" "*.Mask")
+		(uuid "b3ee0c5e-3f56-4c94-9187-35746a5cc936")
+	)
+	(pad "" np_thru_hole circle
+		(at 8.4 -4)
+		(size 0.182 0.182)
+		(drill 2.2)
+		(layers "*.Cu" "*.Mask")
+		(uuid "579dfe9d-024c-4f40-8c89-f7a5c986effd")
+	)
+	(pad "1" thru_hole rect
+		(at 0 0)
+		(size 2 2)
+		(drill 1.1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "f79eb62e-c900-43b5-bac5-5758208d13c9")
+	)
+	(pad "2" thru_hole circle
+		(at 5.08 0)
+		(size 2 2)
+		(drill 1.1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "bbadb35f-670d-4e17-b730-658cdc7e19d0")
+	)
+	(pad "3" thru_hole circle
+		(at 10.16 0)
+		(size 2 2)
+		(drill 1.1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "03763b74-ccf1-4565-8027-8be2a9c54a4a")
+	)
+	(embedded_fonts no)
+	(model "C:/Users/E/Documents/GitHub/Procyon/CAD/Leap of faith/wiring/D2F_F_A1(1)/d2f-f-a1.stp"
+		(offset
+			(xyz 5 2.5 3)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz -180 -0 -180)
+		)
+	)
+)
