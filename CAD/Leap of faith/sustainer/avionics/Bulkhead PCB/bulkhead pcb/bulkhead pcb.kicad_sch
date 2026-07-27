@@ -2184,6 +2184,16 @@
 	)
 	(wire
 		(pts
+			(xy 127 102.87) (xy 146.05 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "332cd02e-9f93-4aa1-ba48-8f0941ac47ee")
+	)
+	(wire
+		(pts
 			(xy 127 142.24) (xy 146.05 142.24)
 		)
 		(stroke
@@ -2201,16 +2211,6 @@
 			(type default)
 		)
 		(uuid "428e9f4e-e846-4c4b-bcb8-60bb0e6a7a41")
-	)
-	(wire
-		(pts
-			(xy 127 100.33) (xy 146.05 100.33)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "467b2a43-d0c7-4719-ba4c-10a9fd87e7c8")
 	)
 	(wire
 		(pts
@@ -2314,13 +2314,13 @@
 	)
 	(wire
 		(pts
-			(xy 127 106.68) (xy 146.05 106.68)
+			(xy 127 100.33) (xy 146.05 100.33)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "81ba443f-1412-453d-a2e5-4e2f0eaaf9ba")
+		(uuid "7e4eb379-6cea-4023-b8c3-dbd1c518a6f1")
 	)
 	(wire
 		(pts
@@ -2421,16 +2421,6 @@
 			(type default)
 		)
 		(uuid "9e2ee44c-075b-4602-8bc2-21976dcb230b")
-	)
-	(wire
-		(pts
-			(xy 127 109.22) (xy 146.05 109.22)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a0c9b6da-9df3-40b1-9230-90d1dae5a331")
 	)
 	(wire
 		(pts
@@ -2604,13 +2594,23 @@
 	)
 	(wire
 		(pts
-			(xy 127 102.87) (xy 146.05 102.87)
+			(xy 127 106.68) (xy 146.05 106.68)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "e930981e-7bbe-42c1-b708-fdaa28bba901")
+		(uuid "e2513fe8-bb58-4afb-b8c6-a6ca4e486b9e")
+	)
+	(wire
+		(pts
+			(xy 127 109.22) (xy 146.05 109.22)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e7b30793-ca3d-4665-a251-4ac4e890a6ba")
 	)
 	(wire
 		(pts
@@ -2712,15 +2712,15 @@
 		)
 		(uuid "25a39070-93d4-43c8-8f81-b02aed0af6d6")
 	)
-	(label "CAM BATT +"
-		(at 127 106.68 0)
+	(label "CAM BATT -"
+		(at 127 100.33 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "33b3926a-84b8-43be-910d-6433505f1013")
+		(uuid "3876e22b-1de9-49a3-a2d9-678e16ec9363")
 	)
 	(label "CAM BATT +"
 		(at 38.1 57.15 0)
@@ -2751,6 +2751,16 @@
 			(justify left bottom)
 		)
 		(uuid "4185f62e-b73f-45d5-bb58-aed8b27a5fca")
+	)
+	(label "CAM BATT -"
+		(at 127 106.68 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "49b016d5-e466-4d30-8d18-2718c48802f1")
 	)
 	(label "Raven Main"
 		(at 26.67 133.35 0)
@@ -2853,14 +2863,24 @@
 		(uuid "947868cf-9817-45d8-a804-09d028e8cc61")
 	)
 	(label "CAM OUT +"
-		(at 127 100.33 0)
+		(at 127 102.87 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "98ae6174-05a2-4254-a9aa-486684df2fee")
+		(uuid "9f202817-4a1a-479e-b935-d017e262c5ba")
+	)
+	(label "CAM BATT +"
+		(at 127 109.22 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "a5d4de66-e132-4cbd-baa1-52218bf216be")
 	)
 	(label "CAM OUT +"
 		(at 269.24 109.22 180)
@@ -2902,16 +2922,6 @@
 		)
 		(uuid "e3a983f7-d907-424b-a44f-94f2b3806a6f")
 	)
-	(label "CAM BATT -"
-		(at 127 102.87 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "ea01c3e5-2dd7-4228-82a9-26fbf2bd937f")
-	)
 	(label "Bulk Raven Drogue"
 		(at 26.67 128.27 0)
 		(effects
@@ -2931,16 +2941,6 @@
 			(justify right bottom)
 		)
 		(uuid "f67249b3-92d1-4144-81d9-4b2913dbdc13")
-	)
-	(label "CAM BATT -"
-		(at 127 109.22 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "fb8ef86d-5c74-42f6-a117-d088ad35cc44")
 	)
 	(symbol
 		(lib_id "Device:C_Small")
@@ -3395,7 +3395,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "1k"
+		(property "Value" "0"
 			(at 212.09 107.9499 0)
 			(show_name no)
 			(do_not_autoplace no)
