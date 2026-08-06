@@ -36,7 +36,7 @@
     </BodyTube>
     <BodyTube>
       <PartType>BodyTube</PartType>
-      <Length>36</Length>
+      <Length>28</Length>
       <Diameter>2.125</Diameter>
       <LaunchLugDiameter>0</LaunchLugDiameter>
       <LaunchLugLength>0</LaunchLugLength>
@@ -55,12 +55,12 @@
         <Span>2.4</Span>
         <SweepDistance>5</SweepDistance>
         <TipChord>3</TipChord>
-        <Thickness>0.125</Thickness>
+        <Thickness>0.13</Thickness>
         <LERadius>0.01</LERadius>
         <Location>8.25</Location>
         <AirfoilSection>Hexagonal</AirfoilSection>
-        <FX1>1</FX1>
-        <FX3>1</FX3>
+        <FX1>0.75</FX1>
+        <FX3>0.75</FX3>
       </Fin>
     </BodyTube>
     <Booster>
@@ -73,7 +73,7 @@
       <RailGuideDiameter>0.625</RailGuideDiameter>
       <RailGuideHeight>0.4</RailGuideHeight>
       <LaunchShoeArea>0</LaunchShoeArea>
-      <Location>56.55</Location>
+      <Location>48.55</Location>
       <ShoulderLength>0.775</ShoulderLength>
       <Color>Black</Color>
       <NozzleExitDiameter>0</NozzleExitDiameter>
@@ -129,10 +129,10 @@
   <MachAlt />
   <SimulationList>
     <Simulation>
-      <SustainerEngine>L2342  (BPS)</SustainerEngine>
-      <SustainerLaunchWt>9</SustainerLaunchWt>
+      <SustainerEngine>L1719  (TsKrush)</SustainerEngine>
+      <SustainerLaunchWt>8</SustainerLaunchWt>
       <SustainerNozzleDiameter>1.9</SustainerNozzleDiameter>
-      <SustainerCG>36</SustainerCG>
+      <SustainerCG>28</SustainerCG>
       <SustainerIgnitionDelay>12</SustainerIgnitionDelay>
       <Booster1Engine>M2500  (Chase)</Booster1Engine>
       <Booster1LaunchWt>26.2</Booster1LaunchWt>
@@ -140,16 +140,16 @@
       <Booster1IgnitionDelay>0</Booster1IgnitionDelay>
       <Booster1CG>70</Booster1CG>
       <Booster1NozzleDiameter>2</Booster1NozzleDiameter>
-      <IncludeBooster1>False</IncludeBooster1>
+      <IncludeBooster1>True</IncludeBooster1>
       <Booster2LaunchWt>0</Booster2LaunchWt>
       <Booster2Delay>0</Booster2Delay>
       <Booster2CG>0</Booster2CG>
       <Booster2NozzleDiameter>0</Booster2NozzleDiameter>
       <IncludeBooster2>False</IncludeBooster2>
       <FlightTime>0</FlightTime>
-      <TimetoApogee>110.2244</TimetoApogee>
-      <MaxAltitude>178899.3</MaxAltitude>
-      <MaxVelocity>5610.266</MaxVelocity>
+      <TimetoApogee>91.72042</TimetoApogee>
+      <MaxAltitude>127561.7</MaxAltitude>
+      <MaxVelocity>5074.705</MaxVelocity>
       <OptimumWt>0</OptimumWt>
       <OptimumMaxAlt>0</OptimumMaxAlt>
     </Simulation>
@@ -172,17 +172,17 @@
       <Booster2NozzleDiameter>0</Booster2NozzleDiameter>
       <IncludeBooster2>False</IncludeBooster2>
       <FlightTime>0</FlightTime>
-      <TimetoApogee>69.09552</TimetoApogee>
-      <MaxAltitude>94021.81</MaxAltitude>
-      <MaxVelocity>5226.642</MaxVelocity>
+      <TimetoApogee>93.79086</TimetoApogee>
+      <MaxAltitude>132390.8</MaxAltitude>
+      <MaxVelocity>5086.274</MaxVelocity>
       <OptimumWt>0</OptimumWt>
       <OptimumMaxAlt>0</OptimumMaxAlt>
     </Simulation>
     <Simulation>
-      <SustainerEngine>L2342  (BPS)</SustainerEngine>
-      <SustainerLaunchWt>11</SustainerLaunchWt>
+      <SustainerEngine>L1719  (TsKrush)</SustainerEngine>
+      <SustainerLaunchWt>8</SustainerLaunchWt>
       <SustainerNozzleDiameter>1.9</SustainerNozzleDiameter>
-      <SustainerCG>36</SustainerCG>
+      <SustainerCG>28</SustainerCG>
       <SustainerIgnitionDelay>0</SustainerIgnitionDelay>
       <Booster1LaunchWt>0</Booster1LaunchWt>
       <Booster1SeparationDelay>0</Booster1SeparationDelay>
@@ -196,9 +196,9 @@
       <Booster2NozzleDiameter>0</Booster2NozzleDiameter>
       <IncludeBooster2>False</IncludeBooster2>
       <FlightTime>0</FlightTime>
-      <TimetoApogee>38.56953</TimetoApogee>
-      <MaxAltitude>37115.27</MaxAltitude>
-      <MaxVelocity>3577.811</MaxVelocity>
+      <TimetoApogee>34.31025</TimetoApogee>
+      <MaxAltitude>31581.86</MaxAltitude>
+      <MaxVelocity>4102.84</MaxVelocity>
       <OptimumWt>0</OptimumWt>
       <OptimumMaxAlt>0</OptimumMaxAlt>
     </Simulation>
