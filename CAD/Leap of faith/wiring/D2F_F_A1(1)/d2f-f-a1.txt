@@ -1,0 +1,10 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"10-16052011-063956";"";
+"REFERENCE";"D2F-F-A1";"";
+"TraceParts.PartTitle";"Ultra Subminiature Basic Switch – D2F";"";
+"TraceParts.InstanceId";"10-16052011-063956CIKD9GBLOLOSME3PF30SF4LVV";"";
+"SUPPLIER";"OMRON";"";
+"DESIGN";"Ultra Subminiature Basic Switch, General loads - Low operating force, Pin plunger, PCB terminals - Left-angled terminals";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"TraceParts.PartLanguage";"en";"";
+"TraceParts.PartVersion";"1.4.0";"";

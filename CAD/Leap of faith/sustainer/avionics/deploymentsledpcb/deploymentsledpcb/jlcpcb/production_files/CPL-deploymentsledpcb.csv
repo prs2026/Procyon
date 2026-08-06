@@ -1,0 +1,6 @@
+Designator,Val,Package,Mid X,Mid Y,Rotation,Layer
+J1,Conn_01x06,PinHeader_1x06_P2.54mm_Vertical,0.015,9.383,90.0,top
+J2,Conn_01x04,JST_PH_B4B-PH-K_1x04_P2.00mm_Vertical,-0.699,-11.699,180.0,top
+J3,Conn_01x03,JST_PH_B3B-PH-K_1x03_P2.00mm_Vertical,-14.082,2.271,0.0,bottom
+J4,Conn_01x04,JST_PH_B4B-PH-K_1x04_P2.00mm_Vertical,-14.082,8.028,0.0,bottom
+J5,Conn_01x02,JST_PH_B2B-PH-K_1x02_P2.00mm_Vertical,14.408,9.637,-90.0,top

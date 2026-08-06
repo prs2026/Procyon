@@ -1,0 +1,20 @@
+Designator,Val,Package,Mid X,Mid Y,Rotation,Layer
+C1,10u,C_0603_1608Metric,11.19165,4.19095,90.0,bottom
+C2,10u,C_0603_1608Metric,12.74405,1.16835,270.0,bottom
+C3,10u,C_0603_1608Metric,11.19165,1.16835,270.0,bottom
+C4,100n,C_0603_1608Metric,12.74405,4.19095,90.0,bottom
+J1,Conn_01x04,JST_PH_B4B-PH-K_1x04_P2.00mm_Vertical,-4.572,-15.452,0.0,top
+J2,Conn_01x02,JST_PH_B2B-PH-K_1x02_P2.00mm_Vertical,4.445,-16.679,180.0,top
+J4,Conn_02x04_Odd_Even,PinHeader_2x04_P2.54mm_Vertical,11.43,-10.16,180.0,bottom
+J5,Conn_01x02,JST_PH_B2B-PH-K_1x02_P2.00mm_Vertical,-3.81,17.822,0.0,top
+J6,Conn_01x02,JST_PH_B2B-PH-K_1x02_P2.00mm_Vertical,3.54,17.78,0.0,top
+JP1,SolderJumper_2_Open,SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm,-3.668,-8.001,180.0,top
+JP2,SolderJumper_2_Open,SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm,-3.683,-5.969,0.0,top
+JP3,SolderJumper_3_Open,SolderJumper-3_P1.3mm_Open_RoundedPad1.0x1.5mm,1.778,0.254,0.0,top
+L1,2.2u,L_Chilisin_BWVS00505020,16.30005,6.73095,180.0,bottom
+R1,1k,R_0603_1608Metric,9.69605,4.19095,90.0,bottom
+R2,10k,R_0603_1608Metric,13.63005,-1.11765,180.0,bottom
+R3,1.1k,R_0603_1608Metric,16.67805,-1.11765,180.0,bottom
+SW1,SW_SPDT,OMRON D2F-F-A1,-3.476,-5.225,180.0,bottom
+SW3,SW_SPDT,OMRON D2F-F-A1,1.825,5.305,0.0,bottom
+U1,RS6651,SOT-23-6,15.81445,2.03195,270.0,bottom

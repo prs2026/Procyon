@@ -1,0 +1,6 @@
+Comment,Designator,Footprint,LCSC,Quantity
+Conn_01x02,J5,JST_PH_B2B-PH-K_1x02_P2.00mm_Vertical,,1
+Conn_01x04,J4,JST_PH_B4B-PH-K_1x04_P2.00mm_Vertical,,1
+Conn_01x03,J3,JST_PH_B3B-PH-K_1x03_P2.00mm_Vertical,,1
+Conn_01x04,J2,JST_PH_B4B-PH-K_1x04_P2.00mm_Vertical,,1
+Conn_01x06,J1,PinHeader_1x06_P2.54mm_Vertical,,1
